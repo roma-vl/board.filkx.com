@@ -8,6 +8,17 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+const isNotifyVisible = ref(false);
+const isMessagesVisible = ref(false);
+
+const messages = () => {
+    isMessagesVisible.value = !isMessagesVisible.value;
+};
+
+const notify = () => {
+    isNotifyVisible.value = !isNotifyVisible.value;
+};
+
 </script>
 
 <template>
@@ -42,8 +53,145 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
+
                         <div class="hidden sm:ms-6 sm:flex sm:items-center">
+
+<!--                            <div @click="notify"-->
+<!--                                    class="flex items-center justify-center rounded-lg p-2 font-sans text-xs cursor-pointer font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"-->
+<!--                            >-->
+<!--                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">-->
+<!--                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />-->
+<!--                                </svg>-->
+
+<!--                            </div>-->
+<!--                            <ul v-if="isNotifyVisible"-->
+<!--                                class=" right-64 top-14 absolute z-10 flex min-w-[180px] flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 pt-8 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none">-->
+
+<!--                                <div role="menuitem"-->
+<!--                                    class=" flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300  active:bg-gray-300 active:border-gray-800">-->
+<!--                                    <img-->
+<!--                                        alt="tania andrew"-->
+<!--                                        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"-->
+<!--                                        class="relative inline-block h-12 w-12 !rounded-full object-cover object-center"/>-->
+<!--                                    <div class="flex flex-col gap-1">-->
+<!--                                        <p class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased">-->
+<!--                                            <span class="font-medium text-blue-gray-900">Tania</span> send you a message-->
+<!--                                        </p>-->
+<!--                                        <p class="flex items-center gap-1 font-sans text-xs font-light text-gray-600 antialiased">-->
+<!--                                            <svg-->
+<!--                                                xmlns="http://www.w3.org/2000/svg"-->
+<!--                                                fill="none"-->
+<!--                                                viewBox="0 0 24 24"-->
+<!--                                                stroke-width="1.5"-->
+<!--                                                stroke="currentColor"-->
+<!--                                                aria-hidden="true"-->
+<!--                                                class="h-3 w-3">-->
+<!--                                                <path-->
+<!--                                                    stroke-linecap="round"-->
+<!--                                                    stroke-linejoin="round"-->
+<!--                                                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>-->
+<!--                                            </svg>-->
+<!--                                            13 minutes ago-->
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div-->
+<!--                                    role="menuitem"-->
+<!--                                    class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300  active:bg-gray-300 active:border-gray-800">-->
+<!--                                    <img-->
+<!--                                        alt="natali craig"-->
+<!--                                        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1061&amp;q=80"-->
+<!--                                        class="relative inline-block h-12 w-12 !rounded-full object-cover object-center"/>-->
+<!--                                    <div class="flex flex-col gap-1">-->
+<!--                                        <p class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased">-->
+<!--                                            <span class="font-medium text-blue-gray-900">Natali</span> reply to your email-->
+<!--                                        </p>-->
+<!--                                        <p class="flex items-center gap-1 font-sans text-xs font-light text-gray-600 antialiased">-->
+<!--                                            <svg-->
+<!--                                                xmlns="http://www.w3.org/2000/svg"-->
+<!--                                                fill="none"-->
+<!--                                                viewBox="0 0 24 24"-->
+<!--                                                stroke-width="1.5"-->
+<!--                                                stroke="currentColor"-->
+<!--                                                aria-hidden="true"-->
+<!--                                                class="h-3 w-3">-->
+<!--                                                <path-->
+<!--                                                    stroke-linecap="round"-->
+<!--                                                    stroke-linejoin="round"-->
+<!--                                                    d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>-->
+<!--                                            </svg>-->
+<!--                                            a hour ago-->
+<!--                                        </p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </ul>-->
                             <!-- Settings Dropdown -->
+                            <div class="relative ms-3">
+                                <Dropdown align="right" width="72">
+                                    <template #trigger>
+                                        <div class="flex items-center justify-center rounded-lg p-2 font-sans text-xs cursor-pointer font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                                            </svg>
+                                        </div>
+                                    </template>
+
+                                    <template #content>
+                                        <ul class="  flex-col gap-2 overflow-auto  bg-white p-3  font-sans text-sm font-normal text-blue-gray-500 shadow-blue-gray-500/10 focus:outline-none">
+                                            <div role="menuitem" class=" flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300  active:bg-gray-300 active:border-gray-800">
+                                                <img alt="tania andrew"
+                                                     src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1480&amp;q=80"
+                                                     class="relative inline-block h-12 w-12 !rounded-full object-cover object-center"/>
+                                                <div class="flex flex-col gap-1">
+                                                    <p class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased">
+                                                        <span class="font-medium text-blue-gray-900">Tania</span> send you a message
+                                                    </p>
+                                                    <p class="flex items-center gap-1 font-sans text-xs font-light text-gray-600 antialiased">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke-width="1.5"
+                                                            stroke="currentColor"
+                                                            aria-hidden="true"
+                                                            class="h-3 w-3">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                        </svg>
+                                                        13 minutes ago
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300  active:bg-gray-300 active:border-gray-800">
+                                                <img
+                                                    alt="natali craig"
+                                                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1061&amp;q=80"
+                                                    class="relative inline-block h-12 w-12 !rounded-full object-cover object-center"/>
+                                                <div class="flex flex-col gap-1">
+                                                    <p class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased">
+                                                        <span class="font-medium text-blue-gray-900">Natali</span> reply to your email
+                                                    </p>
+                                                    <p class="flex items-center gap-1 font-sans text-xs font-light text-gray-600 antialiased">
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke-width="1.5"
+                                                            stroke="currentColor"
+                                                            aria-hidden="true"
+                                                            class="h-3 w-3">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                        </svg>
+                                                        a hour ago
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </ul>
+                                    </template>
+                                </Dropdown>
+                            </div>
+
+
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
@@ -193,6 +341,164 @@ const showingNavigationDropdown = ref(false);
             <main>
                 <slot />
             </main>
+
+            <footer class=" bg-gray-100" aria-labelledby="footer-heading">
+                <div>
+                    <button @click="messages" class="z-20 text-white flex flex-col shrink-0 grow-0 justify-around fixed bottom-0  right-1 rounded-lgmr-3 mb-3">
+                        <div class="p-3 rounded-full border-4 border-white bg-green-600">
+                            <svg class="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div v-if="isMessagesVisible" class="fixed flex-col space-y-4 mb-20 right-4  md:bottom-8 lg:mb-16  z-5 flex">
+                        <div class="w-full h-auto relative">
+                            <div class="bg-white  px-5 py-3.5 rounded-lg shadow hover:shadow-md max-w-sm mx-auto transform hover:-translate-y-[0.125rem] transition duration-100 ease-linear">
+                                <div class="w-full flex items-center justify-between">
+                                    <span class="font-medium text-sm text-slate-400">New Notification</span>
+                                    <button class="-mr-1 bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 h-5 w-5 rounded-full flex justify-center items-center">
+                                        <svg class="h-2 w-2 fill-current items-center" viewBox="0 0 20 20"><path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
+                                    </button>
+                                </div>
+                                <div class="flex items-center mt-2 rounded-lg px-1 py-1 cursor-pointer">
+                                    <div class="relative flex flex-shrink-0 items-end">
+                                        <img class="h-16 w-16 rounded-full" src="https://i.pravatar.cc/300" alt="">
+                                        <span class="absolute h-4 w-4 bg-green-400 rounded-full bottom-0 right-0 border-2 border-white"></span>
+                                    </div>
+                                    <div class="ml-3">
+                                        <span class="font-semibold tracking-tight text-xs">John Doe</span>
+                                        <span class="text-xs leading-none opacity-50"> reacted to your comment:</span>
+                                        <p class="text-xs leading-4 pt-2 italic opacity-70">"This is the comment..."</p>
+                                        <span class="text-[10px] text-blue-500 font-medium leading-4 opacity-75">a few seconds ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 id="footer-heading" class="sr-only">Footer</h2>
+                    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+                        <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+                            <div class="space-y-8">
+                                <img class="h-20" src="https://aaah0mnbncqtinas.public.blob.vercel-storage.com/FX5ATkass4-no-background-VmcZHSX7xE4ng29ATNphGUdb388fxH.png" alt="Company name">
+                                <p class="text-sm leading-6 text-gray-600">Making football look better to the world and a more respecful game.</p>
+                                <div class="flex space-x-6">
+                                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">Facebook</span>
+                                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-yellow-500 hover:text-gray-500">
+                                        <span class="sr-only">the team is on fire</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                                            <path fill-rule="evenodd" d="M8.074.945A4.993 4.993 0 0 0 6 5v.032c.004.6.114 1.176.311 1.709.16.428-.204.91-.61.7a5.023 5.023 0 0 1-1.868-1.677c-.202-.304-.648-.363-.848-.058a6 6 0 1 0 8.017-1.901l-.004-.007a4.98 4.98 0 0 1-2.18-2.574c-.116-.31-.477-.472-.744-.28Zm.78 6.178a3.001 3.001 0 1 1-3.473 4.341c-.205-.365.215-.694.62-.59a4.008 4.008 0 0 0 1.873.03c.288-.065.413-.386.321-.666A3.997 3.997 0 0 1 8 8.999c0-.585.126-1.14.351-1.641a.42.42 0 0 1 .503-.235Z" clip-rule="evenodd" />
+                                        </svg>
+
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-blue-4      00">
+                                        <span class="sr-only">X</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                                            <path d="M2.75 2a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 1.5 0v-2.624l.33-.083A6.044 6.044 0 0 1 8 11c1.29.645 2.77.807 4.17.457l1.48-.37a.462.462 0 0 0 .35-.448V3.56a.438.438 0 0 0-.544-.425l-1.287.322C10.77 3.808 9.291 3.646 8 3a6.045 6.045 0 0 0-4.17-.457l-.34.085A.75.75 0 0 0 2.75 2Z" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">GitHub</span>
+                                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                                        <span class="sr-only">YouTube</span>
+                                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+                                <div class="md:grid md:grid-cols-2 md:gap-8">
+                                    <div>
+                                        <h3 class="text-sm font-semibold leading-6 text-gray-900">Solutions</h3>
+                                        <ul role="list" class="mt-6 space-y-4">
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Marketing</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Analytics</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Commerce</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Insights</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-10 md:mt-0">
+                                        <h3 class="text-sm font-semibold leading-6 text-gray-900">Support</h3>
+                                        <ul role="list" class="mt-6 space-y-4">
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Documentation</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Guides</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">API Status</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="md:grid md:grid-cols-2 md:gap-8">
+                                    <div>
+                                        <h3 class="text-sm font-semibold leading-6 text-gray-900">Company</h3>
+                                        <ul role="list" class="mt-6 space-y-4">
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">About</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Blog</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Jobs</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Press</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Partners</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-10 md:mt-0">
+                                        <h3 class="text-sm font-semibold leading-6 text-gray-900">Legal</h3>
+                                        <ul role="list" class="mt-6 space-y-4">
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Claim</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Privacy</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="text-sm leading-6 text-gray-600 hover:text-gray-900">Terms</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
+                            <p class="text-xs leading-5 text-gray-500">&copy; 2025 Зозулька, Inc. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 </template>
