@@ -38,7 +38,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email"  :value="$t('input.email')" />
+                <InputLabel for="email"  :value="$t('email')" />
 
                 <TextInput
                     id="email"
@@ -58,7 +58,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    {{$t('input.email.password.reset')}}
+                    {{$t('email.password.reset')}}
                 </PrimaryButton>
             </div>
         </form>
