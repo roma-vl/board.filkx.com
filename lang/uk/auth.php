@@ -13,8 +13,9 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'language' => 'Language changed to English',
+    'failed' => 'Ці облікові дані не збігаються з нашими записами.',
+    'password' => 'Наданий пароль є невірним.',
+    'throttle' => 'Забагато спроб входу. Повторіть спробу через :seconds секунд.',
+    'language' => 'Мову змінено на українську',
+
 ];

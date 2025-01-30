@@ -1,0 +1,18 @@
+export default {
+    welcome: "{name}, Ласкаво просимо на наш сайт",
+    logout: "Вийти",
+    'input.email': "Електронна адреса",
+    'input.password': "Пароль",
+    'input.remember': "Запам'ятати мене",
+    'input.forgot.password': "Забули пароль?",
+    'input.login': "Увійти",
+    'input.register': "Зареєструватися",
+    'input.name': "Ім'я",
+    'input.confirm.password': "Підтвердіть пароль",
+    'input.already.registered': "Вже зареєстровані?",
+    'input.sign.up': "Зареєструватися",
+    'forgot.password': "Забули пароль?",
+    'text.forgot.password': "Забули пароль? Не проблема. Просто дайте нам знати вашу адресу електронної пошти, і ми надішлемо вам посилання для відновлення пароля, яке дозволить вам вибрати новий.",
+    'input.email.password.reset': "Відновити пароль",
+    'reset.password': "Відновити пароль",
+}
