@@ -6,10 +6,10 @@ import FileUpload from "@/Components/FileUpload.vue";
 import Modal from "@/Components/Modal.vue";
 import {ref} from "vue";
 import FlashMessage from "@/Components/FlashMessage.vue";
+import {useI18n} from "vue-i18n";
 
-
+const { t } = useI18n()
 const flash = usePage().props.flash;
-console.log(usePage(), 'flash')
 const breadcrumbData = [
     {
 
@@ -49,17 +49,15 @@ const  mes = 'textd sad a ';
     <AuthenticatedLayout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Dashboard
+                {{ t('welcome', { name: $page.props.auth.user.name }) }}
             </h2>
         </template>
 
         <div class="py-2">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <Breadcrumb :breadcrumbs="breadcrumbData" />
-                <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
-                >
-                    <div class="p-6 text-gray-900">
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
+                    <div class="p-4 text-gray-900">
                         You're logged in!
                     </div>
 
@@ -98,6 +96,24 @@ const  mes = 'textd sad a ';
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fill-current w-4 h-4 mr-2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                                 <span>List</span>
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="flex items-center gap-2">
+                            <input id="switch-link" type="checkbox"
+                                class="appearance-none relative inline-block rounded-full w-12 h-6 cursor-pointer before:inline-block
+                                 before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full
+                                 before:bg-stone-200 before:transition-colors before:duration-200 before:ease-in after:absolute
+                                 after:top-2/4 after:left-0 after:-translate-y-2/4 after:w-6 after:h-6 after:border after:border-stone-200
+                                  after:bg-white after:rounded-full checked:after:translate-x-full after:transition-all after:duration-200
+                                  after:ease-in disabled:opacity-50 disabled:cursor-not-allowed dark:after:bg-white
+                                  checked:before:bg-stone-800 checked:after:border-stone-800"
+                            />
+                            <label for="switch-link" class="font-sans antialiased text-base cursor-pointer text-stone-600">
+                                I agree with the
+                                <a href="#" class="font-sans antialiased text-base text-stone-500 inline"> terms and conditions</a>
+                            </label>
                         </div>
                     </div>
 

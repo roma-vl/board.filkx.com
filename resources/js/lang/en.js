@@ -1,0 +1,17 @@
+export default {
+    'welcome': "Welcome to our website, {name}",
+    'logout': "Logout",
+    'input.email': "Email",
+    'input.password': "Password",
+    'input.remember': "Remember me",
+    'input.forgot.password': "Forgot your password?",
+    'input.login': "Log In",
+    'input.register': "Register",
+    'input.name': "Name",
+    'input.confirm.password': "Confirm password",
+    'input.already.registered': "Already registered?",
+    'forgot.password': "Forgot password?",
+    'text.forgot.password': "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+    'input.email.password.reset': "Email password reset link",
+    'reset.password': "Reset password",
+}

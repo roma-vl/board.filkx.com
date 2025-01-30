@@ -19,7 +19,9 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
         "laravel-echo": "^1.18.0",
-        "pusher-js": "^8.4.0-rc2"
+        "pusher-js": "^8.4.0-rc2",
+        "vue-i18n": "^11.0.1"
     }
 }
