@@ -158,6 +158,11 @@ const notify = () => {
                                             Profile
                                         </DropdownLink>
                                         <DropdownLink
+                                            :href="route('admin.index')"
+                                        >
+                                            Admin Panel
+                                        </DropdownLink>
+                                        <DropdownLink
                                             :href="route('logout')"
                                             method="post"
                                             as="button"

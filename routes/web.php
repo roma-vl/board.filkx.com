@@ -14,7 +14,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('main');
 
 Route::get('/greeting/{locale}', [IndexController::class, 'changeLocale'])->name('greeting');
 
@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified', PasswordConfirmed::class])->group(functio
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/admin', [App\Http\Controllers\Admin\IndexController::class, 'index'])->name('admin.index');
 });
 
 require __DIR__.'/auth.php';
