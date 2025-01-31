@@ -19,7 +19,8 @@ class UsersController extends Controller
 
     public function create()
     {
-        //
+        return redirect()->route('admin.users.index')
+            ->with('info', 'Розділ успішно створено.');
     }
 
     public function store(Request $request)
