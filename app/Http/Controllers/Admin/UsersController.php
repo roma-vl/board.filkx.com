@@ -13,7 +13,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = UserResource::collection(User::all())->resolve();
+        $users = UserResource::collection(User::withTrashed()->paginate(2));
         return Inertia::render('Admin/Users/Index', compact('users'));
     }
 

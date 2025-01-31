@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () { //, PasswordConfirm
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
+    Route::get('/admin/test', [AdminIndexController::class, 'test'])->name('admin.test');
     Route::resource('/admin/users', AdminUsersController::class);
 });
 
