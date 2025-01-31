@@ -4,7 +4,6 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Middleware\PasswordConfirmed;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,9 +26,12 @@ Route::middleware(['auth', 'verified'])->group(function () { //, PasswordConfirm
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
-    Route::get('/admin/test', [AdminIndexController::class, 'test'])->name('admin.test');
-    Route::resource('/admin/users', AdminUsersController::class);
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [AdminIndexController::class, 'index'])->name('index');
+        Route::get('/test', [AdminIndexController::class, 'test'])->name('test');
+
+        Route::resource('/users', AdminUsersController::class);
+    });
 });
 
 require __DIR__.'/auth.php';
