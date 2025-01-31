@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Log in" />
+        <Head :title="$t('login')" />
 
         <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
@@ -39,7 +39,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" :value=" $t('email')" />
 
                 <TextInput
                     id="email"
@@ -55,7 +55,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" :value=" $t('password')" />
 
                 <TextInput
                     id="password"
@@ -72,27 +72,19 @@ const submit = () => {
             <div class="mt-4 block">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600"
-                        >Remember me</span
-                    >
+                    <span class="ms-2 text-sm text-gray-600">{{$t('remember')}} </span>
                 </label>
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canResetPassword"
+                <Link v-if="canResetPassword"
                     :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Forgot your password?
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    {{$t('forgot.password')}}
                 </Link>
 
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Log in
+                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                   {{ $t('login') }}
                 </PrimaryButton>
             </div>
         </form>
