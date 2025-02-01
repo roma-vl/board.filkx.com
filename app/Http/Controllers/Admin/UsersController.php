@@ -11,10 +11,12 @@ use Inertia\Response;
 
 class UsersController extends Controller
 {
+    const int PER_PAGE = 2;
+    const int SEARCH_MIN_LENGTH = 1;
 
     public function index(): Response
     {
-        $perPage = request('per_page', 2); // Отримуємо значення або дефолтне (2)
+        $perPage = request('per_page', self::PER_PAGE);
         $users = UserResource::collection(User::withTrashed()->paginate($perPage));
 
         return Inertia::render('Admin/Users/Index', compact('users'));
@@ -22,12 +24,12 @@ class UsersController extends Controller
 
     public function search(Request $request): Response
     {
-        $perPage = $request->input('per_page', 2);
+        $perPage = $request->input('per_page', self::PER_PAGE);
         $search = $request->input('search');
 
         $query = User::withTrashed();
 
-        if ($search && strlen($search) >= 3) {
+        if ($search && strlen($search) >= self::SEARCH_MIN_LENGTH) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%");
