@@ -14,19 +14,19 @@ class UsersController extends Controller
     const int PER_PAGE = 2;
     const int SEARCH_MIN_LENGTH = 1;
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $perPage = request('per_page', self::PER_PAGE);
+        $perPage = $this->getPerPage($request);
         $users = UserResource::collection(User::withTrashed()->paginate($perPage));
 
-        return Inertia::render('Admin/Users/Index', compact('users'));
+        return Inertia::render('Admin/Users/Index', compact('users' ));
     }
+
 
     public function search(Request $request): Response
     {
-        $perPage = $request->input('per_page', self::PER_PAGE);
+        $perPage = $this->getPerPage($request);
         $search = $request->input('search');
-
         $query = User::withTrashed();
 
         if ($search && strlen($search) >= self::SEARCH_MIN_LENGTH) {
@@ -38,7 +38,7 @@ class UsersController extends Controller
 
         $users = UserResource::collection($query->paginate($perPage));
 
-        return Inertia::render('Admin/Users/Index', compact('users'));
+        return Inertia::render('Admin/Users/Index', compact('users' ));
     }
 
 
@@ -72,5 +72,16 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @return string|null
+     */
+    public function getPerPage(Request $request): string|null
+    {
+        $perPage = $request->query('per_page', session('per_page', self::PER_PAGE));
+        session(['per_page' => $perPage]);
+        return $perPage;
     }
 }

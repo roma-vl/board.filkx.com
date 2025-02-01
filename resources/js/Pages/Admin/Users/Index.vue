@@ -16,6 +16,7 @@ const flash = usePage().props.flash;
 const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
 const MIN_SEARCH_LENGTH = 1;
+const PER_PAGE = 2;
 
 const headings = ref([
     {key: "id", value: "User ID"},
@@ -39,7 +40,7 @@ watch(visibleColumns, (newValue) => {
     localStorage.setItem("visibleColumns", JSON.stringify(newValue));
 }, {deep: true});
 
-const perPage = ref(localStorage.getItem("perPage") || 2);
+const perPage = ref(localStorage.getItem("perPage") || PER_PAGE);
 
 watch(perPage, (newValue) => {
     localStorage.setItem("perPage", newValue);
@@ -66,6 +67,13 @@ onMounted(() => {
     if (searchInputRef.value) {
         searchInputRef.value.focus();
     }
+
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const currentPage = urlParams.get("page") || 1;
+    //
+    // if (!urlParams.has("per_page")) {
+    //     router.get(route("admin.users.index"), { per_page: perPage.value, page: currentPage }, { preserveScroll: true, replace: true });
+    // }
 });
 
 const highlightText = (text, query) => {
@@ -134,7 +142,7 @@ const highlightText = (text, query) => {
                     </div>
                     <DataTable :items="users" :headings="headings.filter(h => visibleColumns.includes(h.key))" uniqueKey="id">
                         <template #column-name="{ row }">
-                            <div class="flex gap-3 font-normal ">
+                            <div class="flex gap-2 font-normal ">
                                 <div class="relative h-10 w-10 ">
                                     <div v-if="row.avatar_url">
                                         <img :src="row.avatar_url" :alt="row.name">
