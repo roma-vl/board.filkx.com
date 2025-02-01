@@ -5,12 +5,15 @@ import ArrowLeftIcon from "@/Components/Icon/ArrowLeftIcon.vue";
 import ArrowRightIcon from "@/Components/Icon/ArrowRightIcon.vue";
 
 const props = defineProps({
-    pagination: Object
+    pagination: Object,
+    searchQuery: String,
 });
+
+const searchQuery = props.searchQuery ? '&search=' + props.searchQuery: '';
 
 const changePage = (url) => {
     if (url) {
-        router.get(url);
+        router.get(url+ searchQuery);
     }
 };
 </script>
