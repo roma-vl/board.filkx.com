@@ -1,5 +1,7 @@
 <script setup>
 
+import ArrowUpDownIcon from "@/Components/Icon/ArrowUpDownIcon.vue";
+
 const props = defineProps({
     items: Array,
     headings: Array,
@@ -13,7 +15,14 @@ const props = defineProps({
         <thead class="bg-gray-50">
         <tr>
             <th v-for="heading in props.headings" :key="heading.key" class="border-b px-3 py-3 text-gray-900 font-bold uppercase text-xs">
-                {{ heading.value }}
+                <div class="flex gap-2">
+                    <span class="inline-flex items-center gap-1">
+                        {{ heading.value }}
+                    </span>
+                <span class="inline-flex items-center gap-1 cursor-pointer text-gray-400 hover:text-gray-600">
+                    <ArrowUpDownIcon class="w-4 h-4" />
+                </span>
+                </div>
             </th>
             <th class="border-b px-3 py-3 text-gray-900 font-bold uppercase text-xs">Actions</th>
         </tr>
