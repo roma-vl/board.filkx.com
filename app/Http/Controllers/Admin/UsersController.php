@@ -7,15 +7,38 @@ use App\Http\Resources\Admin\User\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UsersController extends Controller
 {
 
-    public function index()
+    public function index(): Response
     {
-        $users = UserResource::collection(User::withTrashed()->paginate(2));
+        $perPage = request('per_page', 2); // Отримуємо значення або дефолтне (2)
+        $users = UserResource::collection(User::withTrashed()->paginate($perPage));
+
         return Inertia::render('Admin/Users/Index', compact('users'));
     }
+
+    public function search(Request $request): Response
+    {
+        $perPage = $request->input('per_page', 2);
+        $search = $request->input('search');
+
+        $query = User::withTrashed();
+
+        if ($search && strlen($search) >= 3) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $users = UserResource::collection($query->paginate($perPage));
+
+        return Inertia::render('Admin/Users/Index', compact('users'));
+    }
+
 
     public function create()
     {
