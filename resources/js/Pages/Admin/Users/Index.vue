@@ -67,13 +67,6 @@ onMounted(() => {
     if (searchInputRef.value) {
         searchInputRef.value.focus();
     }
-
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const currentPage = urlParams.get("page") || 1;
-    //
-    // if (!urlParams.has("per_page")) {
-    //     router.get(route("admin.users.index"), { per_page: perPage.value, page: currentPage }, { preserveScroll: true, replace: true });
-    // }
 });
 
 const highlightText = (text, query) => {
@@ -212,7 +205,7 @@ const highlightText = (text, query) => {
                             </div>
                         </template>
                     </DataTable>
-                    <Pagination :pagination="pagination" />
+                    <Pagination :pagination="pagination" :searchQuery="searchQuery" />
                 </div>
             </div>
         </div>
