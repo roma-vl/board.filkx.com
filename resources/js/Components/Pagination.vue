@@ -16,6 +16,9 @@ const changePage = (url) => {
 </script>
 
 <template>
+    <div class="flex-1 pr-2">
+        <p class="p-2 text-gray-600 font-medium "> Всього: {{ pagination.total }}</p>
+    </div>
     <div class="flex flex-col items-center mb-2">
         <div v-if="pagination.total > pagination.per_page" class="flex items-center gap-1">
             <button @click="changePage(pagination.links[0].url)" :disabled="!pagination.links[0].url"
