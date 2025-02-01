@@ -15,6 +15,7 @@ import ViewColumnsIcon from "@/Components/Icon/ViewColumnsIcon.vue";
 const flash = usePage().props.flash;
 const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
+const MIN_SEARCH_LENGTH = 1;
 
 const headings = ref([
     {key: "id", value: "User ID"},
@@ -54,8 +55,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const searchQuery = ref(urlParams.get("search") || "");
 
 watch(searchQuery, (newQuery) => {
-    if (newQuery.length >= 3 || newQuery.length === 0) {
-        router.get(route("admin.users.search"), { search: newQuery }, { preserveScroll: true, replace: true });
+    if (newQuery.length >= MIN_SEARCH_LENGTH || newQuery.length === 0) {
+        router.get(route("admin.users.search"), { search: newQuery, per_page: perPage.value }, { preserveScroll: true, replace: true });
     }
 });
 
@@ -66,6 +67,13 @@ onMounted(() => {
         searchInputRef.value.focus();
     }
 });
+
+const highlightText = (text, query) => {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, '<span class="bg-yellow-200">$1</span>');
+};
+
 </script>
 
 <template>
@@ -143,10 +151,12 @@ onMounted(() => {
                                     </div>
                                 </div>
                                 <div class="text-sm flex justify-center items-center">
-                                    <div class="font-medium text-gray-700">{{ row.name }}</div>
+                                    <div class="font-medium text-gray-700" v-html="highlightText(row.name, searchQuery)"></div>
                                 </div>
                             </div>
-
+                        </template>
+                        <template #column-email="{ row }">
+                            <div class="text-sm text-gray-600" v-html="highlightText(row.email, searchQuery)"></div>
                         </template>
                         <template #column-status="{ row }">
                             <div v-if="row.deleted_at">
