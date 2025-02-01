@@ -30,7 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () { //, PasswordConfirm
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
         Route::get('/test', [AdminIndexController::class, 'test'])->name('test');
 
+        Route::get('/users/search', [AdminUsersController::class, 'search'])->name('users.search');
         Route::resource('/users', AdminUsersController::class);
+
     });
 });
 

@@ -1,13 +1,16 @@
 <script setup>
-import {Head, Link, usePage} from "@inertiajs/vue3";
+import {Head, Link, router, usePage} from "@inertiajs/vue3";
 import FlashMessage from "@/Components/FlashMessage.vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import {computed, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import Pagination from "@/Components/Pagination.vue";
 import AvatarIcon from "@/Components/Icon/AvatarIcon.vue";
 import TrashIcon from "@/Components/Icon/TrashIcon.vue";
 import PencilIcon from "@/Components/Icon/PencilIcon.vue";
 import DataTable from "@/Components/DataTable.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import ArrowDownIcon from "@/Components/Icon/ArrowDownIcon.vue";
+import ViewColumnsIcon from "@/Components/Icon/ViewColumnsIcon.vue";
 
 const flash = usePage().props.flash;
 const users = usePage().props.users.data;
@@ -24,32 +27,45 @@ const headings = ref([
     {key: "updated_at", value: "Updated at"},
 ]);
 
-const headings2 = ref([
-    {key: "1", value: "1"},
-    {key: "2", value: "2"},
-    {key: "5", value: "5"},
-]);
-
-const loadCountItems = () => {
-    const countItems = localStorage.getItem("countItems");
-    return countItems ? JSON.parse(countItems) : headings2.value.map(h => h.key);
-};
-
 const loadVisibleColumns = () => {
     const storedColumns = localStorage.getItem("visibleColumns");
     return storedColumns ? JSON.parse(storedColumns) : headings.value.map(h => h.key);
 };
 
-const countItems = ref(loadCountItems());
 const visibleColumns = ref(loadVisibleColumns());
-
-watch(countItems, (newValue) => {
-    localStorage.setItem("countItems", JSON.stringify(newValue));
-}, { deep: true });
 
 watch(visibleColumns, (newValue) => {
     localStorage.setItem("visibleColumns", JSON.stringify(newValue));
 }, {deep: true});
+
+const perPage = ref(localStorage.getItem("perPage") || 2);
+
+watch(perPage, (newValue) => {
+    localStorage.setItem("perPage", newValue);
+    router.get(route("admin.users.index"), { per_page: newValue }, { preserveScroll: true });
+});
+
+const isDropdownOpen = ref(false);
+const toggleDropdown = () => {
+    isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const urlParams = new URLSearchParams(window.location.search);
+const searchQuery = ref(urlParams.get("search") || "");
+
+watch(searchQuery, (newQuery) => {
+    if (newQuery.length >= 3 || newQuery.length === 0) {
+        router.get(route("admin.users.search"), { search: newQuery }, { preserveScroll: true, replace: true });
+    }
+});
+
+const searchInputRef = ref(null);
+
+onMounted(() => {
+    if (searchInputRef.value) {
+        searchInputRef.value.focus();
+    }
+});
 </script>
 
 <template>
@@ -69,7 +85,46 @@ watch(visibleColumns, (newValue) => {
                 </div>
 
                 <div class=" rounded-lg border border-gray-200 shadow-md bg-white p-2">
-                    <DataTable :items="users" :headings="headings" uniqueKey="id">
+                    <div class="mb-4 flex justify-between items-center">
+                        <div class="flex-1 pr-2">
+                            <input ref="searchInputRef"
+                                   v-model="searchQuery" type="search"
+                                   class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none text-gray-600 font-medium border-0"
+                                   placeholder="Search...">
+                        </div>
+
+                        <div class="relative mr-2">
+                            <button @click.prevent="toggleDropdown" @dblclick.prevent="toggleDropdown" class="rounded-lg bg-white px-4 py-2 flex items-center border border-gray-300 hover:bg-gray-100">
+                                <ViewColumnsIcon />
+                                <ArrowDownIcon />
+                            </button>
+
+                            <div v-if="isDropdownOpen" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                                <label v-for="heading in headings" :key="heading.key" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                    <input type="checkbox" class=" mr-3 text-gray-800 rounded-sm" v-model="visibleColumns" :value="heading.key">
+                                    <span>{{ heading.value }}</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <Dropdown align="right" width="24" class="flex justify-end">
+                                <template #trigger>
+                                    <button class="rounded-lg bg-white px-4 py-2 flex items-center border border-gray-300 hover:bg-gray-100">
+                                        {{ perPage }} <ArrowDownIcon />
+                                    </button>
+                                </template>
+
+                                <template #content>
+                                    <label v-for="count in [2, 5, 10, 20]" :key="count" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        <input type="radio" v-model="perPage" :value="count" class="mr-3">
+                                        {{ count }}
+                                    </label>
+                                </template>
+                            </Dropdown>
+                        </div>
+                    </div>
+                    <DataTable :items="users" :headings="headings.filter(h => visibleColumns.includes(h.key))" uniqueKey="id">
                         <template #column-name="{ row }">
                             <div class="flex gap-3 font-normal ">
                                 <div class="relative h-10 w-10 ">
