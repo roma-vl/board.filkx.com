@@ -87,8 +87,11 @@ onMounted(() => {
                 <ArrowDownIcon />
             </button>
             <div v-if="isDropdownOpen" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                <label v-for="heading in headings" :key="heading.key" class="flex items-center px-4 py-2 hover:bg-gray-100">
-                    <input type="checkbox" class="mr-3 text-gray-800 rounded-sm" v-model="visibleColumns" :value="heading.key"/>
+                <label v-for="heading in headings" :key="heading.key" class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                       :class="{'bg-gray-200 cursor-not-allowed hover:bg-gray-200': heading.disabled}">
+                    <input type="checkbox" class="mr-3 text-gray-800 rounded-sm cursor-pointer"
+                           :class="{'bg-gray-200 cursor-not-allowed hover:bg-gray-200': heading.disabled}"
+                           v-model="visibleColumns" :value="heading.key" :disabled="heading.disabled"/>
                     <span>{{ heading.value }}</span>
                 </label>
             </div>
@@ -104,9 +107,9 @@ onMounted(() => {
                     <label
                         v-for="count in perPageValues"
                         :key="count"
-                        class="flex items-center px-4 py-2 hover:bg-gray-100"
+                        class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
                     >
-                        <input type="radio" v-model="perPage" :value="count" class="mr-3" />
+                        <input type="radio" v-model="perPage" :value="count" class="mr-3 cursor-pointer" />
                         {{ count }}
                     </label>
                 </template>

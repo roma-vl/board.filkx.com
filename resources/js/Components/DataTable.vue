@@ -1,15 +1,36 @@
 <script setup>
 
 import ArrowUpDownIcon from "@/Components/Icon/ArrowUpDownIcon.vue";
+import {computed} from "vue";
 
 const props = defineProps({
     items: Array,
     headings: Array,
     uniqueKey: { type: String, default: "id" },
+    searchQuery: String,
 });
 
 const emit = defineEmits(["sort"]);
 const sortField = JSON.parse(localStorage.getItem("sortField"));
+
+console.log(props.searchQuery)
+const highlightText = (text, query) => {
+    if (!query || !text) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, '<span class="bg-yellow-200">$1</span>');
+};
+
+const processedItems = computed(() => {
+    return props.items.map((item) => {
+        const newItem = { ...item };
+        props.headings.forEach((heading) => {
+            if (heading.highlight) {
+                newItem[heading.key] = highlightText(item[heading.key], props.searchQuery);
+            }
+        });
+        return newItem;
+    });
+});
 
 </script>
 
@@ -34,19 +55,16 @@ const sortField = JSON.parse(localStorage.getItem("sortField"));
                 </span>
                 </div>
             </th>
-            <th class="border-b px-3 py-3 text-gray-700 uppercase text-xs">Actions</th>
         </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 border-t border-gray-100">
-        <tr v-for="item in items" :key="item[uniqueKey]" class="hover:bg-gray-50">
-            <td v-for="heading in props.headings" :key="heading.key" class="px-6 py-4 text-gray-600"
-                :class="{' bg-gray-50 ': (sortField === heading.key && heading.sortable === true)}">
+
+        <tr v-for="item in processedItems" :key="item[uniqueKey]" class="hover:bg-gray-50">
+            <td v-for="heading in headings" :key="heading.key" class="px-6 py-4 text-gray-600">
                 <slot :name="`column-${heading.key}`" :row="item">
-                    {{heading.key === 'id' ?'#': '' }}  {{ item[heading.key] }}
+                    <span v-if="heading.highlight" v-html="item[heading.key]"></span>
+                    <span v-else>{{ item[heading.key] }}</span>
                 </slot>
-            </td>
-            <td class="px-6 py-4">
-                <slot name="actions" :row="item"></slot>
             </td>
         </tr>
         </tbody>
