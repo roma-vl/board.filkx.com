@@ -19,53 +19,17 @@ class UsersController extends Controller
 
     public function index(Request $request): Response
     {
-        $perPage = $this->getPerPage($request);
+        $perPage = $this->getSessionValue($request, 'per_page', self::PER_PAGE);
+        $sortBy = $this->getSessionValue($request, 'sort_by', self::SORT_BY_DEFAULT);
+        $sortOrder = $this->getSessionValue($request, 'sort_order', self::SORT_ORDER_DEFAULT);
+
         $usersQuery = User::withTrashed();
-
-        if ($request->has('sort_by') && $request->has('sort_order')) {
-            $sortBy = $request->get('sort_by', self::SORT_BY_DEFAULT);
-            $sortOrder = $request->get('sort_order', self::SORT_ORDER_DEFAULT);
-
-            if (in_array($sortBy, $this->allowedSortFields)) {
-                $usersQuery->orderBy($sortBy, $sortOrder);
-            }
-        }
+        $this->applySorting($usersQuery, $sortBy, $sortOrder);
 
         $users = UserResource::collection($usersQuery->paginate($perPage));
 
-        return Inertia::render('Admin/Users/Index', [
-            'users' => $users
-        ]);
+        return Inertia::render('Admin/Users/Index', compact('users', 'sortBy', 'sortOrder'));
     }
-
-
-
-    public function search(Request $request): Response
-    {
-        $perPage = $this->getPerPage($request);
-        $search = $request->input('search');
-        $query = User::withTrashed();
-
-        if ($search && strlen($search) >= self::SEARCH_MIN_LENGTH) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('email', 'LIKE', "%{$search}%");
-            });
-        }
-
-        $sortBy = $request->get('sort_by', self::SORT_BY_DEFAULT);
-        $sortOrder = $request->get('sort_order', self::SORT_ORDER_DEFAULT);
-
-        if (in_array($sortBy, $this->allowedSortFields)) {
-            $query->orderBy($sortBy, $sortOrder);
-        }
-
-        $users = UserResource::collection($query->paginate($perPage));
-
-        return Inertia::render('Admin/Users/Index', compact('users'));
-    }
-
-
 
     public function create()
     {
@@ -99,14 +63,47 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * @param Request $request
-     * @return string|null
-     */
-    public function getPerPage(Request $request): string|null
+    public function restore(User $user) {
+        $user->restore();
+    }
+
+    public function search(Request $request): Response
     {
-        $perPage = $request->query('per_page', session('per_page', self::PER_PAGE));
-        session(['per_page' => $perPage]);
-        return $perPage;
+        $perPage = $this->getSessionValue($request, 'per_page', self::PER_PAGE);
+        $sortBy = $this->getSessionValue($request, 'sort_by', self::SORT_BY_DEFAULT);
+        $sortOrder = $this->getSessionValue($request, 'sort_order', self::SORT_ORDER_DEFAULT);
+
+        $search = $request->input('search');
+        $query = User::withTrashed();
+        $this->applySearch($query, $search);
+        $this->applySorting($query, $sortBy, $sortOrder);
+
+        $users = UserResource::collection($query->paginate($perPage));
+
+        return Inertia::render('Admin/Users/Index', compact('users', 'sortBy', 'sortOrder'));
+    }
+
+    private function getSessionValue(Request $request, string $key, $default)
+    {
+        $value = $request->query($key, session($key, $default));
+        session([$key => $value]);
+        return $value;
+    }
+
+    private function applySearch($query, ?string $search)
+    {
+        if ($search && strlen($search) >= self::SEARCH_MIN_LENGTH) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+    }
+
+    private function applySorting($query, string $sortBy, string $sortOrder)
+    {
+        if (in_array($sortBy, $this->allowedSortFields)) {
+            $query->orderBy($sortBy, $sortOrder);
+        }
     }
 }
