@@ -8,6 +8,8 @@ const props = defineProps({
     uniqueKey: { type: String, default: "id" },
 });
 
+const emit = defineEmits(["sort"]);
+
 </script>
 
 <template>
@@ -19,7 +21,8 @@ const props = defineProps({
                     <span class="inline-flex items-center gap-1">
                         {{ heading.value }}
                     </span>
-                <span class="inline-flex items-center gap-1 cursor-pointer text-gray-400 hover:text-gray-600">
+                <span class="inline-flex items-center gap-1 cursor-pointer text-gray-400 hover:text-gray-600"
+                      @click="emit('sort', heading.key)">
                     <ArrowUpDownIcon class="w-4 h-4" />
                 </span>
                 </div>
