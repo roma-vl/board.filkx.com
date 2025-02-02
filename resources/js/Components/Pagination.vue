@@ -7,19 +7,24 @@ import ArrowRightIcon from "@/Components/Icon/ArrowRightIcon.vue";
 const props = defineProps({
     pagination: Object,
     searchQuery: String,
+    sortField: String,
+    sortOrder: String,
 });
 
 const searchQuery = props.searchQuery ? '&search=' + props.searchQuery: '';
+const sortField = props.sortField ? '&sort_by=' + props.sortField: '';
+const sortOrder = props.sortOrder ? '&sort_order=' + props.sortOrder: '';
 
 const changePage = (url) => {
     if (url) {
-        router.get(url+ searchQuery);
+        router.get(url + searchQuery + sortField + sortOrder);
     }
 };
+
 </script>
 
 <template>
-    <div class="flex-1 pr-2">
+    <div class="pr-2 flex flex-row mb-2">
         <p class="p-2 text-gray-600 font-medium "> Всього: {{ pagination.total }}</p>
     </div>
     <div class="flex flex-col items-center mb-2">

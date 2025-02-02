@@ -17,6 +17,7 @@ const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
 const MIN_SEARCH_LENGTH = 1;
 const PER_PAGE = 2;
+const PER_PAGE_VALUE = [2, 5, 10, 20];
 
 const headings = ref([
     {key: "id", value: "User ID"},
@@ -44,7 +45,22 @@ const perPage = ref(localStorage.getItem("perPage") || PER_PAGE);
 
 watch(perPage, (newValue) => {
     localStorage.setItem("perPage", newValue);
-    router.get(route("admin.users.index"), { per_page: newValue }, { preserveScroll: true });
+
+    if( searchQuery.value) {
+        router.get(route("admin.users.search"), {
+            per_page: newValue,
+            sort_by: sortField.value,
+            sort_order: sortOrder.value,
+            search: searchQuery.value,
+        }, { preserveScroll: true, replace: true });
+    } else {
+        router.get(route("admin.users.index"), {
+            per_page: newValue,
+            sort_by: sortField.value,
+            sort_order: sortOrder.value,
+            search: searchQuery.value,
+        }, { preserveScroll: true, replace: true });
+    }
 });
 
 const isDropdownOpen = ref(false);
@@ -57,14 +73,20 @@ const searchQuery = ref(urlParams.get("search") || "");
 
 watch(searchQuery, (newQuery) => {
     if (newQuery.length >= MIN_SEARCH_LENGTH || newQuery.length === 0) {
-        router.get(route("admin.users.search"), { search: newQuery, per_page: perPage.value }, { preserveScroll: true, replace: true });
+        router.get(route("admin.users.search"), {
+            search: newQuery,
+            per_page: perPage.value,
+            sort_by: sortField.value,
+            sort_order: sortOrder.value,
+        },
+        { preserveScroll: true, replace: true });
     }
 });
 
 const searchInputRef = ref(null);
 
 onMounted(() => {
-    if (searchInputRef.value) {
+    if (searchInputRef.value && searchQuery.value) {
         searchInputRef.value.focus();
     }
 });
@@ -73,6 +95,37 @@ const highlightText = (text, query) => {
     if (!query) return text;
     const regex = new RegExp(`(${query})`, "gi");
     return text.replace(regex, '<span class="bg-yellow-200">$1</span>');
+};
+
+const sortField = ref(localStorage.getItem("sortField") || "id");
+const sortOrder = ref(localStorage.getItem("sortOrder") || "asc");
+
+const updateSorting = (field) => {
+    if (sortField.value === field) {
+        sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
+    } else {
+        sortField.value = field;
+        sortOrder.value = "asc";
+    }
+
+    localStorage.setItem("sortField", sortField.value);
+    localStorage.setItem("sortOrder", sortOrder.value);
+
+    if( searchQuery.value) {
+        router.get(route("admin.users.search"), {
+            search: searchQuery.value,
+            sort_by: sortField.value,
+            sort_order: sortOrder.value,
+            per_page: perPage.value,
+        }, { preserveScroll: true, replace: true });
+    } else {
+        router.get(route("admin.users.index"), {
+            sort_by: sortField.value,
+            sort_order: sortOrder.value,
+            per_page: perPage.value,
+            search: searchQuery.value,
+        }, { preserveScroll: true, replace: true });
+    }
 };
 
 </script>
@@ -85,7 +138,7 @@ const highlightText = (text, query) => {
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <FlashMessage v-if="flash" :flash="flash"/>
                 <div class="overflow-hidden rounded-lg border border-gray-200 shadow bg-white p-2 mb-2">
-                    <div class="relative pr-2 flex justify-end">
+                    <div class="relative  flex justify-end">
                         <Link :href="route('admin.users.create')"
                               class="rounded-lg bg-blue-600 px-4 py-2 flex items-center border border-gray-300 hover:bg-blue-500 w-32">
                             <span class="text-white"> + New User </span>
@@ -119,13 +172,13 @@ const highlightText = (text, query) => {
                         <div class="relative">
                             <Dropdown align="right" width="24" class="flex justify-end">
                                 <template #trigger>
-                                    <button class="rounded-lg bg-white px-4 py-2 flex items-center border border-gray-300 hover:bg-gray-100">
+                                    <button class="rounded-lg bg-white px-4 py-2 flex items-center shadow hover:bg-gray-100">
                                         {{ perPage }} <ArrowDownIcon />
                                     </button>
                                 </template>
 
                                 <template #content>
-                                    <label v-for="count in [2, 5, 10, 20]" :key="count" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                    <label v-for="count in PER_PAGE_VALUE" :key="count" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                         <input type="radio" v-model="perPage" :value="count" class="mr-3">
                                         {{ count }}
                                     </label>
@@ -133,7 +186,7 @@ const highlightText = (text, query) => {
                             </Dropdown>
                         </div>
                     </div>
-                    <DataTable :items="users" :headings="headings.filter(h => visibleColumns.includes(h.key))" uniqueKey="id">
+                    <DataTable :items="users" :headings="headings.filter(h => visibleColumns.includes(h.key))" uniqueKey="id" @sort="updateSorting">
                         <template #column-name="{ row }">
                             <div class="flex gap-2 font-normal ">
                                 <div class="relative h-10 w-10 ">
@@ -205,7 +258,7 @@ const highlightText = (text, query) => {
                             </div>
                         </template>
                     </DataTable>
-                    <Pagination :pagination="pagination" :searchQuery="searchQuery" />
+                    <Pagination :pagination="pagination" :searchQuery="searchQuery" :sortField="sortField" :sortOrder="sortOrder" />
                 </div>
             </div>
         </div>
