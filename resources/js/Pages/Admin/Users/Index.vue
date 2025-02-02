@@ -1,77 +1,53 @@
-<!-- src/Pages/Admin/Users/Index.vue -->
 <script setup>
-import { Head, Link, router, usePage } from "@inertiajs/vue3";
-import { computed, ref, watch } from "vue";
-import FlashMessage from "@/Components/FlashMessage.vue";
+import {Head, Link, router, usePage} from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import Pagination from "@/Components/Pagination.vue";
-import DataTable from "@/Components/DataTable.vue";
-import DataTableHeader from "@/Components/DataTableHeader.vue";
+import Grid from "@/Components/Grid.vue";
 import TrashIcon from "@/Components/Icon/TrashIcon.vue";
 import PencilIcon from "@/Components/Icon/PencilIcon.vue";
+import FlashMessage from "@/Components/FlashMessage.vue";
 import AvatarIcon from "@/Components/Icon/AvatarIcon.vue";
-import {useLocalStorageFn} from "@/helpers.js";
-
-
+import { computed, ref, watch } from "vue";
+import RefreshIcon from "@/Components/Icon/RefreshIcon.vue";
 
 const flash = usePage().props.flash;
 const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
 
-const MIN_SEARCH_LENGTH = 1;
-const PER_PAGE_DEFAULT = 2;
 
 const headings = [
-    { key: "id", value: "User ID", sortable: true },
-    { key: "name", value: "Name", sortable: true },
-    { key: "email", value: "Email", sortable: true },
+    { key: "id", value: "ID", sortable: true, disabled: true},
+    { key: "name", value: "Name", sortable: true, highlight: true },
+    { key: "email", value: "Email", sortable: true, highlight: true },
     { key: "status", value: "Status" },
     { key: "role", value: "Role" },
     { key: "tags", value: "Tags" },
-    { key: "created_at", value: "Created at" },
-    { key: "updated_at", value: "Updated at" },
+    { key: "created_at", value: "Created" },
+    // { key: "updated_at", value: "Updated" },
+    { key: "actions", value: "Actions", disabled: true },
 ];
 
-const searchQuery = useLocalStorageFn("searchQuery", "");
-const perPage = useLocalStorageFn("perPage", PER_PAGE_DEFAULT);
-const sortField = useLocalStorageFn("sortField", "id");
-const sortOrder = useLocalStorageFn("sortOrder", "asc");
-const visibleColumns = useLocalStorageFn("visibleColumns", headings.map(h => h.key));
+const routes = [
+    { key: "index", value: "admin.users.index" },
+    { key: "search", value: "admin.users.search" },
+];
 
-const queryParams = computed(() => ({
-    search: searchQuery.value,
-    per_page: perPage.value,
-    sort_by: sortField.value,
-    sort_order: sortOrder.value,
-}));
-
-const updateUsersList = async () => {
-    const url = queryParams.value.search ? "admin.users.search": "admin.users.index";
-    await router.get(route(url), queryParams.value, { preserveScroll: true, replace: true });
-};
-
-watch(queryParams, () => {
-    if (searchQuery.value && searchQuery.value.length < MIN_SEARCH_LENGTH) return;
-    updateUsersList();
-}, { deep: true });
-
-const updateSorting = (field) => {
-    const heading = headings.find(h => h.key === field);
-    if (!heading || !heading.sortable) return;
-    if (sortField.value === field) {
-        sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
-    } else {
-        sortField.value = field;
-        sortOrder.value = "asc";
+const deleteUser = (id) => {
+    if (confirm("Ви впевнені, що хочете видалити цього користувача?")) {
+        router.delete(route("admin.users.destroy", id), {
+            preserveScroll: true,
+            onSuccess: () => router.replace(route("admin.users.index")),
+        });
     }
-    updateUsersList();
 };
 
-const highlightText = (text, query) => {
-    if (!query) return text;
-    const regex = new RegExp(`(${query})`, "gi");
-    return text.replace(regex, '<span class="bg-yellow-200">$1</span>');
+const restoreUser = (id) => {
+    router.put(route("admin.users.restore", id), {}, {
+        preserveScroll: true,
+        onSuccess: () => router.replace(route("admin.users.index")),
+    });
 };
+
+
 </script>
 
 <template>
@@ -87,19 +63,11 @@ const highlightText = (text, query) => {
                     </Link>
                 </div>
 
-                <DataTableHeader
-                    :headings="headings"
-                    v-model:searchQuery="searchQuery"
-                    v-model:perPage="perPage"
-                    v-model:visibleColumns="visibleColumns"
-                    :perPageValues="[2, 5, 10, 20]"
-                />
-
-                <DataTable
+                <Grid
                     :items="users"
-                    :headings="headings.filter(h => visibleColumns.includes(h.key))"
-                    uniqueKey="id"
-                    @sort="updateSorting"
+                    :pagination="pagination"
+                    :headings="headings"
+                    :routes="routes"
                 >
                     <template #column-name="{ row }">
                         <div class="flex gap-2 font-normal">
@@ -118,12 +86,12 @@ const highlightText = (text, query) => {
                                 </div>
                             </div>
                             <div class="text-sm flex justify-center items-center">
-                                <div class="font-medium text-gray-700" v-html="highlightText(row.name, searchQuery)"></div>
+                                <div class="font-medium text-gray-700" v-html="row.name"></div>
                             </div>
                         </div>
                     </template>
                     <template #column-email="{ row }">
-                        <div class="text-sm text-gray-600" v-html="highlightText(row.email, searchQuery)"></div>
+                        <div class="text-sm text-gray-600" v-html="row.email"></div>
                     </template>
                     <template #column-status="{ row }">
                         <div v-if="row.deleted_at">
@@ -158,20 +126,22 @@ const highlightText = (text, query) => {
                             </span>
                         </div>
                     </template>
-                    <template #actions="{ row }">
+                    <template #column-actions="{ row }">
                         <div class="flex gap-2">
                             <div class="flex justify-end gap-4">
-                                <a href="#">
+                                <a v-if="!row.deleted_at" @click.prevent="deleteUser(row.id)" class="text-red-600 hover:text-red-900 cursor-pointer">
                                     <TrashIcon />
                                 </a>
-                                <a href="#">
+                                <a v-else @click.prevent="restoreUser(row.id)" class="text-green-600 hover:text-green-900 cursor-pointer">
+                                    <RefreshIcon />
+                                </a>
+                                <a v-if="!row.deleted_at" href="#">
                                     <PencilIcon />
                                 </a>
                             </div>
                         </div>
                     </template>
-                </DataTable>
-                <Pagination :pagination="pagination" :searchQuery="searchQuery" :sortField="sortField" :sortOrder="sortOrder" />
+                </Grid>
             </div>
         </div>
     </AdminLayout>

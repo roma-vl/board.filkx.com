@@ -31,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () { //, PasswordConfirm
         Route::get('/test', [AdminIndexController::class, 'test'])->name('test');
 
         Route::get('/users/search', [AdminUsersController::class, 'search'])->name('users.search');
+        Route::put('/users/{user}/restore', [AdminUsersController::class, 'restore'])->name('users.restore');
+
         Route::resource('/users', AdminUsersController::class);
 
     });

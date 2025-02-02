@@ -34,7 +34,7 @@ class UsersController extends Controller
     public function create()
     {
         return redirect()->route('admin.users.index')
-            ->with('info', 'Розділ успішно створено.');
+            ->with('info', 'Вжух і нічого не сталося... 🤡 ');
     }
 
     public function store(Request $request)
@@ -60,12 +60,25 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->back();
+        return redirect()->route('admin.users.index')
+            ->with('info', 'Вжух і щось сталося... 🤡 ');
     }
 
-    public function restore(User $user) {
+    public function restore($id)
+    {
+        $user = User::withTrashed()->find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Користувача не знайдено.');
+        }
+
         $user->restore();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Вжух і користувач відновлений! 🤡');
     }
+
 
     public function search(Request $request): Response
     {
