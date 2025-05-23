@@ -47,7 +47,13 @@ export function useSearch() {
     let searchParams = new URLSearchParams(filteredQuery).toString();
     if (searchParams) searchParams = '?' + searchParams;
 
-    router.visit(category + region + searchParams);
+    let url = [category, region].filter(Boolean).join('');
+
+    if (!url) {
+      url = '/list';
+    }
+
+    router.visit(url + searchParams);
   };
 
   return {

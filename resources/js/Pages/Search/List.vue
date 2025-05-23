@@ -48,7 +48,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.activeRegion, 'activeRegion');
 import { useSearch } from '@/composables/useSearch.js';
 import SearchInput from '@/Components/Search/SearchInput.vue';
 import LocationSelector from '@/Components/Search/LocationSelector.vue';
