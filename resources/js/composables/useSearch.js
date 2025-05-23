@@ -1,8 +1,14 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
 
 export function useSearch() {
-  const searchQuery = ref('');
+  const searchQuery = computed({
+    get: () => queryFilter.value.query || '',
+    set: (val) => {
+      queryFilter.value.query = val;
+    },
+  });
+
   const cityIdSearchQuery = ref('');
   const showSuggestions = ref(false);
   const queryFilter = ref(usePage().props.query || {});

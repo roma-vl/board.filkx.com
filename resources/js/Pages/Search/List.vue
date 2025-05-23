@@ -129,6 +129,19 @@ watch(
   }
 );
 
+watch(
+  () => usePage().props.query,
+  (newQuery) => {
+    queryFilter.value = newQuery || {};
+    if (queryFilter.value.query) {
+      searchQuery.value = queryFilter.value.query;
+    } else {
+      searchQuery.value = '';
+    }
+  },
+  { immediate: true }
+);
+
 function getCategorySlugs(categories) {
   const slugs = [];
 
