@@ -19,5 +19,5 @@ export default {
     },
   },
 
-  plugins: [forms],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
 };

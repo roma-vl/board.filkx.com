@@ -1,6 +1,6 @@
 <script setup>
 import { getDateFormatFromLocale, getFullPathForImage, truncateContent } from '@/helpers.js';
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
 
@@ -23,41 +23,48 @@ const toggleLike = (advert) => {
 
 <template>
   <div
-    class="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-200"
+    class="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300"
   >
     <img
       :src="getFullPathForImage(advert.first_photo?.file)"
       :alt="advert.title"
-      class="object-cover w-full h-48"
+      class="object-cover w-full h-52 hover:scale-105 transition-transform duration-300"
     >
-    <div class="p-4">
-      <div class="flex justify-between items-start mb-1">
-        <h3 class="text-lg font-medium text-gray-900 hover:text-blue-600">
+    <div class="p-5 space-y-2">
+      <div class="flex justify-between items-start">
+        <h3
+          class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200"
+        >
           {{ advert.title }}
         </h3>
         <span class="text-lg font-bold text-green-600">
           {{ advert.price }} {{ advert.currency }} грн.
         </span>
       </div>
-      <div class="flex justify-between items-center text-sm text-gray-500 pb-2">
-        <span>{{ advert.region.name }} - {{ getDateFormatFromLocale(advert.created_at) }}</span>
+      <div class="text-sm text-gray-500">
+        {{ advert.region.name }} - {{ getDateFormatFromLocale(advert.created_at) }}
       </div>
-      <p class="text-gray-600 text-sm mb-3">
+      <p class="text-gray-700 text-sm">
         {{ truncateContent(advert.content, 100) }}
       </p>
-      <button
-        class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
-        @click="toggleLike(advert)"
-      >
-        <HeartIcon
-          v-if="!advert.is_favorited"
-          class="w-6 h-6"
-        />
-        <HeartSolidIcon
-          v-else
-          class="w-6 h-6 text-red-500"
-        />
-      </button>
+      <div class="flex justify-between items-center mt-4">
+        <button @click="toggleLike(advert)">
+          <HeartIcon
+            v-if="!advert.is_favorited"
+            class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
+          />
+          <HeartSolidIcon
+            v-else
+            class="w-6 h-6 text-red-500"
+          />
+        </button>
+        <Link
+          :href="route('adverts.show', advert.id)"
+          class="text-blue-600 hover:underline"
+        >
+          Детальніше
+        </Link>
+      </div>
     </div>
   </div>
 </template>

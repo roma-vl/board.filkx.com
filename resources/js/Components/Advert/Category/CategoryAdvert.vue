@@ -24,16 +24,16 @@ const toggleViewMode = () => {
   >
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center gap-4">
-        <h2 class="text-xl font-semibold text-gray-800">
-          Знайдено {{ adverts.total }} оголошень
+        <h2 class="text-2xl font-bold text-gray-800">
+          🔍 Знайдено <span class="text-indigo-600">{{ adverts.total }}</span> оголошень
         </h2>
         <div class="flex items-center gap-2 ml-4">
           <button
             :class="[
-              'p-2 rounded-md transition-colors duration-200',
+              'p-2 rounded-xl shadow-md transition-all duration-300 border',
               viewMode === 'grid'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+                ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white border-none shadow-lg scale-105'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105',
             ]"
             title="Сітка"
             @click="toggleViewMode"
@@ -55,10 +55,10 @@ const toggleViewMode = () => {
           </button>
           <button
             :class="[
-              'p-2 rounded-md transition-colors duration-200',
+              'p-2 rounded-xl shadow-md transition-all duration-300 border',
               viewMode === 'list'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+                ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white border-none shadow-lg scale-105'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105',
             ]"
             title="Список"
             @click="toggleViewMode"
@@ -80,7 +80,7 @@ const toggleViewMode = () => {
           </button>
         </div>
       </div>
-      <div class="text-sm text-gray-500">
+      <div class="text-sm text-gray-500 italic">
         Сторінка {{ adverts.page }} з {{ adverts.last_page }}
       </div>
     </div>

@@ -7,19 +7,6 @@ const { searchQuery, showSuggestions, searchHistory, searchRecommendations, remo
 
 defineExpose({ searchQuery });
 
-const handleClickOutside = (event) => {
-  if (!event.target.closest('.search-container')) {
-    showSuggestions.value = false;
-  }
-};
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
-
 const props = defineProps({
   modelValue: {
     type: String,
@@ -47,10 +34,24 @@ const selectSuggestion = (text) => {
   emit('update:modelValue', text);
   showSuggestions.value = false;
 };
+
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.search-container')) {
+    showSuggestions.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
-  <div class="relative w-full">
+  <div class="relative w-full search-container">
     <input
       v-model="inputValue"
       type="text"
@@ -59,38 +60,42 @@ const selectSuggestion = (text) => {
       @focus="showSuggestions = true"
     >
     <ul
-      v-if="showSuggestions && searchHistory.length"
-      class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 search-container"
+      v-if="showSuggestions && (searchHistory.length || searchRecommendations.length)"
+      class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10"
     >
-      <div class="text-sm text-gray-400 uppercase p-1 pl-4">
-        Ви нещодавно шукали
-      </div>
-      <li
-        v-for="(suggestion, index) in searchHistory"
-        :key="index"
-        class="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
-        @click="selectSuggestion(suggestion)"
-      >
-        {{ suggestion }}
-        <button
-          class="text-red-500 text-lg hover:text-red-700 transition duration-200"
-          @click.stop="removeSuggestion(index)"
+      <template v-if="searchHistory.length">
+        <li class="text-sm text-gray-400 uppercase p-1 pl-4">
+          Ви нещодавно шукали
+        </li>
+        <li
+          v-for="(suggestion, index) in searchHistory"
+          :key="'history-' + index"
+          class="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+          @click="selectSuggestion(suggestion)"
         >
-          ×
-        </button>
-      </li>
+          {{ suggestion }}
+          <button
+            class="text-red-500 text-lg hover:text-red-700 transition duration-200"
+            @click.stop="removeSuggestion(index)"
+          >
+            ×
+          </button>
+        </li>
+      </template>
 
-      <div class="text-sm text-gray-400 uppercase p-1 pl-4">
-        Рекомендації
-      </div>
-      <li
-        v-for="(suggestion, index) in searchRecommendations"
-        :key="index"
-        class="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
-        @click="selectSuggestion(suggestion)"
-      >
-        {{ suggestion }}
-      </li>
+      <template v-if="searchRecommendations.length">
+        <li class="text-sm text-gray-400 uppercase p-1 pl-4">
+          Рекомендації
+        </li>
+        <li
+          v-for="(suggestion, index) in searchRecommendations"
+          :key="'recommendation-' + index"
+          class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+          @click="selectSuggestion(suggestion)"
+        >
+          {{ suggestion }}
+        </li>
+      </template>
     </ul>
   </div>
 </template>

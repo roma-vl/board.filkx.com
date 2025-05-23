@@ -198,19 +198,21 @@ onMounted(async () => {
       format: '240x400',
     },
   });
+  console.log(res, 'res.data.banner');
   banner.value = res.data.banner;
 });
 </script>
 
 <template>
-  <Head title="Категорії оголошень " />
+  <Head title="Категорії оголошень" />
   <AuthenticatedLayout>
-    <div class="py-2">
+    <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 bg-white">
+        <div class="bg-white shadow-xl rounded-3xl ring-1 ring-gray-200 overflow-hidden">
+          <div class="p-8 bg-gradient-to-br from-white to-gray-50">
+            <!-- Пошук -->
             <div
-              class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow-md search-container"
+              class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >
               <SearchInput
                 v-model="searchQuery"
@@ -222,22 +224,25 @@ onMounted(async () => {
                   @select-city="handleCitySelect"
                 />
                 <button
-                  class="px-8 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:shadow-2xl transition"
+                  class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search(getCategorySlugs(props.categoryFilters))"
                 >
-                  Пошук
+                  🔍 Пошук
                 </button>
               </div>
             </div>
 
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            <!-- Фільтри -->
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-6 border-b border-gray-200 pb-2">
               Фільтри
             </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-4">
-              <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Обрати категорію
-                </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+              <!-- Категорії -->
+              <div
+                class="bg-white border border-gray-100 rounded-2xl p-5 shadow-md transition-all hover:shadow-lg"
+              >
+                <label class="block text-sm font-semibold text-gray-700 mb-2"> Категорія </label>
                 <CategoryDropdown
                   v-model="queryFilter.category_id"
                   :category-filters="props.categoryFilters"
@@ -249,16 +254,16 @@ onMounted(async () => {
               <div
                 v-for="(attribute, index) in selectedCategoryAttributes"
                 :key="index"
-                class="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm"
+                class="bg-white border border-gray-100 rounded-2xl p-5 shadow-md transition-all hover:shadow-lg"
               >
-                <label class="block text-sm font-medium text-gray-700 mb-2">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
                   {{ attribute.name }}
                 </label>
 
                 <select
                   v-if="attribute.variants && attribute.variants.length"
                   v-model="queryFilter[attribute.id]"
-                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                 >
                   <option value="">
                     Обрати
@@ -274,19 +279,19 @@ onMounted(async () => {
 
                 <div
                   v-else-if="attribute.type === 'integer'"
-                  class="flex gap-2"
+                  class="flex gap-3"
                 >
                   <input
                     v-model="queryFilter[`${attribute.id}_from`]"
                     type="number"
-                    :placeholder="`Від`"
-                    class="w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Від"
+                    class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                   >
                   <input
                     v-model="queryFilter[`${attribute.id}_to`]"
                     type="number"
-                    :placeholder="`До`"
-                    class="w-1/2 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="До"
+                    class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                   >
                 </div>
 
@@ -294,31 +299,27 @@ onMounted(async () => {
                   v-else-if="attribute.type === 'string'"
                   v-model="queryFilter[attribute.id]"
                   type="text"
-                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                 >
               </div>
             </div>
+
+            <!-- Хлібні крихти -->
             <Breadcrumbs
               class="mb-6"
               :categories="props.categories"
               :locations="props.locations"
             />
 
+            <!-- Дочірні категорії -->
             <ChildCategories
               :child-categories="props.childCategories"
               :categories-counts="props.categoriesCounts"
               :categories="props.categories"
             />
-            <h2
-              v-if="queryFilter.query"
-              class="text-lg font-semibold text-gray-800 mb-4 mt-4"
-            >
-              Пошук за запитом : {{ queryFilter.query }}
-            </h2>
 
             <div v-if="adverts.data.length">
               <CategoryAdvert :adverts="adverts" />
-              <Get :banner="banner" />
             </div>
             <div
               v-else
@@ -328,6 +329,7 @@ onMounted(async () => {
                 Нічого не знайдено.
               </h2>
             </div>
+            <Get :banner="banner" />
           </div>
         </div>
       </div>

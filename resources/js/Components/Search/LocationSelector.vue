@@ -16,6 +16,7 @@ const {
   searchCities,
   selectCity,
 } = useLocationSearch();
+
 const props = defineProps({
   modelValue: {
     type: [Object, String],
@@ -23,27 +24,9 @@ const props = defineProps({
   },
 });
 
-watch(citySearchQuery, searchCities);
-
-defineExpose({ selectCity, citySearchQuery });
-
-const handleClickOutside = (event) => {
-  if (!event.target.closest('.search-container')) {
-    showLocationDropdown.value = false;
-    selectedRegion.value = false;
-  }
-};
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
-
 const emit = defineEmits(['update:modelValue', 'select-city']);
 
-const inputValue = ref(props.modelValue.name);
+const inputValue = ref(props.modelValue.name || '');
 
 watch(
   () => props.modelValue,
@@ -59,10 +42,29 @@ watch(
 watch(inputValue, (newVal) => {
   emit('update:modelValue', newVal);
 });
+
+watch(citySearchQuery, searchCities);
+
+defineExpose({ selectCity, citySearchQuery });
+
+const handleClickOutside = (event) => {
+  if (!event.target.closest('.search-container')) {
+    showLocationDropdown.value = false;
+    selectedRegion.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 </script>
 
 <template>
-  <div class="relative w-[250px]">
+  <div class="relative w-[250px] search-container">
     <input
       v-model="citySearchQuery"
       type="text"

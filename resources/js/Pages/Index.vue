@@ -59,11 +59,13 @@ const subCategories = computed(() => {
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
-          <div class="container mx-auto p-4">
+        <div class="overflow-hidden bg-white shadow-md sm:rounded-3xl p-6">
+          <div class="container mx-auto">
             <FlashMessage :flash="flash" />
+
+            <!-- Пошук -->
             <div
-              class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg shadow-md search-container"
+              class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >
               <SearchInput
                 v-model="searchQuery"
@@ -75,34 +77,35 @@ const subCategories = computed(() => {
                   @select-city="handleCitySelect"
                 />
                 <button
-                  class="px-8 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:shadow-2xl transition"
+                  class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search"
                 >
-                  Пошук
+                  🔍 Пошук
                 </button>
               </div>
             </div>
 
-            <section class="my-8">
-              <h2 class="text-xl font-semibold mb-4 text-center">
+            <!-- Категорії -->
+            <section class="my-10">
+              <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
                 Розділи на сервісі
               </h2>
-              <div class="grid grid-cols-3 md:grid-cols-6 gap-4 items-start">
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
                 <template
                   v-for="category in categories"
                   :key="category.id"
                 >
                   <div class="text-center">
                     <button
-                      class="p-3 shadow rounded bg-gray-100 hover:bg-gray-200 w-full min-h-[120px]"
+                      class="p-4 rounded-2xl bg-white hover:bg-gray-100 shadow-lg w-full h-full flex flex-col justify-center items-center"
                       @click="toggleCategory(category.id)"
                     >
                       <img
                         src="https://categories.olxcdn.com/assets/categories/olxua/arenda-prokat-3428-1x.png"
                         alt="Іконка"
-                        class="w-12 h-12 mx-auto"
+                        class="w-12 h-12"
                       >
-                      <span class="text-sm mt-2 hover:underline">
+                      <span class="text-sm mt-2 font-medium text-gray-700">
                         {{ category.name }}
                       </span>
                     </button>
@@ -112,32 +115,28 @@ const subCategories = computed(() => {
                 <transition name="fade">
                   <div
                     v-if="openCategory && subCategories.length > 0"
-                    class="col-span-full bg-white shadow-md rounded p-4 mt-2"
+                    class="col-span-full bg-white rounded-2xl shadow-lg p-6"
                   >
-                    <p class="pb-3">
-                      <span class="font-bold text-sm"> > Переглянути всі оголошення в </span>
+                    <p class="text-sm font-semibold mb-4">
+                      Переглянути всі оголошення в
                       <a
                         :href="fullPath() + '/' + selectedCategory.slug"
-                        class="text-sm hover:underline cursor-pointer"
+                        class="text-blue-600 hover:underline"
                       >
                         {{ selectedCategory.name }}
                       </a>
                     </p>
-                    <hr>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <template
                         v-for="subCategory in subCategories"
                         :key="subCategory.id"
                       >
-                        <p class="text-sm hover:underline cursor-pointer">
-                          <a
-                            :href="
-                              fullPath() + '/' + selectedCategory.slug + '/' + subCategory.slug
-                            "
-                          >
-                            {{ subCategory.name }}
-                          </a>
-                        </p>
+                        <a
+                          :href="fullPath() + '/' + selectedCategory.slug + '/' + subCategory.slug"
+                          class="text-sm text-gray-700 hover:underline"
+                        >
+                          {{ subCategory.name }}
+                        </a>
                       </template>
                     </div>
                   </div>
@@ -145,135 +144,101 @@ const subCategories = computed(() => {
               </div>
             </section>
 
-            <section class="bg-gray-100 p-6 rounded">
-              <h2 class="text-xl font-semibold mb-4">
+            <!-- VIP-оголошення -->
+            <section class="bg-white p-6">
+              <h2 class="text-2xl font-bold mb-6 text-gray-800">
                 VIP-оголошення
               </h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <template
                   v-for="listing in vip"
                   :key="listing.id"
-                  class="border p-2 rounded shadow"
                 >
-                  <img
-                    :src="getFullPathForImage(listing.first_photo?.file)"
-                    alt="Фото"
-                    class="w-full object-cover rounded h-48"
+                  <div
+                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white"
                   >
-                  <h3 class="mt-2 text-lg font-semibold">
-                    {{ listing.title }}
-                  </h3>
-                  <p class="text-green-600 font-bold">
-                    {{ listing.price }}
-                  </p>
-                  <button
-                    class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
-                    @click="toggleLike(listing)"
-                  >
-                    <HeartIcon
-                      v-if="!listing.is_favorited"
-                      class="w-6 h-6"
-                    />
-                    <HeartSolidIcon
-                      v-else
-                      class="w-6 h-6 text-red-500"
-                    />
-                  </button>
-                  <Link
-                    :href="route('adverts.show', listing.id)"
-                    class="text-blue-500 hover:underline"
-                  >
-                    Детальніше
-                  </Link>
-                </div>
+                    <img
+                      :src="getFullPathForImage(listing.first_photo?.file)"
+                      alt="Фото"
+                      class="w-full h-48 object-cover"
+                    >
+                    <div class="p-4">
+                      <h3 class="text-lg font-semibold text-gray-800">
+                        {{ listing.title }}
+                      </h3>
+                      <p class="text-green-600 font-bold text-md">
+                        {{ listing.price }}
+                      </p>
+                      <div class="flex justify-between items-center mt-4">
+                        <button @click="toggleLike(listing)">
+                          <HeartIcon
+                            v-if="!listing.is_favorited"
+                            class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
+                          />
+                          <HeartSolidIcon
+                            v-else
+                            class="w-6 h-6 text-red-500"
+                          />
+                        </button>
+                        <Link
+                          :href="route('adverts.show', listing.id)"
+                          class="text-blue-600 hover:underline"
+                        >
+                          Детальніше
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </template>
               </div>
             </section>
 
-            <section class="p-6 rounded mt-6">
-              <h2 class="text-xl font-semibold mb-4">
+            <!-- Останні оголошення -->
+            <section class="p-6 mt-10 bg-white">
+              <h2 class="text-2xl font-bold mb-6 text-gray-800">
                 Останні оголошення
               </h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <template
                   v-for="listing in news"
                   :key="listing.id"
-                  class="border p-2 rounded shadow"
                 >
-                  <img
-                    :src="getFullPathForImage(listing.first_photo?.file)"
-                    alt="Фото"
-                    class="w-full object-cover rounded h-48"
+                  <div
+                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white"
                   >
-                  <h3 class="mt-2 text-lg font-semibold">
-                    {{ listing.title }}
-                  </h3>
-                  <p class="text-green-600 font-bold">
-                    {{ listing.price }}
-                  </p>
-                  <button
-                    class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
-                    @click="toggleLike(listing)"
-                  >
-                    <HeartIcon
-                      v-if="!listing.is_favorited"
-                      class="w-6 h-6"
-                    />
-                    <HeartSolidIcon
-                      v-else
-                      class="w-6 h-6 text-red-500"
-                    />
-                  </button>
-                  <Link
-                    :href="route('adverts.show', listing.id)"
-                    class="text-blue-500 hover:underline"
-                  >
-                    Детальніше
-                  </Link>
-                </div>
-              </div>
-            </section>
-
-            <section class="p-6 rounded mt-6">
-              <h2 class="text-xl font-semibold mb-4">
-                Ви переглядали
-              </h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div
-                  v-for="listing in news"
-                  :key="listing.id"
-                  class="border p-2 rounded shadow"
-                >
-                  <img
-                    :src="getFullPathForImage(listing.first_photo?.file)"
-                    alt="Фото"
-                    class="w-full object-cover rounded h-48"
-                  >
-                  <h3 class="mt-2 text-lg font-semibold">
-                    {{ listing.title }}
-                  </h3>
-                  <p class="text-green-600 font-bold">
-                    {{ listing.price }}
-                  </p>
-                  <button
-                    class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
-                    @click="toggleLike(listing)"
-                  >
-                    <HeartIcon
-                      v-if="!listing.is_favorited"
-                      class="w-6 h-6"
-                    />
-                    <HeartSolidIcon
-                      v-else
-                      class="w-6 h-6 text-red-500"
-                    />
-                  </button>
-                  <Link
-                    :href="route('adverts.show', listing.id)"
-                    class="text-blue-500 hover:underline"
-                  >
-                    Детальніше
-                  </Link>
-                </div>
+                    <img
+                      :src="getFullPathForImage(listing.first_photo?.file)"
+                      alt="Фото"
+                      class="w-full h-48 object-cover"
+                    >
+                    <div class="p-4">
+                      <h3 class="text-lg font-semibold text-gray-800">
+                        {{ listing.title }}
+                      </h3>
+                      <p class="text-green-600 font-bold text-md">
+                        {{ listing.price }}
+                      </p>
+                      <div class="flex justify-between items-center mt-4">
+                        <button @click="toggleLike(listing)">
+                          <HeartIcon
+                            v-if="!listing.is_favorited"
+                            class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
+                          />
+                          <HeartSolidIcon
+                            v-else
+                            class="w-6 h-6 text-red-500"
+                          />
+                        </button>
+                        <Link
+                          :href="route('adverts.show', listing.id)"
+                          class="text-blue-600 hover:underline"
+                        >
+                          Детальніше
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </template>
               </div>
             </section>
           </div>
@@ -283,3 +248,14 @@ const subCategories = computed(() => {
     <CookieBanner />
   </AuthenticatedLayout>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
