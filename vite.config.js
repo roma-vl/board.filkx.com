@@ -20,4 +20,8 @@ export default defineConfig({
   server: {
     host: true,
   },
+  // server: {
+  //     https: true,
+  //     host: '0.0.0.0',
+  // },
 });

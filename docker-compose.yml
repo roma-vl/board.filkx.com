@@ -48,9 +48,10 @@ services:
     networks:
       - sail
     healthcheck:
-      test: ['CMD', 'mysqladmin', 'ping', '-p${DB_PASSWORD}']
-      retries: 3
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
       timeout: 5s
+      retries: 10
   redis:
     image: 'redis:alpine'
     restart: always

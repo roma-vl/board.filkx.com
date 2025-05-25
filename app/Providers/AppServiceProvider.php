@@ -21,6 +21,8 @@ use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 
+// use URL;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -40,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //        if (app()->environment('local')) {
+        //            URL::forceScheme('https');
+        //        }
         $locale = Auth::user()?->locale ?? Session::get('locale') ?? config('app.locale');
         App::setLocale($locale);
         Vite::prefetch(concurrency: 3);
