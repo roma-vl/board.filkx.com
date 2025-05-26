@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
       placeholder="Оберіть область"
       class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
       @focus="resetLocation"
-    />
+    >
     <div
       v-if="showLocationDropdown"
       class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
@@ -88,7 +88,12 @@ onBeforeUnmount(() => {
       </ul>
       <div v-else>
         <ul v-if="regions.length && !cities.length">
-          <li v-if="loadingRegions" class="px-4 py-2 text-gray-400">Завантаження...</li>
+          <li
+            v-if="loadingRegions"
+            class="px-4 py-2 text-gray-400"
+          >
+            Завантаження...
+          </li>
           <li
             v-for="region in regions"
             :key="region.id"
@@ -100,7 +105,12 @@ onBeforeUnmount(() => {
         </ul>
 
         <ul v-else>
-          <li v-if="loadingCities" class="px-4 py-2 text-gray-400">Завантаження міст...</li>
+          <li
+            v-if="loadingCities"
+            class="px-4 py-2 text-gray-400"
+          >
+            Завантаження міст...
+          </li>
           <li
             class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
             @click="resetLocation"

@@ -34,8 +34,12 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
         </div>
 
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
-          <h1 class="text-2xl font-bold">Категорія: {{ props.page.title }}</h1>
-          <p class="text-gray-600">Slug: {{ props.page.slug }}</p>
+          <h1 class="text-2xl font-bold">
+            Категорія: {{ props.page.title }}
+          </h1>
+          <p class="text-gray-600">
+            Slug: {{ props.page.slug }}
+          </p>
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="decodedContent" />
         </div>

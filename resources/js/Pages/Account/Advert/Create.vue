@@ -143,9 +143,12 @@ onBeforeUnmount(() => {
                   v-model="form.title"
                   type="text"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
+                >
               </div>
-              <InputError class="mt-2" :message="form.errors.title" />
+              <InputError
+                class="mt-2"
+                :message="form.errors.title"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Ціна</label>
@@ -154,9 +157,12 @@ onBeforeUnmount(() => {
                   type="number"
                   required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
+                >
               </div>
-              <InputError class="mt-2" :message="form.errors.price" />
+              <InputError
+                class="mt-2"
+                :message="form.errors.price"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Категорія</label>
@@ -173,7 +179,10 @@ onBeforeUnmount(() => {
                   </option>
                 </select>
               </div>
-              <InputError class="mt-2" :message="form.errors.category_id" />
+              <InputError
+                class="mt-2"
+                :message="form.errors.category_id"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Фото</label>
@@ -188,7 +197,7 @@ onBeforeUnmount(() => {
                     type="text"
                     class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
                     placeholder="Почніть вводити адресу"
-                  />
+                  >
 
                   <div
                     v-if="showLocationDropdown"
@@ -215,7 +224,7 @@ onBeforeUnmount(() => {
                   type="text"
                   required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
+                >
               </div>
 
               <div class="mb-4">
@@ -225,12 +234,24 @@ onBeforeUnmount(() => {
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
-              <InputError class="mt-2" :message="form.errors.content" />
+              <InputError
+                class="mt-2"
+                :message="form.errors.content"
+              />
 
               <div v-if="attributes && attributes.length > 0">
-                <h3 class="text-lg font-medium">Атрибути</h3>
-                <div v-for="attribute in attributes" :key="attribute.id" class="mb-4">
-                  <label :for="'attribute_' + attribute.id" class="block text-sm font-medium mb-2">
+                <h3 class="text-lg font-medium">
+                  Атрибути
+                </h3>
+                <div
+                  v-for="attribute in attributes"
+                  :key="attribute.id"
+                  class="mb-4"
+                >
+                  <label
+                    :for="'attribute_' + attribute.id"
+                    class="block text-sm font-medium mb-2"
+                  >
                     {{ attribute.name }}
                   </label>
 
@@ -241,7 +262,11 @@ onBeforeUnmount(() => {
                       class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                     >
                       <option value="" />
-                      <option v-for="variant in attribute.variants" :key="variant" :value="variant">
+                      <option
+                        v-for="variant in attribute.variants"
+                        :key="variant"
+                        :value="variant"
+                      >
                         {{ variant }}
                       </option>
                     </select>
@@ -253,7 +278,7 @@ onBeforeUnmount(() => {
                       v-model="form.attributes[attribute.id]"
                       type="number"
                       class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    />
+                    >
                   </template>
 
                   <template v-else>
@@ -262,7 +287,7 @@ onBeforeUnmount(() => {
                       v-model="form.attributes[attribute.id]"
                       type="text"
                       class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    />
+                    >
                   </template>
                 </div>
               </div>

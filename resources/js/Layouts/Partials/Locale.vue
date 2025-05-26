@@ -4,10 +4,16 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 </script>
 
 <template>
-  <Dropdown align="right" width="18">
+  <Dropdown
+    align="right"
+    width="18"
+  >
     <template #trigger>
       <span class="inline-flex rounded-md">
-        <button type="button" class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200 rounded">
+        <button
+          type="button"
+          class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200 rounded"
+        >
           {{ $page.props.locale === 'uk' ? '🇺🇦' : '🇬🇧' }}
         </button>
       </span>
@@ -18,9 +24,20 @@ import DropdownLink from '@/Components/DropdownLink.vue';
         :href="route('greeting', { locale: 'uk' })"
         class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-          <path d="M31,8c0-2.209-1.791-4-4-4H5c-2.209,0-4,1.791-4,4v9H31V8Z" fill="#2455b2" />
-          <path d="M5,28H27c2.209,0,4-1.791,4-4v-8H1v8c0,2.209,1.791,4,4,4Z" fill="#f9da49" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            d="M31,8c0-2.209-1.791-4-4-4H5c-2.209,0-4,1.791-4,4v9H31V8Z"
+            fill="#2455b2"
+          />
+          <path
+            d="M5,28H27c2.209,0,4-1.791,4-4v-8H1v8c0,2.209,1.791,4,4,4Z"
+            fill="#f9da49"
+          />
           <path
             d="M5,28H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4ZM2,8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8Z"
             opacity=".15"
@@ -36,8 +53,21 @@ import DropdownLink from '@/Components/DropdownLink.vue';
         class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200"
         :href="route('greeting', { locale: 'en' })"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-          <rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#fff" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <rect
+            x="1"
+            y="4"
+            width="30"
+            height="24"
+            rx="4"
+            ry="4"
+            fill="#fff"
+          />
           <path
             d="M1.638,5.846H30.362c-.711-1.108-1.947-1.846-3.362-1.846H5c-1.414,0-2.65,.738-3.362,1.846Z"
             fill="#a62842"
@@ -46,9 +76,18 @@ import DropdownLink from '@/Components/DropdownLink.vue';
             d="M2.03,7.692c-.008,.103-.03,.202-.03,.308v1.539H31v-1.539c0-.105-.022-.204-.03-.308H2.03Z"
             fill="#a62842"
           />
-          <path fill="#a62842" d="M2 11.385H31V13.231H2z" />
-          <path fill="#a62842" d="M2 15.077H31V16.923000000000002H2z" />
-          <path fill="#a62842" d="M1 18.769H31V20.615H1z" />
+          <path
+            fill="#a62842"
+            d="M2 11.385H31V13.231H2z"
+          />
+          <path
+            fill="#a62842"
+            d="M2 15.077H31V16.923000000000002H2z"
+          />
+          <path
+            fill="#a62842"
+            d="M1 18.769H31V20.615H1z"
+          />
           <path
             d="M1,24c0,.105,.023,.204,.031,.308H30.969c.008-.103,.031-.202,.031-.308v-1.539H1v1.539Z"
             fill="#a62842"
@@ -57,7 +96,10 @@ import DropdownLink from '@/Components/DropdownLink.vue';
             d="M30.362,26.154H1.638c.711,1.108,1.947,1.846,3.362,1.846H27c1.414,0,2.65-.738,3.362-1.846Z"
             fill="#a62842"
           />
-          <path d="M5,4h11v12.923H1V8c0-2.208,1.792-4,4-4Z" fill="#102d5e" />
+          <path
+            d="M5,4h11v12.923H1V8c0-2.208,1.792-4,4-4Z"
+            fill="#102d5e"
+          />
           <path
             d="M27,4H5c-2.209,0-4,1.791-4,4V24c0,2.209,1.791,4,4,4H27c2.209,0,4-1.791,4-4V8c0-2.209-1.791-4-4-4Zm3,20c0,1.654-1.346,3-3,3H5c-1.654,0-3-1.346-3-3V8c0-1.654,1.346-3,3-3H27c1.654,0,3,1.346,3,3V24Z"
             opacity=".15"

@@ -214,9 +214,15 @@ onMounted(async () => {
             <div
               class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >
-              <SearchInput v-model="searchQuery" @select-suggestion="handleSearch" />
+              <SearchInput
+                v-model="searchQuery"
+                @select-suggestion="handleSearch"
+              />
               <div class="flex items-center gap-4">
-                <LocationSelector v-model="cityIdSearchQuery" @select-city="handleCitySelect" />
+                <LocationSelector
+                  v-model="cityIdSearchQuery"
+                  @select-city="handleCitySelect"
+                />
                 <button
                   class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search(getCategorySlugs(props.categoryFilters))"
@@ -264,24 +270,31 @@ onMounted(async () => {
                   <option value="">
                     {{ $t('filters.select') }}
                   </option>
-                  <option v-for="(variant, i) in attribute.variants" :key="i" :value="variant">
+                  <option
+                    v-for="(variant, i) in attribute.variants"
+                    :key="i"
+                    :value="variant"
+                  >
                     {{ variant }}
                   </option>
                 </select>
 
-                <div v-else-if="attribute.type === 'integer'" class="flex gap-3">
+                <div
+                  v-else-if="attribute.type === 'integer'"
+                  class="flex gap-3"
+                >
                   <input
                     v-model="queryFilter[`${attribute.id}_from`]"
                     type="number"
                     :placeholder="$t('filters.from')"
                     class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-                  />
+                  >
                   <input
                     v-model="queryFilter[`${attribute.id}_to`]"
                     type="number"
                     :placeholder="$t('filters.to')"
                     class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-                  />
+                  >
                 </div>
 
                 <input
@@ -289,12 +302,16 @@ onMounted(async () => {
                   v-model="queryFilter[attribute.id]"
                   type="text"
                   class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-                />
+                >
               </div>
             </div>
 
             <!-- Хлібні крихти -->
-            <Breadcrumbs class="mb-6" :categories="props.categories" :locations="props.locations" />
+            <Breadcrumbs
+              class="mb-6"
+              :categories="props.categories"
+              :locations="props.locations"
+            />
 
             <!-- Дочірні категорії -->
             <ChildCategories
@@ -306,7 +323,10 @@ onMounted(async () => {
             <div v-if="adverts.data.length">
               <CategoryAdvert :adverts="adverts" />
             </div>
-            <div v-else class="m-32 text-lg">
+            <div
+              v-else
+              class="m-32 text-lg"
+            >
               <h2 class="text-xl mb-4 text-center">
                 {{ $t('search.empty') }}
               </h2>

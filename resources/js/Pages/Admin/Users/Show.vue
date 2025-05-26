@@ -30,9 +30,7 @@ defineProps({
                 d="M19 9l-7 7-7-7"
               />
             </svg>
-            <span class="ml-2 text-lg font-semibold text-gray-800"
-              >ID: {{ user.id }} | {{ user.name }} {{ user.role }}</span
-            >
+            <span class="ml-2 text-lg font-semibold text-gray-800">ID: {{ user.id }} | {{ user.name }} {{ user.role }}</span>
           </div>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             {{ user.status ? 'Active' : 'Inactive' }}
@@ -42,24 +40,34 @@ defineProps({
           <div class="border-b-2 border-gray-200 w-full">
             <ul class="flex justify-around">
               <li class="text-center">
-                <a href="#" class="text-blue-500 pb-2 border-b-2 border-blue-500 font-semibold"
-                  >Overview</a
-                >
+                <a
+                  href="#"
+                  class="text-blue-500 pb-2 border-b-2 border-blue-500 font-semibold"
+                >Overview</a>
               </li>
               <li class="text-center">
-                <a href="#" class="text-gray-600 pb-2 hover:text-blue-500">Goal</a>
+                <a
+                  href="#"
+                  class="text-gray-600 pb-2 hover:text-blue-500"
+                >Goal</a>
               </li>
             </ul>
           </div>
         </div>
-        <div v-if="user.avatar_url" class="flex justify-center mb-6">
+        <div
+          v-if="user.avatar_url"
+          class="flex justify-center mb-6"
+        >
           <img
             :src="user.avatar_url"
             alt="Profile"
             class="rounded-lg border-2 border-green-500 p-1 max-w-[300px]"
-          />
+          >
         </div>
-        <div v-else class="flex justify-center mb-6">
+        <div
+          v-else
+          class="flex justify-center mb-6"
+        >
           <AvatarIcon class="max-w-[300px]" />
         </div>
 
@@ -87,7 +95,9 @@ defineProps({
                 d="M17 9l-5 5-5-5"
               />
             </svg>
-            <p class="text-lg font-semibold mt-2">Створено</p>
+            <p class="text-lg font-semibold mt-2">
+              Створено
+            </p>
             <p class="text-sm text-gray-600">
               {{ user.created_at }}
             </p>
@@ -107,7 +117,9 @@ defineProps({
                 d="M8 10h.01M12 10h.01M16 10h.01M12 6h.01M12 14h.01"
               />
             </svg>
-            <p class="text-lg font-semibold mt-2">Остання зміна</p>
+            <p class="text-lg font-semibold mt-2">
+              Остання зміна
+            </p>
             <p class="text-sm text-gray-600">
               {{ user.updated_at }}
             </p>

@@ -59,9 +59,14 @@ function getIcon(key) {
         <div class="flex bg-white shadow sm:rounded-lg overflow-hidden">
           <!-- Sidebar -->
           <aside class="w-1/4 bg-gray-50 border-r p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-700">Групи налаштувань</h2>
+            <h2 class="text-lg font-bold mb-4 text-gray-700">
+              Групи налаштувань
+            </h2>
             <ul class="space-y-1">
-              <li v-for="(label, key) in groups" :key="key">
+              <li
+                v-for="(label, key) in groups"
+                :key="key"
+              >
                 <Link
                   :href="route('admin.settings.edit', key)"
                   class="flex items-center gap-3 px-4 py-2 rounded transition duration-150"
@@ -71,7 +76,10 @@ function getIcon(key) {
                   }"
                 >
                   <!-- eslint-disable vue/no-v-html -->
-                  <span class="w-5 h-5 shrink-0" v-html="getIcon(key)" />
+                  <span
+                    class="w-5 h-5 shrink-0"
+                    v-html="getIcon(key)"
+                  />
                   <!-- eslint-enable vue/no-v-html -->
                   <span class="capitalize">{{ key.replace('_', ' ') }}</span>
                 </Link>
@@ -83,15 +91,28 @@ function getIcon(key) {
           <div class="w-3/4 p-6">
             <FlashMessage :flash="flash" />
 
-            <div v-if="!props.group" class="text-gray-500 italic">
+            <div
+              v-if="!props.group"
+              class="text-gray-500 italic"
+            >
               Виберіть групу для редагування
             </div>
-            <form v-else class="space-y-6" @submit.prevent="submit">
+            <form
+              v-else
+              class="space-y-6"
+              @submit.prevent="submit"
+            >
               <template v-if="props.group === 'general'">
-                <h2 class="text-lg font-bold mb-4 text-gray-700">Головні налаштування</h2>
+                <h2 class="text-lg font-bold mb-4 text-gray-700">
+                  Головні налаштування
+                </h2>
                 <div>
                   <label class="block font-semibold mb-1">Site Name</label>
-                  <input v-model="form.site_name" class="border rounded p-2 w-full" required />
+                  <input
+                    v-model="form.site_name"
+                    class="border rounded p-2 w-full"
+                    required
+                  >
                 </div>
                 <div>
                   <label class="inline-flex items-center gap-2">
@@ -99,7 +120,7 @@ function getIcon(key) {
                       v-model="form.maintenance_mode"
                       type="checkbox"
                       class="p-2.5 rounded shadow"
-                    />
+                    >
                     Maintenance Mode
                     <TooltipIcon message="Вручну потушити сайт" />
                   </label>
@@ -107,14 +128,16 @@ function getIcon(key) {
               </template>
 
               <template v-else-if="props.group === 'user'">
-                <h2 class="text-lg font-bold mb-4 text-gray-700">Налаштування Користувачів</h2>
+                <h2 class="text-lg font-bold mb-4 text-gray-700">
+                  Налаштування Користувачів
+                </h2>
                 <div>
                   <label class="inline-flex items-center gap-2 relative group">
                     <input
                       v-model="form.allow_registration"
                       type="checkbox"
                       class="p-2.5 rounded shadow"
-                    />
+                    >
                     Allow Registration
                     <TooltipIcon message="Дозволити новим користувачам реєструватися" />
                   </label>
@@ -125,7 +148,7 @@ function getIcon(key) {
                       v-model="form.require_email_verification"
                       type="checkbox"
                       class="p-2.5 rounded shadow"
-                    />
+                    >
                     Require Email Verification
                     <TooltipIcon message="Нові користувачі мають обовязково підтверджувати пошту" />
                   </label>

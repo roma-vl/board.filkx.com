@@ -39,7 +39,10 @@ const flash = computed(() => usePage().props.flash);
               </a>
             </div>
 
-            <AdvertList :banners="banners" :routes="routes" />
+            <AdvertList
+              :banners="banners"
+              :routes="routes"
+            />
           </div>
         </div>
       </div>

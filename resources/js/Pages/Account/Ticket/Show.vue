@@ -52,15 +52,22 @@ function submitComment() {
                 {{ $t('comments') }}
               </p>
               <div class="border-b border-gray-200 mb-4" />
-              <div v-if="messages.length" class="space-y-6">
-                <div v-for="(msg, index) in messages" :key="index" class="flex items-start gap-4">
+              <div
+                v-if="messages.length"
+                class="space-y-6"
+              >
+                <div
+                  v-for="(msg, index) in messages"
+                  :key="index"
+                  class="flex items-start gap-4"
+                >
                   <img
                     :src="
                       msg.user.avatar_url || 'https://ui-avatars.com/api/?name=' + msg.user.name
                     "
                     class="w-10 h-10 rounded-full object-cover border border-gray-300"
                     :alt="msg.user.name"
-                  />
+                  >
                   <div class="flex-1">
                     <div class="flex justify-between items-center">
                       <span class="font-semibold text-sm text-gray-800">
@@ -76,10 +83,16 @@ function submitComment() {
                   </div>
                 </div>
               </div>
-              <div v-else class="text-gray-500 text-sm italic">
+              <div
+                v-else
+                class="text-gray-500 text-sm italic"
+              >
                 {{ $t('no.comments.yet') }}
               </div>
-              <form class="mt-6" @submit.prevent="submitComment">
+              <form
+                class="mt-6"
+                @submit.prevent="submitComment"
+              >
                 <p class="text-gray-900 text-lg font-bold mb-2">
                   {{ $t('leave.comment') }}
                 </p>

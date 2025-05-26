@@ -79,8 +79,12 @@ const deleteCategory = (attributeId) => {
         <FlashMessage :flash="flash" />
 
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
-          <h1 class="text-2xl font-bold">Категорія: {{ props.category.name }}</h1>
-          <p class="text-gray-600">Slug: {{ props.category.slug }}</p>
+          <h1 class="text-2xl font-bold">
+            Категорія: {{ props.category.name }}
+          </h1>
+          <p class="text-gray-600">
+            Slug: {{ props.category.slug }}
+          </p>
 
           <div class="mb-2 flex justify-end">
             <button
@@ -94,15 +98,28 @@ const deleteCategory = (attributeId) => {
           <table class="w-full mt-4 border-collapse border border-gray-200">
             <thead>
               <tr class="bg-gray-100">
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Назва</th>
-                <th class="border p-2">Тип</th>
-                <th class="border p-2">Обов’язковий</th>
-                <th class="border p-2">Сортування</th>
+                <th class="border p-2">
+                  ID
+                </th>
+                <th class="border p-2">
+                  Назва
+                </th>
+                <th class="border p-2">
+                  Тип
+                </th>
+                <th class="border p-2">
+                  Обов’язковий
+                </th>
+                <th class="border p-2">
+                  Сортування
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="attr in parentAttributes" :key="attr.id">
+              <tr
+                v-for="attr in parentAttributes"
+                :key="attr.id"
+              >
                 <td class="border p-2">
                   {{ attr.id }}
                 </td>
@@ -126,16 +143,31 @@ const deleteCategory = (attributeId) => {
           <table class="w-full mt-4 border-collapse border border-gray-200">
             <thead>
               <tr class="bg-gray-100">
-                <th class="border p-2">ID</th>
-                <th class="border p-2">Назва</th>
-                <th class="border p-2">Тип</th>
-                <th class="border p-2">Обов’язковий</th>
-                <th class="border p-2">Сортування</th>
-                <th class="border p-2">Дії</th>
+                <th class="border p-2">
+                  ID
+                </th>
+                <th class="border p-2">
+                  Назва
+                </th>
+                <th class="border p-2">
+                  Тип
+                </th>
+                <th class="border p-2">
+                  Обов’язковий
+                </th>
+                <th class="border p-2">
+                  Сортування
+                </th>
+                <th class="border p-2">
+                  Дії
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="attr in attributes" :key="attr.id">
+              <tr
+                v-for="attr in attributes"
+                :key="attr.id"
+              >
                 <td class="border p-2">
                   {{ attr.id }}
                 </td>
@@ -172,12 +204,26 @@ const deleteCategory = (attributeId) => {
       </div>
     </div>
 
-    <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
-      <Create :data="selectedCategory" @attribute-created="refreshAttributes" />
+    <Modal
+      :show="isCreateModalOpen"
+      max-width="2xl"
+      @close="isCreateModalOpen = false"
+    >
+      <Create
+        :data="selectedCategory"
+        @attribute-created="refreshAttributes"
+      />
     </Modal>
 
-    <Modal :show="isEditModalOpen" max-width="2xl" @close="isEditModalOpen = false">
-      <Edit :data="selectedCategory" @attribute-updated="refreshAttributes" />
+    <Modal
+      :show="isEditModalOpen"
+      max-width="2xl"
+      @close="isEditModalOpen = false"
+    >
+      <Edit
+        :data="selectedCategory"
+        @attribute-updated="refreshAttributes"
+      />
     </Modal>
   </AdminLayout>
 </template>

@@ -30,10 +30,19 @@ const submit = () => {
 
 <template>
   <div class="max-w-md mx-auto mt-8">
-    <h2 class="text-2xl font-semibold text-gray-700 text-center">Create User</h2>
-    <form class="space-y-4 mt-4 mb-10" @submit.prevent="submit">
+    <h2 class="text-2xl font-semibold text-gray-700 text-center">
+      Create User
+    </h2>
+    <form
+      class="space-y-4 mt-4 mb-10"
+      @submit.prevent="submit"
+    >
       <div>
-        <InputLabel for="name" class="block text-sm font-medium text-gray-700" value="Name" />
+        <InputLabel
+          for="name"
+          class="block text-sm font-medium text-gray-700"
+          value="Name"
+        />
         <TextInput
           id="name"
           v-model="form.name"
@@ -43,10 +52,17 @@ const submit = () => {
           placeholder="Enter name"
         />
       </div>
-      <InputError class="mt-2" :message="form.errors.name" />
+      <InputError
+        class="mt-2"
+        :message="form.errors.name"
+      />
 
       <div>
-        <InputLabel for="email" class="block text-sm font-medium text-gray-700" value="Email" />
+        <InputLabel
+          for="email"
+          class="block text-sm font-medium text-gray-700"
+          value="Email"
+        />
         <TextInput
           id="email"
           v-model="form.email"
@@ -55,7 +71,10 @@ const submit = () => {
           autocomplete="email"
           placeholder="Enter email"
         />
-        <InputError class="mt-2" :message="form.errors.email" />
+        <InputError
+          class="mt-2"
+          :message="form.errors.email"
+        />
       </div>
 
       <div>
@@ -72,13 +91,23 @@ const submit = () => {
           autocomplete="password"
           placeholder="Enter password"
         />
-        <InputError class="mt-2" :message="form.errors.password" />
+        <InputError
+          class="mt-2"
+          :message="form.errors.password"
+        />
       </div>
 
       <div>
         <label for="roles">Roles:</label>
-        <select v-model="form.roles" multiple>
-          <option v-for="role in props.roles" :key="role.id" :value="role.id">
+        <select
+          v-model="form.roles"
+          multiple
+        >
+          <option
+            v-for="role in props.roles"
+            :key="role.id"
+            :value="role.id"
+          >
             {{ role.name }}
           </option>
         </select>

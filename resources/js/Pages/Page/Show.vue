@@ -124,6 +124,7 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <FlashMessage :flash="flash" />
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-html="decodedContent" />
       </div>
     </div>

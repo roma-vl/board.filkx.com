@@ -65,19 +65,36 @@ const processedItems = computed(() => {
               class="flex items-end gap-1 cursor-pointer text-gray-400 hover:text-gray-600"
               :class="{ 'text-gray-900 font-bold': sortField === heading.key }"
             >
-              <ArrowUpDownIcon v-if="heading.sortable" class="w-4 h-4" />
+              <ArrowUpDownIcon
+                v-if="heading.sortable"
+                class="w-4 h-4"
+              />
             </span>
           </div>
         </th>
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-200 border-t border-gray-100">
-      <tr v-for="item in processedItems" :key="item[uniqueKey]" class="hover:bg-gray-50">
-        <td v-for="heading in headings" :key="heading.key" class="px-6 py-4 text-gray-600">
-          <slot :name="`column-${heading.key}`" :row="item">
+      <tr
+        v-for="item in processedItems"
+        :key="item[uniqueKey]"
+        class="hover:bg-gray-50"
+      >
+        <td
+          v-for="heading in headings"
+          :key="heading.key"
+          class="px-6 py-4 text-gray-600"
+        >
+          <slot
+            :name="`column-${heading.key}`"
+            :row="item"
+          >
             <!-- eslint-disable vue/no-v-html -->
 
-            <span v-if="heading.highlight" v-html="item[heading.key]" />
+            <span
+              v-if="heading.highlight"
+              v-html="item[heading.key]"
+            />
             <!-- eslint-enable vue/no-v-html -->
             <span v-else>{{ item[heading.key] }}</span>
           </slot>

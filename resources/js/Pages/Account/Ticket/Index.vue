@@ -47,13 +47,23 @@ const routes = {};
                 + {{ $t('add.ticket') }}
               </button>
             </div>
-            <TicketList :tickets="tickets" :routes="routes" />
+            <TicketList
+              :tickets="tickets"
+              :routes="routes"
+            />
           </div>
         </div>
       </div>
     </div>
-    <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
-      <Create :pages="selectedPages" @page-created="refreshPages" />
+    <Modal
+      :show="isCreateModalOpen"
+      max-width="2xl"
+      @close="isCreateModalOpen = false"
+    >
+      <Create
+        :pages="selectedPages"
+        @page-created="refreshPages"
+      />
     </Modal>
   </AuthenticatedLayout>
 </template>

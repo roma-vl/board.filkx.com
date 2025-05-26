@@ -20,7 +20,10 @@ const remove = (ticketId) => {
 
 <template>
   <div class="bg-white rounded shadow overflow-hidden mb-4">
-    <div v-if="props.tickets.data.length" class="divide-y divide-gray-100">
+    <div
+      v-if="props.tickets.data.length"
+      class="divide-y divide-gray-100"
+    >
       <div
         v-for="ticket in tickets.data"
         :key="ticket.id"
@@ -29,7 +32,10 @@ const remove = (ticketId) => {
         <div class="flex justify-between gap-6 min-h-36">
           <div class="flex-grow flex flex-col justify-between">
             <div>
-              <a :href="route('account.tickets.show', ticket.id)" class="block group">
+              <a
+                :href="route('account.tickets.show', ticket.id)"
+                class="block group"
+              >
                 <h3
                   class="text-2xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200"
                 >
@@ -64,7 +70,10 @@ const remove = (ticketId) => {
               {{ ticket.status }}
             </span>
 
-            <div v-if="props.routes" class="flex items-center gap-3 mt-auto">
+            <div
+              v-if="props.routes"
+              class="flex items-center gap-3 mt-auto"
+            >
               <a
                 v-if="props.routes.edit"
                 :href="route(props.routes.edit, ticket.id)"
@@ -146,6 +155,11 @@ const remove = (ticketId) => {
         </div>
       </div>
     </div>
-    <p v-else class="py-12 text-center text-gray-500 text-lg">У вас немає тікетів.</p>
+    <p
+      v-else
+      class="py-12 text-center text-gray-500 text-lg"
+    >
+      У вас немає тікетів.
+    </p>
   </div>
 </template>

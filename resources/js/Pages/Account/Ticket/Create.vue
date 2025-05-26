@@ -34,9 +34,12 @@ const submit = () => {
             v-model="form.subject"
             type="text"
             class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          />
+          >
         </div>
-        <InputError class="mt-2" :message="form.errors.subject" />
+        <InputError
+          class="mt-2"
+          :message="form.errors.subject"
+        />
         <div class="mb-4">
           <label class="block text-sm font-medium mb-2">
             {{ $t('ticket.message') }}
@@ -46,7 +49,10 @@ const submit = () => {
             class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-        <InputError class="mt-2" :message="form.errors.content" />
+        <InputError
+          class="mt-2"
+          :message="form.errors.content"
+        />
         <button
           type="submit"
           class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -58,7 +58,10 @@ async function submitSettings() {
 </script>
 
 <template>
-  <div v-if="showBanner" class="fixed bottom-0 left-0 w-full bg-gray-600 z-50 p-5">
+  <div
+    v-if="showBanner"
+    class="fixed bottom-0 left-0 w-full bg-gray-600 z-50 p-5"
+  >
     <div class="md:flex items-center -mx-3">
       <div class="md:flex-1 px-3 mb-5 md:mb-0">
         <p class="text-center md:text-left text-white text-xs leading-tight md:pr-12">
@@ -81,16 +84,34 @@ async function submitSettings() {
       </div>
     </div>
 
-    <dialog ref="modalRef" class="w-11/12 md:w-1/2 rounded-md bg-white shadow-lg p-0">
-      <form class="flex flex-col w-full" @submit.prevent="submitSettings">
+    <dialog
+      ref="modalRef"
+      class="w-11/12 md:w-1/2 rounded-md bg-white shadow-lg p-0"
+    >
+      <form
+        class="flex flex-col w-full"
+        @submit.prevent="submitSettings"
+      >
         <div class="flex justify-between items-center px-5 py-3 border-b">
-          <h2 class="text-lg font-bold">Налаштування cookie</h2>
-          <button class="text-gray-500 hover:text-black text-2xl" @click="closeModal">×</button>
+          <h2 class="text-lg font-bold">
+            Налаштування cookie
+          </h2>
+          <button
+            class="text-gray-500 hover:text-black text-2xl"
+            @click="closeModal"
+          >
+            ×
+          </button>
         </div>
 
         <div class="divide-y px-5 py-3">
           <label class="flex items-center py-3 cursor-not-allowed opacity-50">
-            <input v-model="settings.necessary" type="checkbox" class="sr-only" disabled />
+            <input
+              v-model="settings.necessary"
+              type="checkbox"
+              class="sr-only"
+              disabled
+            >
             <div
               class="w-10 h-6 rounded-full relative transition duration-300"
               :class="{
@@ -107,7 +128,11 @@ async function submitSettings() {
           </label>
 
           <label class="flex items-center py-3 cursor-pointer">
-            <input v-model="settings.preferences" type="checkbox" class="sr-only" />
+            <input
+              v-model="settings.preferences"
+              type="checkbox"
+              class="sr-only"
+            >
             <div
               class="w-10 h-6 rounded-full relative transition duration-300"
               :class="{ 'bg-blue-500': settings.preferences, 'bg-gray-300': !settings.preferences }"
@@ -120,7 +145,11 @@ async function submitSettings() {
             <span class="ml-3">Налаштування користувача</span>
           </label>
           <label class="flex items-center py-3 cursor-pointer">
-            <input v-model="settings.analytics" type="checkbox" class="sr-only" />
+            <input
+              v-model="settings.analytics"
+              type="checkbox"
+              class="sr-only"
+            >
             <div
               class="w-10 h-6 rounded-full relative transition duration-300"
               :class="{ 'bg-blue-500': settings.analytics, 'bg-gray-300': !settings.analytics }"
@@ -133,7 +162,11 @@ async function submitSettings() {
             <span class="ml-3">Аналітика</span>
           </label>
           <label class="flex items-center py-3 cursor-pointer">
-            <input v-model="settings.marketing" type="checkbox" class="sr-only" />
+            <input
+              v-model="settings.marketing"
+              type="checkbox"
+              class="sr-only"
+            >
             <div
               class="w-10 h-6 rounded-full relative transition duration-300"
               :class="{ 'bg-blue-500': settings.marketing, 'bg-gray-300': !settings.marketing }"

@@ -58,13 +58,15 @@ onBeforeUnmount(() => {
       placeholder="Що шукаєте?"
       class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600"
       @focus="showSuggestions = true"
-    />
+    >
     <ul
       v-if="showSuggestions && (searchHistory.length || searchRecommendations.length)"
       class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10"
     >
       <template v-if="searchHistory.length">
-        <li class="text-sm text-gray-400 uppercase p-1 pl-4">Ви нещодавно шукали</li>
+        <li class="text-sm text-gray-400 uppercase p-1 pl-4">
+          Ви нещодавно шукали
+        </li>
         <li
           v-for="(suggestion, index) in searchHistory"
           :key="'history-' + index"
@@ -82,7 +84,9 @@ onBeforeUnmount(() => {
       </template>
 
       <template v-if="searchRecommendations.length">
-        <li class="text-sm text-gray-400 uppercase p-1 pl-4">Рекомендації</li>
+        <li class="text-sm text-gray-400 uppercase p-1 pl-4">
+          Рекомендації
+        </li>
         <li
           v-for="(suggestion, index) in searchRecommendations"
           :key="'recommendation-' + index"

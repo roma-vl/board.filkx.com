@@ -55,13 +55,18 @@ const handleRateNow = () => {
     <div class="py-3 sm:max-w-xl sm:mx-auto z-50 custom-container">
       <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
         <div class="px-12 py-5">
-          <h2 class="text-gray-800 text-3xl font-semibold">Your opinion matters to us!</h2>
+          <h2 class="text-gray-800 text-3xl font-semibold">
+            Your opinion matters to us!
+          </h2>
         </div>
         <div class="bg-gray-200 w-full flex flex-col items-center">
           <div class="flex flex-col items-center py-6 space-y-3">
             <span class="text-lg text-gray-800">How was quality of the call?</span>
             <div class="flex space-x-3">
-              <template v-for="i in 5" :key="i">
+              <template
+                v-for="i in 5"
+                :key="i"
+              >
                 <svg
                   :class="[
                     'w-12 h-12 transition-all duration-300 cursor-pointer',
@@ -99,7 +104,11 @@ const handleRateNow = () => {
           </div>
         </div>
         <div class="h-20 flex items-center justify-center">
-          <a href="#" class="text-gray-600" @click.prevent="close">Maybe later</a>
+          <a
+            href="#"
+            class="text-gray-600"
+            @click.prevent="close"
+          >Maybe later</a>
         </div>
       </div>
     </div>

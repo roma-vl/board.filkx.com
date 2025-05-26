@@ -38,7 +38,10 @@ const removeTag = (index) => {
       class="bg-blue-200 text-blue-800 px-2 py-1 rounded flex items-center mr-2 mb-1"
     >
       {{ tag }}
-      <button class="ml-1 text-red-600 font-bold" @click.stop="removeTag(index)">×</button>
+      <button
+        class="ml-1 text-red-600 font-bold"
+        @click.stop="removeTag(index)"
+      >×</button>
     </span>
 
     <input
@@ -48,9 +51,13 @@ const removeTag = (index) => {
       class="flex-grow min-w-[150px] border-none outline-none"
       @keydown.enter.prevent="addTag"
       @keydown.delete="input === '' && modelValue.length && removeTag(modelValue.length - 1)"
-    />
+    >
 
     <!-- Прихований input для бекенду -->
-    <input type="hidden" name="variants" :value="JSON.stringify(modelValue)" />
+    <input
+      type="hidden"
+      name="variants"
+      :value="JSON.stringify(modelValue)"
+    >
   </div>
 </template>

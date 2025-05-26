@@ -110,7 +110,10 @@ const restoreUser = (id) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage v-if="flash" :flash="flash" />
+        <FlashMessage
+          v-if="flash"
+          :flash="flash"
+        />
         <div class="mb-2 flex justify-end">
           <button
             v-can="'user.create'"
@@ -120,12 +123,21 @@ const restoreUser = (id) => {
             + New User
           </button>
         </div>
-        <Grid :items="users" :pagination="pagination" :headings="headings" :routes="routes">
+        <Grid
+          :items="users"
+          :pagination="pagination"
+          :headings="headings"
+          :routes="routes"
+        >
           <template #column-name="{ row }">
             <div class="flex gap-2 font-normal">
               <div class="relative h-10 w-10">
                 <div v-if="row.avatar_url">
-                  <img :src="row.avatar_url" :alt="row.name" class="rounded" />
+                  <img
+                    :src="row.avatar_url"
+                    :alt="row.name"
+                    class="rounded"
+                  >
                 </div>
                 <div v-else>
                   <AvatarIcon />
@@ -215,10 +227,21 @@ const restoreUser = (id) => {
             </div>
           </template>
         </Grid>
-        <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
-          <Create v-if="selectedUser" :roles="selectedUser.roles" @user-created="refreshUsers" />
+        <Modal
+          :show="isCreateModalOpen"
+          max-width="2xl"
+          @close="isCreateModalOpen = false"
+        >
+          <Create
+            v-if="selectedUser"
+            :roles="selectedUser.roles"
+            @user-created="refreshUsers"
+          />
         </Modal>
-        <Modal :show="isEditModalOpen" @close="isEditModalOpen = false">
+        <Modal
+          :show="isEditModalOpen"
+          @close="isEditModalOpen = false"
+        >
           <Edit
             v-if="selectedUser"
             :user="selectedUser.user"
@@ -227,10 +250,21 @@ const restoreUser = (id) => {
             @user-updated="refreshUsers"
           />
         </Modal>
-        <Modal :show="isShowModalOpen" max-width="2xl" @close="isShowModalOpen = false">
-          <Show v-if="selectedUser" :user="selectedUser" />
+        <Modal
+          :show="isShowModalOpen"
+          max-width="2xl"
+          @close="isShowModalOpen = false"
+        >
+          <Show
+            v-if="selectedUser"
+            :user="selectedUser"
+          />
         </Modal>
-        <Modal :show="showForbidden" max-width="2xl" @close="showForbidden = false">
+        <Modal
+          :show="showForbidden"
+          max-width="2xl"
+          @close="showForbidden = false"
+        >
           <Forbidden :data="errorForbidden" />
         </Modal>
       </div>
