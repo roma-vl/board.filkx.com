@@ -249,5 +249,4 @@ const subCategories = computed(() => {
   </AuthenticatedLayout>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
