@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { getDateFormatFromLocale } from '@/helpers.js';
 
 const dialogs = computed(() => usePage().props.dialogs);
@@ -109,8 +109,14 @@ const messageForm = useForm({
                   class="flex items-start space-x-2"
                 >
                   <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
-                    <span v-if="message.user_id === user.id"><img :src="message.user.avatar_url"></span>
-                    <span v-else><img :src="message.user.avatar_url"></span>
+                    <span v-if="message.user_id === user.id"><img
+                      :src="message.user.avatar_url"
+                      alt=""
+                    ></span>
+                    <span v-else><img
+                      :src="message.user.avatar_url"
+                      alt=""
+                    ></span>
                   </div>
                   <div class="flex-1 p-3 bg-gray-50 rounded-lg shadow-sm">
                     <p class="font-medium">

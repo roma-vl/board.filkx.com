@@ -1,8 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import Locale from '@/Layouts/Partials/Locale.vue';
@@ -12,10 +11,8 @@ import VerifyIcon from '@/Components/Icon/VerifyIcon.vue';
 import AccountIcon from '@/Components/Icon/AccountIcon.vue';
 import LogoutIcon from '@/Components/Icon/LogoutIcon.vue';
 import SettingsIcon from '@/Components/Icon/SettingsIcon.vue';
-import HelperCenterIcon from '@/Components/Icon/HelperCenterIcon.vue';
 import UpDownIcon from '@/Components/Icon/UpDownIcon.vue';
 import CommandLineIcon from '@/Components/Icon/CommandLineIcon.vue';
-import Pagination from '@/Components/Pagination.vue';
 import RattingPopup from '@/Components/RattingPopup.vue';
 
 const showingNavigationDropdown = ref(false);

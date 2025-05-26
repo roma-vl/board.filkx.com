@@ -1,5 +1,4 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
 import { getFullPathForImage } from '@/helpers.js';
 
 const props = defineProps({

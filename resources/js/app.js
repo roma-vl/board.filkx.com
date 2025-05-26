@@ -9,6 +9,7 @@ import { createI18n } from 'vue-i18n';
 import { usePage } from '@inertiajs/vue3';
 import messages from '@/lang';
 import CanDirective from '@/directives/can.js';
+import { bugsnagVue } from '@/Bugsnag.js';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -33,6 +34,7 @@ createInertiaApp({
       .use(i18n)
       .directive('can', CanDirective)
       .use(plugin)
+      .use(bugsnagVue)
       .use(ZiggyVue)
       .mount(el);
   },

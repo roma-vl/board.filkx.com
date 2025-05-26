@@ -6,7 +6,8 @@
     "dev": "vite",
     "prepare": "husky",
     "lint": "npx eslint  --config=eslint.config.js --fix --no-cache",
-    "format": "prettier --write . && npm run lint"
+    "prettier": "prettier --write . ",
+    "format": "npm run prettier && npm run lint"
   },
   "hooks": {
     "pre-commit": "php artisan test"
@@ -32,6 +33,9 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
+    "@bugsnag/browser-performance": "^2.13.0",
+    "@bugsnag/js": "^8.2.0",
+    "@bugsnag/plugin-vue": "^8.2.0",
     "@inertiajs/inertia": "^0.11.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tiptap/extension-blockquote": "^2.12.0",

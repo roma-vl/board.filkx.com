@@ -80,7 +80,7 @@ const subCategories = computed(() => {
                   class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search"
                 >
-                  🔍 Пошук
+                  🔍 {{ $t('search.button') }}
                 </button>
               </div>
             </div>
@@ -88,7 +88,7 @@ const subCategories = computed(() => {
             <!-- Категорії -->
             <section class="my-10">
               <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
-                Розділи на сервісі
+                {{ $t('divided.into.services') }}
               </h2>
               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
                 <template
@@ -102,7 +102,7 @@ const subCategories = computed(() => {
                     >
                       <img
                         src="https://categories.olxcdn.com/assets/categories/olxua/arenda-prokat-3428-1x.png"
-                        alt="Іконка"
+                        :alt="category.name"
                         class="w-12 h-12"
                       >
                       <span class="text-sm mt-2 font-medium text-gray-700">
@@ -118,7 +118,7 @@ const subCategories = computed(() => {
                     class="col-span-full bg-white rounded-2xl shadow-lg p-6"
                   >
                     <p class="text-sm font-semibold mb-4">
-                      Переглянути всі оголошення в
+                      {{ $t('look.at.all.the.announcement.in') }}
                       <a
                         :href="fullPath() + '/' + selectedCategory.slug"
                         class="text-blue-600 hover:underline"
@@ -147,7 +147,7 @@ const subCategories = computed(() => {
             <!-- VIP-оголошення -->
             <section class="bg-white p-6">
               <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                VIP-оголошення
+                {{ $t('vip.announcement') }}
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <template
@@ -159,7 +159,7 @@ const subCategories = computed(() => {
                   >
                     <img
                       :src="getFullPathForImage(listing.first_photo?.file)"
-                      alt="Фото"
+                      :alt="listing.title"
                       class="w-full h-48 object-cover"
                     >
                     <div class="p-4">
@@ -184,7 +184,7 @@ const subCategories = computed(() => {
                           :href="route('adverts.show', listing.id)"
                           class="text-blue-600 hover:underline"
                         >
-                          Детальніше
+                          {{ $t('more.details') }}
                         </Link>
                       </div>
                     </div>
@@ -196,7 +196,7 @@ const subCategories = computed(() => {
             <!-- Останні оголошення -->
             <section class="p-6 mt-10 bg-white">
               <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                Останні оголошення
+                {{ $t('last.announcement') }}
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <template
@@ -233,7 +233,7 @@ const subCategories = computed(() => {
                           :href="route('adverts.show', listing.id)"
                           class="text-blue-600 hover:underline"
                         >
-                          Детальніше
+                          {{ $t('more.details') }}
                         </Link>
                       </div>
                     </div>
@@ -249,13 +249,4 @@ const subCategories = computed(() => {
   </AuthenticatedLayout>
 </template>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
+<style scoped></style>

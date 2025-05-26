@@ -4,7 +4,6 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
 import InputError from '@/Components/InputError.vue';
-import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.vue';
 
 const props = defineProps({
   categories: {
@@ -103,15 +102,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Head title="Оголошення" />
+  <Head :title="$t('banners.createTitle')" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
           <div class="px-4">
+            {{ $t('banners.createTitle') }}
             <form @submit.prevent="submit">
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2"> Назва </label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.name')
+                }}</label>
                 <input
                   v-model="form.name"
                   type="text"
@@ -122,8 +124,11 @@ onBeforeUnmount(() => {
                 class="mt-2"
                 :message="form.errors.name"
               />
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2"> Views </label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.views')
+                }}</label>
                 <input
                   v-model="form.limit"
                   type="number"
@@ -135,8 +140,9 @@ onBeforeUnmount(() => {
                 class="mt-2"
                 :message="form.errors.limit"
               />
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2"> Назва </label>
+                <label class="block text-sm font-medium mb-2">{{ $t('banners.fields.url') }}</label>
                 <input
                   v-model="form.url"
                   type="text"
@@ -147,8 +153,11 @@ onBeforeUnmount(() => {
                 class="mt-2"
                 :message="form.errors.url"
               />
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Формат</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.format')
+                }}</label>
                 <select
                   v-model="form.format"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -166,8 +175,11 @@ onBeforeUnmount(() => {
                 class="mt-2"
                 :message="form.errors.category_id"
               />
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Категорія</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.category')
+                }}</label>
                 <select
                   v-model="form.category_id"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -185,14 +197,17 @@ onBeforeUnmount(() => {
                 class="mt-2"
                 :message="form.errors.category_id"
               />
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2"> Місцезнаходження </label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.location')
+                }}</label>
                 <div class="relative search-container">
                   <input
                     v-model="citySearchQuery"
                     type="text"
-                    placeholder="Почніть вводити адресу"
                     class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+                    :placeholder="$t('banners.fields.placeholder_location')"
                   >
                   <div
                     v-if="showLocationDropdown"
@@ -211,24 +226,29 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
               </div>
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2"> Фото </label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.photo')
+                }}</label>
                 <input
                   type="file"
                   accept="image/*"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm"
                   @change="onFileChange"
                 >
+
                 <InputError
                   class="mt-2"
                   :message="form.errors.image"
                 />
               </div>
+
               <button
                 type="submit"
                 class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Створити
+                {{ $t('banners.submit') }}
               </button>
             </form>
           </div>

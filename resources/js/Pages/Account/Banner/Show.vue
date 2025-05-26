@@ -60,6 +60,8 @@ const deleteAdvert = () => {
     router.delete(route('account.banners.destroy', props.banner.id));
   }
 };
+
+console.log(props.banner);
 </script>
 
 <template>
@@ -71,40 +73,40 @@ const deleteAdvert = () => {
             <a
               :href="route('account.banners.edit', props.banner.id)"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
-            >Редагувати</a>
+            >{{ $t('edit') }}</a>
             <button
               v-if="isDraft"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="publish"
             >
-              Публікувати
+              {{ $t('publish') }}
             </button>
             <button
               v-if="isActive"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="submitAction('adverts.adverts.close')"
             >
-              Закрити
+              {{ $t('close') }}
             </button>
             <button
               v-if="isOnModeration || isActive"
               class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded"
               @click="toDraft"
             >
-              Повернути в чорновик
+              {{ $t('to_draft') }}
             </button>
             <button
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               @click="deleteAdvert"
             >
-              Видалити
+              {{ $t('delete') }}
             </button>
             <button
               v-if="isModerated"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="payBanner()"
             >
-              Order for Payment
+              {{ $t('pay') }}
             </button>
           </div>
 
@@ -114,14 +116,14 @@ const deleteAdvert = () => {
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="activate"
             >
-              Опублікувати
+              {{ $t('publish') }}
             </button>
             <button
               v-if="isOnModeration || isActive"
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               @click="rejectAdvert"
             >
-              Відхилити
+              {{ $t('reject') }}
             </button>
           </div>
         </div>
@@ -132,19 +134,19 @@ const deleteAdvert = () => {
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
         >
-          Це чернетка.
+          {{ $t('is_draft') }}
         </div>
         <div
           v-if="isOnModeration"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
         >
-          На модерації.
+          {{ $t('is_moderation') }}
         </div>
         <div
           v-if="banner.reject_reason"
           class="bg-red-100 text-red-800 p-3 rounded mb-4"
         >
-          Причина відмови: {{ banner.reject_reason }}
+          {{ $t('rejection_reason') }} : {{ banner.reject_reason }}
         </div>
         <div class="flex gap-6">
           <div class="w-2/3">
@@ -162,15 +164,22 @@ const deleteAdvert = () => {
           <div class="w-1/3">
             <div class="rounded-lg shadow p-3 bg-white">
               <p class="mt-4 text-gray-800 text-sm">
-                Опубліковано {{ getDateFormatFromLocale(banner.created_at) }}
+                {{ $t('published') }} {{ getDateFormatFromLocale(banner.created_at) }}
               </p>
               <h1 class="text-2xl font-bold text-gray-900">
                 {{ banner.name }}
               </h1>
               <div class="mt-4 flex flex-row items-center">
-                Показів залишилось :
+                {{ $t('views_all') }} :
                 <h2 class="text-xl font-bold text-green-600 pl-3">
                   {{ banner.limit }}
+                </h2>
+              </div>
+
+              <div class="mt-4 flex flex-row items-center">
+                {{ $t('views_left') }} :
+                <h2 class="text-xl font-bold text-green-600 pl-3">
+                  {{ banner.limit - banner.views }}
                 </h2>
               </div>
             </div>

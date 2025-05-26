@@ -7403,7 +7403,7 @@
                   : (this._routerRoot = (this.$parent && this.$parent._routerRoot) || this),
                   o(this, this);
               },
-              destroyed: function () {
+              unmounted: function () {
                 o(this);
               },
             }),
@@ -7447,12 +7447,12 @@
         ('' !== window.Telescope.path && '/' !== window.Telescope.path) ||
           ((ba = '/'), (window.Telescope.basePath = ''));
         var ca = new Qz({ routes: Mr, mode: 'history', base: ba });
-        no.component('vue-json-pretty', ta()),
-          no.component('related-entries', n(8117).A),
-          no.component('index-screen', n(4980).A),
-          no.component('preview-screen', n(9416).A),
-          no.component('alert', n(4445).A),
-          no.component('copy-clipboard', n(1858).A),
+        no.component('VueJsonPretty', ta()),
+          no.component('RelatedEntries', n(8117).A),
+          no.component('IndexScreen', n(4980).A),
+          no.component('PreviewScreen', n(9416).A),
+          no.component('Alert', n(4445).A),
+          no.component('CopyClipboard', n(1858).A),
           no.mixin(or),
           new no({
             el: '#telescope',

@@ -4,18 +4,14 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
 import InputError from '@/Components/InputError.vue';
-import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.vue';
+import { getFullPathForImage } from '@/helpers.js';
 
 const props = defineProps({
   categories: {
     type: Array,
     default: () => [],
   },
-  attributes: {
-    type: Array,
-    default: () => [],
-  },
-  activeAttributes: {
+  formats: {
     type: Array,
     default: () => [],
   },
@@ -23,27 +19,24 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  advert: {
+  banner: {
     type: Object,
     default: () => ({}),
   },
 });
 const showLocationDropdown = ref(false);
 const loadingCities = ref(false);
-const citySearchQuery = ref(props.advert.region[0].name);
+const citySearchQuery = ref(props.banner.region[0].name);
 const filteredCities = ref([]);
+console.log(props.banner, 'props.advert.images');
 const form = useForm({
-  category_id: props.advert.category_id,
-  country_id: props.advert.country_id,
-  region_id: props.advert.region_id,
-  area_id: props.advert.area_id,
-  village_id: props.advert.village_id,
-  title: props.advert.title,
-  price: props.advert.price,
-  address: props.advert.address,
-  content: props.advert.content,
-  attributes: {},
-  images: props.advert.images.map((img) => ({ type: 'existing', file: img.file, id: img.id })),
+  category_id: props.banner.category_id,
+  region_id: props.banner.region_id,
+  name: props.banner.name,
+  limit: props.banner.limit,
+  url: props.banner.url,
+  format: props.banner.format,
+  image: props.banner.file,
 });
 
 const submit = () => {
@@ -109,16 +102,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Head title="Оголошення" />
+  <Head :title="$t('banners.editTitle')" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
           <div class="px-4">
-            Редагувати оголошення
+            {{ $t('banners.editTitle') }}
             <form @submit.prevent="submit">
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Назва</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.name')
+                }}</label>
                 <input
                   v-model="form.name"
                   type="text"
@@ -131,7 +126,9 @@ onBeforeUnmount(() => {
               />
 
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Views</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.views')
+                }}</label>
                 <input
                   v-model="form.limit"
                   type="number"
@@ -145,7 +142,7 @@ onBeforeUnmount(() => {
               />
 
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Назва</label>
+                <label class="block text-sm font-medium mb-2">{{ $t('banners.fields.url') }}</label>
                 <input
                   v-model="form.url"
                   type="text"
@@ -158,7 +155,9 @@ onBeforeUnmount(() => {
               />
 
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Формат</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.format')
+                }}</label>
                 <select
                   v-model="form.format"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -178,7 +177,9 @@ onBeforeUnmount(() => {
               />
 
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Категорія</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.category')
+                }}</label>
                 <select
                   v-model="form.category_id"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
@@ -198,15 +199,16 @@ onBeforeUnmount(() => {
               />
 
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Місцезнаходження</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.location')
+                }}</label>
                 <div class="relative search-container">
                   <input
                     v-model="citySearchQuery"
                     type="text"
                     class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
-                    placeholder="Почніть вводити адресу"
+                    :placeholder="$t('banners.fields.placeholder_location')"
                   >
-
                   <div
                     v-if="showLocationDropdown"
                     class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
@@ -225,14 +227,22 @@ onBeforeUnmount(() => {
                 </div>
               </div>
 
+              <img
+                :src="getFullPathForImage(props.banner.file)"
+                alt=""
+              >
+
               <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Фото</label>
+                <label class="block text-sm font-medium mb-2">{{
+                  $t('banners.fields.photo')
+                }}</label>
                 <input
                   type="file"
                   accept="image/*"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm"
                   @change="onFileChange"
                 >
+
                 <InputError
                   class="mt-2"
                   :message="form.errors.image"
@@ -243,7 +253,7 @@ onBeforeUnmount(() => {
                 type="submit"
                 class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Створити
+                {{ $t('banners.update') }}
               </button>
             </form>
           </div>

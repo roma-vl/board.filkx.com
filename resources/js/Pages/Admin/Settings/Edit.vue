@@ -2,7 +2,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import TooltipIcon from '@/Components/TooltipIcon.vue';
 
 const props = defineProps({

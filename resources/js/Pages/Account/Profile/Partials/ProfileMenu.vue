@@ -7,13 +7,13 @@ const props = defineProps({
 });
 
 const menuItems = [
-  { name: 'Оголошення', route: 'account.adverts.index' },
-  { name: 'Чат', route: 'account.chats.index' },
-  { name: 'Профіль', route: 'account.profile.index' },
-  { name: 'Збережені', route: 'account.favorites.index' },
-  { name: 'Налаштування', route: 'account.profile.settings' },
-  { name: 'Реклама', route: 'account.banners.index' },
-  { name: 'Tickets', route: 'account.tickets.index' },
+  { key: 'adverts', route: 'account.adverts.index' },
+  { key: 'chat', route: 'account.chats.index' },
+  { key: 'profile', route: 'account.profile.index' },
+  { key: 'favorites', route: 'account.favorites.index' },
+  { key: 'settings', route: 'account.profile.settings' },
+  { key: 'banners', route: 'account.banners.index' },
+  { key: 'tickets', route: 'account.tickets.index' },
 ];
 </script>
 
@@ -27,11 +27,11 @@ const menuItems = [
         :href="route(item.route)"
         class="px-4 py-2 text-gray-600 hover:text-gray-900 border-b-2"
         :class="{
-          'border-blue-500 font-bold ': props.activeTab === item.route,
+          'border-blue-500 font-bold': props.activeTab === item.route,
           'border-transparent': props.activeTab !== item.route,
         }"
       >
-        {{ item.name }}
+        {{ $t(`menu.${item.key}`) }}
       </a>
     </template>
   </nav>

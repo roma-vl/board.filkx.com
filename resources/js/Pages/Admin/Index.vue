@@ -436,7 +436,7 @@ const flash = usePage().props.flash;
                           <div class="flex-shrink-0 ml-2">
                             <a
                               class="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                              href="#0"
+                              href="#"
                               style="outline: none"
                             >
                               View<span><svg
@@ -481,20 +481,20 @@ const flash = usePage().props.flash;
                           <div class="self-center">
                             <a
                               class="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100"
-                              href="#0"
+                              href="#"
                               style="outline: none"
                             >240+</a>
                             users have subscribed to
                             <a
                               class="font-medium text-gray-800 dark:text-gray-50 dark:hover:text-gray-100"
-                              href="#0"
+                              href="#"
                               style="outline: none"
                             >Newsletter #1</a>
                           </div>
                           <div class="flex-shrink-0 ml-2">
                             <a
                               class="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                              href="#0"
+                              href="#"
                               style="outline: none"
                             >
                               View<span><svg

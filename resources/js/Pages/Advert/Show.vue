@@ -159,40 +159,40 @@ const messageForm = useForm({
               :href="route('account.adverts.edit', props.advert.id)"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
             >
-              Редагувати
+              {{ $t('edit') }}
             </a>
             <a
               :href="route('account.adverts.edit.photos', props.advert.id)"
               class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1 rounded"
             >
-              Фото
+              {{ $t('photos') }}
             </a>
             <button
               v-if="isDraft"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="publish"
             >
-              Публікувати
+              {{ $t('publish') }}
             </button>
             <button
               v-if="isActive"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="submitAction('adverts.adverts.close')"
             >
-              Закрити
+              {{ $t('close') }}
             </button>
             <button
               v-if="isOnModeration || isActive"
               class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded"
               @click="toDraft"
             >
-              Повернути в чорновик
+              {{ $t('to.draft') }}
             </button>
             <button
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               @click="deleteAdvert"
             >
-              Видалити
+              {{ $t('delete') }}
             </button>
           </div>
           <div
@@ -204,19 +204,19 @@ const messageForm = useForm({
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
               @click="activate"
             >
-              Опублікувати
+              {{ $t('publish') }}
             </button>
             <button
               v-if="isOnModeration || isActive"
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
               @click="rejectAdvert"
             >
-              Відхилити
+              {{ $t('reject') }}
             </button>
           </div>
         </div>
         <div class="list-disc list-inside text-gray-800">
-          <span class="underline cursor-pointer"> Головна </span> /
+          <span class="underline cursor-pointer"> {{ $t('main') }} </span> /
           <span
             v-for="ancestor in props.category.ancestors"
             :key="ancestor.id"
@@ -241,19 +241,19 @@ const messageForm = useForm({
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
         >
-          Це чернетка.
+          {{ $t('status.draft') }}
         </div>
         <div
           v-if="isOnModeration"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
         >
-          На модерації.
+          {{ $t('status.on.moderation') }}
         </div>
         <div
           v-if="advert.reject_reason"
           class="bg-red-100 text-red-800 p-3 rounded mb-4"
         >
-          Причина відмови: {{ advert.reject_reason }}
+          {{ $t('status.rejected') }}: {{ advert.reject_reason }}
         </div>
         <div class="flex gap-6">
           <div class="w-2/3">
@@ -287,7 +287,7 @@ const messageForm = useForm({
                 </span>
               </div>
               <p class="mt-4 text-gray-900 text-lg font-bold">
-                Опис
+                {{ $t('description') }}
               </p>
               <p class="mt-4 text-gray-800">
                 {{ advert.content }}
@@ -295,7 +295,7 @@ const messageForm = useForm({
               <div class="my-4 border border-b-1 mx-3" />
               <div class="flex justify-end">
                 <button class="hover:underline hover:text-red-600 text-red-400 px-4 py-2 rounded">
-                  Поскаржитися
+                  {{ $t('report') }}
                 </button>
               </div>
             </div>
@@ -303,10 +303,10 @@ const messageForm = useForm({
           <div class="w-1/3">
             <div class="rounded-lg shadow p-3 bg-white">
               <p class="mt-4 text-gray-800 text-sm">
-                Опубліковано {{ getDateFormatFromLocale(advert.created_at) }}
+                {{ $t('published') }} {{ getDateFormatFromLocale(advert.created_at) }}
               </p>
               <p class="mt-4 text-gray-800 text-sm">
-                Закінчення {{ getDateFormatFromLocale(advert.expires_at) }}
+                {{ $t('expires') }} {{ getDateFormatFromLocale(advert.expires_at) }}
               </p>
               <button
                 class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
@@ -328,26 +328,26 @@ const messageForm = useForm({
                 <h2 class="text-2xl font-bold text-green-600">
                   {{ advert.price }} грн.
                 </h2>
-                <span class="pt-2 text-gray-800 text-sm pl-2"> Договірна </span>
+                <span class="pt-2 text-gray-800 text-sm pl-2"> {{ $t('negotiable') }} </span>
               </div>
               <button
                 class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click="toggleMessenger"
               >
-                <span class="text-lg font-bold"> Повідомлення </span>
+                <span class="text-lg font-bold"> {{ $t('messages') }} </span>
               </button>
               <button
                 class="h-14 rounded-md border-2 hover:border-[5px] border-blue-500 w-full mb-5 text-blue-500 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click.prevent="getPhone(advert.id)"
               >
                 <span class="text-lg font-bold">
-                  {{ userPhone ? userPhone : ' Показати телефон' }}
+                  {{ userPhone ? userPhone : $t('show.phone') }}
                 </span>
               </button>
             </div>
             <div class="rounded-lg shadow p-3 bg-white mt-5">
               <p class="font-bold pb-3">
-                Користувач
+                {{ $t('user') }}
               </p>
               <div class="flex flex-row">
                 <img
@@ -360,7 +360,8 @@ const messageForm = useForm({
                     {{ advert.user.name + ' ' + advert.user?.first_name }}
                   </p>
                   <p class="text-gray-600 mt-1">
-                    на сайті з {{ getDateFormatFromLocale(advert.user?.created_at) }}
+                    {{ $t('registered.since') }}
+                    {{ getDateFormatFromLocale(advert.user?.created_at) }}
                   </p>
                 </div>
               </div>
@@ -369,15 +370,17 @@ const messageForm = useForm({
                 <a
                   href="#"
                   class="text-blue-500 hover:text-blue-600"
-                > Всі оголошення автора > </a>
+                >
+                  {{ $t('user.all.adverts') }} >
+                </a>
               </div>
             </div>
             <div class="rounded-lg shadow p-3 bg-white mt-5">
               <p class="font-bold pb-3">
-                Місцезнаходження
+                {{ $t('location') }}
               </p>
               <p class="text-gray-600 mt-1">
-                Адреса: {{ advert.region?.name }} {{ advert.address }}
+                {{ $t('address') }}: {{ advert.region?.name }} {{ advert.address }}
               </p>
               <div class="flex items-center justify-center">
                 <img
@@ -397,7 +400,7 @@ const messageForm = useForm({
         <div
           class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex justify-between items-center"
         >
-          <span>Чат з автором</span>
+          <span>{{ $t('chat.with.author') }}</span>
           <button
             class="text-white text-xl font-bold leading-none"
             @click="toggleMessenger"
@@ -448,18 +451,21 @@ const messageForm = useForm({
             v-else
             class="flex-1 overflow-y-auto p-4 space-y-2 text-center"
           >
-            Повідомлень ще немає
+            {{ $t('no.messages.yet') }}
           </div>
           <div class="border-t p-3 flex items-center gap-2 w-full">
             <form @submit.prevent="sendMessage">
               <button
                 class="text-gray-500 hover:text-yellow-400 transition"
-                title="Смайли"
+                :title="$t('emojis')"
                 @click="openEmojis"
               >
                 😊
               </button>
-              <label class="cursor-pointer text-gray-500 hover:text-blue-500">
+              <label
+                class="cursor-pointer text-gray-500 hover:text-blue-500"
+                :title="$t('attach.file')"
+              >
                 <input
                   type="file"
                   class="hidden"
@@ -469,12 +475,13 @@ const messageForm = useForm({
               <input
                 v-model="messageForm.message"
                 type="text"
-                placeholder="Написати..."
+                :placeholder="$t('write.message')"
                 class="flex-1 border rounded-lg px-4 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 @keyup.enter="sendMessage"
               >
               <button
                 type="submit"
+                :title="$t('send')"
                 class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
               >
                 ⤊
