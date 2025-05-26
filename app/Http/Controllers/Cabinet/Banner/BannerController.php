@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Cabinet\Banners\EditRequest;
 use App\Http\Requests\Cabinet\Banners\FileRequest;
 use App\Http\Services\Banner\BannerService;
+use App\Http\Services\CategoryService;
 use App\Models\Banners\Banner;
 use Auth;
 use DomainException;
@@ -22,6 +23,7 @@ class BannerController extends Controller
 {
     public function __construct(
         private readonly BannerService $bannerService,
+        private readonly CategoryService $categoryService,
     ) {}
 
     public function index(): Response
@@ -43,6 +45,10 @@ class BannerController extends Controller
 
     public function edit(Banner $banner): Response|RedirectResponse
     {
+
+        $categories = $this->categoryService->getCategories();
+        $formats = Banner::formatsList();
+        $banner->region = $banner->region()->get();
         //        $this->checkAccess($banner);
         if ($banner->canBeChanged()) {
             return back()->with('error', 'Enable to edit this banner!');
@@ -50,6 +56,8 @@ class BannerController extends Controller
 
         return Inertia::render('Account/Banner/Edit', [
             'banner' => $banner,
+            'formats' => $formats,
+            'categories' => $categories,
         ]);
     }
 

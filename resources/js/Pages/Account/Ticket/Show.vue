@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { getDateFormatFromLocale } from '@/helpers.js';
 import { ref } from 'vue';
-import {Head} from "@inertiajs/vue3";
+import { Head } from '@inertiajs/vue3';
 const props = defineProps({
   ticket: {
     type: Object,
@@ -28,7 +28,7 @@ function submitComment() {
 </script>
 
 <template>
-    <Head :title="ticket.subject" />
+  <Head :title="ticket.subject" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
@@ -88,7 +88,7 @@ function submitComment() {
                     type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow transition"
                   >
-                      {{ $t('send') }}
+                    {{ $t('send') }}
                   </button>
                 </div>
               </form>
@@ -97,7 +97,7 @@ function submitComment() {
           <div class="w-1/3">
             <div class="rounded-lg shadow p-3 bg-white">
               <p class="mt-4 text-gray-800 text-sm">
-                  {{ $t('published') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
+                {{ $t('published') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
               <div class="rounded-lg shadow p-3 bg-white mt-4">
                 <p class="text-gray-800 font-bold text-sm mb-4">{{ $t('statuses') }}</p>

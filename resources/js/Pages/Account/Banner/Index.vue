@@ -18,7 +18,7 @@ const flash = computed(() => usePage().props.flash);
 </script>
 
 <template>
-  <Head title="Оголошення" />
+  <Head :title="$t('banners.pageTitle')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -27,13 +27,13 @@ const flash = computed(() => usePage().props.flash);
           <ProfileMenu :active-tab="'account.banners.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">Мої оголошення</h2>
+              <h2 class="text-xl font-bold mb-4">{{ $t('banners.title') }}</h2>
 
               <a
                 :href="route('account.banners.create')"
                 class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-400 hover:text-violet-700"
               >
-                + Додати Оголошення
+                + {{ $t('banners.add') }}
               </a>
             </div>
 
