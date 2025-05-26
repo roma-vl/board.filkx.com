@@ -34,24 +34,16 @@ const form = useForm({
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">
-        Profile Information
-      </h2>
+      <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
 
       <p class="mt-1 text-sm text-gray-600">
         Update your account's profile information and email address.
       </p>
     </header>
 
-    <form
-      class="mt-6 space-y-6"
-      @submit.prevent="form.patch(route('account.profile.update'))"
-    >
+    <form class="mt-6 space-y-6" @submit.prevent="form.patch(route('account.profile.update'))">
       <div>
-        <InputLabel
-          for="first_name"
-          value="First Name"
-        />
+        <InputLabel for="first_name" value="First Name" />
 
         <TextInput
           id="first_name"
@@ -62,16 +54,10 @@ const form = useForm({
           autocomplete="first_name"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.first_name"
-        />
+        <InputError class="mt-2" :message="form.errors.first_name" />
       </div>
       <div>
-        <InputLabel
-          for="name"
-          value="Name"
-        />
+        <InputLabel for="name" value="Name" />
 
         <TextInput
           id="name"
@@ -82,16 +68,10 @@ const form = useForm({
           autocomplete="name"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.name"
-        />
+        <InputError class="mt-2" :message="form.errors.name" />
       </div>
       <div>
-        <InputLabel
-          for="last_name"
-          value="Last Name"
-        />
+        <InputLabel for="last_name" value="Last Name" />
 
         <TextInput
           id="last_name"
@@ -101,17 +81,11 @@ const form = useForm({
           autocomplete="last_name"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.last_name"
-        />
+        <InputError class="mt-2" :message="form.errors.last_name" />
       </div>
 
       <div>
-        <InputLabel
-          for="email"
-          value="Email"
-        />
+        <InputLabel for="email" value="Email" />
 
         <TextInput
           id="email"
@@ -121,16 +95,8 @@ const form = useForm({
           required
           autocomplete="username"
         />
-        <div
-          v-if="!isEmailVerified"
-          class="text-gray-400 flex justify-end"
-        >
-          Not confirmed
-        </div>
-        <InputError
-          class="mt-2"
-          :message="form.errors.email"
-        />
+        <div v-if="!isEmailVerified" class="text-gray-400 flex justify-end">Not confirmed</div>
+        <InputError class="mt-2" :message="form.errors.email" />
       </div>
 
       <div v-if="mustVerifyEmail && user.email_verified_at === null">
@@ -155,9 +121,7 @@ const form = useForm({
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">
-          Save
-        </PrimaryButton>
+        <PrimaryButton :disabled="form.processing"> Save </PrimaryButton>
 
         <Transition
           enter-active-class="transition ease-in-out"
@@ -165,12 +129,7 @@ const form = useForm({
           leave-active-class="transition ease-in-out"
           leave-to-class="opacity-0"
         >
-          <p
-            v-if="form.recentlySuccessful"
-            class="text-sm text-gray-600"
-          >
-            Saved.
-          </p>
+          <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
         </Transition>
       </div>
     </form>
@@ -181,17 +140,15 @@ const form = useForm({
           id="switch-link"
           type="checkbox"
           class="appearance-none relative inline-block rounded-full w-12 h-6 cursor-pointer before:inline-block before:absolute before:top-0 before:left-0 before:w-full before:h-full before:rounded-full before:bg-stone-200 before:transition-colors before:duration-200 before:ease-in after:absolute after:top-2/4 after:left-0 after:-translate-y-2/4 after:w-6 after:h-6 after:border after:border-stone-200 after:bg-white after:rounded-full checked:after:translate-x-full after:transition-all after:duration-200 after:ease-in disabled:opacity-50 disabled:cursor-not-allowed dark:after:bg-white checked:before:bg-stone-800 checked:after:border-stone-800"
-        >
+        />
         <label
           for="switch-link"
           class="font-sans antialiased text-base cursor-pointer text-stone-600"
         >
           I agree with the
-          <a
-            href="#"
-            class="font-sans antialiased text-base text-stone-500 inline"
+          <a href="#" class="font-sans antialiased text-base text-stone-500 inline">
+            terms and conditions</a
           >
-            terms and conditions</a>
         </label>
       </div>
     </div>

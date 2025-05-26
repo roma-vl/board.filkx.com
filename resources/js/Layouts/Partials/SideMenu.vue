@@ -62,19 +62,13 @@ onBeforeUnmount(() => {
       v-if="isOpen"
       class="menu-container fixed left-0 top-0 flex h-full w-full max-w-[20rem] flex-col rounded-xl z-10 dark:bg-gray-800 bg-white bg-clip-border pt-6 text-gray-700 shadow-xl shadow-blue-gray-900/5"
     >
-      <div
-        aria-label="header"
-        class="flex space-x-4 items-center p-4"
-      >
-        <div
-          aria-label="avatar"
-          class="flex mr-auto items-center space-x-4"
-        >
+      <div aria-label="header" class="flex space-x-4 items-center p-4">
+        <div aria-label="avatar" class="flex mr-auto items-center space-x-4">
           <img
             :src="$page.props.auth.user.avatar_url"
             :alt="$page.props.auth.user.name"
             class="w-16 h-16 shrink-0 rounded-full"
-          >
+          />
           <div class="space-y-2 flex flex-col flex-1 truncate">
             <div class="font-medium relative text-xl leading-tight text-gray-900">
               <span class="flex">
@@ -96,7 +90,7 @@ onBeforeUnmount(() => {
         </div>
         <UpDownIcon />
       </div>
-      <hr>
+      <hr />
 
       <nav
         class="flex min-w-[240px] flex-col gap-1 p-2 pt-4 font-sans text-base font-normal text-blue-gray-700"
@@ -150,10 +144,7 @@ onBeforeUnmount(() => {
               </span>
             </button>
           </div>
-          <div
-            v-if="openMenus['adverts']"
-            class="overflow-hidden"
-          >
+          <div v-if="openMenus['adverts']" class="overflow-hidden">
             <div
               class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700"
             >
@@ -201,10 +192,7 @@ onBeforeUnmount(() => {
                     </svg>
                   </span>
                 </div>
-                <div
-                  v-if="openMenus['actions']"
-                  class="flex min-w-[240px]"
-                >
+                <div v-if="openMenus['actions']" class="flex min-w-[240px]">
                   <a
                     v-can="'adverts'"
                     :href="route('admin.adverts.actions.moderation')"
@@ -381,10 +369,7 @@ onBeforeUnmount(() => {
               </span>
             </button>
           </div>
-          <div
-            v-if="openMenus['manage']"
-            class="overflow-hidden"
-          >
+          <div v-if="openMenus['manage']" class="overflow-hidden">
             <div
               class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700"
             >
@@ -492,10 +477,7 @@ onBeforeUnmount(() => {
               </span>
             </button>
           </div>
-          <div
-            v-if="openMenus['pages']"
-            class="overflow-hidden"
-          >
+          <div v-if="openMenus['pages']" class="overflow-hidden">
             <div
               class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700"
             >
@@ -604,10 +586,7 @@ onBeforeUnmount(() => {
               </span>
             </button>
           </div>
-          <div
-            v-if="openMenus['logs']"
-            class="overflow-hidden"
-          >
+          <div v-if="openMenus['logs']" class="overflow-hidden">
             <div
               class="block w-full py-1 font-sans text-sm antialiased font-light leading-normal text-gray-700"
             >
@@ -668,7 +647,7 @@ onBeforeUnmount(() => {
             </div>
           </div>
         </div>
-        <hr class="my-2 border-blue-gray-50">
+        <hr class="my-2 border-blue-gray-50" />
         <div
           role="button"
           class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
@@ -811,11 +790,7 @@ onBeforeUnmount(() => {
               class="w-6 h-6"
               stroke-width="2"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </span>
         </button>

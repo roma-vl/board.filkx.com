@@ -18,10 +18,7 @@ const toggleViewMode = () => {
 </script>
 
 <template>
-  <div
-    v-if="adverts?.data.length"
-    class="space-y-6"
-  >
+  <div v-if="adverts?.data.length" class="space-y-6">
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center gap-4">
         <h2 class="text-2xl font-bold text-gray-800">

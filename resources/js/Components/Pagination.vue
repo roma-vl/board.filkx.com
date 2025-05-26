@@ -45,15 +45,10 @@ const changePage = (url) => {
 
 <template>
   <div class="pr-2 flex flex-row mb-2">
-    <p class="p-2 text-gray-600 font-medium">
-      Всього: {{ pagination.total }}
-    </p>
+    <p class="p-2 text-gray-600 font-medium">Всього: {{ pagination.total }}</p>
   </div>
   <div class="flex flex-col items-center mb-2">
-    <div
-      v-if="pagination.total > pagination.per_page"
-      class="flex items-center gap-1"
-    >
+    <div v-if="pagination.total > pagination.per_page" class="flex items-center gap-1">
       <button
         :disabled="!pagination.links[0].url"
         class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm rounded-md py-2 px-4 bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none"

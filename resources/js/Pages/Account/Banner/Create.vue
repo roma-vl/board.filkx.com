@@ -116,12 +116,9 @@ onBeforeUnmount(() => {
                   v-model="form.name"
                   type="text"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.name"
-              />
+              <InputError class="mt-2" :message="form.errors.name" />
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2"> Views </label>
                 <input
@@ -129,43 +126,30 @@ onBeforeUnmount(() => {
                   type="number"
                   required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.limit"
-              />
+              <InputError class="mt-2" :message="form.errors.limit" />
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2"> Назва </label>
                 <input
                   v-model="form.url"
                   type="text"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.url"
-              />
+              <InputError class="mt-2" :message="form.errors.url" />
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Формат</label>
                 <select
                   v-model="form.format"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
-                  <option
-                    v-for="format in props.formats"
-                    :key="format"
-                    :value="format"
-                  >
+                  <option v-for="format in props.formats" :key="format" :value="format">
                     {{ format }}
                   </option>
                 </select>
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.category_id"
-              />
+              <InputError class="mt-2" :message="form.errors.category_id" />
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Категорія</label>
                 <select
@@ -181,10 +165,7 @@ onBeforeUnmount(() => {
                   </option>
                 </select>
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.category_id"
-              />
+              <InputError class="mt-2" :message="form.errors.category_id" />
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2"> Місцезнаходження </label>
                 <div class="relative search-container">
@@ -193,7 +174,7 @@ onBeforeUnmount(() => {
                     type="text"
                     placeholder="Почніть вводити адресу"
                     class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
-                  >
+                  />
                   <div
                     v-if="showLocationDropdown"
                     class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
@@ -218,11 +199,8 @@ onBeforeUnmount(() => {
                   accept="image/*"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm"
                   @change="onFileChange"
-                >
-                <InputError
-                  class="mt-2"
-                  :message="form.errors.image"
                 />
+                <InputError class="mt-2" :message="form.errors.image" />
               </div>
               <button
                 type="submit"

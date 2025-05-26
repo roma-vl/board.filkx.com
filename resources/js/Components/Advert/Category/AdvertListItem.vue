@@ -37,7 +37,7 @@ const toggleLike = (advert) => {
       class="object-cover w-48 h-48 hover:scale-105 transition-transform duration-300"
       :src="getFullPathForImage(advert.first_photo?.file)"
       :alt="advert.title"
-    >
+    />
     <div class="p-5 flex-1 space-y-2">
       <div class="flex justify-between items-start">
         <h3
@@ -62,16 +62,10 @@ const toggleLike = (advert) => {
               v-if="!advert.is_favorited"
               class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
             />
-            <HeartSolidIcon
-              v-else
-              class="w-6 h-6 text-red-500 transition"
-            />
+            <HeartSolidIcon v-else class="w-6 h-6 text-red-500 transition" />
           </span>
         </button>
-        <Link
-          :href="route('adverts.show', advert.id)"
-          class="text-blue-600 hover:underline"
-        >
+        <Link :href="route('adverts.show', advert.id)" class="text-blue-600 hover:underline">
           Детальніше
         </Link>
       </div>

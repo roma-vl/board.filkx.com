@@ -41,24 +41,13 @@ const refreshPages = () => {
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <ul class="space-y-2">
-            <PageItem
-              v-for="page in pages"
-              :key="page.id"
-              :page="page"
-            />
+            <PageItem v-for="page in pages" :key="page.id" :page="page" />
           </ul>
         </div>
       </div>
     </div>
-    <Modal
-      :show="isCreateModalOpen"
-      max-width="5xl"
-      @close="isCreateModalOpen = false"
-    >
-      <Create
-        :pages="selectedPages"
-        @page-created="refreshPages"
-      />
+    <Modal :show="isCreateModalOpen" max-width="5xl" @close="isCreateModalOpen = false">
+      <Create :pages="selectedPages" @page-created="refreshPages" />
     </Modal>
   </AdminLayout>
 </template>

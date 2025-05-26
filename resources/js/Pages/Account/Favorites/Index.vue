@@ -24,15 +24,10 @@ const routes = {
           <ProfileMenu :active-tab="'account.favorites.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">
-                Збережені оголошення
-              </h2>
+              <h2 class="text-xl font-bold mb-4">Збережені оголошення</h2>
             </div>
 
-            <AdvertList
-              :adverts="favoriteAdverts"
-              :routes="routes"
-            />
+            <AdvertList :adverts="favoriteAdverts" :routes="routes" />
           </div>
         </div>
       </div>

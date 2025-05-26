@@ -93,55 +93,23 @@ const moveToBottom = (id) => {
     >
       <span class="font-semibold">{{ props.prefix }}{{ props.category.name }}</span>
       <div class="flex items-right">
-        <button
-          class="text-purple-500 pr-2"
-          @click.stop="moveToTop(category.id)"
-        >
-          ⏫
-        </button>
-        <button
-          class="text-green-500 pr-2"
-          @click.stop="moveUp(category.id)"
-        >
-          🔼
-        </button>
-        <button
-          class="text-orange-500 pr-2"
-          @click.stop="moveDown(category.id)"
-        >
-          🔽
-        </button>
-        <button
-          class="text-purple-500 pr-2"
-          @click.stop="moveToBottom(category.id)"
-        >
-          ⏬
-        </button>
-        <Link
-          :href="route('admin.adverts.category.show', category.id)"
-          class="text-blue-500 pr-2"
-        >
+        <button class="text-purple-500 pr-2" @click.stop="moveToTop(category.id)">⏫</button>
+        <button class="text-green-500 pr-2" @click.stop="moveUp(category.id)">🔼</button>
+        <button class="text-orange-500 pr-2" @click.stop="moveDown(category.id)">🔽</button>
+        <button class="text-purple-500 pr-2" @click.stop="moveToBottom(category.id)">⏬</button>
+        <Link :href="route('admin.adverts.category.show', category.id)" class="text-blue-500 pr-2">
           Show
         </Link>
-        <button
-          class="text-blue-500 pr-2"
-          @click.stop="openEditModal(category.id)"
-        >
+        <button class="text-blue-500 pr-2" @click.stop="openEditModal(category.id)">
           Редагувати
         </button>
-        <button
-          class="text-red-500 hover:underline"
-          @click.stop="deleteCategory(category.id)"
-        >
+        <button class="text-red-500 hover:underline" @click.stop="deleteCategory(category.id)">
           Видалити
         </button>
       </div>
     </div>
 
-    <div
-      v-if="category.children_recursive?.length"
-      class="ml-6"
-    >
+    <div v-if="category.children_recursive?.length" class="ml-6">
       <CategoryItem
         v-for="child in category.children_recursive"
         :key="child.id"
@@ -150,14 +118,7 @@ const moveToBottom = (id) => {
     </div>
   </li>
 
-  <Modal
-    :show="isEditModalOpen"
-    max-width="2xl"
-    @close="isEditModalOpen = false"
-  >
-    <Edit
-      :category="selectedCategory"
-      @category-updated="refreshCategories"
-    />
+  <Modal :show="isEditModalOpen" max-width="2xl" @close="isEditModalOpen = false">
+    <Edit :category="selectedCategory" @category-updated="refreshCategories" />
   </Modal>
 </template>

@@ -38,10 +38,7 @@ const loginWithGoogle = () => {
   <GuestLayout>
     <Head :title="$t('login')" />
 
-    <div
-      v-if="status"
-      class="mb-4 text-sm font-medium text-green-600"
-    >
+    <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
       {{ status }}
     </div>
     <form @submit.prevent="submit">
@@ -76,11 +73,7 @@ const loginWithGoogle = () => {
             </g>
             <defs>
               <clipPath id="clip0_3033_94454">
-                <rect
-                  width="24"
-                  height="24"
-                  fill="white"
-                />
+                <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
           </svg>
@@ -104,11 +97,7 @@ const loginWithGoogle = () => {
             </g>
             <defs>
               <clipPath id="clip0_3033_94669">
-                <rect
-                  width="24"
-                  height="24"
-                  fill="white"
-                />
+                <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
           </svg>
@@ -116,10 +105,7 @@ const loginWithGoogle = () => {
         </button>
       </div>
       <div>
-        <InputLabel
-          for="email"
-          :value="$t('email')"
-        />
+        <InputLabel for="email" :value="$t('email')" />
         <TextInput
           id="email"
           v-model="form.email"
@@ -129,17 +115,11 @@ const loginWithGoogle = () => {
           autofocus
           autocomplete="username"
         />
-        <InputError
-          class="mt-2"
-          :message="form.errors.email"
-        />
+        <InputError class="mt-2" :message="form.errors.email" />
       </div>
 
       <div class="mt-4">
-        <InputLabel
-          for="password"
-          :value="$t('password')"
-        />
+        <InputLabel for="password" :value="$t('password')" />
         <TextInput
           id="password"
           v-model="form.password"
@@ -148,18 +128,12 @@ const loginWithGoogle = () => {
           required
           autocomplete="current-password"
         />
-        <InputError
-          class="mt-2"
-          :message="form.errors.password"
-        />
+        <InputError class="mt-2" :message="form.errors.password" />
       </div>
 
       <div class="mt-4 block">
         <label class="flex items-center">
-          <Checkbox
-            v-model:checked="form.remember"
-            name="remember"
-          />
+          <Checkbox v-model:checked="form.remember" name="remember" />
           <span class="ms-2 text-sm text-gray-600">{{ $t('remember') }} </span>
         </label>
       </div>

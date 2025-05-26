@@ -28,12 +28,7 @@ function select(category) {
     >
       <span @click.stop="select(category)">{{ category.name }}</span>
       <span v-if="category.children?.length">
-        <svg
-          class="w-3 h-3 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             :class="{ 'rotate-90': isOpen }"
             stroke-linecap="round"
@@ -45,10 +40,7 @@ function select(category) {
       </span>
     </div>
 
-    <div
-      v-if="isOpen && category.children?.length"
-      class="ml-4 border-l"
-    >
+    <div v-if="isOpen && category.children?.length" class="ml-4 border-l">
       <CategoryDropdownItem
         v-for="child in category.children"
         :key="child.id"

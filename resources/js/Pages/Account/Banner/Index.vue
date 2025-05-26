@@ -27,9 +27,7 @@ const flash = computed(() => usePage().props.flash);
           <ProfileMenu :active-tab="'account.banners.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">
-                Мої оголошення
-              </h2>
+              <h2 class="text-xl font-bold mb-4">Мої оголошення</h2>
 
               <a
                 :href="route('account.banners.create')"
@@ -39,10 +37,7 @@ const flash = computed(() => usePage().props.flash);
               </a>
             </div>
 
-            <AdvertList
-              :banners="banners"
-              :routes="routes"
-            />
+            <AdvertList :banners="banners" :routes="routes" />
           </div>
         </div>
       </div>

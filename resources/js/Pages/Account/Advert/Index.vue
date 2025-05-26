@@ -26,9 +26,7 @@ const routes = {
           <ProfileMenu :active-tab="'account.adverts.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">
-                Мої оголошення
-              </h2>
+              <h2 class="text-xl font-bold mb-4">Мої оголошення</h2>
 
               <a
                 :href="route('account.adverts.create')"
@@ -43,10 +41,7 @@ const routes = {
                 />
               </a>
             </div>
-            <AdvertList
-              :adverts="adverts"
-              :routes="routes"
-            />
+            <AdvertList :adverts="adverts" :routes="routes" />
           </div>
         </div>
       </div>

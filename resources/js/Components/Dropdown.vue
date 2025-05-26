@@ -55,11 +55,7 @@ const open = ref(false);
     </div>
 
     <!-- Full Screen Dropdown Overlay -->
-    <div
-      v-show="open"
-      class="fixed inset-0 z-40"
-      @click="open = false"
-    />
+    <div v-show="open" class="fixed inset-0 z-40" @click="open = false" />
 
     <Transition
       enter-active-class="transition ease-out duration-200"
@@ -76,10 +72,7 @@ const open = ref(false);
         style="display: none"
         @click="open = false"
       >
-        <div
-          class="rounded-md ring-1 ring-black ring-opacity-5"
-          :class="contentClasses"
-        >
+        <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
           <slot name="content" />
         </div>
       </div>

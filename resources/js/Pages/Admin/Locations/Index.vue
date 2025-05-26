@@ -130,10 +130,7 @@ loadCountries();
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage
-          v-if="flash"
-          :flash="flash"
-        />
+        <FlashMessage v-if="flash" :flash="flash" />
         <div class="mb-4 flex justify-end">
           <button
             type="submit"
@@ -145,10 +142,7 @@ loadCountries();
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <ul class="space-y-2">
-            <li
-              v-for="country in countries"
-              :key="country.id"
-            >
+            <li v-for="country in countries" :key="country.id">
               <div
                 class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-4 mb-2 rounded cursor-pointer shadow-md"
                 @click="loadRegions(country.id)"
@@ -157,10 +151,7 @@ loadCountries();
                   {{ country.name }}
                 </span>
                 <div class="flex items-right">
-                  <button
-                    class="text-green-500 pr-2"
-                    @click.stop="openModal('region', country.id)"
-                  >
+                  <button class="text-green-500 pr-2" @click.stop="openModal('region', country.id)">
                     Додати область
                   </button>
                   <button
@@ -173,15 +164,8 @@ loadCountries();
                 </div>
               </div>
 
-              <ul
-                v-if="expanded.country === country.id"
-                class="ml-6"
-              >
-                <li
-                  v-for="region in regions[country.id] || []"
-                  :key="region.id"
-                  class="pt-1"
-                >
+              <ul v-if="expanded.country === country.id" class="ml-6">
+                <li v-for="region in regions[country.id] || []" :key="region.id" class="pt-1">
                   <div
                     class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-3 mb-2 rounded cursor-pointer shadow-md"
                     @click="loadAreas(region.id)"
@@ -203,15 +187,8 @@ loadCountries();
                     </div>
                   </div>
 
-                  <ul
-                    v-if="expanded.region === region.id"
-                    class="ml-6"
-                  >
-                    <li
-                      v-for="area in areas[region.id] || []"
-                      :key="area.id"
-                      class="pt-1"
-                    >
+                  <ul v-if="expanded.region === region.id" class="ml-6">
+                    <li v-for="area in areas[region.id] || []" :key="area.id" class="pt-1">
                       <div
                         class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-2 ml-3 mb-2 rounded cursor-pointer shadow-md"
                         @click="loadVillages(area.id)"
@@ -233,10 +210,7 @@ loadCountries();
                         </div>
                       </div>
 
-                      <ul
-                        v-if="expanded.area === area.id"
-                        class="ml-6"
-                      >
+                      <ul v-if="expanded.area === area.id" class="ml-6">
                         <li
                           v-for="village in villages[area.id] || []"
                           :key="village.id"
@@ -270,22 +244,12 @@ loadCountries();
               <h2 class="text-xl font-bold mb-4">
                 {{ modalInfo }}
               </h2>
-              <input
-                v-model="form.name"
-                placeholder="Назва"
-                class="border p-2 w-full mb-4"
-              >
+              <input v-model="form.name" placeholder="Назва" class="border p-2 w-full mb-4" />
               <div class="flex gap-2">
-                <button
-                  class="bg-blue-500 text-white px-4 py-2 rounded"
-                  @click="submitForm"
-                >
+                <button class="bg-blue-500 text-white px-4 py-2 rounded" @click="submitForm">
                   Зберегти
                 </button>
-                <button
-                  class="bg-gray-500 text-white px-4 py-2 rounded"
-                  @click="closeModal"
-                >
+                <button class="bg-gray-500 text-white px-4 py-2 rounded" @click="closeModal">
                   Скасувати
                 </button>
               </div>

@@ -32,16 +32,9 @@ const props = defineProps({
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white">
-            <Breadcrumbs
-              class="mb-6"
-              :categories="categories"
-              :locations="locations"
-            />
+            <Breadcrumbs class="mb-6" :categories="categories" :locations="locations" />
 
-            <ChildCategories
-              :child-categories="childCategories"
-              :categories="categories"
-            />
+            <ChildCategories :child-categories="childCategories" :categories="categories" />
 
             <CategoryAdvert :adverts="adverts" />
           </div>

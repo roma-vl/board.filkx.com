@@ -6,7 +6,7 @@ let bugsnagVue = null;
 
 if (import.meta.env.PROD) {
   Bugsnag.start({
-    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY ||  '',
+    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY || '',
     plugins: [new BugsnagPluginVue()],
     releaseStage: import.meta.env.VITE_APP_ENV || 'development',
     onError: (event) => {
@@ -17,7 +17,7 @@ if (import.meta.env.PROD) {
   });
 
   BugsnagPerformance.start({
-    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY ||  '',
+    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY || '',
   });
 
   bugsnagVue = Bugsnag.getPlugin('vue');

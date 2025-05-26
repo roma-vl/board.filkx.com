@@ -83,14 +83,8 @@ const updateSorting = (field) => {
       :search-query="searchQuery"
       @sort="updateSorting"
     >
-      <template
-        v-for="(_, slotName) in $slots"
-        #[slotName]="scope"
-      >
-        <slot
-          :name="slotName"
-          v-bind="scope"
-        />
+      <template v-for="(_, slotName) in $slots" #[slotName]="scope">
+        <slot :name="slotName" v-bind="scope" />
       </template>
     </DataTable>
     <div

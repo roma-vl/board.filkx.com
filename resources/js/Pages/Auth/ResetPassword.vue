@@ -37,10 +37,7 @@ const submit = () => {
 
     <form @submit.prevent="submit">
       <div>
-        <InputLabel
-          for="email"
-          :value="$t('email')"
-        />
+        <InputLabel for="email" :value="$t('email')" />
 
         <TextInput
           id="email"
@@ -52,17 +49,11 @@ const submit = () => {
           autocomplete="username"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.email"
-        />
+        <InputError class="mt-2" :message="form.errors.email" />
       </div>
 
       <div class="mt-4">
-        <InputLabel
-          for="password"
-          :value="$t('password')"
-        />
+        <InputLabel for="password" :value="$t('password')" />
 
         <TextInput
           id="password"
@@ -73,17 +64,11 @@ const submit = () => {
           autocomplete="new-password"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.password"
-        />
+        <InputError class="mt-2" :message="form.errors.password" />
       </div>
 
       <div class="mt-4">
-        <InputLabel
-          for="password_confirmation"
-          :value="$t('confirm.password')"
-        />
+        <InputLabel for="password_confirmation" :value="$t('confirm.password')" />
 
         <TextInput
           id="password_confirmation"
@@ -94,17 +79,11 @@ const submit = () => {
           autocomplete="new-password"
         />
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.password_confirmation"
-        />
+        <InputError class="mt-2" :message="form.errors.password_confirmation" />
       </div>
 
       <div class="mt-4 flex items-center justify-end">
-        <PrimaryButton
-          :class="{ 'opacity-25': form.processing }"
-          :disabled="form.processing"
-        >
+        <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
           {{ $t('reset.password') }}
         </PrimaryButton>
       </div>

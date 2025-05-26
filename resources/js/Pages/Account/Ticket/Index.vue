@@ -37,9 +37,7 @@ const routes = {};
           <ProfileMenu :active-tab="'account.tickets.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">
-                Мої Тікети
-              </h2>
+              <h2 class="text-xl font-bold mb-4">Мої Тікети</h2>
               <button
                 class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-400 hover:text-violet-700"
                 @click="openCreateModal"
@@ -47,23 +45,13 @@ const routes = {};
                 + Додати Тікет
               </button>
             </div>
-            <TicketList
-              :tickets="tickets"
-              :routes="routes"
-            />
+            <TicketList :tickets="tickets" :routes="routes" />
           </div>
         </div>
       </div>
     </div>
-    <Modal
-      :show="isCreateModalOpen"
-      max-width="2xl"
-      @close="isCreateModalOpen = false"
-    >
-      <Create
-        :pages="selectedPages"
-        @page-created="refreshPages"
-      />
+    <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
+      <Create :pages="selectedPages" @page-created="refreshPages" />
     </Modal>
   </AuthenticatedLayout>
 </template>

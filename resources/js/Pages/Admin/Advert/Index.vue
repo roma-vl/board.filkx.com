@@ -41,24 +41,13 @@ const refreshCategories = () => {
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <ul class="space-y-2">
-            <CategoryItem
-              v-for="category in categories"
-              :key="category.id"
-              :category="category"
-            />
+            <CategoryItem v-for="category in categories" :key="category.id" :category="category" />
           </ul>
         </div>
       </div>
     </div>
-    <Modal
-      :show="isCreateModalOpen"
-      max-width="2xl"
-      @close="isCreateModalOpen = false"
-    >
-      <Create
-        :categories="selectedCategory"
-        @category-created="refreshCategories"
-      />
+    <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
+      <Create :categories="selectedCategory" @category-created="refreshCategories" />
     </Modal>
   </AdminLayout>
 </template>

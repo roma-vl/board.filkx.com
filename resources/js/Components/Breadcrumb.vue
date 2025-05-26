@@ -19,11 +19,7 @@ export default {
   <div class="flex items-center">
     <nav class="text-sm sm:text-base bg-white p-2 rounded-md shadow-md">
       <ol class="list-none p-0 inline-flex space-x-2 px-3">
-        <li
-          v-for="(breadcrumb, index) in breadcrumbs"
-          :key="index"
-          class="flex items-center"
-        >
+        <li v-for="(breadcrumb, index) in breadcrumbs" :key="index" class="flex items-center">
           <svg
             v-if="breadcrumb.icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,10 +53,7 @@ export default {
             </span>
           </template>
 
-          <span
-            v-if="index < breadcrumbs.length - 1"
-            class="mx-2"
-          >/</span>
+          <span v-if="index < breadcrumbs.length - 1" class="mx-2">/</span>
         </li>
       </ol>
     </nav>

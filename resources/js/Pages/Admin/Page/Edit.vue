@@ -45,25 +45,17 @@ const formattedPages = computed(() => getPagesOptions(pages));
   <Head title="Додати сторінку" />
 
   <div class="mx-auto p-6 bg-white shadow rounded">
-    <h1 class="text-2xl font-bold mb-6">
-      Додати сторінку
-    </h1>
+    <h1 class="text-2xl font-bold mb-6">Додати сторінку</h1>
 
-    <form
-      class="space-y-6"
-      @submit.prevent="submit"
-    >
+    <form class="space-y-6" @submit.prevent="submit">
       <div>
         <label class="block text-gray-700 font-medium mb-1">Назва</label>
         <input
           v-model="form.title"
           type="text"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
-        >
-        <div
-          v-if="form.errors.title"
-          class="text-red-500 text-sm mt-1"
-        >
+        />
+        <div v-if="form.errors.title" class="text-red-500 text-sm mt-1">
           {{ form.errors.title }}
         </div>
       </div>
@@ -74,11 +66,8 @@ const formattedPages = computed(() => getPagesOptions(pages));
           v-model="form.menu_title"
           type="text"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
-        >
-        <div
-          v-if="form.errors.menu_title"
-          class="text-red-500 text-sm mt-1"
-        >
+        />
+        <div v-if="form.errors.menu_title" class="text-red-500 text-sm mt-1">
           {{ form.errors.menu_title }}
         </div>
       </div>
@@ -89,11 +78,8 @@ const formattedPages = computed(() => getPagesOptions(pages));
           v-model="form.slug"
           type="text"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
-        >
-        <div
-          v-if="form.errors.slug"
-          class="text-red-500 text-sm mt-1"
-        >
+        />
+        <div v-if="form.errors.slug" class="text-red-500 text-sm mt-1">
           {{ form.errors.slug }}
         </div>
       </div>
@@ -104,9 +90,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
           v-model="form.parent_id"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
         >
-          <option :value="null">
-            — Без батьківської сторінки
-          </option>
+          <option :value="null">— Без батьківської сторінки</option>
           <option
             v-for="formattedPage in formattedPages"
             :key="formattedPage.id"
@@ -115,10 +99,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
             {{ formattedPage.title }}
           </option>
         </select>
-        <div
-          v-if="form.errors.parent_id"
-          class="text-red-500 text-sm mt-1"
-        >
+        <div v-if="form.errors.parent_id" class="text-red-500 text-sm mt-1">
           {{ form.errors.parent_id }}
         </div>
       </div>
@@ -130,10 +111,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
           rows="3"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
         />
-        <div
-          v-if="form.errors.description"
-          class="text-red-500 text-sm mt-1"
-        >
+        <div v-if="form.errors.description" class="text-red-500 text-sm mt-1">
           {{ form.errors.description }}
         </div>
       </div>
@@ -141,10 +119,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       <div>
         <label class="block text-gray-700 font-medium mb-1">Контент</label>
         <Editor v-model="form.content" />
-        <div
-          v-if="form.errors.content"
-          class="text-red-500 text-sm mt-1"
-        >
+        <div v-if="form.errors.content" class="text-red-500 text-sm mt-1">
           {{ form.errors.content }}
         </div>
       </div>

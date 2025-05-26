@@ -123,12 +123,9 @@ onBeforeUnmount(() => {
                   v-model="form.name"
                   type="text"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.name"
-              />
+              <InputError class="mt-2" :message="form.errors.name" />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Views</label>
@@ -137,12 +134,9 @@ onBeforeUnmount(() => {
                   type="number"
                   required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.limit"
-              />
+              <InputError class="mt-2" :message="form.errors.limit" />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Назва</label>
@@ -150,12 +144,9 @@ onBeforeUnmount(() => {
                   v-model="form.url"
                   type="text"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
+                />
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.url"
-              />
+              <InputError class="mt-2" :message="form.errors.url" />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Формат</label>
@@ -163,19 +154,12 @@ onBeforeUnmount(() => {
                   v-model="form.format"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
-                  <option
-                    v-for="format in props.formats"
-                    :key="format"
-                    :value="format"
-                  >
+                  <option v-for="format in props.formats" :key="format" :value="format">
                     {{ format }}
                   </option>
                 </select>
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.category_id"
-              />
+              <InputError class="mt-2" :message="form.errors.category_id" />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Категорія</label>
@@ -192,10 +176,7 @@ onBeforeUnmount(() => {
                   </option>
                 </select>
               </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.category_id"
-              />
+              <InputError class="mt-2" :message="form.errors.category_id" />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">Місцезнаходження</label>
@@ -205,7 +186,7 @@ onBeforeUnmount(() => {
                     type="text"
                     class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
                     placeholder="Почніть вводити адресу"
-                  >
+                  />
 
                   <div
                     v-if="showLocationDropdown"
@@ -232,11 +213,8 @@ onBeforeUnmount(() => {
                   accept="image/*"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm"
                   @change="onFileChange"
-                >
-                <InputError
-                  class="mt-2"
-                  :message="form.errors.image"
                 />
+                <InputError class="mt-2" :message="form.errors.image" />
               </div>
 
               <button

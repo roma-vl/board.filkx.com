@@ -74,7 +74,7 @@ onMounted(() => {
         type="search"
         class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none text-gray-600 font-medium border-0"
         placeholder="Search..."
-      >
+      />
     </div>
     <div class="relative mr-2">
       <button
@@ -101,16 +101,13 @@ onMounted(() => {
             :class="{ 'bg-gray-200 cursor-not-allowed hover:bg-gray-200': heading.disabled }"
             :value="heading.key"
             :disabled="heading.disabled"
-          >
+          />
           <span>{{ heading.value }}</span>
         </label>
       </div>
     </div>
     <div class="relative">
-      <Dropdown
-        :align="'right'"
-        :width="'24'"
-      >
+      <Dropdown :align="'right'" :width="'24'">
         <template #trigger>
           <button class="rounded-lg bg-white px-4 py-2 flex items-center shadow hover:bg-gray-100">
             {{ perPage }} <ArrowDownIcon />
@@ -122,12 +119,7 @@ onMounted(() => {
             :key="count"
             class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
           >
-            <input
-              v-model="perPage"
-              type="radio"
-              :value="count"
-              class="mr-3 cursor-pointer"
-            >
+            <input v-model="perPage" type="radio" :value="count" class="mr-3 cursor-pointer" />
             {{ count }}
           </label>
         </template>

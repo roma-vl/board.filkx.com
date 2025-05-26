@@ -93,17 +93,20 @@ const deleteAdvert = (id) => {
                     class="text-blue-600 hover:underline"
                     title="Переглянути"
                   >
-                    <EyeIcon /></a>
+                    <EyeIcon
+                  /></a>
                   <a
                     class="text-green-600 font-bold hover:text-green-900 cursor-pointer"
                     title="Опублікувати"
                     @click.prevent="activateAdvert(row.id)"
-                  ><CheckIcon /></a>
+                    ><CheckIcon
+                  /></a>
                   <a
                     class="text-red-600 hover:text-red-900 cursor-pointer"
                     title="Відмінити"
                     @click.prevent="rejectAdvert(row.id)"
-                  ><ArrowUturnIcon /></a>
+                    ><ArrowUturnIcon
+                  /></a>
                   <a
                     v-if="!row.deleted_at"
                     :href="route('account.adverts.edit', row.id)"
@@ -134,15 +137,8 @@ const deleteAdvert = (id) => {
         </div>
       </div>
     </div>
-    <Modal
-      :show="isRejectModalOpen"
-      max-width="2xl"
-      @close="isRejectModalOpen = false"
-    >
-      <Reject
-        :advert-id="advertId"
-        @reject-created="isRejectModalOpen = false"
-      />
+    <Modal :show="isRejectModalOpen" max-width="2xl" @close="isRejectModalOpen = false">
+      <Reject :advert-id="advertId" @reject-created="isRejectModalOpen = false" />
     </Modal>
   </AdminLayout>
 </template>

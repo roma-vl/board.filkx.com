@@ -50,10 +50,7 @@ watch(
 
 <template>
   <div class="relative inline-block w-full">
-    <div
-      class="cursor-pointer border px-4 py-2 rounded bg-white shadow"
-      @click="toggleDropdown"
-    >
+    <div class="cursor-pointer border px-4 py-2 rounded bg-white shadow" @click="toggleDropdown">
       {{ selectedCategory?.name || 'Обрати категорію' }}
     </div>
 

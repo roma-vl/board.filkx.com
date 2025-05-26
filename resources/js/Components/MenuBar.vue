@@ -77,13 +77,7 @@
     </button>
 
     <!-- Колір -->
-    <button
-      type="button"
-      :class="btnClass(false)"
-      @click="setColor(editor)"
-    >
-      🎨
-    </button>
+    <button type="button" :class="btnClass(false)" @click="setColor(editor)">🎨</button>
 
     <!-- Цитата -->
     <button
@@ -104,36 +98,16 @@
     </button>
 
     <!-- Таблиця -->
-    <button
-      type="button"
-      :class="btnClass(false)"
-      @click="insertTable(editor)"
-    >
-      🧮
-    </button>
+    <button type="button" :class="btnClass(false)" @click="insertTable(editor)">🧮</button>
 
     <!-- Зображення -->
-    <button
-      type="button"
-      :class="btnClass(false)"
-      @click="insertImage(editor)"
-    >
-      🖼️
-    </button>
+    <button type="button" :class="btnClass(false)" @click="insertImage(editor)">🖼️</button>
 
     <!-- Undo / Redo -->
-    <button
-      type="button"
-      :class="btnClass(false)"
-      @click="editor.chain().focus().undo().run()"
-    >
+    <button type="button" :class="btnClass(false)" @click="editor.chain().focus().undo().run()">
       ↺
     </button>
-    <button
-      type="button"
-      :class="btnClass(false)"
-      @click="editor.chain().focus().redo().run()"
-    >
+    <button type="button" :class="btnClass(false)" @click="editor.chain().focus().redo().run()">
       ↻
     </button>
   </div>

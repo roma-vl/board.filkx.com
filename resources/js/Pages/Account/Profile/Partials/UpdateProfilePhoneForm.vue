@@ -15,13 +15,9 @@ const form = useForm({
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">
-        Phone Information
-      </h2>
+      <h2 class="text-lg font-medium text-gray-900">Phone Information</h2>
 
-      <p class="mt-1 text-sm text-gray-600">
-        Update your account's phone information.
-      </p>
+      <p class="mt-1 text-sm text-gray-600">Update your account's phone information.</p>
     </header>
 
     <form
@@ -29,10 +25,7 @@ const form = useForm({
       @submit.prevent="form.patch(route('account.profile.phone.update'))"
     >
       <div>
-        <InputLabel
-          for="phone"
-          value="Phone"
-        />
+        <InputLabel for="phone" value="Phone" />
         <TextInput
           id="phone"
           v-model="form.phone"
@@ -40,23 +33,15 @@ const form = useForm({
           class="mt-1 block w-full"
           autocomplete="phone"
         />
-        <div
-          v-if="Number(user.phone_verified) === 0"
-          class="text-gray-400 flex justify-end"
-        >
+        <div v-if="Number(user.phone_verified) === 0" class="text-gray-400 flex justify-end">
           Not confirmed
         </div>
 
-        <InputError
-          class="mt-2"
-          :message="form.errors.phone"
-        />
+        <InputError class="mt-2" :message="form.errors.phone" />
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">
-          Save
-        </PrimaryButton>
+        <PrimaryButton :disabled="form.processing"> Save </PrimaryButton>
 
         <Transition
           enter-active-class="transition ease-in-out"
@@ -64,12 +49,7 @@ const form = useForm({
           leave-active-class="transition ease-in-out"
           leave-to-class="opacity-0"
         >
-          <p
-            v-if="form.recentlySuccessful"
-            class="text-sm text-gray-600"
-          >
-            Saved.
-          </p>
+          <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
         </Transition>
       </div>
     </form>

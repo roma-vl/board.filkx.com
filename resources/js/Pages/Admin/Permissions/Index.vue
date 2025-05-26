@@ -61,10 +61,7 @@ const deletePermission = (id) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage
-          v-if="flash"
-          :flash="flash"
-        />
+        <FlashMessage v-if="flash" :flash="flash" />
 
         <div class="mb-2 flex justify-end">
           <button
@@ -74,12 +71,7 @@ const deletePermission = (id) => {
             + New Permission
           </button>
         </div>
-        <Grid
-          :items="permissions"
-          :pagination="pagination"
-          :headings="headings"
-          :routes="routes"
-        >
+        <Grid :items="permissions" :pagination="pagination" :headings="headings" :routes="routes">
           <template #column-actions="{ row }">
             <div class="flex gap-2">
               <div class="flex justify-end gap-4">
@@ -100,23 +92,12 @@ const deletePermission = (id) => {
           </template>
         </Grid>
 
-        <Modal
-          :show="isCreateModalOpen"
-          max-width="2xl"
-          @close="isCreateModalOpen = false"
-        >
+        <Modal :show="isCreateModalOpen" max-width="2xl" @close="isCreateModalOpen = false">
           <Create @permission-created="isCreateModalOpen = false" />
         </Modal>
 
-        <Modal
-          :show="isEditModalOpen"
-          max-width="2xl"
-          @close="isEditModalOpen = false"
-        >
-          <Edit
-            :data="selectedPermission"
-            @permission-updated="isEditModalOpen = false"
-          />
+        <Modal :show="isEditModalOpen" max-width="2xl" @close="isEditModalOpen = false">
+          <Edit :data="selectedPermission" @permission-updated="isEditModalOpen = false" />
         </Modal>
       </div>
     </div>
