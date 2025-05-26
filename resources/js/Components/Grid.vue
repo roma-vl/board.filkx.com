@@ -1,6 +1,6 @@
 <!-- src/Components/Grid.vue -->
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
 import DataTableHeader from '@/Components/DataTableHeader.vue';
 import DataTable from '@/Components/DataTable.vue';

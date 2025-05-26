@@ -48,7 +48,9 @@ function submitComment() {
               </p>
             </div>
             <div class="bg-white rounded-xl shadow p-6 mt-6">
-              <p class="text-gray-900 text-lg font-bold mb-2">{{ $t('comments') }}</p>
+              <p class="text-gray-900 text-lg font-bold mb-2">
+                {{ $t('comments') }}
+              </p>
               <div class="border-b border-gray-200 mb-4" />
               <div v-if="messages.length" class="space-y-6">
                 <div v-for="(msg, index) in messages" :key="index" class="flex items-start gap-4">
@@ -74,9 +76,13 @@ function submitComment() {
                   </div>
                 </div>
               </div>
-              <div v-else class="text-gray-500 text-sm italic">{{ $t('no.comments.yet') }}</div>
+              <div v-else class="text-gray-500 text-sm italic">
+                {{ $t('no.comments.yet') }}
+              </div>
               <form class="mt-6" @submit.prevent="submitComment">
-                <p class="text-gray-900 text-lg font-bold mb-2">{{ $t('leave.comment') }}</p>
+                <p class="text-gray-900 text-lg font-bold mb-2">
+                  {{ $t('leave.comment') }}
+                </p>
                 <textarea
                   v-model="newComment"
                   rows="4"
@@ -100,7 +106,9 @@ function submitComment() {
                 {{ $t('published') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
               <div class="rounded-lg shadow p-3 bg-white mt-4">
-                <p class="text-gray-800 font-bold text-sm mb-4">{{ $t('statuses') }}</p>
+                <p class="text-gray-800 font-bold text-sm mb-4">
+                  {{ $t('statuses') }}
+                </p>
                 <ul class="space-y-2">
                   <li
                     v-for="(status, index) in statuses"

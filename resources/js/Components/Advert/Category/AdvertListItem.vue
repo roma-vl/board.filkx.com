@@ -73,7 +73,6 @@ const toggleLike = (advert) => {
   </div>
 </template>
 <style scoped>
-/* у файлі app.css або styles.css */
 @keyframes heart-beat {
   0%,
   100% {
@@ -88,17 +87,5 @@ const toggleLike = (advert) => {
   75% {
     transform: scale(1.1);
   }
-}
-
-.heart-animate {
-  animation: heart-beat 0.4s ease-in-out;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

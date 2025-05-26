@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, router, usePage } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
 import { computed } from 'vue';
 import FlashMessage from '@/Components/FlashMessage.vue';

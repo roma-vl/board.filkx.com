@@ -22,7 +22,9 @@ const submit = () => {
   <Head :title="$t('add.ticket')" />
   <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
     <div class="px-4">
-      <h1 class="text-2xl font-bold mb-6">{{ $t('add.ticket') }}</h1>
+      <h1 class="text-2xl font-bold mb-6">
+        {{ $t('add.ticket') }}
+      </h1>
       <form @submit.prevent="submit">
         <div class="mb-4">
           <label class="block text-sm font-medium mb-2">

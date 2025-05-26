@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import { defineProps, defineEmits } from 'vue';
 import TagInput from '@/Components/TagInput.vue';

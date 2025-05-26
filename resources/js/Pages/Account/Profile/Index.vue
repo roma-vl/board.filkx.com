@@ -23,6 +23,7 @@ const user = usePage().props.auth.user;
                 v-if="user.avatar_url"
                 class="w-60 h-60 bg-gray-400 rounded-lg"
                 :src="user.avatar_url"
+                alt=""
               />
               <div v-else class="w-48 h-48 bg-gray-400 rounded-full" />
             </div>

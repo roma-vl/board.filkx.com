@@ -799,8 +799,4 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style scoped>
-.-translate-x-full {
-  transform: translateX(-100%);
-}
-</style>
+<style scoped></style>
