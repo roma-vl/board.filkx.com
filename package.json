@@ -6,7 +6,8 @@
     "dev": "vite",
     "prepare": "husky",
     "lint": "npx eslint  --config=eslint.config.js --fix --no-cache",
-    "format": "prettier --write . && npm run lint"
+    "prettier": "prettier --write . ",
+    "format": "npm run prettier && npm run lint"
   },
   "hooks": {
     "pre-commit": "php artisan test"

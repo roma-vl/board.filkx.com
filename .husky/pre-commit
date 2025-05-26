@@ -1,1 +1,1 @@
- docker exec bord-app-laravel.test-1 npm run lint
+ docker exec bord-app-laravel.test-1 npm run prettier
