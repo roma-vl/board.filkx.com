@@ -5,7 +5,7 @@ import { getFullPathForStaticImage } from '@/helpers.js';
 </script>
 
 <template>
-  <Head title="Категорії оголошень " />
+  <Head :title="$t('contact.page_title')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -16,7 +16,7 @@ import { getFullPathForStaticImage } from '@/helpers.js';
                 <p
                   class="text-3xl md:text-5xl text-yellow-500 my-4 leading-relaxed md:leading-snug"
                 >
-                  Contact our team
+                  {{ $t('contact.title') }}
                 </p>
                 <p class="font-sans text-sm md:text-lg my-2 md:my-4">
                   <svg
@@ -30,7 +30,7 @@ import { getFullPathForStaticImage } from '@/helpers.js';
                       d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"
                     />
                   </svg>
-                  Ukraine, Ternopil
+                  {{ $t('contact.location') }}
                 </p>
                 <p class="font-sans text-sm md:text-lg my-2 md:my-4">
                   <svg
@@ -60,10 +60,9 @@ import { getFullPathForStaticImage } from '@/helpers.js';
                   </svg>
                   +380950564687
                 </p>
-                <br>
-                <br>
+                <br><br>
                 <p class="font-sans text-sm md:text-lg my-2 md:my-4">
-                  Press the chat icon at the right bottom corner to have a live chat with our team.
+                  {{ $t('contact.chat_instruction') }}
                 </p>
               </div>
               <div class="flex flex-col lg:w-3/5 justify-center w-full lg:-mt-12">

@@ -80,7 +80,7 @@ const subCategories = computed(() => {
                   class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search"
                 >
-                  🔍 {{ $t('search') }}
+                  🔍 {{ $t('search.button') }}
                 </button>
               </div>
             </div>

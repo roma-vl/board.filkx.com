@@ -22,10 +22,40 @@ export default {
   'email.verify.resend': 'Resend verification email',
   'email.verify.text.send':
     'A new verification link has been sent to the email address you provided during registration.',
-  search: 'Search',
   'divided.into.services': 'Divided into services',
   'look.at.all.the.announcement.in': 'Look at all the announcement in',
   'vip.announcement': 'VIP-announcement',
   'last.announcement': 'Last Announcement',
   'more.details': 'More details',
+  home: {
+    page_title: 'Home | Ads',
+    logo: 'Ads',
+  },
+  nav: {
+    home: 'Home',
+    ads: 'Ads',
+    about: 'About Us',
+    contact: 'Contact',
+  },
+  ads: {
+    categories_title: 'Ad Categories',
+  },
+  search: {
+    button: 'Search',
+    empty: 'Nothing found.',
+  },
+  filters: {
+    title: 'Filters',
+    category: 'Category',
+    select: 'Select',
+    from: 'From',
+    to: 'To',
+  },
+  contact: {
+    page_title: 'Contact',
+    title: 'Contact our team',
+    location: 'Ukraine, Ternopil',
+    chat_instruction:
+      'Press the chat icon at the right bottom corner to have a live chat with our team.',
+  },
 };

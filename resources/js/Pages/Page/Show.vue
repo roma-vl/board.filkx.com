@@ -23,7 +23,7 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
 </script>
 
 <template>
-  <Head title="Головна | Оголошення" />
+  <Head :title="$t('home.page_title')" />
   <AuthenticatedLayout>
     <header class="bg-white border-b shadow-sm">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -33,7 +33,7 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
             <a
               href="/"
               class="text-xl font-bold text-indigo-600"
-            >Оголошення</a>
+            >{{ $t('home.logo') }}</a>
           </div>
 
           <!-- Desktop Menu -->
@@ -41,19 +41,27 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
             <a
               href="/"
               class="text-gray-700 hover:text-indigo-600 font-medium"
-            >Головна</a>
+            >{{
+              $t('nav.home')
+            }}</a>
             <a
               href="/ads"
               class="text-gray-700 hover:text-indigo-600 font-medium"
-            >Оголошення</a>
+            >{{
+              $t('nav.ads')
+            }}</a>
             <a
               href="/about"
               class="text-gray-700 hover:text-indigo-600 font-medium"
-            >Про нас</a>
+            >{{
+              $t('nav.about')
+            }}</a>
             <a
               href="/contact"
               class="text-gray-700 hover:text-indigo-600 font-medium"
-            >Контакти</a>
+            >{{
+              $t('nav.contact')
+            }}</a>
           </nav>
 
           <!-- Mobile menu button -->
@@ -89,26 +97,33 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
         <a
           href="/"
           class="block text-gray-700 hover:text-indigo-600 font-medium"
-        >Головна</a>
+        >{{
+          $t('nav.home')
+        }}</a>
         <a
           href="/ads"
           class="block text-gray-700 hover:text-indigo-600 font-medium"
-        >Оголошення</a>
+        >{{
+          $t('nav.ads')
+        }}</a>
         <a
           href="/about"
           class="block text-gray-700 hover:text-indigo-600 font-medium"
-        >Про нас</a>
+        >{{
+          $t('nav.about')
+        }}</a>
         <a
           href="/contact"
           class="block text-gray-700 hover:text-indigo-600 font-medium"
-        >Контакти</a>
+        >{{
+          $t('nav.contact')
+        }}</a>
       </div>
     </header>
 
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <FlashMessage :flash="flash" />
-        <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-html="decodedContent" />
       </div>
     </div>
