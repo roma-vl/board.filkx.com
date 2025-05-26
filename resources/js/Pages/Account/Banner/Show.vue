@@ -73,8 +73,7 @@ console.log(props.banner);
             <a
               :href="route('account.banners.edit', props.banner.id)"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
-              >{{ $t('edit') }}</a
-            >
+            >{{ $t('edit') }}</a>
             <button
               v-if="isDraft"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
@@ -131,13 +130,22 @@ console.log(props.banner);
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
         <FlashMessage :flash="flash" />
-        <div v-if="isDraft" class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4">
+        <div
+          v-if="isDraft"
+          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+        >
           {{ $t('is_draft') }}
         </div>
-        <div v-if="isOnModeration" class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4">
+        <div
+          v-if="isOnModeration"
+          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+        >
           {{ $t('is_moderation') }}
         </div>
-        <div v-if="banner.reject_reason" class="bg-red-100 text-red-800 p-3 rounded mb-4">
+        <div
+          v-if="banner.reject_reason"
+          class="bg-red-100 text-red-800 p-3 rounded mb-4"
+        >
           {{ $t('rejection_reason') }} : {{ banner.reject_reason }}
         </div>
         <div class="flex gap-6">
@@ -148,7 +156,7 @@ console.log(props.banner);
                   :src="getFullPathForImage(banner.file)"
                   class="w-full h-full object-contain"
                   alt=""
-                />
+                >
               </div>
             </div>
           </div>
@@ -178,10 +186,21 @@ console.log(props.banner);
           </div>
         </div>
       </div>
-      <Modal :show="isRejectModalOpen" max-width="2xl" @close="isRejectModalOpen = false">
-        <Reject :banner-id="bannerId" @reject-created="isRejectModalOpen = false" />
+      <Modal
+        :show="isRejectModalOpen"
+        max-width="2xl"
+        @close="isRejectModalOpen = false"
+      >
+        <Reject
+          :banner-id="bannerId"
+          @reject-created="isRejectModalOpen = false"
+        />
       </Modal>
-      <Modal :show="isPayModalOpen" max-width="2xl" @close="isPayModalOpen = false">
+      <Modal
+        :show="isPayModalOpen"
+        max-width="2xl"
+        @close="isPayModalOpen = false"
+      >
         <PayBanner />
       </Modal>
     </div>

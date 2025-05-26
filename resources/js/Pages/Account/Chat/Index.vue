@@ -70,7 +70,9 @@ const messageForm = useForm({
           <ProfileMenu :active-tab="'account.chats.index'" />
           <div class="grid grid-cols-3 gap-4">
             <div class="col-span-1 p-4 border-r border-gray-200">
-              <h2 class="text-xl font-bold mb-4">Список чатів</h2>
+              <h2 class="text-xl font-bold mb-4">
+                Список чатів
+              </h2>
               <div
                 v-for="chat in dialogs"
                 :key="chat.id"
@@ -94,18 +96,27 @@ const messageForm = useForm({
             </div>
 
             <div class="col-span-2 p-4">
-              <h2 class="text-xl font-bold mb-4">Чат з продавцем</h2>
-              <div v-if="activeDialog" class="space-y-4 mb-4">
+              <h2 class="text-xl font-bold mb-4">
+                Чат з продавцем
+              </h2>
+              <div
+                v-if="activeDialog"
+                class="space-y-4 mb-4"
+              >
                 <div
                   v-for="message in activeDialog?.messages || []"
                   :key="message.id"
                   class="flex items-start space-x-2"
                 >
                   <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
-                    <span v-if="message.user_id === user.id"
-                      ><img :src="message.user.avatar_url" alt=""
-                    /></span>
-                    <span v-else><img :src="message.user.avatar_url" alt="" /></span>
+                    <span v-if="message.user_id === user.id"><img
+                      :src="message.user.avatar_url"
+                      alt=""
+                    ></span>
+                    <span v-else><img
+                      :src="message.user.avatar_url"
+                      alt=""
+                    ></span>
                   </div>
                   <div class="flex-1 p-3 bg-gray-50 rounded-lg shadow-sm">
                     <p class="font-medium">
@@ -114,7 +125,10 @@ const messageForm = useForm({
                   </div>
                 </div>
                 <div class="mt-4">
-                  <form class="flex" @submit.prevent="sendMessage">
+                  <form
+                    class="flex"
+                    @submit.prevent="sendMessage"
+                  >
                     <button
                       class="text-gray-500 hover:text-yellow-400 transition"
                       title="Смайли"
@@ -125,7 +139,11 @@ const messageForm = useForm({
 
                     <label class="cursor-pointer text-gray-500 hover:text-blue-500">
                       📎
-                      <input type="file" class="hidden" @change="handleFileUpload" />
+                      <input
+                        type="file"
+                        class="hidden"
+                        @change="handleFileUpload"
+                      >
                     </label>
 
                     <input
@@ -134,7 +152,7 @@ const messageForm = useForm({
                       class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-600"
                       placeholder="Написати..."
                       @keyup.enter="sendMessage"
-                    />
+                    >
 
                     <button
                       type="submit"
@@ -145,7 +163,9 @@ const messageForm = useForm({
                   </form>
                 </div>
               </div>
-              <div v-else>Виберіть чат</div>
+              <div v-else>
+                Виберіть чат
+              </div>
             </div>
           </div>
         </div>

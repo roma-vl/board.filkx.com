@@ -195,7 +195,10 @@ const messageForm = useForm({
               {{ $t('delete') }}
             </button>
           </div>
-          <div v-can="'admin'" class="flex flex-row gap-2 items-center">
+          <div
+            v-can="'admin'"
+            class="flex flex-row gap-2 items-center"
+          >
             <button
               v-if="isOnModeration"
               class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
@@ -214,7 +217,10 @@ const messageForm = useForm({
         </div>
         <div class="list-disc list-inside text-gray-800">
           <span class="underline cursor-pointer"> {{ $t('main') }} </span> /
-          <span v-for="ancestor in props.category.ancestors" :key="ancestor.id">
+          <span
+            v-for="ancestor in props.category.ancestors"
+            :key="ancestor.id"
+          >
             <span class="underline cursor-pointer">
               {{ ancestor.name }}
             </span>
@@ -231,20 +237,33 @@ const messageForm = useForm({
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
         <FlashMessage :flash="flash" />
-        <div v-if="isDraft" class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4">
+        <div
+          v-if="isDraft"
+          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+        >
           {{ $t('status.draft') }}
         </div>
-        <div v-if="isOnModeration" class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4">
+        <div
+          v-if="isOnModeration"
+          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+        >
           {{ $t('status.on.moderation') }}
         </div>
-        <div v-if="advert.reject_reason" class="bg-red-100 text-red-800 p-3 rounded mb-4">
+        <div
+          v-if="advert.reject_reason"
+          class="bg-red-100 text-red-800 p-3 rounded mb-4"
+        >
           {{ $t('status.rejected') }}: {{ advert.reject_reason }}
         </div>
         <div class="flex gap-6">
           <div class="w-2/3">
             <div class="bg-white rounded-lg shadow p-3">
               <div class="w-full h-[600px] flex justify-center items-center">
-                <img :src="mainPhoto" class="w-full h-full object-contain" alt="" />
+                <img
+                  :src="mainPhoto"
+                  class="w-full h-full object-contain"
+                  alt=""
+                >
               </div>
               <div class="flex gap-2 mt-3 overflow-x-auto">
                 <img
@@ -254,7 +273,7 @@ const messageForm = useForm({
                   alt=""
                   class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-blue-500 transition"
                   @click="setMainPhoto(getFullPathForImage(photo.file))"
-                />
+                >
               </div>
             </div>
             <div class="bg-white rounded-lg shadow p-3 mt-5">
@@ -293,14 +312,22 @@ const messageForm = useForm({
                 class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
                 @click="toggleLike"
               >
-                <HeartIcon v-if="!props.isFavorited" class="w-6 h-6" />
-                <HeartSolidIcon v-else class="w-6 h-6 text-red-500" />
+                <HeartIcon
+                  v-if="!props.isFavorited"
+                  class="w-6 h-6"
+                />
+                <HeartSolidIcon
+                  v-else
+                  class="w-6 h-6 text-red-500"
+                />
               </button>
               <h1 class="text-2xl font-bold text-gray-900">
                 {{ advert.title }}
               </h1>
               <div class="mt-4 flex flex-row items-center">
-                <h2 class="text-2xl font-bold text-green-600">{{ advert.price }} грн.</h2>
+                <h2 class="text-2xl font-bold text-green-600">
+                  {{ advert.price }} грн.
+                </h2>
                 <span class="pt-2 text-gray-800 text-sm pl-2"> {{ $t('negotiable') }} </span>
               </div>
               <button
@@ -323,7 +350,11 @@ const messageForm = useForm({
                 {{ $t('user') }}
               </p>
               <div class="flex flex-row">
-                <img class="w-20 h-20 rounded-full" :src="advert.user?.avatar_url" alt="" />
+                <img
+                  class="w-20 h-20 rounded-full"
+                  :src="advert.user?.avatar_url"
+                  alt=""
+                >
                 <div class="mt-4">
                   <p class="text-gray-600 mt-1 text-lg font-bold">
                     {{ advert.user.name + ' ' + advert.user?.first_name }}
@@ -336,7 +367,10 @@ const messageForm = useForm({
               </div>
               <div class="my-4 border border-b-1 mx-3" />
               <div class="flex items-center justify-center">
-                <a href="#" class="text-blue-500 hover:text-blue-600">
+                <a
+                  href="#"
+                  class="text-blue-500 hover:text-blue-600"
+                >
                   {{ $t('user.all.adverts') }} >
                 </a>
               </div>
@@ -352,7 +386,7 @@ const messageForm = useForm({
                 <img
                   src="https://inweb.ua/blog/wp-content/uploads/2020/09/vstavte-etot-kod-na-svoyu-html-stranitsu-ili-vidzhet.jpg"
                   alt=""
-                />
+                >
               </div>
             </div>
           </div>
@@ -367,7 +401,10 @@ const messageForm = useForm({
           class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex justify-between items-center"
         >
           <span>{{ $t('chat.with.author') }}</span>
-          <button class="text-white text-xl font-bold leading-none" @click="toggleMessenger">
+          <button
+            class="text-white text-xl font-bold leading-none"
+            @click="toggleMessenger"
+          >
             ×
           </button>
         </div>
@@ -387,13 +424,21 @@ const messageForm = useForm({
                   <div class="px-4 py-2 rounded-lg max-w-xs break-words bg-blue-100 text-right">
                     {{ message.message }}
                   </div>
-                  <img class="w-10 h-10 rounded-full" :src="message.user.avatar_url" alt="Аватар" />
+                  <img
+                    class="w-10 h-10 rounded-full"
+                    :src="message.user.avatar_url"
+                    alt="Аватар"
+                  >
                 </div>
               </template>
 
               <template v-else>
                 <div class="flex items-end gap-2 mr-auto">
-                  <img class="w-10 h-10 rounded-full" :src="message.user.avatar_url" alt="Аватар" />
+                  <img
+                    class="w-10 h-10 rounded-full"
+                    :src="message.user.avatar_url"
+                    alt="Аватар"
+                  >
                   <div class="px-4 py-2 rounded-lg max-w-xs break-words bg-gray-100 text-left">
                     {{ message.message }}
                   </div>
@@ -402,7 +447,10 @@ const messageForm = useForm({
             </div>
           </div>
 
-          <div v-else class="flex-1 overflow-y-auto p-4 space-y-2 text-center">
+          <div
+            v-else
+            class="flex-1 overflow-y-auto p-4 space-y-2 text-center"
+          >
             {{ $t('no.messages.yet') }}
           </div>
           <div class="border-t p-3 flex items-center gap-2 w-full">
@@ -418,7 +466,11 @@ const messageForm = useForm({
                 class="cursor-pointer text-gray-500 hover:text-blue-500"
                 :title="$t('attach.file')"
               >
-                <input type="file" class="hidden" @change="handleFileUpload" /> 📎
+                <input
+                  type="file"
+                  class="hidden"
+                  @change="handleFileUpload"
+                > 📎
               </label>
               <input
                 v-model="messageForm.message"
@@ -426,7 +478,7 @@ const messageForm = useForm({
                 :placeholder="$t('write.message')"
                 class="flex-1 border rounded-lg px-4 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 @keyup.enter="sendMessage"
-              />
+              >
               <button
                 type="submit"
                 :title="$t('send')"
@@ -438,8 +490,15 @@ const messageForm = useForm({
           </div>
         </div>
       </div>
-      <Modal :show="isRejectModalOpen" max-width="2xl" @close="isRejectModalOpen = false">
-        <Reject :advert-id="advertId" @reject-created="isRejectModalOpen = false" />
+      <Modal
+        :show="isRejectModalOpen"
+        max-width="2xl"
+        @close="isRejectModalOpen = false"
+      >
+        <Reject
+          :advert-id="advertId"
+          @reject-created="isRejectModalOpen = false"
+        />
       </Modal>
     </div>
   </AuthenticatedLayout>

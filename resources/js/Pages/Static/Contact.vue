@@ -60,7 +60,7 @@ import { getFullPathForStaticImage } from '@/helpers.js';
                   </svg>
                   +380950564687
                 </p>
-                <br /><br />
+                <br><br>
                 <p class="font-sans text-sm md:text-lg my-2 md:my-4">
                   {{ $t('contact.chat_instruction') }}
                 </p>
@@ -72,7 +72,7 @@ import { getFullPathForStaticImage } from '@/helpers.js';
                       <img
                         :src="getFullPathForStaticImage('contact-command.png')"
                         alt="contact image"
-                      />
+                      >
                     </div>
                   </div>
                 </div>
