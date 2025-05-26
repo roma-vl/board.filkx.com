@@ -36,6 +36,8 @@ class IndexController extends Controller
 
     public function index(): Response
     {
+//        throw new \Exception('Тестовий креш для Bugsnag TEST ');
+
         return Inertia::render('Index', [
             'categories' => $this->categoryService->getFirstLevelCategoriesWithChildren(),
             'news' => $this->advertService->getLatest(),

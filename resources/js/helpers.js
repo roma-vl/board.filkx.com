@@ -26,7 +26,7 @@ export const getFullPathForImage = (path) => {
   if (path === '' || path === undefined) {
     return import.meta.env.VITE_APP_STORAGE_URL + 'images/adverts/info/empty.jpg';
   }
-  return import.meta.env.VITE_APP_STORAGE_URL + '/' + path;
+  return import.meta.env.VITE_APP_STORAGE_URL + path;
 };
 
 export const getFullPathForStaticImage = (path) => {

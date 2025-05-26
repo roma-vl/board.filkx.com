@@ -1,6 +1,8 @@
 <script setup>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const props = defineProps({
   status: {
     type: Number,
@@ -10,19 +12,19 @@ const props = defineProps({
 
 const title = computed(() => {
   return {
-    503: '503: Service Unavailable',
-    500: '500: Server Error',
-    404: '404: Page Not Found',
-    403: '403: Forbidden',
+      503: t('503_title'),
+      500: t('500_title'),
+      404: t('404_title'),
+      403: t('403_title'),
   }[props.status];
 });
 
 const description = computed(() => {
   return {
-    503: 'Sorry, we are doing some maintenance. Please check back soon.',
-    500: 'Whoops, something went wrong on our servers.',
-    404: 'Sorry, the page you are looking for could not be found.',
-    403: 'Sorry, you are forbidden from accessing this page.',
+      503: t('503_description'),
+      500: t('500_description'),
+      404: t('404_description'),
+      403: t('403_description'),
   }[props.status];
 });
 const homeUrl = import.meta.env.VITE_APP_URL;
@@ -374,7 +376,7 @@ const homeUrl = import.meta.env.VITE_APP_URL;
     <a
       :href="homeUrl"
       class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-150"
-      title="Return Home"
+      :title="$t('return_home')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +390,7 @@ const homeUrl = import.meta.env.VITE_APP_URL;
           clip-rule="evenodd"
         />
       </svg>
-      <span>Return Home</span>
+      <span>{{ $t('return_home') }}</span>
     </a>
   </div>
 </template>

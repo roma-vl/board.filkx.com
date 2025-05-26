@@ -2,10 +2,25 @@ import Bugsnag from '@bugsnag/js';
 import BugsnagPluginVue from '@bugsnag/plugin-vue';
 import BugsnagPerformance from '@bugsnag/browser-performance';
 
-Bugsnag.start({
-  apiKey: 'cbf3136cd0f8e232fbaa418e5efbfdb5',
-  plugins: [new BugsnagPluginVue()],
-});
-BugsnagPerformance.start({ apiKey: 'cbf3136cd0f8e232fbaa418e5efbfdb5' });
+let bugsnagVue = null;
 
-export const bugsnagVue = Bugsnag.getPlugin('vue');
+if (import.meta.env.PROD) {
+  Bugsnag.start({
+    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY ||  '',
+    plugins: [new BugsnagPluginVue()],
+    releaseStage: import.meta.env.VITE_APP_ENV || 'development',
+    onError: (event) => {
+      if (event.request?.url?.startsWith('data:image')) {
+        delete event.request.url;
+      }
+    },
+  });
+
+  BugsnagPerformance.start({
+    apiKey: import.meta.env.VITE_BUGSNAG_API_KEY ||  '',
+  });
+
+  bugsnagVue = Bugsnag.getPlugin('vue');
+}
+
+export { bugsnagVue };

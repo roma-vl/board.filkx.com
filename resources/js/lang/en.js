@@ -27,35 +27,46 @@ export default {
   'vip.announcement': 'VIP-announcement',
   'last.announcement': 'Last Announcement',
   'more.details': 'More details',
-  home: {
-    page_title: 'Home | Ads',
-    logo: 'Ads',
+  'home': {
+    'page_title': 'Home | Ads',
+    'logo': 'Ads',
   },
-  nav: {
-    home: 'Home',
-    ads: 'Ads',
-    about: 'About Us',
-    contact: 'Contact',
+  'nav': {
+    'home': 'Home',
+    'ads': 'Ads',
+    'about': 'About Us',
+    'contact': 'Contact',
   },
-  ads: {
-    categories_title: 'Ad Categories',
+  'ads': {
+    'categories_title': 'Ad Categories',
   },
-  search: {
-    button: 'Search',
-    empty: 'Nothing found.',
+  'search': {
+    'button': 'Search',
+    'empty': 'Nothing found.',
   },
-  filters: {
-    title: 'Filters',
-    category: 'Category',
-    select: 'Select',
-    from: 'From',
-    to: 'To',
+  'filters': {
+    'title': 'Filters',
+    'category': 'Category',
+    'select': 'Select',
+    'from': 'From',
+    'to': 'To',
   },
-  contact: {
-    page_title: 'Contact',
-    title: 'Contact our team',
-    location: 'Ukraine, Ternopil',
-    chat_instruction:
+  'contact': {
+    'page_title': 'Contact',
+    'title': 'Contact our team',
+    'location': 'Ukraine, Ternopil',
+    'chat_instruction':
       'Press the chat icon at the right bottom corner to have a live chat with our team.',
   },
+    "503_title": "503: Service Unavailable",
+    "500_title": "500: Server Error",
+    "404_title": "404: Page Not Found",
+    "403_title": "403: Forbidden",
+
+    "503_description": "Sorry, we are doing some maintenance. Please check back soon.",
+    "500_description": "Whoops, something went wrong on our servers.",
+    "404_description": "Sorry, the page you are looking for could not be found.",
+    "403_description": "Sorry, you are forbidden from accessing this page.",
+
+    "return_home": "Return Home"
 };
