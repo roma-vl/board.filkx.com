@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { getDateFormatFromLocale } from '@/helpers.js';
 import { ref } from 'vue';
+import {Head} from "@inertiajs/vue3";
 const props = defineProps({
   ticket: {
     type: Object,
@@ -27,11 +28,12 @@ function submitComment() {
 </script>
 
 <template>
+    <Head :title="ticket.subject" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
         <div class="list-disc list-inside text-gray-800">
-          <span class="underline cursor-pointer"> Головна </span>
+          <span class="underline cursor-pointer"> {{ $t('main') }} </span>
         </div>
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
@@ -46,7 +48,7 @@ function submitComment() {
               </p>
             </div>
             <div class="bg-white rounded-xl shadow p-6 mt-6">
-              <p class="text-gray-900 text-lg font-bold mb-2">Коментарі</p>
+              <p class="text-gray-900 text-lg font-bold mb-2">{{ $t('comments') }}</p>
               <div class="border-b border-gray-200 mb-4" />
               <div v-if="messages.length" class="space-y-6">
                 <div v-for="(msg, index) in messages" :key="index" class="flex items-start gap-4">
@@ -72,21 +74,21 @@ function submitComment() {
                   </div>
                 </div>
               </div>
-              <div v-else class="text-gray-500 text-sm italic">Коментарів ще немає.</div>
+              <div v-else class="text-gray-500 text-sm italic">{{ $t('no.comments.yet') }}</div>
               <form class="mt-6" @submit.prevent="submitComment">
-                <p class="text-gray-900 text-lg font-bold mb-2">Залишити коментар</p>
+                <p class="text-gray-900 text-lg font-bold mb-2">{{ $t('leave.comment') }}</p>
                 <textarea
                   v-model="newComment"
                   rows="4"
                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none resize-y"
-                  placeholder="Введіть свій коментар..."
+                  :placeholder="$t('enter.comment')"
                 />
                 <div class="flex justify-end mt-3">
                   <button
                     type="submit"
                     class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow transition"
                   >
-                    Надіслати
+                      {{ $t('send') }}
                   </button>
                 </div>
               </form>
@@ -95,10 +97,10 @@ function submitComment() {
           <div class="w-1/3">
             <div class="rounded-lg shadow p-3 bg-white">
               <p class="mt-4 text-gray-800 text-sm">
-                Опубліковано {{ getDateFormatFromLocale(ticket.created_at) }}
+                  {{ $t('published') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
               <div class="rounded-lg shadow p-3 bg-white mt-4">
-                <p class="text-gray-800 font-bold text-sm mb-4">Статуси</p>
+                <p class="text-gray-800 font-bold text-sm mb-4">{{ $t('statuses') }}</p>
                 <ul class="space-y-2">
                   <li
                     v-for="(status, index) in statuses"
@@ -114,7 +116,7 @@ function submitComment() {
                         'bg-red-100 text-red-800': status.status === 'closed',
                       }"
                     >
-                      {{ status.status }}
+                      {{ $t('status.' + status.status) }}
                     </span>
                     <span class="text-gray-500 text-xs">
                       {{ getDateFormatFromLocale(status.created_at) }}

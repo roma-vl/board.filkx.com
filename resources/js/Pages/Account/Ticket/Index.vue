@@ -28,7 +28,7 @@ const routes = {};
 </script>
 
 <template>
-  <Head title="Чат" />
+  <Head :title="$t('my.tickets')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -37,12 +37,12 @@ const routes = {};
           <ProfileMenu :active-tab="'account.tickets.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">Мої Тікети</h2>
+              <h2 class="text-xl font-bold mb-4">{{ $t('my.tickets') }}</h2>
               <button
                 class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-400 hover:text-violet-700"
                 @click="openCreateModal"
               >
-                + Додати Тікет
+                + {{ $t('add.ticket') }}
               </button>
             </div>
             <TicketList :tickets="tickets" :routes="routes" />

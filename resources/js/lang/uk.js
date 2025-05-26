@@ -99,4 +99,29 @@ export default {
   emojis: 'Смайли',
   send: 'Надіслати',
   'attach.file': 'Прикріпити файл',
+    "comments": "Коментарі",
+    "no.comments.yet": "Коментарів ще немає.",
+    "leave.comment": "Залишити коментар",
+    "enter.comment": "Введіть свій коментар...",
+    "statuses": "Статуси",
+    "status.open": "Відкритий",
+    "status.processing": "В обробці",
+    "status.pending": "Очікує",
+    "status.closed": "Закритий",
+    "my.tickets": "Мої тікети",
+    "add.ticket": "Додати Тікет",
+    "ticket": {
+        "subject": "Тема тікета",
+        "message": "Повідомлення",
+        "create": "Створити тікет"
+    },
+    "menu": {
+        "adverts": "Оголошення",
+        "chat": "Чат",
+        "profile": "Профіль",
+        "favorites": "Збережені",
+        "settings": "Налаштування",
+        "banners": "Реклама",
+        "tickets": "Тікети"
+    }
 };

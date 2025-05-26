@@ -98,4 +98,29 @@ export default {
   emojis: 'Emojis',
   send: 'Send',
   'attach.file': 'Attach file',
+    "comments": "Comments",
+    "no.comments.yet": "No comments yet.",
+    "leave.comment": "Leave a comment",
+    "enter.comment": "Enter your comment...",
+    "statuses": "Statuses",
+    "status.open": "Open",
+    "status.processing": "Processing",
+    "status.pending": "Pending",
+    "status.closed": "Closed",
+    "my.tickets": "My tickets",
+    "add.ticket": "Add ticket",
+    "ticket": {
+        "subject": "Ticket subject",
+        "message": "Ticket message",
+        "create": "Create Ticket"
+    },
+    "menu": {
+        "adverts": "Adverts",
+        "chat": "Chat",
+        "profile": "Profile",
+        "favorites": "Favorites",
+        "settings": "Settings",
+        "banners": "Banners",
+        "tickets": "Tickets"
+    }
 };
