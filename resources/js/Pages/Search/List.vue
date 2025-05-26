@@ -204,7 +204,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Head title="Категорії оголошень" />
+    <Head :title="$t('ads.categories_title')" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -227,14 +227,14 @@ onMounted(async () => {
                   class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search(getCategorySlugs(props.categoryFilters))"
                 >
-                  🔍 Пошук
+                  🔍 {{ $t('search.button') }}
                 </button>
               </div>
             </div>
 
             <!-- Фільтри -->
             <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-6 border-b border-gray-200 pb-2">
-              Фільтри
+                {{ $t('filters.title') }}
             </h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
@@ -242,7 +242,7 @@ onMounted(async () => {
               <div
                 class="bg-white border border-gray-100 rounded-2xl p-5 shadow-md transition-all hover:shadow-lg"
               >
-                <label class="block text-sm font-semibold text-gray-700 mb-2"> Категорія </label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2"> {{ $t('filters.category') }} </label>
                 <CategoryDropdown
                   v-model="queryFilter.category_id"
                   :category-filters="props.categoryFilters"
@@ -266,7 +266,7 @@ onMounted(async () => {
                   class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                 >
                   <option value="">
-                    Обрати
+                      {{ $t('filters.select') }}
                   </option>
                   <option
                     v-for="(variant, i) in attribute.variants"
@@ -284,13 +284,13 @@ onMounted(async () => {
                   <input
                     v-model="queryFilter[`${attribute.id}_from`]"
                     type="number"
-                    placeholder="Від"
+                    :placeholder="$t('filters.from')"
                     class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                   >
                   <input
                     v-model="queryFilter[`${attribute.id}_to`]"
                     type="number"
-                    placeholder="До"
+                    :placeholder="$t('filters.to')"
                     class="w-1/2 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
                   >
                 </div>
@@ -326,7 +326,7 @@ onMounted(async () => {
               class="m-32 text-lg"
             >
               <h2 class="text-xl mb-4 text-center">
-                Нічого не знайдено.
+                  {{ $t('search.empty') }}
               </h2>
             </div>
             <Get :banner="banner" />

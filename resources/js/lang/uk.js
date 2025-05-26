@@ -1,13 +1,13 @@
 export default {
-  welcome: '{name}, Ласкаво просимо на наш сайт',
-  logout: 'Вийти',
-  email: 'Електронна адреса',
-  password: 'Пароль',
-  remember: "Запам'ятати мене",
+  'welcome': '{name}, Ласкаво просимо на наш сайт',
+  'logout': 'Вийти',
+  'email': 'Електронна адреса',
+  'password': 'Пароль',
+  'remember': "Запам'ятати мене",
   'forgot.password': 'Забули пароль?',
-  login: 'Увійти',
-  register: 'Зареєструватися',
-  name: "Ім'я",
+  'login': 'Увійти',
+  'register': 'Зареєструватися',
+  'name': "Ім'я",
   'confirm.password': 'Підтвердити пароль',
   'already.registered': 'Вже зареєстровані?',
   'sign.up': 'Зареєструватися',
@@ -23,10 +23,39 @@ export default {
   'email.verify.resend': 'Підтвердити електронну адресу',
   'email.verify.text.send':
     'Нове посилання для підтвердження електронної адреси надіслано на вашу електронну адресу, яку ви надали під час реєстрації.',
-  search: 'Пошук',
   'divided.into.services': 'Розділи на сервісі',
-  'look.at.all.the.confusion.in': 'Переглянути всі оголошення в',
+  'look.at.all.the.announcement.in': 'Переглянути всі оголошення в',
   'vip.announcement': 'VIP-оголошення',
   'last.announcement': 'Останні оголошення',
   'more.details': 'Детальніше',
+    "home": {
+        "page_title": "Головна | Оголошення",
+        "logo": "Оголошення"
+    },
+    "nav": {
+        "home": "Головна",
+        "ads": "Оголошення",
+        "about": "Про нас",
+        "contact": "Контакти"
+    },
+    "ads": {
+        "categories_title": "Категорії оголошень"
+    },
+    "search": {
+        "button": "Пошук",
+        "empty": "Нічого не знайдено."
+    },
+    "filters": {
+        "title": "Фільтри",
+        "category": "Категорія",
+        "select": "Обрати",
+        "from": "Від",
+        "to": "До"
+    },
+    "contact": {
+        "page_title": "Контакти",
+        "title": "Зв'яжіться з нашою командою",
+        "location": "Україна, Тернопіль",
+        "chat_instruction": "Натисніть на іконку чату в правому нижньому куті, щоб поспілкуватися з нашою командою."
+    }
 };
