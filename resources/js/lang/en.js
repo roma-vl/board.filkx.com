@@ -22,4 +22,10 @@ export default {
   'email.verify.resend': 'Resend verification email',
   'email.verify.text.send':
     'A new verification link has been sent to the email address you provided during registration.',
+  search: 'Search',
+  'divided.into.services': 'Divided into services',
+  'look.at.all.the.announcement.in': 'Look at all the announcement in',
+  'vip.announcement': 'VIP-announcement',
+  'last.announcement': 'Last Announcement',
+  'more.details': 'More details',
 };

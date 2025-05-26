@@ -23,4 +23,10 @@ export default {
   'email.verify.resend': 'Підтвердити електронну адресу',
   'email.verify.text.send':
     'Нове посилання для підтвердження електронної адреси надіслано на вашу електронну адресу, яку ви надали під час реєстрації.',
+  search: 'Пошук',
+  'divided.into.services': 'Розділи на сервісі',
+  'look.at.all.the.confusion.in': 'Переглянути всі оголошення в',
+  'vip.announcement': 'VIP-оголошення',
+  'last.announcement': 'Останні оголошення',
+  'more.details': 'Детальніше',
 };

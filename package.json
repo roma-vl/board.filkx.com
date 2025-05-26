@@ -32,6 +32,9 @@
     "vue": "^3.4.0"
   },
   "dependencies": {
+    "@bugsnag/browser-performance": "^2.13.0",
+    "@bugsnag/js": "^8.2.0",
+    "@bugsnag/plugin-vue": "^8.2.0",
     "@inertiajs/inertia": "^0.11.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tiptap/extension-blockquote": "^2.12.0",
