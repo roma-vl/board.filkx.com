@@ -7,30 +7,9 @@ import Notifications from '@/Layouts/Partials/Notifications.vue';
 import AdminResponsiveNavigationMenu from '@/Layouts/Partials/AdminResponsiveNavigationMenu.vue';
 import SideMenu from '@/Layouts/Partials/SideMenu.vue';
 import ArrowLeftIcon from '@/Components/Icon/ArrowLeftIcon.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
+import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
-const theme = ref('light');
-
-onMounted(() => {
-  // Витягуємо з localStorage або виставляємо за замовчуванням
-  theme.value = localStorage.getItem('theme') || 'light';
-  applyTheme();
-});
-
-function toggleTheme() {
-  theme.value = theme.value === 'light' ? 'dark' : 'light';
-  localStorage.setItem('theme', theme.value);
-  applyTheme();
-}
-
-function applyTheme() {
-  const html = document.documentElement;
-  if (theme.value === 'dark') {
-    html.classList.add('dark');
-  } else {
-    html.classList.remove('dark');
-  }
-}
 const showingNavigationDropdown = ref(false);
 const toggleFullscreen = () => {
   if (document.fullscreenElement) {
@@ -89,12 +68,7 @@ const toggleFullscreen = () => {
               <Locale />
             </div>
             <div class="relative ms-3">
-              <button
-                class="px-4 py-2 hover:bg-stone-200 dark:bg-gray-700 rounded"
-                @click="toggleTheme"
-              >
-                {{ theme === 'dark' ? '🌙' : '☀️' }}
-              </button>
+              <DarkModeToggle />
             </div>
 
             <div class="relative ms-3">
