@@ -46,7 +46,7 @@ const changePage = (url) => {
 <template>
   <div class="pr-2 flex flex-row mb-2">
     <p class="p-2 text-gray-600 font-medium">
-      Всього: {{ pagination.total }}
+      {{$t('total')}} : {{ pagination.total }}
     </p>
   </div>
   <div class="flex flex-col items-center mb-2">

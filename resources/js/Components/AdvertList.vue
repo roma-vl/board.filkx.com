@@ -67,7 +67,7 @@ const remove = (advertId) => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                6 переглядів
+                6 {{$t('views')}}
               </span>
               <span class="flex items-center gap-2 text-gray-600">
                 <svg
@@ -78,10 +78,10 @@ const remove = (advertId) => {
                 >
                   <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                 </svg>
-                2 в закладках
+                2  {{$t('in.bookmarks')}}
               </span>
               <p class="text-sm text-gray-500">
-                Опубліковано: {{ getDateFormatFromLocale(advert.created_at) }}
+                  {{$t('Created At')}} : {{ getDateFormatFromLocale(advert.created_at) }}
               </p>
             </div>
           </div>

@@ -48,10 +48,10 @@ const remove = (ticketId) => {
             </div>
             <div class="flex items-center gap-6 text-sm mt-4">
               <p class="text-sm text-gray-500">
-                Опубліковано: {{ getDateFormatFromLocale(ticket.created_at) }}
+                  {{$t('Created At')}}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
               <p class="text-sm text-gray-500">
-                Оновлено: {{ getDateFormatFromLocale(ticket.updated_at) }}
+                  {{$t('Updated At')}}: {{ getDateFormatFromLocale(ticket.updated_at) }}
               </p>
             </div>
           </div>
@@ -67,7 +67,7 @@ const remove = (ticketId) => {
                 'bg-red-100 text-red-700': ticket.status === 'closed',
               }"
             >
-              {{ ticket.status }}
+              {{ $t(ticket.status) }}
             </span>
 
             <div
@@ -77,13 +77,12 @@ const remove = (ticketId) => {
               <a
                 v-if="props.routes.edit"
                 :href="route(props.routes.edit, ticket.id)"
-                title="Редагувати"
                 class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group relative"
               >
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Редагувати
+                  {{$t('edit')}}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,13 +103,12 @@ const remove = (ticketId) => {
               <a
                 v-if="props.routes.show"
                 :href="route(props.routes.show, ticket.id)"
-                title="Переглянути"
                 class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group relative"
               >
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Переглянути
+                  {{$t('view')}}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,14 +126,13 @@ const remove = (ticketId) => {
               </a>
               <button
                 v-if="props.routes.remove"
-                title="Видалити"
                 class="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition duration-150 group relative"
                 @click="remove(ticket.id)"
               >
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Видалити
+                  {{$t('delete')}}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +156,7 @@ const remove = (ticketId) => {
       v-else
       class="py-12 text-center text-gray-500 text-lg"
     >
-      У вас немає тікетів.
+         {{$t('You have no tickets')}}.
     </p>
   </div>
 </template>

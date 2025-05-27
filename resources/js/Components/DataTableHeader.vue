@@ -73,7 +73,7 @@ onMounted(() => {
         v-model="searchQuery"
         type="search"
         class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none text-gray-600 font-medium border-0"
-        placeholder="Search..."
+        :placeholder="$t('search.button')+ '...'"
       >
     </div>
     <div class="relative mr-2">

@@ -68,5 +68,4 @@ export default {
 </template>
 
 <style scoped>
-/* Додаткові стилі за потреби */
 </style>

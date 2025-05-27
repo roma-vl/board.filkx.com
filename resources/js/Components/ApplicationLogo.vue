@@ -1,6 +1,10 @@
+<script setup lang="ts">
+import {getFullPathForImage} from "@/helpers.js";
+</script>
+
 <template>
   <img
-    src="/storage/images/logo/1.png"
+    :src="getFullPathForImage('/images/logo/1.png')"
     alt="Logo"
   >
 </template>

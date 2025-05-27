@@ -137,7 +137,7 @@ function submitComment() {
                         'bg-red-100 text-red-800': status.status === 'closed',
                       }"
                     >
-                      {{ $t('status.' + status.status) }}
+                      {{ $t(status.status) }}
                     </span>
                     <span class="text-gray-500 text-xs">
                       {{ getDateFormatFromLocale(status.created_at) }}
