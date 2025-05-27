@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, defineProps, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -12,6 +13,7 @@ defineProps({
   },
 });
 
+const { t } = useI18n();
 const flash = computed(() => usePage().props.flash);
 
 const token = ref(['', '', '', '', '']);
@@ -53,7 +55,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Head title="Profile" />
+  <Head :title="t('Profile')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -61,7 +63,7 @@ onMounted(() => {
           <FlashMessage :flash="flash" />
           <div class="flex items-center p-3">
             <h2 class="text-2xl font-bold">
-              Verify Phone Number
+              {{ t('Verify Phone Number') }}
             </h2>
           </div>
           <form
@@ -82,11 +84,13 @@ onMounted(() => {
                 >
               </div>
             </div>
-            <a :href="route('account.profile.phone.request')">Не прийшов код Спробуйте ще раз</a>
+            <a :href="route('account.profile.phone.request')">{{
+              t("Didn't receive the code? Try again")
+            }}</a>
 
             <div class="flex justify-center gap-4">
               <PrimaryButton :disabled="form.processing">
-                Save Phone Number
+                {{ t('Save Phone Number') }}
               </PrimaryButton>
             </div>
           </form>

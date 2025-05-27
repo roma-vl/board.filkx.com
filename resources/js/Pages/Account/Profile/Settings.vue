@@ -3,24 +3,21 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import UpdateProfilePhoneForm from '@/Pages/Account/Profile/Partials/UpdateProfilePhoneForm.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
-import { computed } from 'vue';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import { useI18n } from 'vue-i18n';
 
-const flash = computed(() => usePage().props.flash);
-const user = usePage().props.auth.user;
+const { t } = useI18n();
 </script>
 
 <template>
-  <Head title="Profile" />
+  <Head :title="t('Profile')" />
 
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
-          <FlashMessage :flash="flash" />
           <ProfileMenu :active-tab="'account.profile.settings'" />
 
           <div class="mx-auto max-w-7xl">

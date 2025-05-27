@@ -4,7 +4,9 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const user = usePage().props.auth.user;
 
 const form = useForm({
@@ -16,11 +18,11 @@ const form = useForm({
   <section>
     <header>
       <h2 class="text-lg font-medium text-gray-900">
-        Phone Information
+        {{ t('Phone Information') }}
       </h2>
 
       <p class="mt-1 text-sm text-gray-600">
-        Update your account's phone information.
+        {{ t("Update your account's phone information.") }}
       </p>
     </header>
 
@@ -31,8 +33,9 @@ const form = useForm({
       <div>
         <InputLabel
           for="phone"
-          value="Phone"
+          :value="t('Phone')"
         />
+
         <TextInput
           id="phone"
           v-model="form.phone"
@@ -40,11 +43,12 @@ const form = useForm({
           class="mt-1 block w-full"
           autocomplete="phone"
         />
+
         <div
           v-if="Number(user.phone_verified) === 0"
           class="text-gray-400 flex justify-end"
         >
-          Not confirmed
+          {{ t('Not confirmed') }}
         </div>
 
         <InputError
@@ -55,7 +59,7 @@ const form = useForm({
 
       <div class="flex items-center gap-4">
         <PrimaryButton :disabled="form.processing">
-          Save
+          {{ t('Save') }}
         </PrimaryButton>
 
         <Transition
@@ -68,7 +72,7 @@ const form = useForm({
             v-if="form.recentlySuccessful"
             class="text-sm text-gray-600"
           >
-            Saved.
+            {{ t('Saved') }}
           </p>
         </Transition>
       </div>

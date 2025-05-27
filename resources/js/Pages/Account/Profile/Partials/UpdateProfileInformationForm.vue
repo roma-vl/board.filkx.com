@@ -5,6 +5,9 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 defineProps({
   mustVerifyEmail: {
@@ -35,11 +38,11 @@ const form = useForm({
   <section>
     <header>
       <h2 class="text-lg font-medium text-gray-900">
-        Profile Information
+        {{ t('Profile Information') }}
       </h2>
 
       <p class="mt-1 text-sm text-gray-600">
-        Update your account's profile information and email address.
+        {{ t("Update your account's profile information and email address.") }}
       </p>
     </header>
 
@@ -50,9 +53,8 @@ const form = useForm({
       <div>
         <InputLabel
           for="first_name"
-          value="First Name"
+          :value="t('First Name')"
         />
-
         <TextInput
           id="first_name"
           v-model="form.first_name"
@@ -61,18 +63,17 @@ const form = useForm({
           required
           autocomplete="first_name"
         />
-
         <InputError
           class="mt-2"
           :message="form.errors.first_name"
         />
       </div>
+
       <div>
         <InputLabel
           for="name"
-          value="Name"
+          :value="t('Name')"
         />
-
         <TextInput
           id="name"
           v-model="form.name"
@@ -81,18 +82,17 @@ const form = useForm({
           required
           autocomplete="name"
         />
-
         <InputError
           class="mt-2"
           :message="form.errors.name"
         />
       </div>
+
       <div>
         <InputLabel
           for="last_name"
-          value="Last Name"
+          :value="t('Last Name')"
         />
-
         <TextInput
           id="last_name"
           v-model="form.last_name"
@@ -100,7 +100,6 @@ const form = useForm({
           class="mt-1 block w-full"
           autocomplete="last_name"
         />
-
         <InputError
           class="mt-2"
           :message="form.errors.last_name"
@@ -110,9 +109,8 @@ const form = useForm({
       <div>
         <InputLabel
           for="email"
-          value="Email"
+          :value="t('Email')"
         />
-
         <TextInput
           id="email"
           v-model="form.email"
@@ -125,7 +123,7 @@ const form = useForm({
           v-if="!isEmailVerified"
           class="text-gray-400 flex justify-end"
         >
-          Not confirmed
+          {{ t('Not confirmed') }}
         </div>
         <InputError
           class="mt-2"
@@ -135,14 +133,14 @@ const form = useForm({
 
       <div v-if="mustVerifyEmail && user.email_verified_at === null">
         <p class="mt-2 text-sm text-gray-800">
-          Your email address is unverified.
+          {{ t('Your email address is unverified.') }}
           <Link
             :href="route('verification.send')"
             method="post"
             as="button"
             class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
-            Click here to re-send the verification email.
+            {{ t('Click here to re-send the verification email.') }}
           </Link>
         </p>
 
@@ -150,13 +148,13 @@ const form = useForm({
           v-show="status === 'verification-link-sent'"
           class="mt-2 text-sm font-medium text-green-600"
         >
-          A new verification link has been sent to your email address.
+          {{ t('A new verification link has been sent to your email address.') }}
         </div>
       </div>
 
       <div class="flex items-center gap-4">
         <PrimaryButton :disabled="form.processing">
-          Save
+          {{ t('Save') }}
         </PrimaryButton>
 
         <Transition
@@ -169,7 +167,7 @@ const form = useForm({
             v-if="form.recentlySuccessful"
             class="text-sm text-gray-600"
           >
-            Saved.
+            {{ t('Saved') }}
           </p>
         </Transition>
       </div>
@@ -186,12 +184,12 @@ const form = useForm({
           for="switch-link"
           class="font-sans antialiased text-base cursor-pointer text-stone-600"
         >
-          I agree with the
+          {{ t('I agree with the') }}
           <a
             href="#"
             class="font-sans antialiased text-base text-stone-500 inline"
           >
-            terms and conditions</a>
+            {{ t('terms and conditions') }}</a>
         </label>
       </div>
     </div>
