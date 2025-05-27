@@ -121,19 +121,19 @@ const moveToBottom = (id) => {
           :href="route('admin.adverts.category.show', category.id)"
           class="text-blue-500 pr-2"
         >
-            {{$t('show')}}
+          {{ $t('show') }}
         </Link>
         <button
           class="text-blue-500 pr-2"
           @click.stop="openEditModal(category.id)"
         >
-            {{$t('edit')}}
+          {{ $t('edit') }}
         </button>
         <button
           class="text-red-500 hover:underline"
           @click.stop="deleteCategory(category.id)"
         >
-            {{$t('delete')}}
+          {{ $t('delete') }}
         </button>
       </div>
     </div>

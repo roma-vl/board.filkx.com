@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getFullPathForImage} from "@/helpers.js";
+import { getFullPathForImage } from '@/helpers.js';
 </script>
 
 <template>

@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
     <input
       v-model="inputValue"
       type="text"
-      :placeholder="$t('search.button')+ '...'"
+      :placeholder="$t('search.button') + '...'"
       class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600"
       @focus="showSuggestions = true"
     >
@@ -65,7 +65,7 @@ onBeforeUnmount(() => {
     >
       <template v-if="searchHistory.length">
         <li class="text-sm text-gray-400 uppercase p-1 pl-4">
-          {{$t('You recently searched')}}
+          {{ $t('You recently searched') }}
         </li>
         <li
           v-for="(suggestion, index) in searchHistory"
@@ -85,7 +85,7 @@ onBeforeUnmount(() => {
 
       <template v-if="searchRecommendations.length">
         <li class="text-sm text-gray-400 uppercase p-1 pl-4">
-           {{$t('recommendation')}}
+          {{ $t('recommendation') }}
         </li>
         <li
           v-for="(suggestion, index) in searchRecommendations"

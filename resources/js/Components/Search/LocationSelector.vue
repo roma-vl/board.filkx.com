@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
             v-if="loadingRegions"
             class="px-4 py-2 text-gray-400"
           >
-            {{$t('download')}}...
+            {{ $t('download') }}...
           </li>
           <li
             v-for="region in regions"
@@ -109,22 +109,24 @@ onBeforeUnmount(() => {
             v-if="loadingCities"
             class="px-4 py-2 text-gray-400"
           >
-              {{$t('download')}}...
+            {{ $t('download') }}...
           </li>
           <li
             class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
             @click="resetLocation"
           >
-            <span class="flex">&lt; {{$t('back')}} </span>
+            <span class="flex">&lt; {{ $t('back') }} </span>
           </li>
           <li
             class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
             @click="$emit('select-city', selectCity(selectedRegion))"
           >
             <span class="flex">{{ selectedRegion.name }}</span>
-            <span class="text-[12px] font-bold text-gray-700 border-b-black"> {{$t('The whole region' )}}</span>
+            <span class="text-[12px] font-bold text-gray-700 border-b-black">
+              {{ $t('The whole region') }}</span>
           </li>
-          <span class="flex px-4 text-[12px] font-bold text-gray-700"> {{$t('Select region' )}}</span>
+          <span class="flex px-4 text-[12px] font-bold text-gray-700">
+            {{ $t('Select region') }}</span>
           <li
             v-for="city in cities"
             :key="city.id"

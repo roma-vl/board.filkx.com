@@ -97,7 +97,7 @@ const updateSorting = (field) => {
       v-else
       class="w-full border-collapse bg-white text-center text text-gray-800 border-b mb-2"
     >
-        {{$t('No data found')}}.
+      {{ $t('No data found') }}.
     </div>
 
     <Pagination

@@ -62,7 +62,7 @@ const toggleLike = (advert) => {
           :href="route('adverts.show', advert.id)"
           class="text-blue-600 hover:underline"
         >
-          {{$t('more.details')}}
+          {{ $t('more.details') }}
         </Link>
       </div>
     </div>

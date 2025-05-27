@@ -78,7 +78,7 @@ const remove = (bannerId) => {
                 {{ $t('clicks') }}: {{ banner.clicks ? banner.clicks : ' 0 ' }}
               </span>
               <p class="text-sm text-gray-500">
-                  {{ $t('Created At') }}: {{ getDateFormatFromLocale(banner.created_at) }}
+                {{ $t('Created At') }}: {{ getDateFormatFromLocale(banner.created_at) }}
               </p>
             </div>
           </div>
@@ -186,7 +186,7 @@ const remove = (bannerId) => {
       v-else
       class="py-12 text-center text-gray-500 text-lg"
     >
-        {{ $t( 'You have no Advert') }}.
+      {{ $t('You have no Advert') }}.
     </p>
   </div>
 </template>

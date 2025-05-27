@@ -48,10 +48,10 @@ const remove = (ticketId) => {
             </div>
             <div class="flex items-center gap-6 text-sm mt-4">
               <p class="text-sm text-gray-500">
-                  {{$t('Created At')}}: {{ getDateFormatFromLocale(ticket.created_at) }}
+                {{ $t('Created At') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
               <p class="text-sm text-gray-500">
-                  {{$t('Updated At')}}: {{ getDateFormatFromLocale(ticket.updated_at) }}
+                {{ $t('Updated At') }}: {{ getDateFormatFromLocale(ticket.updated_at) }}
               </p>
             </div>
           </div>
@@ -82,7 +82,7 @@ const remove = (ticketId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  {{$t('edit')}}
+                  {{ $t('edit') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +108,7 @@ const remove = (ticketId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  {{$t('view')}}
+                  {{ $t('view') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ const remove = (ticketId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  {{$t('delete')}}
+                  {{ $t('delete') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +156,7 @@ const remove = (ticketId) => {
       v-else
       class="py-12 text-center text-gray-500 text-lg"
     >
-         {{$t('You have no tickets')}}.
+      {{ $t('You have no tickets') }}.
     </p>
   </div>
 </template>
