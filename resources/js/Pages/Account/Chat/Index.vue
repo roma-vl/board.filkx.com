@@ -4,16 +4,17 @@ import { Head, useForm, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
 import { computed, ref } from 'vue';
 import { getDateFormatFromLocale } from '@/helpers.js';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const dialogs = computed(() => usePage().props.dialogs);
 const user = usePage().props.auth.user;
-console.log(dialogs.value, 'dialogs');
-console.log(user, 'dialogs');
 
 const newMessage = ref('');
 const activeDialog = ref(null);
+
 const selectDialog = (dialog) => {
-  console.log(dialog, 'dialog');
   activeDialog.value = dialog;
   messageForm.advert_id = dialog.advert_id;
   messageForm.client_id = dialog.client_id;
@@ -25,7 +26,6 @@ const sendMessage = () => {
 
   messageForm.post(route('account.chats.store', messageForm.advert_id), {
     onSuccess: () => {
-      // Опціонально — оновити повідомлення після відправки
       if (activeDialog.value?.messages) {
         activeDialog.value.messages.push({
           id: Date.now(),
@@ -34,7 +34,7 @@ const sendMessage = () => {
         });
       }
       newMessage.value = '';
-      messageForm.reset('message'); // очищає тільки message
+      messageForm.reset('message');
     },
   });
 };
@@ -42,16 +42,16 @@ const sendMessage = () => {
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
-    messages.value.push({
+    activeDialog.value.messages.push({
       id: Date.now(),
-      text: `📎 Файл: ${file.name}`,
+      message: t('chat.file', { fileName: file.name }),
       isMine: true,
     });
   }
 };
 
 const openEmojis = () => {
-  alert('🤪 Тут має бути emoji picker. Можеш інтегрувати наприклад "emoji-picker-element".');
+  alert('🤪 Тут має бути emoji picker.');
 };
 
 const messageForm = useForm({
@@ -62,7 +62,7 @@ const messageForm = useForm({
 </script>
 
 <template>
-  <Head title="Чат" />
+  <Head :title="t('chat.title')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -71,7 +71,7 @@ const messageForm = useForm({
           <div class="grid grid-cols-3 gap-4">
             <div class="col-span-1 p-4 border-r border-gray-200">
               <h2 class="text-xl font-bold mb-4">
-                Список чатів
+                {{ t('chat.list') }}
               </h2>
               <div
                 v-for="chat in dialogs"
@@ -97,7 +97,7 @@ const messageForm = useForm({
 
             <div class="col-span-2 p-4">
               <h2 class="text-xl font-bold mb-4">
-                Чат з продавцем
+                {{ t('chat.withSeller') }}
               </h2>
               <div
                 v-if="activeDialog"
@@ -109,14 +109,10 @@ const messageForm = useForm({
                   class="flex items-start space-x-2"
                 >
                   <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
-                    <span v-if="message.user_id === user.id"><img
+                    <img
                       :src="message.user.avatar_url"
                       alt=""
-                    ></span>
-                    <span v-else><img
-                      :src="message.user.avatar_url"
-                      alt=""
-                    ></span>
+                    >
                   </div>
                   <div class="flex-1 p-3 bg-gray-50 rounded-lg shadow-sm">
                     <p class="font-medium">
@@ -131,7 +127,7 @@ const messageForm = useForm({
                   >
                     <button
                       class="text-gray-500 hover:text-yellow-400 transition"
-                      title="Смайли"
+                      :title="t('chat.smileys')"
                       @click="openEmojis"
                     >
                       😊
@@ -150,7 +146,7 @@ const messageForm = useForm({
                       v-model="messageForm.message"
                       type="text"
                       class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-600"
-                      placeholder="Написати..."
+                      :placeholder="t('chat.placeholder')"
                       @keyup.enter="sendMessage"
                     >
 
@@ -158,13 +154,13 @@ const messageForm = useForm({
                       type="submit"
                       class="ml-2 w-40 h-16 bg-violet-600 text-white py-2 rounded-lg hover:bg-violet-700"
                     >
-                      Відправити
+                      {{ t('chat.send') }}
                     </button>
                   </form>
                 </div>
               </div>
               <div v-else>
-                Виберіть чат
+                {{ t('chat.select') }}
               </div>
             </div>
           </div>
