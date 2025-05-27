@@ -5,7 +5,8 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
 import InputError from '@/Components/InputError.vue';
 import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.vue';
-
+import {useI18n} from "vue-i18n";
+const { t } = useI18n();
 const props = defineProps({
   categories: {
     type: Array,
@@ -130,174 +131,122 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Head title="Оголошення" />
+    <Head :title="t('CreateAdvert')" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
           <div class="px-4">
-            <form @submit.prevent="submit">
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Назва</label>
-                <input
-                  v-model="form.title"
-                  type="text"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
-              </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.title"
-              />
-
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Ціна</label>
-                <input
-                  v-model="form.price"
-                  type="number"
-                  required
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
-              </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.price"
-              />
-
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Категорія</label>
-                <select
-                  v-model="form.category_id"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                  <option
-                    v-for="category in formattedCategories"
-                    :key="category.id"
-                    :value="category.id"
-                  >
-                    {{ category.name }}
-                  </option>
-                </select>
-              </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.category_id"
-              />
-
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Фото</label>
-                <AdvertFileUpload v-model="form.images" />
-              </div>
-
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Місцезнаходження</label>
-                <div class="relative search-container">
-                  <input
-                    v-model="citySearchQuery"
-                    type="text"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
-                    placeholder="Почніть вводити адресу"
-                  >
-
-                  <div
-                    v-if="showLocationDropdown"
-                    class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
-                  >
-                    <ul v-if="filteredCities.length">
-                      <li
-                        v-for="city in filteredCities"
-                        :key="city.id"
-                        class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
-                        @click="selectCity(city)"
-                      >
-                        {{ city.name }}
-                      </li>
-                    </ul>
+              <form @submit.prevent="submit">
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Title') }}</label>
+                      <input v-model="form.title" type="text" class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                      <InputError class="mt-2" :message="form.errors.title" />
                   </div>
-                </div>
-              </div>
 
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Адреса</label>
-                <input
-                  v-model="form.address"
-                  type="text"
-                  required
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                >
-              </div>
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Price') }}</label>
+                      <input v-model="form.price" type="number" required class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                      <InputError class="mt-2" :message="form.errors.price" />
+                  </div>
 
-              <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Опис</label>
-                <textarea
-                  v-model="form.content"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                />
-              </div>
-              <InputError
-                class="mt-2"
-                :message="form.errors.content"
-              />
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Category') }}</label>
+                      <select v-model="form.category_id" class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                          <option v-for="category in formattedCategories" :key="category.id" :value="category.id">
+                              {{ category.name }}
+                          </option>
+                      </select>
+                      <InputError class="mt-2" :message="form.errors.category_id" />
+                  </div>
 
-              <div v-if="attributes && attributes.length > 0">
-                <h3 class="text-lg font-medium">
-                  Атрибути
-                </h3>
-                <div
-                  v-for="attribute in attributes"
-                  :key="attribute.id"
-                  class="mb-4"
-                >
-                  <label
-                    :for="'attribute_' + attribute.id"
-                    class="block text-sm font-medium mb-2"
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Photos') }}</label>
+                      <AdvertFileUpload v-model="form.images" />
+                  </div>
+
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Location') }}</label>
+                      <div class="relative search-container">
+                          <input
+                              v-model="citySearchQuery"
+                              type="text"
+                              class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+                              :placeholder="t('StartTypingAddress')"
+                          >
+                          <div
+                              v-if="showLocationDropdown"
+                              class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
+                          >
+                              <ul v-if="filteredCities.length">
+                                  <li
+                                      v-for="city in filteredCities"
+                                      :key="city.id"
+                                      class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+                                      @click="selectCity(city)"
+                                  >
+                                      {{ city.name }}
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Address') }}</label>
+                      <input v-model="form.address" type="text" required class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+
+                  <div class="mb-4">
+                      <label class="block text-sm font-medium mb-2">{{ t('Description') }}</label>
+                      <textarea v-model="form.content" class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+                      <InputError class="mt-2" :message="form.errors.content" />
+                  </div>
+
+                  <div v-if="attributes && attributes.length > 0">
+                      <h3 class="text-lg font-medium">{{ t('Attributes') }}</h3>
+                      <div v-for="attribute in attributes" :key="attribute" class="mb-4">
+                          <label :for="'attributes.' + attribute.id" class="block text-sm font-medium mb-2">
+                              {{ attribute.name }}
+                          </label>
+                          <template v-if="attribute.variants?.length">
+                              <select
+                                  :id="'attributes.' + attribute.id"
+                                  v-model="form.attributes[attribute.id]"
+                                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                              >
+                                  <option value="" />
+                                  <option v-for="variant in attribute.variants" :key="variant" :value="variant">
+                                      {{ variant }}
+                                  </option>
+                              </select>
+                          </template>
+                          <template v-else-if="['integer', 'float'].includes(attribute.type)">
+                              <input
+                                  :id="'attributes.' + attribute.id"
+                                  v-model="form.attributes[attribute.id]"
+                                  type="number"
+                                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                              >
+                          </template>
+                          <template v-else>
+                              <input
+                                  :id="'attributes.' + attribute.id"
+                                  v-model="form.attributes[attribute.id]"
+                                  type="text"
+                                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                              >
+                          </template>
+                      </div>
+                  </div>
+
+                  <button
+                      type="submit"
+                      class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    {{ attribute.name }}
-                  </label>
-
-                  <template v-if="attribute.variants && attribute.variants.length">
-                    <select
-                      :id="'attribute_' + attribute.id"
-                      v-model="form.attributes[attribute.id]"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                      <option value="" />
-                      <option
-                        v-for="variant in attribute.variants"
-                        :key="variant"
-                        :value="variant"
-                      >
-                        {{ variant }}
-                      </option>
-                    </select>
-                  </template>
-
-                  <template v-else-if="attribute.type === 'integer' || attribute.type === 'float'">
-                    <input
-                      :id="'attribute_' + attribute.id"
-                      v-model="form.attributes[attribute.id]"
-                      type="number"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                  </template>
-
-                  <template v-else>
-                    <input
-                      :id="'attribute_' + attribute.id"
-                      v-model="form.attributes[attribute.id]"
-                      type="text"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                  </template>
-                </div>
-              </div>
-              <button
-                type="submit"
-                class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Створити
-              </button>
-            </form>
+                      {{ t('Create') }}
+                  </button>
+              </form>
           </div>
         </div>
       </div>

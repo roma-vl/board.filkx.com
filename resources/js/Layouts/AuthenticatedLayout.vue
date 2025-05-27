@@ -14,6 +14,7 @@ import SettingsIcon from '@/Components/Icon/SettingsIcon.vue';
 import UpDownIcon from '@/Components/Icon/UpDownIcon.vue';
 import CommandLineIcon from '@/Components/Icon/CommandLineIcon.vue';
 import RattingPopup from '@/Components/RattingPopup.vue';
+import HelperCenterIcon from "@/Components/Icon/HelperCenterIcon.vue";
 
 const showingNavigationDropdown = ref(false);
 const isMessagesVisible = ref(false);
@@ -54,7 +55,7 @@ const handleSubmit = (message) => {
                   :href="route('account.adverts.create')"
                   class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-600 transition-all duration-300 ease-in-out relative before:absolute before:bottom-0 before:left-0 before:w-full before:h-[3px] before:bg-violet-600 before:origin-bottom-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out after:absolute after:top-0 after:left-0 after:w-full after:h-[2px] after:bg-violet-600 after:origin-top-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out hover:before:scale-x-100 hover:before:origin-bottom-left hover:after:scale-x-100 hover:after:origin-top-right group"
                 >
-                  Додати Оголошення
+                  {{ $t('Add Advert')}}
                   <span
                     class="absolute left-0 top-0 h-full w-[3px] bg-violet-600 scale-y-0 transition-transform duration-300 ease-in-out group-hover:scale-y-100 origin-top"
                   />
@@ -134,43 +135,6 @@ const handleSubmit = (message) => {
                           </p>
                         </div>
                       </div>
-                      <div
-                        class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300 active:bg-gray-300 active:border-gray-800"
-                      >
-                        <img
-                          alt="natali craig"
-                          src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1061&amp;q=80"
-                          class="relative inline-block h-12 w-12 !rounded-full object-cover object-center"
-                        >
-                        <div class="flex flex-col gap-1">
-                          <p
-                            class="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased"
-                          >
-                            <span class="font-medium text-blue-gray-900">Natali</span> reply to your
-                            email
-                          </p>
-                          <p
-                            class="flex items-center gap-1 font-sans text-xs font-light text-gray-600 antialiased"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              aria-hidden="true"
-                              class="h-3 w-3"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                            a hour ago
-                          </p>
-                        </div>
-                      </div>
                     </ul>
                   </template>
                 </Dropdown>
@@ -186,7 +150,7 @@ const handleSubmit = (message) => {
                         type="button"
                         class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                       >
-                        {{ $page.props.auth?.user?.name ?? 'Ваш профіль' }}
+                        {{ $page.props.auth?.user?.name ?? $t('Your Profile') }}
 
                         <svg
                           class="-me-0.5 ms-2 h-4 w-4"
@@ -248,40 +212,40 @@ const handleSubmit = (message) => {
                           class="py-2"
                         >
                           <nav class="grid gap-1">
-                            <a
+                            <a v-if="$page.props.auth?.user"
                               v-can="'admin'"
                               :href="route('admin.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <CommandLineIcon /> <span>Admin Panel</span>
+                              <CommandLineIcon /> <span>{{ $t('Admin Panel')}}</span>
                             </a>
                             <a
                               :href="route('account.adverts.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <GuideIcon /> <span>Adverts</span>
+                              <GuideIcon /> <span> {{ $t('Adverts')}}</span>
                             </a>
                             <a
                               :href="route('account.chats.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <IntegrationIcon /> <span>Chat</span>
+                              <IntegrationIcon /> <span> {{ $t('chat.title')}}</span>
                             </a>
                             <a
                               :href="route('account.profile.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <AccountIcon /> <span>Profile</span>
+                              <AccountIcon /> <span>{{ $t('Profile')}}</span>
                             </a>
                             <a
                               :href="route('account.profile.settings')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <SettingsIcon /> <span>Account Settings</span>
+                              <SettingsIcon /> <span>{{ $t('Settings')}}</span>
                             </a>
-                            <!--                                                        <a href="/" class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md">-->
-                            <!--                                                            <HelperCenterIcon /> <span>Helper Center</span>-->
-                            <!--                                                        </a>-->
+                            <a href="/" class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md">
+                                <HelperCenterIcon /> <span>{{ $t('Helper Center')}}</span>
+                            </a>
                           </nav>
                         </div>
                         <!--                                                <div aria-label="account-upgrade" class="px-4 py-6">-->
@@ -299,7 +263,7 @@ const handleSubmit = (message) => {
                         <!--                                                        </button>-->
                         <!--                                                    </div>-->
                         <!--                                                </div>-->
-                        <div
+                        <div v-if="$page.props.auth?.user"
                           aria-label="footer"
                           class="pt-2"
                         >
@@ -309,9 +273,21 @@ const handleSubmit = (message) => {
                             type="button"
                             class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                           >
-                            <LogoutIcon /> <span>Log Out</span>
+                            <LogoutIcon /> <span> {{ $t('logout')}}</span>
                           </Link>
                         </div>
+                          <div v-else
+                               aria-label="footer"
+                               class="pt-2"
+                          >
+                              <Link
+                                  :href="route('login')"
+                                  type="button"
+                                  class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                              >
+                                  <LogoutIcon /> <span>{{ $t('login')}}</span>
+                              </Link>
+                          </div>
                       </div>
                     </div>
                   </template>
