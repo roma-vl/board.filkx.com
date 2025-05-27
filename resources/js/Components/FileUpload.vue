@@ -72,7 +72,6 @@ const formatFileSize = (size) => {
       @dragleave="dragLeaveHandler"
       @dragenter="dragEnterHandler"
     >
-      <!--                shadow-xl-->
       <div
         id="overlay"
         :class="{ draggedover: isDraggedOver }"

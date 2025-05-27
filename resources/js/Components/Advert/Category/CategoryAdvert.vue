@@ -25,7 +25,8 @@ const toggleViewMode = () => {
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center gap-4">
         <h2 class="text-2xl font-bold text-gray-800">
-          🔍 Знайдено <span class="text-indigo-600">{{ adverts.total }}</span> оголошень
+          🔍 {{ $t('found') }} <span class="text-indigo-600">{{ adverts.total }}</span>
+          {{ $t('adverts') }}
         </h2>
         <div class="flex items-center gap-2 ml-4">
           <button
@@ -81,7 +82,7 @@ const toggleViewMode = () => {
         </div>
       </div>
       <div class="text-sm text-gray-500 italic">
-        Сторінка {{ adverts.page }} з {{ adverts.last_page }}
+        {{ $t('page') }} {{ adverts.page }} {{ $t('of') }} {{ adverts.last_page }}
       </div>
     </div>
 

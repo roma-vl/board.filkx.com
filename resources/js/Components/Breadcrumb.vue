@@ -67,6 +67,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-/* Додаткові стилі за потреби */
-</style>
+<style scoped></style>

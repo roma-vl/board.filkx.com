@@ -47,13 +47,12 @@ const removeTag = (index) => {
     <input
       ref="realInput"
       v-model="input"
-      placeholder="Введіть варіант і Enter"
+      :placeholder="$t('Type an option and Enter')"
       class="flex-grow min-w-[150px] border-none outline-none"
       @keydown.enter.prevent="addTag"
       @keydown.delete="input === '' && modelValue.length && removeTag(modelValue.length - 1)"
     >
 
-    <!-- Прихований input для бекенду -->
     <input
       type="hidden"
       name="variants"

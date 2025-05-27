@@ -90,7 +90,6 @@ const processedItems = computed(() => {
             :row="item"
           >
             <!-- eslint-disable vue/no-v-html -->
-
             <span
               v-if="heading.highlight"
               v-html="item[heading.key]"

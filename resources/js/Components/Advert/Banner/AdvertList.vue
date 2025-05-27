@@ -64,7 +64,7 @@ const remove = (bannerId) => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                Limit : {{ banner.limit }}
+                {{ $t('limit') }} : {{ banner.limit }}
               </span>
               <span class="flex items-center gap-2 text-gray-600">
                 <svg
@@ -75,10 +75,10 @@ const remove = (bannerId) => {
                 >
                   <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                 </svg>
-                Кліки: {{ banner.clicks ? banner.clicks : ' 0 ' }}
+                {{ $t('clicks') }}: {{ banner.clicks ? banner.clicks : ' 0 ' }}
               </span>
               <p class="text-sm text-gray-500">
-                Опубліковано: {{ getDateFormatFromLocale(banner.created_at) }}
+                {{ $t('Created At') }}: {{ getDateFormatFromLocale(banner.created_at) }}
               </p>
             </div>
           </div>
@@ -94,7 +94,7 @@ const remove = (bannerId) => {
                 'bg-red-100 text-red-800': banner.status === 'inactive',
               }"
             >
-              {{ banner.status }}
+              {{ $t(banner.status) }}
             </span>
 
             <div
@@ -110,7 +110,7 @@ const remove = (bannerId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Редагувати
+                  {{ $t('edit') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ const remove = (bannerId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Переглянути
+                  {{ $t('view') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@ const remove = (bannerId) => {
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
                 >
-                  Видалити
+                  {{ $t('delete') }}
                 </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +186,7 @@ const remove = (bannerId) => {
       v-else
       class="py-12 text-center text-gray-500 text-lg"
     >
-      У вас немає оголошень.
+      {{ $t('You have no Advert') }}.
     </p>
   </div>
 </template>

@@ -11,7 +11,7 @@ const props = defineProps({
 const messages = computed(() => {
   return Object.entries(props.flash)
     .map(([type, message]) => ({ type, message }))
-    .filter((msg) => msg.message); // Фільтруємо, щоб не було null або undefined
+    .filter((msg) => msg.message);
 });
 
 const getClasses = (type) => {

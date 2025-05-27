@@ -56,12 +56,12 @@ const handleRateNow = () => {
       <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
         <div class="px-12 py-5">
           <h2 class="text-gray-800 text-3xl font-semibold">
-            Your opinion matters to us!
+            {{ $t('feedback.title') }}
           </h2>
         </div>
         <div class="bg-gray-200 w-full flex flex-col items-center">
           <div class="flex flex-col items-center py-6 space-y-3">
-            <span class="text-lg text-gray-800">How was quality of the call?</span>
+            <span class="text-lg text-gray-800">{{ $t('feedback.question') }}</span>
             <div class="flex space-x-3">
               <template
                 v-for="i in 5"
@@ -93,13 +93,13 @@ const handleRateNow = () => {
               v-model="message"
               rows="3"
               class="p-4 text-gray-500 rounded-xl resize-none"
-              placeholder="Leave a message, if you want"
+              :placeholder="$t('feedback.placeholder')"
             />
             <button
               class="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white"
               @click="handleRateNow"
             >
-              Rate now
+              {{ $t('feedback.rateNow') }}
             </button>
           </div>
         </div>
@@ -108,7 +108,9 @@ const handleRateNow = () => {
             href="#"
             class="text-gray-600"
             @click.prevent="close"
-          >Maybe later</a>
+          >
+            {{ $t('feedback.maybeLater') }}
+          </a>
         </div>
       </div>
     </div>

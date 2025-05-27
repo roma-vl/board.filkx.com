@@ -65,7 +65,7 @@ async function submitSettings() {
     <div class="md:flex items-center -mx-3">
       <div class="md:flex-1 px-3 mb-5 md:mb-0">
         <p class="text-center md:text-left text-white text-xs leading-tight md:pr-12">
-          Ми використовуємо cookie для кращого досвіду. Прийняти всі або налаштувати вручну.
+          {{ $t('cookies_banner_text') }}
         </p>
       </div>
       <div class="px-3 text-center">
@@ -73,13 +73,13 @@ async function submitSettings() {
           class="py-2 px-6 bg-gray-800 hover:bg-gray-900 text-white rounded font-bold text-sm shadow-xl mr-3"
           @click="openModal"
         >
-          Налаштування
+          {{ $t('settings_button') }}
         </button>
         <button
           class="py-2 px-6 bg-green-500 hover:bg-green-600 text-white rounded font-bold text-sm shadow-xl"
           @click="acceptAll"
         >
-          Прийняти
+          {{ $t('accept_all_button') }}
         </button>
       </div>
     </div>
@@ -94,7 +94,7 @@ async function submitSettings() {
       >
         <div class="flex justify-between items-center px-5 py-3 border-b">
           <h2 class="text-lg font-bold">
-            Налаштування cookie
+            {{ $t('cookie_settings_title') }}
           </h2>
           <button
             class="text-gray-500 hover:text-black text-2xl"
@@ -114,17 +114,14 @@ async function submitSettings() {
             >
             <div
               class="w-10 h-6 rounded-full relative transition duration-300"
-              :class="{
-                'bg-blue-500': settings.necessary,
-                'bg-gray-300': !settings.necessary,
-              }"
+              :class="{ 'bg-blue-500': settings.necessary, 'bg-gray-300': !settings.necessary }"
             >
               <div
                 class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300"
                 :class="{ 'translate-x-4': settings.necessary }"
               />
             </div>
-            <span class="ml-3">Обов’язкові cookie (завжди увімкнені)</span>
+            <span class="ml-3">{{ $t('required_cookies_label') }}</span>
           </label>
 
           <label class="flex items-center py-3 cursor-pointer">
@@ -142,8 +139,9 @@ async function submitSettings() {
                 :class="{ 'translate-x-4': settings.preferences }"
               />
             </div>
-            <span class="ml-3">Налаштування користувача</span>
+            <span class="ml-3">{{ $t('preferences_label') }}</span>
           </label>
+
           <label class="flex items-center py-3 cursor-pointer">
             <input
               v-model="settings.analytics"
@@ -159,8 +157,9 @@ async function submitSettings() {
                 :class="{ 'translate-x-4': settings.analytics }"
               />
             </div>
-            <span class="ml-3">Аналітика</span>
+            <span class="ml-3">{{ $t('analytics_label') }}</span>
           </label>
+
           <label class="flex items-center py-3 cursor-pointer">
             <input
               v-model="settings.marketing"
@@ -176,7 +175,7 @@ async function submitSettings() {
                 :class="{ 'translate-x-4': settings.marketing }"
               />
             </div>
-            <span class="ml-3">Маркетинг</span>
+            <span class="ml-3">{{ $t('marketing_label') }}</span>
           </label>
         </div>
 
@@ -185,7 +184,7 @@ async function submitSettings() {
             type="submit"
             class="py-2 px-6 bg-gray-800 hover:bg-gray-900 text-white rounded font-bold text-sm shadow"
           >
-            Зберегти
+            {{ $t('save_button') }}
           </button>
         </div>
       </form>
