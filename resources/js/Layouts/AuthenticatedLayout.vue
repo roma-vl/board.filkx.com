@@ -14,7 +14,7 @@ import SettingsIcon from '@/Components/Icon/SettingsIcon.vue';
 import UpDownIcon from '@/Components/Icon/UpDownIcon.vue';
 import CommandLineIcon from '@/Components/Icon/CommandLineIcon.vue';
 import RattingPopup from '@/Components/RattingPopup.vue';
-import HelperCenterIcon from "@/Components/Icon/HelperCenterIcon.vue";
+import HelperCenterIcon from '@/Components/Icon/HelperCenterIcon.vue';
 
 const showingNavigationDropdown = ref(false);
 const isMessagesVisible = ref(false);
@@ -55,7 +55,7 @@ const handleSubmit = (message) => {
                   :href="route('account.adverts.create')"
                   class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-600 transition-all duration-300 ease-in-out relative before:absolute before:bottom-0 before:left-0 before:w-full before:h-[3px] before:bg-violet-600 before:origin-bottom-right before:scale-x-0 before:transition-transform before:duration-300 before:ease-in-out after:absolute after:top-0 after:left-0 after:w-full after:h-[2px] after:bg-violet-600 after:origin-top-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out hover:before:scale-x-100 hover:before:origin-bottom-left hover:after:scale-x-100 hover:after:origin-top-right group"
                 >
-                  {{ $t('Add Advert')}}
+                  {{ $t('Add Advert') }}
                   <span
                     class="absolute left-0 top-0 h-full w-[3px] bg-violet-600 scale-y-0 transition-transform duration-300 ease-in-out group-hover:scale-y-100 origin-top"
                   />
@@ -212,39 +212,43 @@ const handleSubmit = (message) => {
                           class="py-2"
                         >
                           <nav class="grid gap-1">
-                            <a v-if="$page.props.auth?.user"
+                            <a
+                              v-if="$page.props.auth?.user"
                               v-can="'admin'"
                               :href="route('admin.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <CommandLineIcon /> <span>{{ $t('Admin Panel')}}</span>
+                              <CommandLineIcon /> <span>{{ $t('Admin Panel') }}</span>
                             </a>
                             <a
                               :href="route('account.adverts.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <GuideIcon /> <span> {{ $t('Adverts')}}</span>
+                              <GuideIcon /> <span> {{ $t('Adverts') }}</span>
                             </a>
                             <a
                               :href="route('account.chats.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <IntegrationIcon /> <span> {{ $t('chat.title')}}</span>
+                              <IntegrationIcon /> <span> {{ $t('chat.title') }}</span>
                             </a>
                             <a
                               :href="route('account.profile.index')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <AccountIcon /> <span>{{ $t('Profile')}}</span>
+                              <AccountIcon /> <span>{{ $t('Profile') }}</span>
                             </a>
                             <a
                               :href="route('account.profile.settings')"
                               class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                             >
-                              <SettingsIcon /> <span>{{ $t('Settings')}}</span>
+                              <SettingsIcon /> <span>{{ $t('Settings') }}</span>
                             </a>
-                            <a href="/" class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md">
-                                <HelperCenterIcon /> <span>{{ $t('Helper Center')}}</span>
+                            <a
+                              href="/"
+                              class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                            >
+                              <HelperCenterIcon /> <span>{{ $t('Helper Center') }}</span>
                             </a>
                           </nav>
                         </div>
@@ -263,7 +267,8 @@ const handleSubmit = (message) => {
                         <!--                                                        </button>-->
                         <!--                                                    </div>-->
                         <!--                                                </div>-->
-                        <div v-if="$page.props.auth?.user"
+                        <div
+                          v-if="$page.props.auth?.user"
                           aria-label="footer"
                           class="pt-2"
                         >
@@ -273,21 +278,22 @@ const handleSubmit = (message) => {
                             type="button"
                             class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                           >
-                            <LogoutIcon /> <span> {{ $t('logout')}}</span>
+                            <LogoutIcon /> <span> {{ $t('logout') }}</span>
                           </Link>
                         </div>
-                          <div v-else
-                               aria-label="footer"
-                               class="pt-2"
+                        <div
+                          v-else
+                          aria-label="footer"
+                          class="pt-2"
+                        >
+                          <Link
+                            :href="route('login')"
+                            type="button"
+                            class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
                           >
-                              <Link
-                                  :href="route('login')"
-                                  type="button"
-                                  class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
-                              >
-                                  <LogoutIcon /> <span>{{ $t('login')}}</span>
-                              </Link>
-                          </div>
+                            <LogoutIcon /> <span>{{ $t('login') }}</span>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </template>

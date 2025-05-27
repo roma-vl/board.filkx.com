@@ -158,7 +158,8 @@ watch(
       @click="triggerFileInput"
     >
       <p>
-          {{ $t('Drag files here or') }} <span class="text-blue-600 underline"> {{ $t('lick to select') }}</span>
+        {{ $t('Drag files here or') }}
+        <span class="text-blue-600 underline"> {{ $t('lick to select') }}</span>
       </p>
       <input
         ref="fileInput"

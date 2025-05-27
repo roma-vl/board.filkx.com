@@ -25,7 +25,7 @@ const routes = {
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">
-                {{$t('saved.announcement')}}
+                {{ $t('saved.announcement') }}
               </h2>
             </div>
 
