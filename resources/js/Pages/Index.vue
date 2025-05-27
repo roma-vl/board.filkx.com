@@ -55,15 +55,15 @@ const subCategories = computed(() => {
 </script>
 
 <template>
-  <Head title="Головна | Оголошення" />
+  <Head :title="$t('main')" />
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-md sm:rounded-3xl p-6">
+        <div
+          class="overflow-hidden bg-white sm:rounded-3xl p-6 dark:bg-gray-700 dark:text-gray-100"
+        >
           <div class="container mx-auto">
             <FlashMessage :flash="flash" />
-
-            <!-- Пошук -->
             <div
               class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >
@@ -87,7 +87,7 @@ const subCategories = computed(() => {
 
             <!-- Категорії -->
             <section class="my-10">
-              <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">
+              <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-300">
                 {{ $t('divided.into.services') }}
               </h2>
               <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
@@ -145,8 +145,8 @@ const subCategories = computed(() => {
             </section>
 
             <!-- VIP-оголошення -->
-            <section class="bg-white p-6">
-              <h2 class="text-2xl font-bold mb-6 text-gray-800">
+            <section class="bg-white p-6 dark:bg-gray-800 rounded-md">
+              <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-300">
                 {{ $t('vip.announcement') }}
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -194,8 +194,8 @@ const subCategories = computed(() => {
             </section>
 
             <!-- Останні оголошення -->
-            <section class="p-6 mt-10 bg-white">
-              <h2 class="text-2xl font-bold mb-6 text-gray-800">
+            <section class="bg-white p-6 mt-10 dark:bg-gray-800 rounded-md">
+              <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-300">
                 {{ $t('last.announcement') }}
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
