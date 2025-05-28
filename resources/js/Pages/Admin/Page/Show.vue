@@ -30,16 +30,20 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
           <Link
             :href="route('admin.pages.index')"
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
-          />
+          >
+            {{ $t('pages') }}
+          </Link>
         </div>
 
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <h1 class="text-2xl font-bold">
-            Категорія: {{ props.page.title }}
+            {{ $t('title') }}: {{ props.page.title }}
           </h1>
           <p class="text-gray-600">
-            Slug: {{ props.page.slug }}
+            {{ $t('slug') }} : {{ props.page.slug }}
           </p>
+
+          {{ $t('content') }}:
           <!-- eslint-disable-next-line vue/no-v-html -->
           <div v-html="decodedContent" />
         </div>

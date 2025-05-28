@@ -4,8 +4,8 @@ import { Head, usePage, router } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import Modal from '@/Components/Modal.vue';
-import Create from '@/Pages/Admin/Advert/Attribute/Create.vue';
-import Edit from '@/Pages/Admin/Advert/Attribute/Edit.vue';
+import Create from '@/Pages/Admin/Advert/Category/Attribute/Create.vue';
+import Edit from '@/Pages/Admin/Advert/Category/Attribute/Edit.vue';
 
 const props = defineProps({
   category: {
@@ -72,7 +72,7 @@ const deleteCategory = (attributeId) => {
 </script>
 
 <template>
-  <Head title="Категорія - Атрибути" />
+  <Head :title="$t('category') + '-' + $t('attribute')" />
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -80,10 +80,10 @@ const deleteCategory = (attributeId) => {
 
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <h1 class="text-2xl font-bold">
-            Категорія: {{ props.category.name }}
+            {{ $t('category') }}: {{ props.category.name }}
           </h1>
           <p class="text-gray-600">
-            Slug: {{ props.category.slug }}
+            {{ $t('slug') }}: {{ props.category.slug }}
           </p>
 
           <div class="mb-2 flex justify-end">
@@ -91,27 +91,27 @@ const deleteCategory = (attributeId) => {
               class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
               @click="openCreateModal"
             >
-              + Додати Атрибут
+              + {{ $t('add.attribute') }}
             </button>
           </div>
-          <p>Батьківські</p>
+          <p>{{ $t('parents') }}</p>
           <table class="w-full mt-4 border-collapse border border-gray-200">
             <thead>
               <tr class="bg-gray-100">
                 <th class="border p-2">
-                  ID
+                  {{ $t('ID') }}
                 </th>
                 <th class="border p-2">
-                  Назва
+                  {{ $t('name') }}
                 </th>
                 <th class="border p-2">
-                  Тип
+                  {{ $t('type') }}
                 </th>
                 <th class="border p-2">
-                  Обов’язковий
+                  {{ $t('required') }}
                 </th>
                 <th class="border p-2">
-                  Сортування
+                  {{ $t('sort') }}
                 </th>
               </tr>
             </thead>
@@ -139,27 +139,27 @@ const deleteCategory = (attributeId) => {
             </tbody>
           </table>
 
-          <p>Власні</p>
+          <p>{{ $t('own') }}</p>
           <table class="w-full mt-4 border-collapse border border-gray-200">
             <thead>
               <tr class="bg-gray-100">
                 <th class="border p-2">
-                  ID
+                  {{ $t('ID') }}
                 </th>
                 <th class="border p-2">
-                  Назва
+                  {{ $t('name') }}
                 </th>
                 <th class="border p-2">
                   Тип
                 </th>
                 <th class="border p-2">
-                  Обов’язковий
+                  {{ $t('required') }}
                 </th>
                 <th class="border p-2">
-                  Сортування
+                  {{ $t('sort') }}
                 </th>
                 <th class="border p-2">
-                  Дії
+                  {{ $t('actions') }}
                 </th>
               </tr>
             </thead>
@@ -178,7 +178,7 @@ const deleteCategory = (attributeId) => {
                   {{ attr.type }}
                 </td>
                 <td class="border p-2">
-                  {{ attr.required ? 'Так' : 'Ні' }}
+                  {{ attr.required ? $t('yes') : $t('no') }}
                 </td>
                 <td class="border p-2">
                   {{ attr.sort }}
@@ -188,13 +188,13 @@ const deleteCategory = (attributeId) => {
                     class="text-blue-500 pr-2 hover:underline"
                     @click.stop="openEditModal(attr.id)"
                   >
-                    Редагувати
+                    {{ $t('edit') }}
                   </button>
                   <button
                     class="text-red-500 hover:underline"
                     @click.stop="deleteCategory(attr.id)"
                   >
-                    Видалити
+                    {{ $t('delete') }}
                   </button>
                 </td>
               </tr>

@@ -1,18 +1,31 @@
 <script setup>
+import { computed, defineProps, watchEffect } from 'vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { computed, defineEmits } from 'vue';
 
-const emit = defineEmits(['categoryCreated']);
+const props = defineProps({
+  category: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+
+const emit = defineEmits(['categoryUpdated']);
 const categories = usePage().props.categories;
-
 const form = useForm({
   name: '',
+  slug: '',
   parent_id: null,
 });
 
+watchEffect(() => {
+  form.name = props.category?.name || '';
+  form.slug = props.category?.slug || '';
+  form.parent_id = props.category?.parent_id || null;
+});
+
 const submit = () => {
-  form.post(route('admin.adverts.category.store'), {
-    onSuccess: () => emit('categoryCreated'),
+  form.put(route('admin.adverts.category.update', props.category.id), {
+    onSuccess: () => emit('categoryUpdated'),
   });
 };
 
@@ -27,19 +40,21 @@ const getCategoryOptions = (categories, prefix = '') => {
   });
   return options;
 };
+
 const formattedCategories = computed(() => getCategoryOptions(categories));
 </script>
 
 <template>
-  <Head title="Додати категорію" />
+  <Head :title="$t('edit.category')" />
 
   <div class="p-6">
     <h1 class="text-2xl font-bold mb-4">
-      Додати категорію
+      {{ $t('edit.category') }}
     </h1>
+
     <form @submit.prevent="submit">
       <div class="mb-4">
-        <label class="block text-gray-700">Назва</label>
+        <label class="block text-gray-700">{{ $t('title') }}</label>
         <input
           v-model="form.name"
           type="text"
@@ -48,7 +63,7 @@ const formattedCategories = computed(() => getCategoryOptions(categories));
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">Slug</label>
+        <label class="block text-gray-700">{{ $t('slug') }}</label>
         <input
           v-model="form.slug"
           type="text"
@@ -57,13 +72,13 @@ const formattedCategories = computed(() => getCategoryOptions(categories));
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">Батьківська категорія</label>
+        <label class="block text-gray-700">{{ $t('parent.category') }}</label>
         <select
           v-model="form.parent_id"
           class="w-full p-2 border rounded"
         >
           <option :value="null">
-            Без батьківської категорії
+            - {{ $t('without.parent.category') }}
           </option>
           <option
             v-for="cat in formattedCategories"
@@ -79,7 +94,7 @@ const formattedCategories = computed(() => getCategoryOptions(categories));
         type="submit"
         class="bg-blue-500 text-white px-4 py-2 rounded"
       >
-        Зберегти
+        {{ $t('Save') }}
       </button>
     </form>
   </div>

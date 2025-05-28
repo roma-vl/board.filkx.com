@@ -46,15 +46,6 @@ class TicketController extends Controller
 
     }
 
-    public function show(Ticket $ticket): Response
-    {
-        return Inertia::render('Admin/Ticket/Show', [
-            'ticket' => $ticket,
-            'statuses' => $ticket->statuses()->get(),
-            'messages' => $ticket->messages()->with('user')->get(),
-        ]);
-    }
-
     public function edit(EditRequest $request, Ticket $ticket): RedirectResponse
     {
         try {

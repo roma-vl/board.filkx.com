@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return Inertia::render('Admin/Advert/Index', [
+        return Inertia::render('Admin/Advert/Category/Index', [
             'categories' => $this->categoryService->getCategories(),
         ]);
     }
@@ -55,7 +55,7 @@ class CategoryController extends Controller
         $parentAttributes = $category->getParentAttributes();
         $attributes = $category->attributes()->orderBy('sort')->get();
 
-        return Inertia::render('Admin/Advert/Show', compact('category', 'attributes', 'parentAttributes'));
+        return Inertia::render('Admin/Advert/Category/Show', compact('category', 'attributes', 'parentAttributes'));
     }
 
     public function destroy(Category $category): RedirectResponse

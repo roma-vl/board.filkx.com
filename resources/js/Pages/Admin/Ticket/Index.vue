@@ -4,19 +4,20 @@ import { computed } from 'vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 const tickets = computed(() => usePage().props.tickets.data);
 const flash = computed(() => usePage().props.flash);
 const pagination = computed(() => usePage().props.tickets);
 
 const headings = [
-  { key: 'id', value: 'ID', sortable: true, disabled: true },
-  { key: 'author', value: 'Author', sortable: true, highlight: true },
-  { key: 'subject', value: 'Subject', sortable: true, highlight: true },
-  { key: 'content', value: 'Content', sortable: true, highlight: true },
-  { key: 'status', value: 'Status' },
-  { key: 'created_at', value: 'Created' },
-  { key: 'updated_at', value: 'Updated' },
+  { key: 'id', value: t('ID'), sortable: true, disabled: true },
+  { key: 'author', value: t('author'), sortable: true, highlight: true },
+  { key: 'subject', value: t('subject'), sortable: true, highlight: true },
+  { key: 'content', value: t('content'), sortable: true, highlight: true },
+  { key: 'status', value: t('status') },
+  { key: 'created_at', value: t('Created At') },
+  { key: 'updated_at', value: t('Updated At') },
 ];
 
 const routes = [
@@ -26,7 +27,7 @@ const routes = [
 </script>
 
 <template>
-  <Head title="Чат" />
+  <Head :title="t('tickets')" />
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -35,7 +36,7 @@ const routes = [
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">
-                Мої Тікети
+                {{ t('tickets') }}
               </h2>
             </div>
             <Grid
@@ -51,7 +52,7 @@ const routes = [
               </template>
               <template #column-subject="{ row }">
                 <a
-                  :href="route('admin.tickets.show', row.id)"
+                  :href="route('account.tickets.show', row.id)"
                   class="text-sm hover:underline cursor-pointer"
                 >
                   {{ row.subject }}
@@ -67,7 +68,7 @@ const routes = [
                     'bg-red-100 text-red-800': row.status === 'closed',
                   }"
                 >
-                  {{ row.status }}
+                  {{ t(row.status) }}
                 </span>
               </template>
             </Grid>

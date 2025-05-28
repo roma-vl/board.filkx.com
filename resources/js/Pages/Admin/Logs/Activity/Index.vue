@@ -3,18 +3,19 @@ import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
+import { useI18n } from 'vue-i18n';
 
 const logs = computed(() => usePage().props.logs.data);
-
+const { t } = useI18n();
 const pagination = computed(() => usePage().props.logs);
 
 const headings = [
-  { key: 'id', value: 'ID', sortable: true, disabled: true },
-  { key: 'description', value: 'Action', sortable: true, disabled: true },
-  { key: 'causer', value: 'Causer' },
-  { key: 'subject', value: 'Subject' },
-  { key: 'changes', value: 'Changes' },
-  { key: 'created_at', value: 'Created' },
+  { key: 'id', value: t('ID'), sortable: true, disabled: true },
+  { key: 'description', value: t('actions'), sortable: true, disabled: true },
+  { key: 'causer', value: t('causer') },
+  { key: 'subject', value: t('subject') },
+  { key: 'changes', value: t('changes') },
+  { key: 'created_at', value: t('Created At') },
 ];
 
 const routes = [
@@ -30,7 +31,7 @@ const routes = [
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
           <div class="p-6 space-y-4">
             <h1 class="text-2xl font-bold text-gray-800">
-              Журнал активностей
+              {{ t('log.of.activities') }}
             </h1>
 
             <Grid

@@ -4,6 +4,7 @@ import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+import { useI18n } from 'vue-i18n';
 
 const flash = usePage().props.flash;
 const countries = ref([]);
@@ -16,7 +17,7 @@ const expanded = ref({
 });
 
 const modalOpen = ref(false);
-const modalData = ref(null);
+const { t } = useI18n();
 
 const openModal = async (located, parentId = null) => {
   form.type = located;
@@ -112,13 +113,13 @@ const deleteLocation = (id, type) => {
 
 const modalInfo = computed(() => {
   if (form.type === 'village') {
-    return `Додати село`;
+    return t('add.village');
   } else if (form.type === 'area') {
-    return `Додати район`;
+    return t('add.area');
   } else if (form.type === 'region') {
-    return 'Додати область';
+    return t('add.region');
   } else {
-    return 'Додати країну';
+    return t('add.country');
   }
 });
 
@@ -126,7 +127,7 @@ loadCountries();
 </script>
 
 <template>
-  <Head title="Локації" />
+  <Head :title="t('locations')" />
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -140,7 +141,7 @@ loadCountries();
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
             @click="openModal('country', null)"
           >
-            + Додати Країну
+            + {{ t('add.country') }}
           </button>
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
@@ -161,14 +162,14 @@ loadCountries();
                     class="text-green-500 pr-2"
                     @click.stop="openModal('region', country.id)"
                   >
-                    Додати область
+                    {{ t('add.region') }}
                   </button>
                   <button
                     v-if="country.id !== 1"
                     class="text-red-500 hover:underline"
                     @click.stop="deleteLocation(country.id, 'country')"
                   >
-                    Видалити
+                    {{ t('delete') }}
                   </button>
                 </div>
               </div>
@@ -192,13 +193,13 @@ loadCountries();
                         class="text-green-500 pr-2"
                         @click.stop="openModal('area', region.id)"
                       >
-                        Додати район
+                        {{ t('add.area') }}
                       </button>
                       <button
                         class="text-red-500 hover:underline"
                         @click.stop="deleteLocation(region.id, 'region')"
                       >
-                        Видалити
+                        {{ t('delete') }}
                       </button>
                     </div>
                   </div>
@@ -222,13 +223,13 @@ loadCountries();
                             class="text-green-500 pr-2"
                             @click.stop="openModal('village', area.id)"
                           >
-                            Додати село
+                            {{ t('add.village') }}
                           </button>
                           <button
                             class="text-red-500 hover:underline"
                             @click.stop="deleteLocation(area.id, 'area')"
                           >
-                            Видалити
+                            {{ t('delete') }}
                           </button>
                         </div>
                       </div>
@@ -250,7 +251,7 @@ loadCountries();
                               class="text-red-500 hover:underline"
                               @click.stop="deleteLocation(village.id, 'village')"
                             >
-                              Видалити
+                              {{ t('delete') }}
                             </button>
                           </div>
                         </li>
@@ -272,7 +273,7 @@ loadCountries();
               </h2>
               <input
                 v-model="form.name"
-                placeholder="Назва"
+                :placeholder="t('title')"
                 class="border p-2 w-full mb-4"
               >
               <div class="flex gap-2">
@@ -280,13 +281,13 @@ loadCountries();
                   class="bg-blue-500 text-white px-4 py-2 rounded"
                   @click="submitForm"
                 >
-                  Зберегти
+                  {{ t('Save') }}
                 </button>
                 <button
                   class="bg-gray-500 text-white px-4 py-2 rounded"
                   @click="closeModal"
                 >
-                  Скасувати
+                  {{ t('cancel') }}
                 </button>
               </div>
             </div>

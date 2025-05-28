@@ -1,6 +1,8 @@
 <script setup>
 import { defineProps } from 'vue';
 import AvatarIcon from '@/Components/Icon/AvatarIcon.vue';
+import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
+import { getDateFormatFromLocale } from '@/helpers.js';
 
 defineProps({
   user: {
@@ -16,22 +18,11 @@ defineProps({
       <div class="bg-white rounded-lg profile-card w-[600px] p-6">
         <div class="flex justify-between items-center mb-4">
           <div class="flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 text-gray-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-            <span class="ml-2 text-lg font-semibold text-gray-800">ID: {{ user.id }} | {{ user.name }} {{ user.role }}</span>
+            <ArrowDownIcon />
+            <span class="ml-2 text-lg font-semibold text-gray-800">
+              {{ $t('ID') }}: {{ user.id }} | {{ user.name }} {{ user.role }}</span>
           </div>
+          {{ $t('status') }} :
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             {{ user.status ? 'Active' : 'Inactive' }}
           </button>
@@ -43,13 +34,14 @@ defineProps({
                 <a
                   href="#"
                   class="text-blue-500 pb-2 border-b-2 border-blue-500 font-semibold"
-                >Overview</a>
+                >{{ $t('overview') }}
+                </a>
               </li>
               <li class="text-center">
                 <a
                   href="#"
                   class="text-gray-600 pb-2 hover:text-blue-500"
-                >Goal</a>
+                >{{ $t('info') }}</a>
               </li>
             </ul>
           </div>
@@ -60,7 +52,7 @@ defineProps({
         >
           <img
             :src="user.avatar_url"
-            alt="Profile"
+            :alt="user.name"
             class="rounded-lg border-2 border-green-500 p-1 max-w-[300px]"
           >
         </div>
@@ -96,10 +88,10 @@ defineProps({
               />
             </svg>
             <p class="text-lg font-semibold mt-2">
-              Створено
+              {{ $t('Created At') }}
             </p>
             <p class="text-sm text-gray-600">
-              {{ user.created_at }}
+              {{ getDateFormatFromLocale(user.created_at) }}
             </p>
           </div>
           <div class="text-center p-4 bg-gray-100 rounded-lg">
@@ -118,10 +110,10 @@ defineProps({
               />
             </svg>
             <p class="text-lg font-semibold mt-2">
-              Остання зміна
+              {{ $t('Updated At') }}
             </p>
             <p class="text-sm text-gray-600">
-              {{ user.updated_at }}
+              {{ getDateFormatFromLocale(user.updated_at) }}
             </p>
           </div>
         </div>
