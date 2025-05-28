@@ -1,5 +1,5 @@
 <script setup>
-import { Head, router, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
 import TrashIcon from '@/Components/Icon/TrashIcon.vue';
@@ -13,19 +13,21 @@ import Create from '@/Pages/Admin/Users/Create.vue';
 import Edit from '@/Pages/Admin/Users/Edit.vue';
 import Show from '@/Pages/Admin/Users/Show.vue';
 import Forbidden from '@/Components/Forbidden.vue';
+import { useI18n } from 'vue-i18n';
 const flash = usePage().props.flash;
 const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
+const { t } = useI18n();
 
 const headings = [
-  { key: 'id', value: 'ID', sortable: true, disabled: true },
-  { key: 'name', value: 'Name', sortable: true, highlight: true },
-  { key: 'email', value: 'Email', sortable: true, highlight: true },
-  { key: 'status', value: 'Status' },
-  { key: 'role', value: 'Role' },
-  { key: 'created_at', value: 'Created' },
-  { key: 'updated_at', value: 'Updated' },
-  { key: 'actions', value: 'Actions', disabled: true },
+  { key: 'id', value: t('ID'), sortable: true, disabled: true },
+  { key: 'name', value: t('name'), sortable: true, highlight: true },
+  { key: 'email', value: t('email'), sortable: true, highlight: true },
+  { key: 'status', value: t('status') },
+  { key: 'role', value: t('role') },
+  { key: 'created_at', value: t('Created At') },
+  { key: 'updated_at', value: t('Updated At') },
+  { key: 'actions', value: t('actions'), disabled: true },
 ];
 
 const routes = [
@@ -120,7 +122,7 @@ const restoreUser = (id) => {
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
             @click="openCreateModal"
           >
-            + New User
+            + {{ t('new.user') }}
           </button>
         </div>
         <Grid

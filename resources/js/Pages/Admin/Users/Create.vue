@@ -14,7 +14,7 @@ const form = useForm({
   name: '',
   email: '',
   password: '',
-  roles: [], // Передаємо передані ролі
+  roles: [],
 });
 
 const emit = defineEmits(['userCreated']);
@@ -31,7 +31,7 @@ const submit = () => {
 <template>
   <div class="max-w-md mx-auto mt-8">
     <h2 class="text-2xl font-semibold text-gray-700 text-center">
-      Create User
+      {{ $t('new.user') }}
     </h2>
     <form
       class="space-y-4 mt-4 mb-10"
@@ -41,7 +41,7 @@ const submit = () => {
         <InputLabel
           for="name"
           class="block text-sm font-medium text-gray-700"
-          value="Name"
+          :value="$t('name')"
         />
         <TextInput
           id="name"
@@ -49,7 +49,7 @@ const submit = () => {
           type="text"
           class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
           autocomplete="name"
-          placeholder="Enter name"
+          :placeholder="$t('name')"
         />
       </div>
       <InputError
@@ -61,7 +61,7 @@ const submit = () => {
         <InputLabel
           for="email"
           class="block text-sm font-medium text-gray-700"
-          value="Email"
+          :value="$t('email')"
         />
         <TextInput
           id="email"
@@ -69,7 +69,7 @@ const submit = () => {
           type="text"
           class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
           autocomplete="email"
-          placeholder="Enter email"
+          :placeholder="$t('email')"
         />
         <InputError
           class="mt-2"
@@ -81,7 +81,7 @@ const submit = () => {
         <InputLabel
           for="password"
           class="block text-sm font-medium text-gray-700"
-          value="Password"
+          :value="$t('password')"
         />
         <TextInput
           id="password"
@@ -89,7 +89,7 @@ const submit = () => {
           type="password"
           class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
           autocomplete="password"
-          placeholder="Enter password"
+          :placeholder="$t('password')"
         />
         <InputError
           class="mt-2"
@@ -98,14 +98,16 @@ const submit = () => {
       </div>
 
       <div>
-        <label for="roles">Roles:</label>
+        <label for="roles">{{ $t('roles') }}: </label>
         <select
           v-model="form.roles"
+          class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
           multiple
         >
           <option
             v-for="role in props.roles"
             :key="role.id"
+            class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
             :value="role.id"
           >
             {{ role.name }}
@@ -117,7 +119,7 @@ const submit = () => {
         type="submit"
         class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
       >
-        Create Account
+        {{ $t('Save') }}
       </button>
     </form>
   </div>

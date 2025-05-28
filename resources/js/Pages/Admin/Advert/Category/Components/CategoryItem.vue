@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, ref } from 'vue';
-import Edit from '@/Pages/Admin/Advert/Edit.vue';
+import Edit from '@/Pages/Admin/Advert/Category/Edit.vue';
 import Modal from '@/Components/Modal.vue';
 import { Link, router } from '@inertiajs/vue3';
 

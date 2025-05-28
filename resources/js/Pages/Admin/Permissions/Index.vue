@@ -9,20 +9,21 @@ import Edit from '@/Pages/Admin/Permissions/Edit.vue';
 import TrashIcon from '@/Components/Icon/TrashIcon.vue';
 import PencilIcon from '@/Components/Icon/PencilIcon.vue';
 import Grid from '@/Components/Grid.vue';
+import { useI18n } from 'vue-i18n';
 
 const flash = computed(() => usePage().props.flash);
 const permissions = computed(() => usePage().props.permissions.data);
 const pagination = computed(() => usePage().props.permissions);
-
+const { t } = useI18n();
 const isCreateModalOpen = ref(false);
 const isEditModalOpen = ref(false);
 const selectedPermission = ref(null);
 
 const headings = [
-  { key: 'id', value: 'ID', sortable: true, disabled: true },
-  { key: 'key', value: 'Key' },
-  { key: 'description', value: 'Description' },
-  { key: 'actions', value: 'Actions', disabled: true },
+  { key: 'id', value: t('ID'), sortable: true, disabled: true },
+  { key: 'key', value: t('key') },
+  { key: 'description', value: t('description') },
+  { key: 'actions', value: t('actions'), disabled: true },
 ];
 
 const routes = [
@@ -57,7 +58,7 @@ const deletePermission = (id) => {
 </script>
 
 <template>
-  <Head title="Permissions" />
+  <Head :title="t('permissions')" />
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -71,7 +72,7 @@ const deletePermission = (id) => {
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
             @click="openCreateModal"
           >
-            + New Permission
+            + {{ t('new.permission') }}
           </button>
         </div>
         <Grid

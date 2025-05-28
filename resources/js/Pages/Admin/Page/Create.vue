@@ -36,11 +36,11 @@ const formattedPages = computed(() => getPagesOptions(pages));
 </script>
 
 <template>
-  <Head title="Додати сторінку" />
+  <Head :title="$t('new.page')" />
 
   <div class="mx-auto p-6 bg-white shadow rounded">
     <h1 class="text-2xl font-bold mb-6">
-      Додати сторінку
+      {{ $t('new.page') }}
     </h1>
 
     <form
@@ -48,7 +48,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       @submit.prevent="submit"
     >
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Назва</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('title') }}</label>
         <input
           v-model="form.title"
           type="text"
@@ -63,7 +63,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Назва в меню</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('menu.title') }}</label>
         <input
           v-model="form.menu_title"
           type="text"
@@ -78,7 +78,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Slug</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('slug') }}</label>
         <input
           v-model="form.slug"
           type="text"
@@ -93,13 +93,13 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Батьківська сторінка</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('parent.page') }}</label>
         <select
           v-model="form.parent_id"
           class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
         >
           <option :value="null">
-            — Без батьківської сторінки
+            — {{ $t('without.parent.page') }}
           </option>
           <option
             v-for="page in formattedPages"
@@ -118,7 +118,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Опис</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('description') }}</label>
         <textarea
           v-model="form.description"
           rows="3"
@@ -133,7 +133,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">Контент</label>
+        <label class="block text-gray-700 font-medium mb-1">{{ $t('content') }}</label>
         <Editor v-model="form.content" />
         <div
           v-if="form.errors.content"
@@ -149,7 +149,7 @@ const formattedPages = computed(() => getPagesOptions(pages));
           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
           :disabled="form.processing"
         >
-          {{ form.processing ? 'Збереження...' : 'Зберегти' }}
+          {{ form.processing ? $t('Saving') + '...' : $t('Save') }}
         </button>
       </div>
     </form>

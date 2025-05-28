@@ -171,7 +171,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::group(['prefix' => 'tickets', 'as' => 'tickets.'], function () {
             Route::get('/', [AdminTicketController::class, 'index'])->name('index');
-            Route::get('/{ticket}/show', [AdminTicketController::class, 'show'])->name('show');
             Route::put('/{ticket}/edit', [AdminTicketController::class, 'edit'])->name('edit');
             Route::post('{ticket}/message', [AdminTicketController::class, 'message'])->name('message');
             Route::post('/{ticket}/close', [AdminTicketController::class, 'close'])->name('close');

@@ -55,49 +55,49 @@ const submit = () => {
       <div>
         <InputLabel
           for="name"
-          value="Name"
+          :value="$t('name')"
         />
         <TextInput
           id="name"
           v-model="form.name"
           type="text"
           class="w-full mt-1 p-2 border rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
-          placeholder="Enter name"
+          :placeholder="$t('name')"
         />
         <InputError :message="form.errors.name" />
       </div>
       <div>
         <InputLabel
           for="email"
-          value="Email"
+          :value="$t('email')"
         />
         <TextInput
           id="email"
           v-model="form.email"
           type="email"
           class="w-full mt-1 p-2 border rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
-          placeholder="Enter email"
+          :placeholder="$t('email')"
         />
         <InputError :message="form.errors.email" />
       </div>
       <div>
         <InputLabel
           for="password"
-          value="New Password (optional)"
+          :value="$t('password') + ' (' + $t('optional') + ')'"
         />
         <TextInput
           id="password"
           v-model="form.password"
           type="password"
           class="w-full mt-1 p-2 border rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
-          placeholder="Enter password"
+          :placeholder="$t('password')"
         />
         <InputError :message="form.errors.password" />
       </div>
       <div>
         <InputLabel
           for="active"
-          value="Status"
+          :value="$t('status')"
         />
         <select
           id="active"
@@ -116,7 +116,7 @@ const submit = () => {
       <div>
         <InputLabel
           for="locale"
-          value="Locale"
+          :value="$t('locale')"
         />
         <select
           id="locale"
@@ -135,17 +135,17 @@ const submit = () => {
       <div>
         <InputLabel
           for="roles"
-          value="Roles"
+          :value="$t('roles')"
         />
         <select
-          id="roles"
           v-model="form.roles"
+          class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
           multiple
-          class="w-full mt-1 p-2 border rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
         >
           <option
             v-for="role in props.roles"
             :key="role.id"
+            class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
             :value="role.id"
           >
             {{ role.name }}
@@ -154,103 +154,11 @@ const submit = () => {
         <InputError :message="form.errors.roles" />
       </div>
 
-      <div class="max-w-md mx-auto">
-        <label
-          for="select"
-          class="font-semibold block py-2"
-        >Select Input:</label>
-
-        <div class="relative">
-          <div class="h-10 bg-white flex border border-gray-200 rounded items-center">
-            <input
-              id="select"
-              value="Javascript"
-              name="select"
-              class="px-4 appearance-none outline-none text-gray-800 w-full"
-              checked
-            >
-
-            <button
-              class="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-gray-600"
-            >
-              <svg
-                class="w-4 h-4 mx-2 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line
-                  x1="18"
-                  y1="6"
-                  x2="6"
-                  y2="18"
-                />
-                <line
-                  x1="6"
-                  y1="6"
-                  x2="18"
-                  y2="18"
-                />
-              </svg>
-            </button>
-            <label
-              for="show_more"
-              class="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-gray-600"
-            >
-              <svg
-                class="w-4 h-4 mx-2 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="18 15 12 9 6 15" />
-              </svg>
-            </label>
-          </div>
-
-          <input
-            id="show_more"
-            type="checkbox"
-            name="show_more"
-            class="hidden peer"
-          >
-          <div
-            class="absolute rounded shadow bg-white overflow-hidden hidden peer-checked:flex flex-col w-full mt-1 border border-gray-200"
-          >
-            <div class="cursor-pointer group">
-              <a
-                class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100"
-              >Python</a>
-            </div>
-            <div class="cursor-pointer group border-t">
-              <a
-                class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 border-blue-600 group-hover:bg-gray-100"
-              >Javascript</a>
-            </div>
-            <div class="cursor-pointer group border-t">
-              <a
-                class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100"
-              >Node</a>
-            </div>
-            <div class="cursor-pointer group border-t">
-              <a
-                class="block p-2 border-transparent border-l-4 group-hover:border-blue-600 group-hover:bg-gray-100"
-              >PHP</a>
-            </div>
-          </div>
-        </div>
-      </div>
       <button
         type="submit"
         class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
       >
-        Update User
+        {{ $t('Save') }}
       </button>
     </form>
   </div>

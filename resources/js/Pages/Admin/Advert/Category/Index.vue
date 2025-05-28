@@ -3,15 +3,16 @@ import { ref } from 'vue';
 import { Head, usePage, router } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Modal from '@/Components/Modal.vue';
-import Create from '@/Pages/Admin/Advert/Create.vue';
+import Create from '@/Pages/Admin/Advert/Category/Create.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
-import CategoryItem from '@/Components/CategoryItem.vue';
+import CategoryItem from '@/Pages/Admin/Advert/Category/Components/CategoryItem.vue';
+import { useI18n } from 'vue-i18n';
 
 const categories = usePage().props.categories;
 const flash = usePage().props.flash;
 const isCreateModalOpen = ref(false);
 const selectedCategory = ref(null);
-
+const { t } = useI18n();
 const openCreateModal = async () => {
   const { data } = await axios.get(route('admin.adverts.category.create'));
   selectedCategory.value = data;
@@ -36,7 +37,7 @@ const refreshCategories = () => {
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
             @click="openCreateModal"
           >
-            + Додати категорію
+            + {{ t('add.category') }}
           </button>
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">

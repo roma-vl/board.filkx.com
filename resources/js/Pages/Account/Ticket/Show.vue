@@ -126,10 +126,10 @@ function submitComment() {
                   <li
                     v-for="(status, index) in statuses"
                     :key="index"
-                    class="flex justify-between items-center text-sm"
+                    class="flex justify-between items-center"
                   >
                     <span
-                      class="inline-block px-1 py-0.5 rounded-full text-s font-semibold"
+                      class="m-1 inline-block px-3 py-1 rounded-full text-sm font-semibold"
                       :class="{
                         'bg-green-100 text-green-800': status.status === 'open',
                         'bg-green-200 text-green-700': status.status === 'processing',

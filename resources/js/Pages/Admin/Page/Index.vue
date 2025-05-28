@@ -5,7 +5,7 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import Create from '@/Pages/Admin/Page/Create.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
-import PageItem from '@/Components/PageItem.vue';
+import PageItem from '@/Pages/Admin/Page/Components/PageItem.vue';
 
 const pages = usePage().props.pages;
 const flash = usePage().props.flash;
@@ -36,7 +36,7 @@ const refreshPages = () => {
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"
             @click="openCreateModal"
           >
-            + Додати pages
+            + {{ $t('new.page') }}
           </button>
         </div>
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">

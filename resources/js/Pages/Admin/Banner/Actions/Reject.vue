@@ -34,7 +34,9 @@ const submit = () => {
         <div class="px-4">
           <form @submit.prevent="submit">
             <div class="mb-4">
-              <label class="block text-sm font-medium mb-2">Причина відмови публікації</label>
+              <label class="block text-sm font-medium mb-2">{{
+                $t('reason.for.publication.rejection')
+              }}</label>
               <input
                 v-model="form.reject_reason"
                 type="text"
@@ -50,7 +52,7 @@ const submit = () => {
               type="submit"
               class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Створити
+              {{ $t('Create') }}
             </button>
           </form>
         </div>

@@ -1,6 +1,9 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import InputError from '@/Components/InputError.vue';
 
 const props = defineProps({
   data: {
@@ -24,31 +27,55 @@ const submit = () => {
 </script>
 
 <template>
-  <div>
-    <h2 class="text-lg font-semibold">
-      Edit Role
+  <div class="max-w-md mx-auto mt-8">
+    <h2 class="text-2xl font-semibold text-gray-700 text-center">
+      {{ $t('edit.role') }}
     </h2>
-    <form @submit.prevent="submit">
-      <input
-        v-model="form.name"
-        placeholder="Role name"
-        required
-        class="border p-2 w-full my-2"
-      >
-      <label>
-        <input
-          v-model="form.is_enabled"
-          type="checkbox"
-        >
-        Enabled
-      </label>
+    <form
+      class="space-y-4 mt-4 mb-10"
+      @submit.prevent="submit"
+    >
+      <div>
+        <InputLabel
+          for="name"
+          class="block text-sm font-medium text-gray-700"
+          :value="$t('name')"
+        />
+        <TextInput
+          id="name"
+          v-model="form.name"
+          type="text"
+          class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
+          autocomplete="name"
+          :placeholder="$t('role')"
+        />
+      </div>
+      <InputError
+        class="mt-2"
+        :message="form.errors.name"
+      />
 
-      <h3 class="text-md font-semibold mt-4">
-        Permissions
-      </h3>
+      <InputLabel
+        for="is_enabled"
+        class="w-full mt-1 p-2 block text-sm font-medium text-gray-700"
+        :value="$t('activate')"
+      />
+      <input
+        id="is_enabled"
+        v-model="form.is_enabled"
+        type="checkbox"
+      >
+
+      <InputLabel
+        for="permissions"
+        class="block text-sm font-medium text-gray-700"
+        :value="$t('permissions')"
+      />
+
       <div
         v-for="permission in props.data.permissions"
         :key="permission.id"
+        class="w-full mt-1 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
       >
         <label>
           <input
@@ -62,76 +89,10 @@ const submit = () => {
 
       <button
         type="submit"
-        class="bg-blue-500 px-4 py-2 text-white rounded"
+        class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
       >
-        Update
+        {{ $t('Save') }}
       </button>
     </form>
-
-    <div class="max-w-screen-xl mx-auto px-5 bg-white min-h-sceen">
-      <div class="flex flex-col items-center">
-        <h2 class="font-bold text-5xl mt-5 tracking-tight">
-          FAQ
-        </h2>
-        <p class="text-neutral-500 text-xl mt-3">
-          Frequenty asked questions
-        </p>
-      </div>
-      <div class="grid divide-y divide-neutral-200 max-w-xl mx-auto mt-8">
-        <div class="py-5">
-          <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-              <span> What is a SAAS platform?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-              SAAS platform is a cloud-based software service that allows users to access and use a
-              variety of tools and functionality.
-            </p>
-          </details>
-        </div>
-        <div class="py-5">
-          <details class="group">
-            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
-              <span> How does billing work?</span>
-              <span class="transition group-open:rotate-180">
-                <svg
-                  fill="none"
-                  height="24"
-                  shape-rendering="geometricPrecision"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  width="24"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </span>
-            </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn">
-              We offers a variety of billing options, including monthly and annual subscription
-              plans, as well as pay-as-you-go pricing for certain services. Payment is typically
-              made through a credit card or other secure online payment method.
-            </p>
-          </details>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
