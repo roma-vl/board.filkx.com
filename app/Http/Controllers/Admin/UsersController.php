@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Repositories\UserRepository;
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Http\Requests\User\UserFilterRequest;
 use App\Http\Resources\Admin\User\UserResource;
-use App\Http\Services\SearchSortService;
 use App\Http\Services\UserService;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -22,22 +19,15 @@ class UsersController extends Controller
 {
     public function __construct(
         private readonly UserService $userService,
-        private readonly UserRepository $userRepository,
-        private readonly SearchSortService $searchSortService
     ) {}
 
     public function index(UserFilterRequest $request): Response
     {
-        $sortBy = $this->getSessionValue($request, 'sort_by', self::SORT_BY_DEFAULT);
-        $sortOrder = $this->getSessionValue($request, 'sort_order', self::SORT_ORDER_DEFAULT);
-
         $validated = $request->validatedWithDefaults();
-        $users = UserResource::collection($this->userRepository->getFilteredPaginatedUsers($validated));
+        $users = UserResource::collection($this->userService->getFilteredPaginatedUsers($validated));
 
         return Inertia::render('Admin/Users/Index', [
             'users' => $users,
-            'sortBy' => $sortBy,
-            'sortOrder' => $sortOrder,
         ]);
     }
 
@@ -125,31 +115,13 @@ class UsersController extends Controller
             ->with('success', 'Вжух і користувач відновлений! 🤡');
     }
 
-    public function search(Request $request): Response
+    public function search(UserFilterRequest $request): Response
     {
-        $perPage = $this->getSessionValue($request, 'per_page', self::PER_PAGE);
-        $sortBy = $this->getSessionValue($request, 'sort_by', self::SORT_BY_DEFAULT);
-        $sortOrder = $this->getSessionValue($request, 'sort_order', self::SORT_ORDER_DEFAULT);
-
-        $search = $request->input('search');
-        $usersQuery = $this->userRepository->getUsersQuery();
-        $this->searchSortService->applySearch($usersQuery, $search);
-        $usersQuery = $usersQuery->paginate($perPage);
-
-        $users = UserResource::collection($usersQuery);
+        $validated = $request->validatedWithDefaults();
+        $users = UserResource::collection($this->userService->getFilteredPaginatedUsers($validated));
 
         return Inertia::render('Admin/Users/Index', [
             'users' => $users,
-            'sortBy' => $sortBy,
-            'sortOrder' => $sortOrder,
         ]);
-    }
-
-    private function getSessionValue(Request $request, string $key, $default)
-    {
-        $value = $request->query($key, session($key, $default));
-        session([$key => $value]);
-
-        return $value;
     }
 }

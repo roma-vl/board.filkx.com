@@ -25,6 +25,7 @@ class UserFilterRequest extends FormRequest
             'sort_by' => ['sometimes', Rule::in(self::SORTABLE_FIELDS)],
             'sort_order' => ['sometimes', Rule::in(self::SORT_DIRECTIONS)],
             'name' => 'sometimes|string|max:255',
+            'search' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|max:255',
             'status' => ['sometimes', Rule::in(self::STATUSES)],
         ];
@@ -54,6 +55,7 @@ class UserFilterRequest extends FormRequest
             'per_page' => 10,
             'sort_by' => 'created_at',
             'sort_order' => 'desc',
+            'search' => '',
         ], $validated);
     }
 }

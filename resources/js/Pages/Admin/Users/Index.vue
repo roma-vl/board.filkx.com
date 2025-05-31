@@ -146,24 +146,24 @@ const restoreUser = (id) => {
                 </div>
               </div>
               <div class="text-sm flex justify-center items-center">
-                  <!-- eslint-disable vue/no-v-html -->
-                  <span
-                      class="font-medium hover:underline cursor-pointer"
-                      v-html="row.name"
-                      @click.prevent="openShowModal(row.id)"
-                  ></span>
-                  <!-- eslint-enable vue/no-v-html -->
+                <!-- eslint-disable vue/no-v-html -->
+                <span
+                  class="font-medium hover:underline cursor-pointer"
+                  @click.prevent="openShowModal(row.id)"
+                  v-html="row.name"
+                />
+                <!-- eslint-enable vue/no-v-html -->
               </div>
             </div>
           </template>
           <template #column-email="{ row }">
-              <!-- eslint-disable vue/no-v-html -->
-              <span
-                  class="font-medium hover:underline cursor-pointer"
-                  v-html="row.email"
-                  @click.prevent="openShowModal(row.id)"
-              ></span>
-              <!-- eslint-enable vue/no-v-html -->
+            <!-- eslint-disable vue/no-v-html -->
+            <span
+              class="font-medium hover:underline cursor-pointer"
+              @click.prevent="openShowModal(row.id)"
+              v-html="row.email"
+            />
+            <!-- eslint-enable vue/no-v-html -->
           </template>
           <template #column-status="{ row }">
             <div v-if="row.deleted_at">

@@ -89,9 +89,7 @@ const processedItems = computed(() => {
             :name="`column-${heading.key}`"
             :row="item"
           >
-            <span
-              v-if="heading.highlight"
-            />
+            <span v-if="heading.highlight" />
             <span v-else>{{ item[heading.key] }}</span>
           </slot>
         </td>

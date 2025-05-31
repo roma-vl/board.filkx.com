@@ -2,10 +2,12 @@
 
 namespace App\Http\Services;
 
+use App\Filters\UserFilter;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -106,5 +108,17 @@ class UserService
             ->flatMap(fn ($role) => $role->permissions)
             ->map(fn ($permission) => "{$permission->object}.{$permission->operation}")
             ->unique();
+    }
+
+    public function getFilteredPaginatedUsers(array $params): LengthAwarePaginator
+    {
+        $filter = new UserFilter($params);
+
+        return User::query()
+            ->with('roles')
+            ->withTrashed()
+            ->filter($filter)
+            ->orderBy($params['sort_by'], $params['sort_order'])
+            ->paginate($params['per_page']);
     }
 }
