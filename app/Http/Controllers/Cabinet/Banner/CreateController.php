@@ -50,6 +50,6 @@ class CreateController
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('Account/Banner/View', $banner);
+        return redirect()->route('Account/Banner/View', $banner)->with('success', __('banner.banner_create'));
     }
 }

@@ -124,6 +124,15 @@ const sendMessage = () => {
   messageForm.post(route('account.chats.store', props.advert.id), {
     onSuccess: () => {
       console.log('Send Message!!!!!!!!!');
+      console.log(messages.value.messages, 'sd');
+      messages.value.messages.push({
+        id: Date.now(),
+        message: text,
+        user: {
+          id: user.id,
+          avatar_url: user.avatar_url,
+        },
+      });
     },
   });
 };
@@ -131,10 +140,13 @@ const sendMessage = () => {
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
-    messages.value.messages.value.push({
+    messages.value.messages.push({
       id: Date.now(),
       text: `📎 Файл: ${file.name}`,
-      isMine: true,
+      user: {
+        id: user.id,
+        avatar_url: user.avatar_url,
+      },
     });
   }
 };
@@ -160,12 +172,6 @@ const messageForm = useForm({
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
             >
               {{ $t('edit') }}
-            </a>
-            <a
-              :href="route('account.adverts.edit.photos', props.advert.id)"
-              class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1 rounded"
-            >
-              {{ $t('photos') }}
             </a>
             <button
               v-if="isDraft"

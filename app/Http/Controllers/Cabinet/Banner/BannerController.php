@@ -51,7 +51,7 @@ class BannerController extends Controller
         $banner->region = $banner->region()->get();
         //        $this->checkAccess($banner);
         if ($banner->canBeChanged()) {
-            return back()->with('error', 'Enable to edit this banner!');
+            return back()->with('error', __('banner.unable_to_edit_banner'));
         }
 
         return Inertia::render('Account/Banner/Edit', [
@@ -70,14 +70,14 @@ class BannerController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('accounts.banner.index')->with('success', 'Banner updated!>!');
+        return redirect()->route('accounts.banner.index')->with('success', __('banner.banner_update'));
     }
 
     public function fileForm(Banner $banner): View|Application|Factory|RedirectResponse
     {
         $this->checkAccess($banner);
         if (! $banner->canBeChanged()) {
-            return redirect()->route('account.banners.show', $banner)->with('error', 'Unable to edit.');
+            return redirect()->route('account.banners.show', $banner)->with('error', __('banner.unable_to_edit'));
         }
         $formats = Banner::formatsList();
 
@@ -146,7 +146,7 @@ class BannerController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.banners.index');
+        return redirect()->route('account.banners.index')->with('success', __('banner.banner_delete'));
     }
 
     private function checkAccess(Banner $banner): void

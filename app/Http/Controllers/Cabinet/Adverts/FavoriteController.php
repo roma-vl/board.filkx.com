@@ -37,7 +37,7 @@ class FavoriteController
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Оголошення додано до обраних');
+        return redirect()->back()->with('success', __('adverts.advert_add_to_favorite', ['advert' => $advert->title]));
     }
 
     public function remove(Advert $advert)
@@ -48,6 +48,6 @@ class FavoriteController
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Оголошення видалено з обраних');
+        return redirect()->back()->with('success', __('adverts.advert_remove_from_favorite', ['advert' => $advert->title]));
     }
 }

@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const dialogs = computed(() => usePage().props.dialogs);
-const user = usePage().props.auth.user;
+const me = usePage().props.auth.user;
 
 const newMessage = ref('');
 const activeDialog = ref(null);
@@ -31,6 +31,9 @@ const sendMessage = () => {
           id: Date.now(),
           message: text,
           isMine: true,
+          user: {
+            avatar_url: me.avatar_url,
+          },
         });
       }
       newMessage.value = '';

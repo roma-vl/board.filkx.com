@@ -10,11 +10,26 @@ import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.v
 const { t } = useI18n();
 
 const props = defineProps({
-  categories: Array,
-  attributes: Array,
-  activeAttributes: Array,
-  regions: Array,
-  advert: Object,
+  categories: {
+    type: Array,
+    default: () => [],
+  },
+  attributes: {
+    type: Array,
+    default: () => [],
+  },
+  activeAttributes: {
+    type: Array,
+    default: () => [],
+  },
+  regions: {
+    type: Array,
+    default: () => [],
+  },
+  advert: {
+    type: Array,
+    default: () => {},
+  },
 });
 
 const showLocationDropdown = ref(false);
@@ -166,7 +181,6 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.price"
                   type="number"
-                  required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
                 <InputError
@@ -232,7 +246,6 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.address"
                   type="text"
-                  required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
               </div>

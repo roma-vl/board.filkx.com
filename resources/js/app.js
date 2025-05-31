@@ -7,6 +7,8 @@ import { createApp, h, watch } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { createI18n } from 'vue-i18n';
 import { usePage } from '@inertiajs/vue3';
+import Vue3Toastify from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import messages from '@/lang';
 import CanDirective from '@/directives/can.js';
 import { bugsnagVue } from '@/Bugsnag.js';
@@ -36,6 +38,16 @@ createInertiaApp({
       .use(plugin)
       .use(bugsnagVue)
       .use(ZiggyVue)
+      .use(Vue3Toastify, {
+        autoClose: 4000,
+        position: 'top-right',
+        theme: 'light',
+        pauseOnHover: true,
+        closeOnClick: true,
+        hideProgressBar: false,
+        transition: 'slide',
+        draggable: true,
+      })
       .mount(el);
   },
   progress: {

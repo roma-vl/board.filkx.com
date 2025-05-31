@@ -156,7 +156,6 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.price"
                   type="number"
-                  required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
                 <InputError
@@ -216,16 +215,24 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
               </div>
+              <InputError
+                class="mt-2"
+                :message="form.errors.region_id"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">{{ t('Address') }}</label>
                 <input
                   v-model="form.address"
                   type="text"
-                  required
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 >
               </div>
+
+              <InputError
+                class="mt-2"
+                :message="form.errors.address"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">{{ t('Description') }}</label>
