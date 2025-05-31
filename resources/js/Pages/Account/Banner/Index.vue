@@ -2,8 +2,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
-import { computed } from 'vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import AdvertList from '@/Components/Advert/Banner/AdvertList.vue';
 
 const banners = usePage().props.banners;
@@ -13,8 +11,6 @@ const routes = {
   remove: 'account.banners.destroy',
   show: 'account.banners.show',
 };
-
-const flash = computed(() => usePage().props.flash);
 </script>
 
 <template>
@@ -23,7 +19,6 @@ const flash = computed(() => usePage().props.flash);
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
-          <FlashMessage :flash="flash" />
           <ProfileMenu :active-tab="'account.banners.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">

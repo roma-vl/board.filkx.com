@@ -32,7 +32,6 @@ const props = defineProps({
   },
 });
 const user = usePage().props.auth.user;
-const flash = computed(() => usePage().props.flash);
 const isLiked = ref(false);
 const userPhone = ref(false);
 const isRejectModalOpen = ref(false);
@@ -242,7 +241,6 @@ const messageForm = useForm({
         </div>
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
-        <FlashMessage :flash="flash" />
         <div
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"

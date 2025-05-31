@@ -15,7 +15,6 @@ import EyeIcon from '@/Components/Icon/EyeIcon.vue';
 import { useI18n } from 'vue-i18n';
 import { getDateFormatFromLocale } from '@/helpers.js';
 const { t } = useI18n();
-const flash = computed(() => usePage().props.flash);
 const adverts_moderation = computed(() => usePage().props.adverts_moderation.data);
 const pagination = computed(() => usePage().props.adverts_moderation);
 const isRejectModalOpen = ref(false);
@@ -78,7 +77,6 @@ const deleteAdvert = (id) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage :flash="flash" />
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           {{ t('Adverts') + ' ' + t('for.moderation') }}
           <Grid

@@ -1,16 +1,18 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import Locale from '@/Layouts/Partials/Locale.vue';
 import Notifications from '@/Layouts/Partials/Notifications.vue';
 import AdminResponsiveNavigationMenu from '@/Layouts/Partials/AdminResponsiveNavigationMenu.vue';
 import SideMenu from '@/Layouts/Partials/SideMenu.vue';
 import ArrowLeftIcon from '@/Components/Icon/ArrowLeftIcon.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
+import ToastRenderer from '@/Components/ToastRenderer.vue';
 
 const showingNavigationDropdown = ref(false);
+const flash = computed(() => usePage().props.flash);
 const toggleFullscreen = () => {
   if (document.fullscreenElement) {
     document.exitFullscreen();
@@ -127,6 +129,7 @@ const toggleFullscreen = () => {
 
     <SideMenu />
     <main class="flex-grow">
+      <ToastRenderer :flash="flash" />
       <slot />
     </main>
 

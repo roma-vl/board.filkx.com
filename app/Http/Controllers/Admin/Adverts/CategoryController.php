@@ -25,7 +25,7 @@ class CategoryController extends Controller
     {
         $this->categoryService->createCategory($request->validated());
 
-        return redirect()->route('admin.adverts.category.index')->with('success', 'Категорія створена!');
+        return redirect()->route('admin.adverts.category.index')->with('success', __('adverts.category_created'));
     }
 
     public function create(): JsonResponse
@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         $this->categoryService->updateCategory($category, $request->validated());
 
-        return redirect()->route('admin.adverts.category.index')->with('success', 'Категорія оновлена!');
+        return redirect()->route('admin.adverts.category.index')->with('success', __('adverts.category_updated'));
     }
 
     public function show(Category $category)
@@ -55,14 +55,15 @@ class CategoryController extends Controller
         $parentAttributes = $category->getParentAttributes();
         $attributes = $category->attributes()->orderBy('sort')->get();
 
-        return Inertia::render('Admin/Advert/Category/Show', compact('category', 'attributes', 'parentAttributes'));
+        return Inertia::render('Admin/Advert/Category/Show',
+            compact('category', 'attributes', 'parentAttributes'));
     }
 
     public function destroy(Category $category): RedirectResponse
     {
         $this->categoryService->deleteCategory($category);
 
-        return redirect()->route('admin.adverts.category.index')->with('success', 'Категорія видалена!');
+        return redirect()->route('admin.adverts.category.index')->with('success', __('adverts.category_deleted'));
     }
 
     public function moveUp(Category $category): RedirectResponse

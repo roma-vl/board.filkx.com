@@ -60,13 +60,6 @@ class BannerController extends Controller
         ]);
     }
 
-    public function editForm(Banner $banner): Response
-    {
-        return Inertia::render('Account/Banner/Edit', [
-            'banner' => $banner,
-        ]);
-    }
-
     public function edit(EditRequest $request, Banner $banner): RedirectResponse
     {
         try {

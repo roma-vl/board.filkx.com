@@ -15,7 +15,6 @@ const vip = usePage().props.vip;
 import { useSearch } from '@/composables/useSearch.js';
 import SearchInput from '@/Components/Search/SearchInput.vue';
 import LocationSelector from '@/Components/Search/LocationSelector.vue';
-import ToastRenderer from '@/Components/ToastRenderer.vue';
 
 const { searchQuery, cityIdSearchQuery, search } = useSearch();
 const handleCitySelect = (slug) => {
@@ -26,7 +25,6 @@ const handleSearch = (text) => {
 };
 
 const openCategory = ref(null);
-const flash = computed(() => usePage().props.flash);
 const toggleLike = (advert) => {
   if (advert.is_favorited === true) {
     router.delete(
@@ -82,8 +80,6 @@ const subCategories = computed(() => {
           class="overflow-hidden bg-white sm:rounded-3xl p-6 dark:bg-gray-700 dark:text-gray-100"
         >
           <div class="container mx-auto">
-            <ToastRenderer :flash="flash" />
-            <!--              <FlashMessage :flash="flash" />-->
             <div
               class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >

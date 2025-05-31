@@ -9,7 +9,6 @@ import CategoryItem from '@/Pages/Admin/Advert/Category/Components/CategoryItem.
 import { useI18n } from 'vue-i18n';
 
 const categories = usePage().props.categories;
-const flash = usePage().props.flash;
 const isCreateModalOpen = ref(false);
 const selectedCategory = ref(null);
 const { t } = useI18n();
@@ -31,7 +30,6 @@ const refreshCategories = () => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage :flash="flash" />
         <div class="mb-2 flex justify-end">
           <button
             class="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-500"

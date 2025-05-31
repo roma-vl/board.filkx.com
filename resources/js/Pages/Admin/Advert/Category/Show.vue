@@ -21,8 +21,6 @@ const props = defineProps({
     default: () => [],
   },
 });
-
-const flash = usePage().props.flash;
 const isCreateModalOpen = ref(false);
 const selectedCategory = ref(null);
 const isEditModalOpen = ref(false);
@@ -76,8 +74,6 @@ const deleteCategory = (attributeId) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage :flash="flash" />
-
         <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
           <h1 class="text-2xl font-bold">
             {{ $t('category') }}: {{ props.category.name }}

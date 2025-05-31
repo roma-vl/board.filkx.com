@@ -84,7 +84,7 @@ class AdvertController extends Controller
     {
         $advert->sendToModeration();
 
-        return back()->with('success', __('adverts.advert_send_to_moderation'));
+        return back()->with('success', __('adverts.advert_send_for_moderation'));
     }
 
     public function draft(Advert $advert): RedirectResponse

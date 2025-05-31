@@ -2,11 +2,9 @@
 import { computed, ref } from 'vue';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import axios from 'axios';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { useI18n } from 'vue-i18n';
 
-const flash = usePage().props.flash;
 const countries = ref([]);
 const regions = ref({});
 const areas = ref({});
@@ -131,10 +129,6 @@ loadCountries();
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage
-          v-if="flash"
-          :flash="flash"
-        />
         <div class="mb-4 flex justify-end">
           <button
             type="submit"

@@ -316,7 +316,7 @@ onBeforeUnmount(() => {
                 type="submit"
                 class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                {{ t('update') }}
+                {{ t('Save') }}
               </button>
             </form>
           </div>

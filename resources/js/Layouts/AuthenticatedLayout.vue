@@ -1,9 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import Locale from '@/Layouts/Partials/Locale.vue';
 import RattingPopup from '@/Components/RattingPopup.vue';
 import FacebookFooterIcon from '@/Components/Icon/FacebookFooterIcon.vue';
@@ -13,9 +12,10 @@ import SupportChat from '@/Components/SupportChat.vue';
 import ProfileMenuHeader from '@/Components/ProfileMenuHeader.vue';
 import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 import Notifications from '@/Layouts/Partials/Notifications.vue';
+import ToastRenderer from '@/Components/ToastRenderer.vue';
 
 const showingNavigationDropdown = ref(false);
-
+const flash = computed(() => usePage().props.flash);
 const showRatingPopup = ref(false);
 const handleSubmit = (message) => {
   showRatingPopup.value = false;
@@ -139,6 +139,7 @@ const handleSubmit = (message) => {
 
     <!-- Page Content -->
     <main class="flex-grow">
+      <ToastRenderer :flash="flash" />
       <slot />
     </main>
 
