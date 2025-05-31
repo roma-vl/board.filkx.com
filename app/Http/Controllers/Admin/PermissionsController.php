@@ -47,20 +47,20 @@ class PermissionsController extends Controller
     {
         $this->permissionService->create($request->validated());
 
-        return redirect()->route('admin.permissions.index')->with('success', 'Permission created successfully');
+        return redirect()->back()->with('success', __('roles.permission_created'));
     }
 
     public function update(PermissionRequest $request, Permission $permission): RedirectResponse
     {
         $this->permissionService->update($permission, $request->validated());
 
-        return redirect()->route('admin.permissions.index')->with('success', 'Permission updated successfully');
+        return redirect()->back()->with('success', __('roles.permission_updated'));
     }
 
     public function destroy(Permission $permission): RedirectResponse
     {
         $this->permissionService->delete($permission);
 
-        return redirect()->route('admin.permissions.index')->with('info', 'Permission deleted successfully');
+        return redirect()->back()->with('info', __('roles.permission_deleted'));
     }
 }

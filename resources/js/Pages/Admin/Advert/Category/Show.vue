@@ -2,7 +2,6 @@
 import { defineProps, ref } from 'vue';
 import { Head, usePage, router } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import Modal from '@/Components/Modal.vue';
 import Create from '@/Pages/Admin/Advert/Category/Attribute/Create.vue';
 import Edit from '@/Pages/Admin/Advert/Category/Attribute/Edit.vue';

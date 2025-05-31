@@ -1,7 +1,6 @@
 <script setup>
 import { Head, router, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import TrashIcon from '@/Components/Icon/TrashIcon.vue';
 import PencilIcon from '@/Components/Icon/PencilIcon.vue';
 import Grid from '@/Components/Grid.vue';

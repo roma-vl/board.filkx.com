@@ -4,7 +4,6 @@ import { router, useForm, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Reject from '@/Pages/Admin/Banner/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
 import PayBanner from '@/Pages/Account/Banner/Actions/PayBanner.vue';
 
@@ -15,7 +14,6 @@ const props = defineProps({
   },
 });
 
-const flash = computed(() => usePage().props.flash);
 const isRejectModalOpen = ref(false);
 const isPayModalOpen = ref(false);
 const bannerId = ref(null);
@@ -129,7 +127,6 @@ console.log(props.banner);
         </div>
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
-        <FlashMessage :flash="flash" />
         <div
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"

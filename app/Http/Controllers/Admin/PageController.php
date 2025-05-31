@@ -39,7 +39,7 @@ class PageController
             'description' => $request['description'],
         ]);
 
-        return redirect()->route('admin.pages.show', $page);
+        return redirect()->route('admin.pages.show', $page)->with('success', __('pages.created'));
     }
 
     public function show(Page $page)
@@ -69,7 +69,7 @@ class PageController
             'description' => $request['description'],
         ]);
 
-        return redirect()->route('admin.pages.show', $page);
+        return redirect()->route('admin.pages.show', $page)->with('success', __('pages.updated'));
     }
 
     public function first(Page $page)
@@ -108,6 +108,6 @@ class PageController
     {
         $page->delete();
 
-        return redirect()->route('admin.pages.index');
+        return redirect()->route('admin.pages.index')->with('success', __('pages.deleted'));
     }
 }

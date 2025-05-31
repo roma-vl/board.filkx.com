@@ -1,8 +1,7 @@
 <script setup>
 import { computed, defineProps } from 'vue';
-import { Head, usePage, Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 
 const props = defineProps({
   page: {
@@ -10,7 +9,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-const flash = usePage().props.flash;
 function decodeHtml(html) {
   const txt = document.createElement('textarea');
   txt.innerHTML = html;
@@ -25,7 +23,6 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage :flash="flash" />
         <div class="mb-2 flex justify-end">
           <Link
             :href="route('admin.pages.index')"

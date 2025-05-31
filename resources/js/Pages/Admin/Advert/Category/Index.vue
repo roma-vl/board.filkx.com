@@ -4,7 +4,6 @@ import { Head, usePage, router } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Modal from '@/Components/Modal.vue';
 import Create from '@/Pages/Admin/Advert/Category/Create.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import CategoryItem from '@/Pages/Admin/Advert/Category/Components/CategoryItem.vue';
 import { useI18n } from 'vue-i18n';
 

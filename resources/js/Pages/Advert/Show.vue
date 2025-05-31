@@ -6,7 +6,6 @@ import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
 import Reject from '@/Pages/Admin/Advert/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
 import axios from 'axios';
 const props = defineProps({

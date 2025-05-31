@@ -2,8 +2,6 @@
 import { ref, computed } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import FlashMessage from '@/Components/FlashMessage.vue';
-const flash = computed(() => usePage().props.flash);
 const props = defineProps({
   page: {
     type: Object,
@@ -123,7 +121,6 @@ const decodedContent = computed(() => decodeHtml(props.page.content));
 
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage :flash="flash" />
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div v-html="decodedContent" />
       </div>

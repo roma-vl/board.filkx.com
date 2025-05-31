@@ -4,7 +4,6 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
 import TrashIcon from '@/Components/Icon/TrashIcon.vue';
 import PencilIcon from '@/Components/Icon/PencilIcon.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import AvatarIcon from '@/Components/Icon/AvatarIcon.vue';
 import { computed, ref } from 'vue';
 import RefreshIcon from '@/Components/Icon/RefreshIcon.vue';
@@ -14,7 +13,6 @@ import Edit from '@/Pages/Admin/Users/Edit.vue';
 import Show from '@/Pages/Admin/Users/Show.vue';
 import Forbidden from '@/Components/Forbidden.vue';
 import { useI18n } from 'vue-i18n';
-const flash = usePage().props.flash;
 const users = usePage().props.users.data;
 const pagination = computed(() => usePage().props.users.meta);
 const { t } = useI18n();
@@ -112,10 +110,6 @@ const restoreUser = (id) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <FlashMessage
-          v-if="flash"
-          :flash="flash"
-        />
         <div class="mb-2 flex justify-end">
           <button
             v-can="'user.create'"

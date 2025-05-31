@@ -12,9 +12,4 @@ class IndexController extends Controller
     {
         return Inertia::render('Admin/Index');
     }
-
-    public function test(): Response
-    {
-        return Inertia::render('Admin/Test');
-    }
 }

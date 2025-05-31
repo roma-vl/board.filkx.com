@@ -56,7 +56,7 @@ class LocationController extends Controller
     {
         $this->locationService->createLocation($request->validated());
 
-        return redirect()->back()->with('success', 'Локацію створено');
+        return redirect()->back()->with('success', __('locations.created'));
     }
 
     public function show(string $type, int $id): JsonResponse
@@ -70,6 +70,6 @@ class LocationController extends Controller
     {
         $this->locationService->deleteLocation($id, $type);
 
-        return redirect()->back()->with('info', "Локацію {$type} видалено");
+        return redirect()->back()->with('info', __('locations.deleted'));
     }
 }

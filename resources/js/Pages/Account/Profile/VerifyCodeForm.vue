@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 
 defineProps({
   user: {
@@ -14,7 +13,6 @@ defineProps({
 });
 
 const { t } = useI18n();
-const flash = computed(() => usePage().props.flash);
 
 const token = ref(['', '', '', '', '']);
 const inputs = ref([]);
@@ -60,7 +58,6 @@ onMounted(() => {
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3 min-h-[400px]">
-          <FlashMessage :flash="flash" />
           <div class="flex items-center p-3">
             <h2 class="text-2xl font-bold">
               {{ t('Verify Phone Number') }}
