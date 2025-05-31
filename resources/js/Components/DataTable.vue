@@ -89,12 +89,9 @@ const processedItems = computed(() => {
             :name="`column-${heading.key}`"
             :row="item"
           >
-            <!-- eslint-disable vue/no-v-html -->
             <span
               v-if="heading.highlight"
-              v-html="item[heading.key]"
             />
-            <!-- eslint-enable vue/no-v-html -->
             <span v-else>{{ item[heading.key] }}</span>
           </slot>
         </td>
