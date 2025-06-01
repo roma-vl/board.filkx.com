@@ -29,17 +29,24 @@ class ChatController extends Controller
     {
         $user = $request->user();
 
-        $dialog = $advert->dialogs()->where('user_id', $user->id)
+        $dialog = $advert
+            ->dialogs()
+            ->where('user_id', $user->id)
             ->orWhere('client_id', $user->id)
             ->with('messages.user', 'client')
-            ->get()->first();
+            ->get()
+            ->first();
 
         return response()->json($dialog);
     }
 
     public function show(Dialog $chat)
     {
-        $messages = $chat->messages()->with('user')->get();
+        $messages = $chat
+            ->messages()
+            ->with('user')
+            ->latest()
+            ->get();
 
         return response()->json($messages);
     }
@@ -59,7 +66,6 @@ class ChatController extends Controller
 
     public function createDialog(Request $request, Advert $advert)
     {
-        $ff = 'ads';
         $request->validate([
             'message' => 'required|string',
         ]);

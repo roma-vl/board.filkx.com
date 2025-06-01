@@ -54,16 +54,18 @@ class UpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category_id.required' => 'Оберіть категорію оголошення.',
-            'category_id.exists' => 'Обрана категорія не існує.',
-            'title.required' => 'Поле "Назва" є обов’язковим.',
-            'title.string' => 'Поле "Назва" повинно містити текст.',
-            'content.required' => 'Поле "Опис" є обов’язковим.',
-            'content.string' => 'Поле "Опис" повинно містити текст.',
-            'price.required' => 'Поле "Ціна" є обов’язковим.',
-            'price.integer' => 'Поле "Ціна" повинно бути цілим числом.',
-            'address.required' => 'Поле "Адреса" є обов’язковим.',
-            'address.string' => 'Поле "Адреса" повинно містити текст.',
+            'category_id.required' => __('adverts.category_id_required'),
+            'category_id.exists' => __('adverts.category_id_exists'),
+            'region_id.required' => __('adverts.region_id_required'),
+            'region_id.exists' => __('adverts.region_id_exists'),
+            'title.required' => __('adverts.title_required'),
+            'title.string' => __('adverts.title_string'),
+            'content.required' => __('adverts.content_required'),
+            'content.string' => __('adverts.content_string'),
+            'price.required' => __('adverts.price_required'),
+            'price.integer' => __('adverts.price_integer'),
+            'address.required' => __('adverts.address_required'),
+            'address.string' => __('adverts.address_string'),
         ];
     }
 

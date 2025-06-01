@@ -1,13 +1,11 @@
 <script setup>
 import { Head, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const tickets = computed(() => usePage().props.tickets.data);
-const flash = computed(() => usePage().props.flash);
 const pagination = computed(() => usePage().props.tickets);
 
 const headings = [
@@ -32,7 +30,6 @@ const routes = [
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
-          <FlashMessage :flash="flash" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">

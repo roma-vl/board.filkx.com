@@ -60,13 +60,6 @@ class BannerController extends Controller
         ]);
     }
 
-    public function editForm(Banner $banner): Response
-    {
-        return Inertia::render('Account/Banner/Edit', [
-            'banner' => $banner,
-        ]);
-    }
-
     public function edit(EditRequest $request, Banner $banner): RedirectResponse
     {
         try {
@@ -87,13 +80,6 @@ class BannerController extends Controller
         }
 
         return redirect()->route('admin.banner.show', $banner);
-    }
-
-    public function rejectForm(Banner $banner): Response
-    {
-        return Inertia::render('Account/Banner/Reject', [
-            'banner' => $banner,
-        ]);
     }
 
     public function reject(RejectRequest $request, Banner $banner): RedirectResponse

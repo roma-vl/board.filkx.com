@@ -6,7 +6,6 @@ import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
 import Reject from '@/Pages/Admin/Advert/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
 import axios from 'axios';
 const props = defineProps({
@@ -32,7 +31,6 @@ const props = defineProps({
   },
 });
 const user = usePage().props.auth.user;
-const flash = computed(() => usePage().props.flash);
 const isLiked = ref(false);
 const userPhone = ref(false);
 const isRejectModalOpen = ref(false);
@@ -124,6 +122,15 @@ const sendMessage = () => {
   messageForm.post(route('account.chats.store', props.advert.id), {
     onSuccess: () => {
       console.log('Send Message!!!!!!!!!');
+      console.log(messages.value.messages, 'sd');
+      messages.value.messages.push({
+        id: Date.now(),
+        message: text,
+        user: {
+          id: user.id,
+          avatar_url: user.avatar_url,
+        },
+      });
     },
   });
 };
@@ -131,10 +138,13 @@ const sendMessage = () => {
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
-    messages.value.messages.value.push({
+    messages.value.messages.push({
       id: Date.now(),
       text: `📎 Файл: ${file.name}`,
-      isMine: true,
+      user: {
+        id: user.id,
+        avatar_url: user.avatar_url,
+      },
     });
   }
 };
@@ -160,12 +170,6 @@ const messageForm = useForm({
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
             >
               {{ $t('edit') }}
-            </a>
-            <a
-              :href="route('account.adverts.edit.photos', props.advert.id)"
-              class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-1 rounded"
-            >
-              {{ $t('photos') }}
             </a>
             <button
               v-if="isDraft"
@@ -236,7 +240,6 @@ const messageForm = useForm({
         </div>
       </div>
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
-        <FlashMessage :flash="flash" />
         <div
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"

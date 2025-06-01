@@ -49,20 +49,20 @@ class RolesController extends Controller
     {
         $this->roleService->createRole($request->validated());
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role created successfully');
+        return redirect()->route('admin.roles.index')->with('success', __('roles.created'));
     }
 
     public function update(RoleRequest $request, Role $role): RedirectResponse
     {
         $this->roleService->updateRole($role, $request->validated());
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully');
+        return redirect()->route('admin.roles.index')->with('success', __('roles.updated'));
     }
 
     public function destroy(Role $role): RedirectResponse
     {
         $this->roleService->deleteRole($role);
 
-        return redirect()->route('admin.roles.index')->with('info', 'Role deleted successfully');
+        return redirect()->route('admin.roles.index')->with('info', __('roles.deleted'));
     }
 }

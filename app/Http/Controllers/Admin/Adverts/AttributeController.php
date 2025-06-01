@@ -32,7 +32,8 @@ class AttributeController extends Controller
     {
         $this->service->create($category, $request->validated());
 
-        return redirect()->route('admin.adverts.category.show', $category->id);
+        return redirect()->route('admin.adverts.category.show', $category->id)
+            ->with('success', __('adverts.attribute_added_for_category'));
     }
 
     public function edit(Category $category, Attribute $attribute): JsonResponse
@@ -48,13 +49,15 @@ class AttributeController extends Controller
     {
         $this->service->update($attribute, $request->validated());
 
-        return redirect()->route('admin.adverts.category.show', $category->id);
+        return redirect()->back()
+            ->with('success', __('adverts.attribute_update_for_category'));
     }
 
     public function destroy(Category $category, Attribute $attribute): RedirectResponse
     {
         $this->service->delete($attribute);
 
-        return redirect()->route('admin.adverts.category.show', $category->id);
+        return redirect()->back()
+            ->with('success', __('adverts.attribute_delete_for_category'));
     }
 }

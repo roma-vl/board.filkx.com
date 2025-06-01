@@ -77,21 +77,21 @@ class AdvertController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         }
 
-        return redirect()->route('account.adverts.index')->with('success', 'Оголошення створено!');
+        return redirect()->route('account.adverts.index')->with('success', __('adverts.advert_update'));
     }
 
     public function publish(Advert $advert): RedirectResponse
     {
         $advert->sendToModeration();
 
-        return back()->with('success', 'Advert send to Moderate!');
+        return back()->with('success', __('adverts.advert_send_for_moderation'));
     }
 
     public function draft(Advert $advert): RedirectResponse
     {
         $advert->backToDraft();
 
-        return back()->with('success', 'Advert is Draft!');
+        return back()->with('success', __('adverts.advert_back_to_draft'));
     }
 
     public function store(CreateRequest $request): RedirectResponse|JsonResponse
@@ -102,7 +102,7 @@ class AdvertController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         }
 
-        return redirect()->route('account.adverts.index')->with('success', 'Оголошення створено!');
+        return redirect()->route('account.adverts.index')->with('success', __('adverts.advert_create'));
     }
 
     public function photos(Advert $advert): Response
@@ -116,7 +116,7 @@ class AdvertController extends Controller
     {
         $advert->delete();
 
-        return redirect()->route('account.adverts.index')->with('success', 'Advert is Deleted!');
+        return redirect()->route('account.adverts.index')->with('danger', __('adverts.advert_delete'));
     }
 
     public function getAreas(int $regionId): JsonResponse

@@ -1,7 +1,6 @@
 <script setup>
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import { computed } from 'vue';
 import TooltipIcon from '@/Components/TooltipIcon.vue';
 
@@ -19,8 +18,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
-const flash = computed(() => usePage().props.flash);
 const form = useForm({ ...props.settings });
 
 function submit() {
@@ -89,8 +86,6 @@ function getIcon(key) {
 
           <!-- Content -->
           <div class="w-3/4 p-6">
-            <FlashMessage :flash="flash" />
-
             <div
               v-if="!props.group"
               class="text-gray-500 italic"

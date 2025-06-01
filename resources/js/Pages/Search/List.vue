@@ -7,6 +7,10 @@ import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 import ChildCategories from '@/Components/Advert/Category/ChildCategories.vue';
 import CategoryDropdown from '@/Components/CategoryDropdown.vue';
 import Get from '@/Pages/Banner/Get.vue';
+import { useSearch } from '@/composables/useSearch.js';
+import SearchInput from '@/Components/Search/SearchInput.vue';
+import LocationSelector from '@/Components/Search/LocationSelector.vue';
+
 const adverts = usePage().props.adverts;
 const queryFilter = ref(usePage().props.query || {});
 const props = defineProps({
@@ -47,10 +51,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-
-import { useSearch } from '@/composables/useSearch.js';
-import SearchInput from '@/Components/Search/SearchInput.vue';
-import LocationSelector from '@/Components/Search/LocationSelector.vue';
 
 const { searchQuery, cityIdSearchQuery, search } = useSearch();
 

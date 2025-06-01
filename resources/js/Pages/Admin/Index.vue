@@ -1,9 +1,6 @@
 <script setup>
-import { Head, usePage } from '@inertiajs/vue3';
-import FlashMessage from '@/Components/FlashMessage.vue';
+import { Head } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-
-const flash = usePage().props.flash;
 </script>
 
 <template>
@@ -13,8 +10,6 @@ const flash = usePage().props.flash;
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white dark:bg-gray-500 shadow-sm sm:rounded-lg p-3">
-          <FlashMessage :flash="flash" />
-
           <div class="max-w-md mx-auto">
             <label
               for="select"

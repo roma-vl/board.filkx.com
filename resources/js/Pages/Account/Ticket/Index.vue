@@ -3,13 +3,11 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
 import { computed, ref } from 'vue';
-import FlashMessage from '@/Components/FlashMessage.vue';
 import Modal from '@/Components/Modal.vue';
 import Create from '@/Pages/Account/Ticket/Create.vue';
 import TicketList from '@/Components/TicketList.vue';
 
 const tickets = computed(() => usePage().props.tickets);
-const flash = computed(() => usePage().props.flash);
 
 const isCreateModalOpen = ref(false);
 const selectedPages = ref(null);
@@ -33,7 +31,6 @@ const routes = {};
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
-          <FlashMessage :flash="flash" />
           <ProfileMenu :active-tab="'account.tickets.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">

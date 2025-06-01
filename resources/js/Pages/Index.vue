@@ -25,12 +25,29 @@ const handleSearch = (text) => {
 };
 
 const openCategory = ref(null);
-const flash = computed(() => usePage().props.flash);
 const toggleLike = (advert) => {
   if (advert.is_favorited === true) {
-    router.delete(route('account.favorites.remove', { advert: advert.id }));
+    router.delete(
+      route(
+        'account.favorites.remove',
+        { advert: advert.id },
+        {
+          replace: true,
+          preserveScroll: true,
+        }
+      )
+    );
   } else {
-    router.post(route('account.favorites.add', { advert: advert.id }));
+    router.post(
+      route(
+        'account.favorites.add',
+        { advert: advert.id },
+        {
+          replace: true,
+          preserveScroll: true,
+        }
+      )
+    );
   }
   advert.is_favorited = !advert.is_favorited;
 };
@@ -63,7 +80,6 @@ const subCategories = computed(() => {
           class="overflow-hidden bg-white sm:rounded-3xl p-6 dark:bg-gray-700 dark:text-gray-100"
         >
           <div class="container mx-auto">
-            <FlashMessage :flash="flash" />
             <div
               class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
             >
