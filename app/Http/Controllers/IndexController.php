@@ -11,9 +11,11 @@ use App\Http\Services\LocationService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
 use App\Models\Location;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -148,7 +150,18 @@ class IndexController extends Controller
             'region' => $advert->region,
             'photos' => $advert->photo,
             'isFavorited' => $isFavorited,
+            'can' => $this->getPermissions(Auth::user(), $advert),
         ]);
+    }
+
+    public function getPermissions(?User $user, Advert $advert): array
+    {
+        return collect([
+            'manage.own.advert' => Gate::forUser($user)->allows('manage.own.advert', $advert),
+        ])
+            ->filter()
+            ->keys()
+            ->toArray();
     }
 
     public function phone(Advert $advert): string

@@ -56,12 +56,12 @@ onBeforeUnmount(() => {
       v-model="inputValue"
       type="text"
       :placeholder="$t('search.button') + '...'"
-      class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600"
+      class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 dark:bg-gray-700"
       @focus="showSuggestions = true"
     >
     <ul
       v-if="showSuggestions && (searchHistory.length || searchRecommendations.length)"
-      class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10"
+      class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 dark:bg-gray-800"
     >
       <template v-if="searchHistory.length">
         <li class="text-sm text-gray-400 uppercase p-1 pl-4">
@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
         <li
           v-for="(suggestion, index) in searchHistory"
           :key="'history-' + index"
-          class="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+          class="flex justify-between items-center px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700"
           @click="selectSuggestion(suggestion)"
         >
           {{ suggestion }}
@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
         <li
           v-for="(suggestion, index) in searchRecommendations"
           :key="'recommendation-' + index"
-          class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+          class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700"
           @click="selectSuggestion(suggestion)"
         >
           {{ suggestion }}

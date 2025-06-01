@@ -68,19 +68,19 @@ onBeforeUnmount(() => {
     <input
       v-model="citySearchQuery"
       type="text"
-      placeholder="Оберіть область"
-      class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+      :placeholder="$t('Select region')"
+      class="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200 dark:text-gray-400 dark:bg-gray-700"
       @focus="resetLocation"
     >
     <div
       v-if="showLocationDropdown"
-      class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
+      class="absolute left-0 w-full bg-white mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto dark:bg-gray-800"
     >
       <ul v-if="filteredCities.length">
         <li
           v-for="city in filteredCities"
           :key="city.id"
-          class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+          class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700 dark:text-gray-100"
           @click="$emit('select-city', selectCity(city))"
         >
           {{ city.name }}
@@ -90,14 +90,14 @@ onBeforeUnmount(() => {
         <ul v-if="regions.length && !cities.length">
           <li
             v-if="loadingRegions"
-            class="px-4 py-2 text-gray-400"
+            class="px-4 py-2 text-gray-400 dark:hover:bg-gray-700"
           >
             {{ $t('download') }}...
           </li>
           <li
             v-for="region in regions"
             :key="region.id"
-            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700 dark:text-gray-100"
             @click="fetchCities(region.id)"
           >
             {{ region.name }}
@@ -107,30 +107,31 @@ onBeforeUnmount(() => {
         <ul v-else>
           <li
             v-if="loadingCities"
-            class="px-4 py-2 text-gray-400"
+            class="px-4 py-2 text-gray-400 dark:hover:bg-gray-800"
           >
             {{ $t('download') }}...
           </li>
           <li
-            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700 dark:text-gray-100"
             @click="resetLocation"
           >
             <span class="flex">&lt; {{ $t('back') }} </span>
           </li>
           <li
-            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700 dark:text-gray-100"
             @click="$emit('select-city', selectCity(selectedRegion))"
           >
             <span class="flex">{{ selectedRegion.name }}</span>
-            <span class="text-[12px] font-bold text-gray-700 border-b-black">
-              {{ $t('The whole region') }}</span>
+            <span class="text-[12px] font-bold text-gray-700 border-b-black dark:text-gray-100">
+              {{ $t('The whole region') }}
+            </span>
           </li>
-          <span class="flex px-4 text-[12px] font-bold text-gray-700">
+          <span class="flex px-4 text-[12px] font-bold text-gray-700 dark:text-gray-100">
             {{ $t('Select region') }}</span>
           <li
             v-for="city in cities"
             :key="city.id"
-            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+            class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:hover:bg-gray-700 dark:text-gray-100"
             @click="$emit('select-city', selectCity(city))"
           >
             {{ city.name }}

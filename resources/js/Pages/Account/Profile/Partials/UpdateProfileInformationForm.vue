@@ -37,11 +37,11 @@ const form = useForm({
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">
+      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-200">
         {{ t('Profile Information') }}
       </h2>
 
-      <p class="mt-1 text-sm text-gray-600">
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
         {{ t("Update your account's profile information and email address.") }}
       </p>
     </header>
@@ -59,7 +59,7 @@ const form = useForm({
           id="first_name"
           v-model="form.first_name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full dark:bg-gray-800 dark:border-gray-800"
           required
           autocomplete="first_name"
         />
@@ -78,7 +78,7 @@ const form = useForm({
           id="name"
           v-model="form.name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full dark:bg-gray-800 dark:border-gray-800"
           required
           autocomplete="name"
         />
@@ -97,7 +97,7 @@ const form = useForm({
           id="last_name"
           v-model="form.last_name"
           type="text"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full dark:bg-gray-800 dark:border-gray-800"
           autocomplete="last_name"
         />
         <InputError
@@ -115,7 +115,7 @@ const form = useForm({
           id="email"
           v-model="form.email"
           type="email"
-          class="mt-1 block w-full"
+          class="mt-1 block w-full dark:bg-gray-800 dark:border-gray-800"
           required
           autocomplete="username"
         />

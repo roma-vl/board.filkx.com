@@ -22,7 +22,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
     <template #content>
       <DropdownLink
         :href="route('greeting', { locale: 'uk' })"
-        class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200"
+        class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200 dark:hover:bg-gray-800"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
         </svg>
       </DropdownLink>
       <DropdownLink
-        class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200"
+        class="px-4 py-2 dark:bg-gray-700 hover:bg-stone-200 dark:hover:bg-gray-800"
         :href="route('greeting', { locale: 'en' })"
       >
         <svg

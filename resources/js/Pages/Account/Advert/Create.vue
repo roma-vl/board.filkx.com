@@ -135,7 +135,9 @@ onBeforeUnmount(() => {
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
+        <div
+          class="overflow-hidden bg-white sm:rounded-lg p-6 dark:bg-gray-700 rounded-md shadow-md"
+        >
           <div class="px-4">
             <form @submit.prevent="submit">
               <div class="mb-4">
@@ -143,7 +145,7 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.title"
                   type="text"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
                 <InputError
                   class="mt-2"
@@ -156,7 +158,7 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.price"
                   type="number"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
                 <InputError
                   class="mt-2"
@@ -168,7 +170,7 @@ onBeforeUnmount(() => {
                 <label class="block text-sm font-medium mb-2">{{ t('Category') }}</label>
                 <select
                   v-model="form.category_id"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
                   <option
                     v-for="category in formattedCategories"
@@ -195,18 +197,18 @@ onBeforeUnmount(() => {
                   <input
                     v-model="citySearchQuery"
                     type="text"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200 dark:bg-gray-800 dark:border-gray-900"
                     :placeholder="t('StartTypingAddress')"
                   >
                   <div
                     v-if="showLocationDropdown"
-                    class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
+                    class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto dark:bg-gray-800 dark:border-gray-900"
                   >
                     <ul v-if="filteredCities.length">
                       <li
                         v-for="city in filteredCities"
                         :key="city.id"
-                        class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+                        class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:bg-gray-800 dark:border-gray-900"
                         @click="selectCity(city)"
                       >
                         {{ city.name }}
@@ -225,7 +227,7 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.address"
                   type="text"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
               </div>
 
@@ -238,7 +240,7 @@ onBeforeUnmount(() => {
                 <label class="block text-sm font-medium mb-2">{{ t('Description') }}</label>
                 <textarea
                   v-model="form.content"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 />
                 <InputError
                   class="mt-2"

@@ -81,7 +81,7 @@ const subCategories = computed(() => {
         >
           <div class="container mx-auto">
             <div
-              class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30"
+              class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30 dark:bg-gradient-to-br dark:from-gray-900 dark:gray-800 dark:gray-700"
             >
               <SearchInput
                 v-model="searchQuery"
@@ -113,7 +113,7 @@ const subCategories = computed(() => {
                 >
                   <div class="text-center">
                     <button
-                      class="p-4 rounded-2xl bg-white hover:bg-gray-100 shadow-lg w-full h-full flex flex-col justify-center items-center"
+                      class="p-4 dark:bg-gray-800 dark:hover:bg-gray-600 rounded-2xl bg-white hover:bg-gray-100 shadow-lg w-full h-full flex flex-col justify-center items-center"
                       @click="toggleCategory(category.id)"
                     >
                       <img
@@ -121,7 +121,7 @@ const subCategories = computed(() => {
                         :alt="category.name"
                         class="w-12 h-12"
                       >
-                      <span class="text-sm mt-2 font-medium text-gray-700">
+                      <span class="text-sm mt-2 font-medium text-gray-700 dark:text-gray-100">
                         {{ category.name }}
                       </span>
                     </button>
@@ -131,13 +131,13 @@ const subCategories = computed(() => {
                 <transition name="fade">
                   <div
                     v-if="openCategory && subCategories.length > 0"
-                    class="col-span-full bg-white rounded-2xl shadow-lg p-6"
+                    class="col-span-full bg-white rounded-2xl shadow-lg p-6 dark:bg-gray-800"
                   >
-                    <p class="text-sm font-semibold mb-4">
+                    <p class="text-sm font-semibold mb-4 dark:text-gray-400">
                       {{ $t('look.at.all.the.announcement.in') }}
                       <a
                         :href="fullPath() + '/' + selectedCategory.slug"
-                        class="text-blue-600 hover:underline"
+                        class="text-blue-600 hover:underline dark:text-gray-300"
                       >
                         {{ selectedCategory.name }}
                       </a>
@@ -149,7 +149,7 @@ const subCategories = computed(() => {
                       >
                         <a
                           :href="fullPath() + '/' + selectedCategory.slug + '/' + subCategory.slug"
-                          class="text-sm text-gray-700 hover:underline"
+                          class="text-sm text-gray-700 hover:underline dark:text-gray-100 dark:hover:bg-gray-700 p-2 rounded shadow hover:bg-gray-100"
                         >
                           {{ subCategory.name }}
                         </a>
@@ -171,7 +171,7 @@ const subCategories = computed(() => {
                   :key="listing.id"
                 >
                   <div
-                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white"
+                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white dark:bg-gray-700"
                   >
                     <img
                       :src="getFullPathForImage(listing.first_photo?.file)"
@@ -179,7 +179,7 @@ const subCategories = computed(() => {
                       class="w-full h-48 object-cover"
                     >
                     <div class="p-4">
-                      <h3 class="text-lg font-semibold text-gray-800">
+                      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-300">
                         {{ listing.title }}
                       </h3>
                       <p class="text-green-600 font-bold text-md">
@@ -198,7 +198,7 @@ const subCategories = computed(() => {
                         </button>
                         <Link
                           :href="route('adverts.show', listing.id)"
-                          class="text-blue-600 hover:underline"
+                          class="text-blue-600 hover:underline dark:text-blue-500"
                         >
                           {{ $t('more.details') }}
                         </Link>
@@ -220,7 +220,7 @@ const subCategories = computed(() => {
                   :key="listing.id"
                 >
                   <div
-                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white"
+                    class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 bg-white dark:bg-gray-700"
                   >
                     <img
                       :src="getFullPathForImage(listing.first_photo?.file)"
@@ -228,7 +228,7 @@ const subCategories = computed(() => {
                       class="w-full h-48 object-cover"
                     >
                     <div class="p-4">
-                      <h3 class="text-lg font-semibold text-gray-800">
+                      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-300">
                         {{ listing.title }}
                       </h3>
                       <p class="text-green-600 font-bold text-md">
@@ -247,7 +247,7 @@ const subCategories = computed(() => {
                         </button>
                         <Link
                           :href="route('adverts.show', listing.id)"
-                          class="text-blue-600 hover:underline"
+                          class="text-blue-600 hover:underline dark:text-blue-500"
                         >
                           {{ $t('more.details') }}
                         </Link>

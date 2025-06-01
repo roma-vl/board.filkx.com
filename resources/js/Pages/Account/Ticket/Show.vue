@@ -39,16 +39,16 @@ function submitComment() {
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
         <div class="flex gap-6">
           <div class="w-2/3">
-            <div class="bg-white rounded-xl shadow p-6 space-y-4">
-              <h1 class="text-2xl font-bold text-gray-900">
+            <div class="bg-white rounded-xl shadow p-6 space-y-4 dark:bg-gray-700">
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-200">
                 {{ ticket.subject }}
               </h1>
-              <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+              <p class="text-gray-700 leading-relaxed whitespace-pre-line dark:text-gray-300">
                 {{ ticket.content }}
               </p>
             </div>
-            <div class="bg-white rounded-xl shadow p-6 mt-6">
-              <p class="text-gray-900 text-lg font-bold mb-2">
+            <div class="bg-white rounded-xl shadow p-6 mt-6 dark:bg-gray-700">
+              <p class="text-gray-900 text-lg font-bold mb-2 dark:text-gray-200">
                 {{ $t('comments') }}
               </p>
               <div class="border-b border-gray-200 mb-4" />
@@ -59,25 +59,25 @@ function submitComment() {
                 <div
                   v-for="(msg, index) in messages"
                   :key="index"
-                  class="flex items-start gap-4"
+                  class="flex items-start gap-4 dark:bg-gray-800 p-3 rounded-md shadow-md"
                 >
                   <img
                     :src="
                       msg.user.avatar_url || 'https://ui-avatars.com/api/?name=' + msg.user.name
                     "
-                    class="w-10 h-10 rounded-full object-cover border border-gray-300"
+                    class="w-16 h-16 rounded-full object-cover border border-gray-300"
                     :alt="msg.user.name"
                   >
                   <div class="flex-1">
                     <div class="flex justify-between items-center">
-                      <span class="font-semibold text-sm text-gray-800">
+                      <span class="font-semibold text-sm text-gray-800 dark:text-gray-200">
                         {{ msg.user.name }}
                       </span>
-                      <span class="text-xs text-gray-500">
+                      <span class="text-xs text-gray-500 dark:text-gray-200">
                         {{ getDateFormatFromLocale(msg.created_at) }}
                       </span>
                     </div>
-                    <p class="text-sm text-gray-700 mt-1 whitespace-pre-line">
+                    <p class="text-sm text-gray-700 mt-1 whitespace-pre-line dark:text-gray-400">
                       {{ msg.message }}
                     </p>
                   </div>
@@ -93,13 +93,13 @@ function submitComment() {
                 class="mt-6"
                 @submit.prevent="submitComment"
               >
-                <p class="text-gray-900 text-lg font-bold mb-2">
+                <p class="text-gray-900 text-lg font-bold mb-2 dark:text-gray-300">
                   {{ $t('leave.comment') }}
                 </p>
                 <textarea
                   v-model="newComment"
                   rows="4"
-                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none resize-y"
+                  class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200 focus:outline-none resize-y dark:bg-gray-800 dark:border-gray-800"
                   :placeholder="$t('enter.comment')"
                 />
                 <div class="flex justify-end mt-3">
@@ -114,12 +114,12 @@ function submitComment() {
             </div>
           </div>
           <div class="w-1/3">
-            <div class="rounded-lg shadow p-3 bg-white">
-              <p class="mt-4 text-gray-800 text-sm">
+            <div class="rounded-lg shadow p-3 bg-white dark:bg-gray-700">
+              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
                 {{ $t('published') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
-              <div class="rounded-lg shadow p-3 bg-white mt-4">
-                <p class="text-gray-800 font-bold text-sm mb-4">
+              <div class="rounded-lg shadow p-3 bg-white mt-4 dark:bg-gray-800">
+                <p class="text-gray-800 font-bold text-sm mb-4 dark:text-gray-200">
                   {{ $t('statuses') }}
                 </p>
                 <ul class="space-y-2">
@@ -139,7 +139,7 @@ function submitComment() {
                     >
                       {{ $t(status.status) }}
                     </span>
-                    <span class="text-gray-500 text-xs">
+                    <span class="text-gray-500 text-xs dark:text-gray-200">
                       {{ getDateFormatFromLocale(status.created_at) }}
                     </span>
                   </li>

@@ -25,11 +25,11 @@ class AuthServiceProvider extends ServiceProvider
             });
         }
 
-        Gate::define('horizon', function (User $user) {
+        Gate::define('telescope', function (User $user) {
             return $user->isAdmin() || $user->isModerator();
         });
 
-        Gate::define('manage-own-advert', function (User $user, Advert $advert) {
+        Gate::define('manage.own.advert', function (User $user, Advert $advert) {
             return $advert->user_id === $user->id;
         });
     }

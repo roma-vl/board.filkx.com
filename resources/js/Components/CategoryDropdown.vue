@@ -51,7 +51,7 @@ watch(
 <template>
   <div class="relative inline-block w-full">
     <div
-      class="cursor-pointer border px-4 py-2 rounded bg-white shadow"
+      class="cursor-pointer px-4 py-2 rounded bg-white shadow dark:bg-gray-700 dark:hover:bg-gray-800"
       @click="toggleDropdown"
     >
       {{ selectedCategory?.name || $t('select.category') }}
@@ -59,7 +59,7 @@ watch(
 
     <div
       v-if="isOpen"
-      class="absolute left-0 top-full mt-2 w-full z-50 bg-white border shadow-lg rounded-lg max-h-96 overflow-y-auto"
+      class="absolute left-0 top-full mt-2 w-full z-50 bg-white shadow-lg rounded-lg max-h-96 overflow-y-auto dark:bg-gray-700"
     >
       <CategoryDropdownItem
         v-for="category in categoryFilters"

@@ -14,6 +14,7 @@ use DomainException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -48,6 +49,10 @@ class AdvertController extends Controller
 
     public function edit(Advert $advert): Response
     {
+        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+            abort(403);
+        }
+
         $activeAttributes = [];
         $categories = $this->categoryService->getCategories();
         $active = $advert->values()->get();
@@ -71,6 +76,9 @@ class AdvertController extends Controller
 
     public function update(UpdateRequest $request, Advert $advert): RedirectResponse|JsonResponse
     {
+        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+            abort(403);
+        }
         try {
             $this->advertService->update($request, $advert);
         } catch (DomainException $e) {
@@ -82,6 +90,10 @@ class AdvertController extends Controller
 
     public function publish(Advert $advert): RedirectResponse
     {
+        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+            abort(403);
+        }
+
         $advert->sendToModeration();
 
         return back()->with('success', __('adverts.advert_send_for_moderation'));
@@ -89,6 +101,10 @@ class AdvertController extends Controller
 
     public function draft(Advert $advert): RedirectResponse
     {
+        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+            abort(403);
+        }
+
         $advert->backToDraft();
 
         return back()->with('success', __('adverts.advert_back_to_draft'));
@@ -114,6 +130,10 @@ class AdvertController extends Controller
 
     public function destroy(Advert $advert): RedirectResponse
     {
+        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+            abort(403);
+        }
+
         $advert->delete();
 
         return redirect()->route('account.adverts.index')->with('danger', __('adverts.advert_delete'));

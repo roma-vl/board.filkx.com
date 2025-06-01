@@ -106,7 +106,9 @@ onBeforeUnmount(() => {
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow sm:rounded-lg p-6">
+        <div
+          class="overflow-hidden bg-white shadow sm:rounded-lg p-6 dark:bg-gray-700 rounded-md shadow-md"
+        >
           <div class="px-4">
             {{ $t('banners.editTitle') }}
             <form @submit.prevent="submit">
@@ -117,7 +119,7 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.name"
                   type="text"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
               </div>
               <InputError
@@ -133,7 +135,7 @@ onBeforeUnmount(() => {
                   v-model="form.limit"
                   type="number"
                   required
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
               </div>
               <InputError
@@ -146,7 +148,7 @@ onBeforeUnmount(() => {
                 <input
                   v-model="form.url"
                   type="text"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
               </div>
               <InputError
@@ -160,7 +162,7 @@ onBeforeUnmount(() => {
                 }}</label>
                 <select
                   v-model="form.format"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
                   <option
                     v-for="format in props.formats"
@@ -182,7 +184,7 @@ onBeforeUnmount(() => {
                 }}</label>
                 <select
                   v-model="form.category_id"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 >
                   <option
                     v-for="category in formattedCategories"
@@ -206,18 +208,18 @@ onBeforeUnmount(() => {
                   <input
                     v-model="citySearchQuery"
                     type="text"
-                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+                    class="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200 dark:bg-gray-800 dark:border-gray-900"
                     :placeholder="$t('banners.fields.placeholder_location')"
                   >
                   <div
                     v-if="showLocationDropdown"
-                    class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto"
+                    class="absolute left-0 w-full bg-white border mt-1 rounded-lg shadow-lg z-10 h-[400px] overflow-y-auto dark:bg-gray-800 dark:border-gray-900"
                   >
                     <ul v-if="filteredCities.length">
                       <li
                         v-for="city in filteredCities"
                         :key="city.id"
-                        class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200"
+                        class="px-4 py-2 cursor-pointer hover:bg-gray-200 transition duration-200 dark:bg-gray-800 dark:border-gray-900"
                         @click="selectCity(city)"
                       >
                         {{ city.name }}
@@ -239,7 +241,7 @@ onBeforeUnmount(() => {
                 <input
                   type="file"
                   accept="image/*"
-                  class="w-full border-gray-300 p-2 rounded-md shadow-sm"
+                  class="w-full border-gray-300 p-2 rounded-md shadow-sm dark:bg-gray-800 dark:border-gray-900"
                   @change="onFileChange"
                 >
 

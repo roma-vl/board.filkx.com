@@ -69,7 +69,9 @@ const messageForm = useForm({
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
+        <div
+          class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
+        >
           <ProfileMenu :active-tab="'account.chats.index'" />
           <div class="grid grid-cols-3 gap-4">
             <div class="col-span-1 p-4 border-r border-gray-200">
@@ -82,16 +84,26 @@ const messageForm = useForm({
                 class="mb-3 cursor-pointer"
                 @click="selectDialog(chat)"
               >
-                <div class="block p-3 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100">
+                <div
+                  class="block p-3 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800"
+                >
                   <div class="flex flex-row justify-between">
-                    <p class="font-medium text-md">
-                      {{ chat.client.name }}
-                    </p>
-                    <p class="text-xs text-gray-400 text-right">
+                    <div class="flex items-center justify-center">
+                      <img
+                        class="w-12 h-12 rounded-full"
+                        :src="chat.client.avatar_url"
+                        alt=""
+                      >
+                      <p class="font-medium text-md pl-4">
+                        {{ chat.client.name }}
+                      </p>
+                    </div>
+
+                    <p class="text-xs text-gray-400 text-right dark:text-gray-200">
                       {{ getDateFormatFromLocale(chat.messages[0]?.created_at) }}
                     </p>
                   </div>
-                  <p class="text-sm text-gray-600">
+                  <p class="text-sm text-gray-600 dark:text-gray-200 pl-16">
                     {{ chat.messages[0]?.message }}
                   </p>
                 </div>
@@ -109,15 +121,16 @@ const messageForm = useForm({
                 <div
                   v-for="message in activeDialog?.messages || []"
                   :key="message.id"
-                  class="flex items-start space-x-2"
+                  class="flex items-start space-x-2 bg-gray-200 dark:bg-gray-800 rounded-md p-2"
                 >
-                  <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                  <div class="flex items-center justify-center">
                     <img
+                      class="w-12 h-12 rounded-full"
                       :src="message.user.avatar_url"
                       alt=""
                     >
                   </div>
-                  <div class="flex-1 p-3 bg-gray-50 rounded-lg shadow-sm">
+                  <div class="flex-1 p-3 bg-gray-200 dark:bg-gray-800">
                     <p class="font-medium">
                       {{ message.message }}
                     </p>
@@ -148,7 +161,7 @@ const messageForm = useForm({
                     <input
                       v-model="messageForm.message"
                       type="text"
-                      class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-600"
+                      class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-violet-600 dark:bg-gray-800 dark:border-gray-900"
                       :placeholder="t('chat.placeholder')"
                       @keyup.enter="sendMessage"
                     >

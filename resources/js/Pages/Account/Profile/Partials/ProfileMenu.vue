@@ -25,7 +25,7 @@ const menuItems = [
     >
       <a
         :href="route(item.route)"
-        class="px-4 py-2 text-gray-600 hover:text-gray-900 border-b-2"
+        class="px-4 py-2 text-gray-600 hover:text-gray-900 border-b-2 dark:text-gray-300 dark:hover:text-gray-50 dark:hover:bg-gray-800"
         :class="{
           'border-blue-500 font-bold': props.activeTab === item.route,
           'border-transparent': props.activeTab !== item.route,
