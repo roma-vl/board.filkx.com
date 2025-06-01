@@ -8,6 +8,7 @@ import Reject from '@/Pages/Admin/Advert/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
 import axios from 'axios';
+import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 const props = defineProps({
   advert: {
     type: Object,
@@ -28,6 +29,10 @@ const props = defineProps({
   isFavorited: {
     type: Boolean,
     default: false,
+  },
+  can: {
+    type: Array,
+    default: () => [],
   },
 });
 const user = usePage().props.auth.user;
@@ -157,14 +162,21 @@ const messageForm = useForm({
   message: '',
   advert_id: props.advert.id,
 });
+console.log(usePage().props.can, 'usePage()');
 </script>
 
 <template>
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
-        <div class="flex justify-between gap-2 mb-6 bg-white p-3">
-          <div class="flex flex-row gap-2">
+        <div
+          v-can="['manage.own.advert', 'admin']"
+          class="flex justify-between gap-2 mb-6 bg-white p-3 dark:bg-gray-700 rounded-md shadow-md"
+        >
+          <div
+            v-can="'manage.own.advert'"
+            class="flex flex-row gap-2"
+          >
             <a
               :href="route('account.adverts.edit', props.advert.id)"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
@@ -219,7 +231,14 @@ const messageForm = useForm({
             </button>
           </div>
         </div>
-        <div class="list-disc list-inside text-gray-800">
+
+        <!--          <Breadcrumbs-->
+        <!--              class="mb-6"-->
+        <!--              :categories="props.categories"-->
+        <!--              :locations="props.locations"-->
+        <!--          />-->
+        <!--          -->
+        <div class="list-disc list-inside text-gray-800 dark:text-gray-200 dark:border-gray-700">
           <span class="underline cursor-pointer"> {{ $t('main') }} </span> /
           <span
             v-for="ancestor in props.category.ancestors"
@@ -234,8 +253,8 @@ const messageForm = useForm({
             {{ category.name }}
           </span>
           /
-          <span class="underline cursor-pointer">
-            {{ advert.region?.region }}
+          <span class="">
+            {{ advert.region?.name }}
           </span>
         </div>
       </div>
@@ -260,7 +279,7 @@ const messageForm = useForm({
         </div>
         <div class="flex gap-6">
           <div class="w-2/3">
-            <div class="bg-white rounded-lg shadow p-3">
+            <div class="bg-white rounded-lg shadow p-3 dark:bg-gray-700">
               <div class="w-full h-[600px] flex justify-center items-center">
                 <img
                   :src="mainPhoto"
@@ -279,22 +298,23 @@ const messageForm = useForm({
                 >
               </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-3 mt-5">
+            <div class="bg-white rounded-lg shadow p-3 mt-5 dark:bg-gray-700">
               <div class="flex flex-wrap gap-2">
                 <span
                   v-for="item in values"
                   :key="item.id"
-                  class="border border-gray-700 px-4 py-1 font-medium text-gray-700 rounded-md cursor-pointer"
+                  class="border border-gray-700 px-4 py-1 font-medium text-gray-700 rounded-md cursor-pointer dark:text-gray-200 dark:border-gray-400"
                 >
                   {{ item.attribute }} : {{ getValue(item.attribute) }}
                 </span>
               </div>
-              <p class="mt-4 text-gray-900 text-lg font-bold">
+              <p class="mt-4 text-gray-900 text-lg font-bold dark:text-gray-200">
                 {{ $t('description') }}
               </p>
-              <p class="mt-4 text-gray-800">
+              <p class="whitespace-pre-line mt-4 text-gray-800 dark:text-gray-200">
                 {{ advert.content }}
               </p>
+
               <div class="my-4 border border-b-1 mx-3" />
               <div class="flex justify-end">
                 <button class="hover:underline hover:text-red-600 text-red-400 px-4 py-2 rounded">
@@ -304,11 +324,11 @@ const messageForm = useForm({
             </div>
           </div>
           <div class="w-1/3">
-            <div class="rounded-lg shadow p-3 bg-white">
-              <p class="mt-4 text-gray-800 text-sm">
+            <div class="rounded-lg shadow p-3 bg-white dark:bg-gray-700">
+              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
                 {{ $t('published') }} {{ getDateFormatFromLocale(advert.created_at) }}
               </p>
-              <p class="mt-4 text-gray-800 text-sm">
+              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
                 {{ $t('expires') }} {{ getDateFormatFromLocale(advert.expires_at) }}
               </p>
               <button
@@ -324,17 +344,19 @@ const messageForm = useForm({
                   class="w-6 h-6 text-red-500"
                 />
               </button>
-              <h1 class="text-2xl font-bold text-gray-900">
+              <h1 class="p-2 text-2xl font-bold text-gray-900 dark:text-gray-300">
                 {{ advert.title }}
               </h1>
-              <div class="mt-4 flex flex-row items-center">
+              <div class="mt-4 p-2 flex flex-row items-center">
                 <h2 class="text-2xl font-bold text-green-600">
                   {{ advert.price }} грн.
                 </h2>
-                <span class="pt-2 text-gray-800 text-sm pl-2"> {{ $t('negotiable') }} </span>
+                <span class="pt-2 text-gray-800 text-sm pl-2 dark:text-gray-200">
+                  {{ $t('negotiable') }}
+                </span>
               </div>
               <button
-                class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
+                class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white dark:hover:bg-gray-700 dark:text-gray-200 hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click="toggleMessenger"
               >
                 <span class="text-lg font-bold"> {{ $t('messages') }} </span>
@@ -343,26 +365,26 @@ const messageForm = useForm({
                 class="h-14 rounded-md border-2 hover:border-[5px] border-blue-500 w-full mb-5 text-blue-500 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click.prevent="getPhone(advert.id)"
               >
-                <span class="text-lg font-bold">
+                <span class="text-lg font-bold dark:text-gray-200">
                   {{ userPhone ? userPhone : $t('show.phone') }}
                 </span>
               </button>
             </div>
-            <div class="rounded-lg shadow p-3 bg-white mt-5">
-              <p class="font-bold pb-3">
+            <div class="rounded-lg shadow p-3 bg-white mt-5 dark:bg-gray-700">
+              <p class="font-bold pb-3 p-2 dark:text-gray-200">
                 {{ $t('user') }}
               </p>
-              <div class="flex flex-row">
+              <div class="flex flex-row p-2">
                 <img
-                  class="w-20 h-20 rounded-full"
+                  class="w-16 h-16 rounded-full"
                   :src="advert.user?.avatar_url"
                   alt=""
                 >
-                <div class="mt-4">
-                  <p class="text-gray-600 mt-1 text-lg font-bold">
+                <div class="pl-4">
+                  <p class="text-gray-600 mt-1 text-lg font-bold dark:text-gray-200">
                     {{ advert.user.name + ' ' + advert.user?.first_name }}
                   </p>
-                  <p class="text-gray-600 mt-1">
+                  <p class="text-gray-600 mt-1 dark:text-gray-400 text-sm">
                     {{ $t('registered.since') }}
                     {{ getDateFormatFromLocale(advert.user?.created_at) }}
                   </p>
@@ -378,14 +400,14 @@ const messageForm = useForm({
                 </a>
               </div>
             </div>
-            <div class="rounded-lg shadow p-3 bg-white mt-5">
-              <p class="font-bold pb-3">
+            <div class="rounded-lg shadow p-3 bg-white mt-5 dark:bg-gray-700">
+              <p class="font-bold pb-3 p-2 dark:text-gray-200 text-lg">
                 {{ $t('location') }}
               </p>
-              <p class="text-gray-600 mt-1">
+              <p class="text-gray-600 p-2 dark:text-gray-200">
                 {{ $t('address') }}: {{ advert.region?.name }} {{ advert.address }}
               </p>
-              <div class="flex items-center justify-center">
+              <div class="flex items-center justify-center p-2">
                 <img
                   src="https://inweb.ua/blog/wp-content/uploads/2020/09/vstavte-etot-kod-na-svoyu-html-stranitsu-ili-vidzhet.jpg"
                   alt=""

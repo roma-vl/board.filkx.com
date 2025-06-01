@@ -32,9 +32,9 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
     </template>
 
     <template #content>
-      <div class="flex items-center justify-center bg-gray-100">
+      <div class="flex items-center justify-center">
         <div
-          class="w-full max-w-sm rounded-lg bg-white p-3 drop-shadow-xl divide-y divide-gray-200"
+          class="w-full max-w-sm rounded-lg bg-white p-3 drop-shadow-xl divide-y divide-gray-200 dark:bg-gray-700 shadow-md"
         >
           <div
             aria-label="header"
@@ -52,7 +52,7 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
               <div class="space-y-2 flex flex-col flex-1 truncate">
                 <div class="font-medium relative text-xl leading-tight text-gray-900">
                   <span class="flex">
-                    <span class="truncate relative pr-8">
+                    <span class="truncate relative pr-8 dark:text-gray-200">
                       {{ $page.props.auth?.user?.name }}
                       <span
                         aria-label="verified"
@@ -63,7 +63,9 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
                     </span>
                   </span>
                 </div>
-                <p class="font-normal text-base leading-tight text-gray-500 truncate">
+                <p
+                  class="font-normal text-base leading-tight text-gray-500 truncate dark:text-gray-200"
+                >
                   {{ $page.props.auth?.user?.email }}
                 </p>
               </div>
@@ -79,37 +81,37 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
                 v-if="$page.props.auth?.user"
                 v-can="'admin'"
                 :href="route('admin.index')"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <CommandLineIcon /> <span>{{ $t('Admin Panel') }}</span>
               </a>
               <a
                 :href="route('account.adverts.index')"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <GuideIcon /> <span> {{ $t('Adverts') }}</span>
               </a>
               <a
                 :href="route('account.chats.index')"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <IntegrationIcon /> <span> {{ $t('chat.title') }}</span>
               </a>
               <a
                 :href="route('account.profile.index')"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <AccountIcon /> <span>{{ $t('Profile') }}</span>
               </a>
               <a
                 :href="route('account.profile.settings')"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <SettingsIcon /> <span>{{ $t('Settings') }}</span>
               </a>
               <a
                 href="/"
-                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+                class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
               >
                 <HelperCenterIcon /> <span>{{ $t('Helper Center') }}</span>
               </a>
@@ -139,7 +141,7 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
               :href="route('logout')"
               method="post"
               type="button"
-              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
             >
               <LogoutIcon /> <span> {{ $t('logout') }}</span>
             </Link>
@@ -152,7 +154,7 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
             <Link
               :href="route('login')"
               type="button"
-              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md"
+              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
             >
               <LogoutIcon /> <span>{{ $t('login') }}</span>
             </Link>

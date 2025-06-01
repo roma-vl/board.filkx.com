@@ -66,7 +66,9 @@ console.log(props.banner);
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
-        <div class="flex justify-between gap-2 mb-6 bg-white p-3">
+        <div
+          class="flex justify-between gap-2 mb-6 bg-white p-3 dark:bg-gray-700 rounded-md shadow-md"
+        >
           <div class="flex flex-row gap-2">
             <a
               :href="route('account.banners.edit', props.banner.id)"
@@ -147,7 +149,7 @@ console.log(props.banner);
         </div>
         <div class="flex gap-6">
           <div class="w-2/3">
-            <div class="bg-white rounded-lg shadow p-3">
+            <div class="bg-white rounded-lg shadow p-3 dark:bg-gray-700">
               <div class="w-full h-[600px] flex justify-center items-center">
                 <img
                   :src="getFullPathForImage(banner.file)"
@@ -159,11 +161,11 @@ console.log(props.banner);
           </div>
 
           <div class="w-1/3">
-            <div class="rounded-lg shadow p-3 bg-white">
-              <p class="mt-4 text-gray-800 text-sm">
+            <div class="rounded-lg shadow p-3 bg-white dark:bg-gray-700">
+              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
                 {{ $t('published') }} {{ getDateFormatFromLocale(banner.created_at) }}
               </p>
-              <h1 class="text-2xl font-bold text-gray-900">
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-200">
                 {{ banner.name }}
               </h1>
               <div class="mt-4 flex flex-row items-center">

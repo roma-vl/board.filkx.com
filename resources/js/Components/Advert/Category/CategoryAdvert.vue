@@ -24,7 +24,7 @@ const toggleViewMode = () => {
   >
     <div class="flex justify-between items-center mb-6">
       <div class="flex items-center gap-4">
-        <h2 class="text-2xl font-bold text-gray-800">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300">
           🔍 {{ $t('found') }} <span class="text-indigo-600">{{ adverts.total }}</span>
           {{ $t('adverts') }}
         </h2>
@@ -33,8 +33,8 @@ const toggleViewMode = () => {
             :class="[
               'p-2 rounded-xl shadow-md transition-all duration-300 border',
               viewMode === 'grid'
-                ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white border-none shadow-lg scale-105'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105',
+                ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white border-none shadow-lg scale-105 '
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-900 dark:text-gray-100',
             ]"
             title="Сітка"
             @click="toggleViewMode"
@@ -59,7 +59,7 @@ const toggleViewMode = () => {
               'p-2 rounded-xl shadow-md transition-all duration-300 border',
               viewMode === 'list'
                 ? 'bg-gradient-to-br from-blue-600 to-indigo-700 text-white border-none shadow-lg scale-105'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105',
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border-gray-300 hover:scale-105 dark:bg-gray-800 dark:border-gray-900 dark:text-gray-100',
             ]"
             title="Список"
             @click="toggleViewMode"
@@ -81,7 +81,7 @@ const toggleViewMode = () => {
           </button>
         </div>
       </div>
-      <div class="text-sm text-gray-500 italic">
+      <div class="text-sm text-gray-500 italic dark:text-gray-300">
         {{ $t('page') }} {{ adverts.page }} {{ $t('of') }} {{ adverts.last_page }}
       </div>
     </div>

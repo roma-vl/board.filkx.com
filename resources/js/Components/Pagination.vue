@@ -29,8 +29,10 @@ const sortField = props.sortField ? '&sort_by=' + props.sortField : '';
 const sortOrder = props.sortOrder ? '&sort_order=' + props.sortOrder : '';
 const page = localStorage.getItem('perPage');
 const perPage = page ? '&per_page=' + page : '';
-const changePage = (url) => {
+const changePage = (url, active) => {
+  if (active) return false;
   const currentPath = window.location.pathname;
+
   let prefix = '';
   if (currentPath.indexOf('/list') === 0) {
     prefix = 'list';
@@ -45,7 +47,7 @@ const changePage = (url) => {
 
 <template>
   <div class="pr-2 flex flex-row mb-2">
-    <p class="p-2 text-gray-600 font-medium">
+    <p class="p-2 text-gray-600 font-medium dark:text-gray-200">
       {{ $t('total') }} : {{ pagination.total }}
     </p>
   </div>
@@ -56,7 +58,7 @@ const changePage = (url) => {
     >
       <button
         :disabled="!pagination.links[0].url"
-        class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm rounded-md py-2 px-4 bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none"
+        class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm rounded-md py-2 px-4 bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none dark:text-gray-200 dark:hover:bg-gray-800"
         @click="changePage(pagination.links[0].url)"
       >
         <ArrowLeftIcon />
@@ -69,18 +71,18 @@ const changePage = (url) => {
         :disabled="!link.url"
         class="inline-grid place-items-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm min-w-[38px] min-h-[38px] rounded-md"
         :class="{
-          'bg-stone-800 border-stone-800 text-stone-50 hover:bg-stone-700 hover:border-stone-700 shadow-sm hover:shadow-md':
+          'bg-gray-800 border-gray-800 text-gray-50 hover:bg-gray-700 hover:border-gray-700 shadow-sm hover:shadow-md ':
             link.active,
-          'bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none':
+          'bg-transparent border-transparent text-gray-800 hover:bg-gray-800/5 hover:border-gray-800/5 shadow-none hover:shadow-none dark:text-gray-200 dark:hover:bg-gray-800':
             !link.active,
         }"
-        @click="changePage(link.url)"
+        @click="changePage(link.url, link.active)"
         v-html="link.label"
       />
       <!-- eslint-enable vue/no-v-html -->
       <button
         :disabled="!pagination.links[pagination.links.length - 1].url"
-        class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm rounded-md py-2 px-4 bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none"
+        class="inline-flex items-center justify-center border align-middle select-none font-sans font-medium text-center transition-all duration-300 ease-in disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed focus:shadow-none text-sm rounded-md py-2 px-4 bg-transparent border-transparent text-stone-800 hover:bg-stone-800/5 hover:border-stone-800/5 shadow-none hover:shadow-none dark:text-gray-200 dark:hover:bg-gray-800"
         @click="changePage(pagination.links[pagination.links.length - 1].url)"
       >
         {{ pagination.links[pagination.links.length - 1].label }}

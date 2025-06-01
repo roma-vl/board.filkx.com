@@ -57,7 +57,9 @@ onMounted(() => {
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3 min-h-[400px]">
+        <div
+          class="overflow-hidden bg-white sm:rounded-lg p-3 min-h-[400px] dark:bg-gray-700 rounded-md shadow-md"
+        >
           <div class="flex items-center p-3">
             <h2 class="text-2xl font-bold">
               {{ t('Verify Phone Number') }}
@@ -74,7 +76,7 @@ onMounted(() => {
                   :key="index"
                   ref="inputs"
                   v-model="token[index]"
-                  class="w-14 h-16 text-center text-xl border border-gray-300 rounded-md mx-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  class="w-14 h-16 text-center text-xl border border-gray-300 rounded-md mx-1 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-800 dark:bg-gray-800 shadow-md"
                   maxlength="1"
                   @input="handleInput(index, $event)"
                   @keydown="handleKeydown(index, $event)"

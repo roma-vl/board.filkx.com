@@ -33,7 +33,7 @@ import NotificationIcon from '@/Components/Icon/NotificationIcon.vue';
       >
         <div
           role="menuitem"
-          class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300 active:bg-gray-300 active:border-gray-800 dark:text-white"
+          class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all dark:hover:bg-gray-800 hover:border-gray-300 active:bg-gray-300 active:border-gray-800 dark:text-white"
         >
           <img
             alt="tania andrew"
@@ -69,7 +69,7 @@ import NotificationIcon from '@/Components/Icon/NotificationIcon.vue';
           </div>
         </div>
         <div
-          class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all hover:bg-gray-500/10 hover:border-gray-300 active:bg-gray-300 active:border-gray-800"
+          class="flex w-full cursor-pointer select-none items-center gap-4 rounded-md px-3 py-2 pr-8 pl-2 text-start leading-tight outline-none transition-all dark:hover:bg-gray-800 hover:border-gray-300 active:bg-gray-300 active:border-gray-800"
         >
           <img
             alt="natali craig"

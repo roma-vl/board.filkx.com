@@ -33,14 +33,12 @@ const generateLocationLink = (index, slug = null) => {
 <template>
   <div
     v-if="categories.length || locations.length"
-    class="bg-white rounded-lg shadow p-3"
+    class="bg-white rounded-lg shadow p-3 dark:bg-gray-800"
   >
     <a
-      class="text-gray-400 underline hover:text-gray-700 mr-1"
+      class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
       :href="route('main')"
-    >{{
-      $t('main')
-    }}</a>
+    >{{ $t('main') }}</a>
     <template v-if="categories.length">
       <span
         v-for="(category, index) in categories"
@@ -49,7 +47,7 @@ const generateLocationLink = (index, slug = null) => {
         <span v-if="index !== categories.length - 1">
           <span class="text-gray-400 mr-1">/</span>
           <a
-            class="text-gray-400 underline hover:text-gray-700 mr-1"
+            class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
             :href="generateCategoryLink(index)"
           >{{ category.name }}</a>
         </span>
@@ -58,7 +56,7 @@ const generateLocationLink = (index, slug = null) => {
           class="text-gray-700"
         >
           <span class="text-gray-400 mr-1">/</span>
-          <span>{{ category.name }}</span>
+          <span class="dark:text-gray-500">{{ category.name }}</span>
         </span>
       </span>
     </template>
@@ -72,26 +70,26 @@ const generateLocationLink = (index, slug = null) => {
           <span class="text-gray-400 mr-1">/</span>
           <a
             v-if="categories.length"
-            class="text-gray-400 underline hover:text-gray-700 mr-1"
+            class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
             :href="generateLocationLink(index, categories[categories.length - 1].slug)"
           >
             {{ categories[categories.length - 1].name }} - {{ location.name }}</a>
           <a
             v-if="!categories.length"
-            class="text-gray-400 underline hover:text-gray-700 mr-1"
+            class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
             :href="generateLocationLink(index)"
           >
             {{ location.name }}</a>
         </span>
 
         <span v-if="categories.length && index === locations.length - 1">
-          <span class="text-gray-400 mr-1">/</span>
+          <span class="text-gray-400 mr-1 dark:text-gray-300">/</span>
           <span class="text-gray-700">{{ categories[categories.length - 1].name }} - {{ location.name }}
           </span>
         </span>
         <span v-if="!categories.length && index === locations.length - 1">
           <span class="text-gray-400 mr-1">/</span>
-          <span class="text-gray-700">{{ location.name }} </span>
+          <span class="text-gray-700 dark:text-gray-300">{{ location.name }} </span>
         </span>
       </span>
     </template>

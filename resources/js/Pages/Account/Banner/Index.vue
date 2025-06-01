@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
-import AdvertList from '@/Components/Advert/Banner/AdvertList.vue';
+import BannerList from '@/Pages/Account/Banner/Partials/BannerList.vue';
 
 const banners = usePage().props.banners;
 
@@ -18,7 +18,9 @@ const routes = {
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
+        <div
+          class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
+        >
           <ProfileMenu :active-tab="'account.banners.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
@@ -34,7 +36,7 @@ const routes = {
               </a>
             </div>
 
-            <AdvertList
+            <BannerList
               :banners="banners"
               :routes="routes"
             />

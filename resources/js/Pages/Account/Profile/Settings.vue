@@ -17,22 +17,22 @@ const { t } = useI18n();
   <AuthenticatedLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
+        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3 dark:bg-gray-800">
           <ProfileMenu :active-tab="'account.profile.settings'" />
           <div class="mx-auto max-w-7xl">
-            <div class="bg-white p-4 sm:rounded-lg sm:p-8">
+            <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
               <UpdateProfileInformationForm class="max-w-xl" />
             </div>
 
-            <div class="bg-white p-4 sm:rounded-lg sm:p-8">
+            <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
               <UpdateProfilePhoneForm class="max-w-xl" />
             </div>
 
-            <div class="bg-white p-4 sm:rounded-lg sm:p-8">
+            <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
               <UpdatePasswordForm class="max-w-xl" />
             </div>
 
-            <div class="bg-white p-4 sm:rounded-lg sm:p-8">
+            <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
               <DeleteUserForm class="max-w-xl" />
             </div>
           </div>

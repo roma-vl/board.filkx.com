@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import ArrowRightIcon from '@/Components/Icon/ArrowRightIcon.vue';
+import ArrowLeftIcon from '@/Components/Icon/ArrowLeftIcon.vue';
 
 const props = defineProps({
   category: {
@@ -23,25 +25,25 @@ function select(category) {
 <template>
   <div>
     <div
-      class="flex justify-between items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+      class="flex justify-between items-center px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800"
       @click="toggleChildren"
     >
-      <span @click.stop="select(category)">{{ category.name }}</span>
-      <span v-if="category.children?.length">
-        <svg
-          class="w-3 h-3 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            :class="{ 'rotate-90': isOpen }"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
+      <span
+        class="w-full"
+        @click.stop="select(category)"
+      >{{ category.name }}</span>
+      <span
+        v-if="category.children?.length"
+        class=""
+      >
+        <ArrowLeftIcon
+          v-if="isOpen"
+          class="w-6 h-6 ml-2 rounded dark:hover:bg-gray-700"
+        />
+        <ArrowRightIcon
+          v-else
+          class="w-6 h-6 ml-2 rounded dark:hover:bg-gray-700"
+        />
       </span>
     </div>
 

@@ -31,7 +31,7 @@ const toggleLike = (advert) => {
 
 <template>
   <div
-    class="flex bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300"
+    class="flex bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-all duration-300 dark:bg-gray-800 dark:border-gray-900"
   >
     <img
       class="object-cover w-48 h-48 hover:scale-105 transition-transform duration-300"
@@ -41,7 +41,7 @@ const toggleLike = (advert) => {
     <div class="p-5 flex-1 space-y-2">
       <div class="flex justify-between items-start">
         <h3
-          class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200"
+          class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200 dark:text-gray-200 dark:hover:text-indigo-500"
         >
           {{ advert.title }}
         </h3>
@@ -49,13 +49,15 @@ const toggleLike = (advert) => {
           {{ advert.price }} {{ advert.currency }} грн.
         </span>
       </div>
-      <div class="text-sm text-gray-500">
+      <div class="text-sm text-gray-500 dark:text-gray-400">
         {{ advert.region.name }} - {{ getDateFormatFromLocale(advert.created_at) }}
       </div>
-      <p class="text-gray-700 text-sm">
+      <p class="text-gray-700 text-sm dark:text-gray-300">
         {{ truncateContent(advert.content, 100) }}
       </p>
-      <div class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100">
+      <div
+        class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100 dark:border-gray-700"
+      >
         <button @click="toggleLike(advert)">
           <span :class="['inline-block', heartAnimate ? 'heart-animate' : '']">
             <HeartIcon
@@ -70,7 +72,7 @@ const toggleLike = (advert) => {
         </button>
         <Link
           :href="route('adverts.show', advert.id)"
-          class="text-blue-600 hover:underline"
+          class="text-blue-600 hover:underline dark:text-blue-500"
         >
           {{ $t('more.details') }}
         </Link>

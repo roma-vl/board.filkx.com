@@ -19,7 +19,7 @@ const remove = (ticketId) => {
 </script>
 
 <template>
-  <div class="bg-white rounded shadow overflow-hidden mb-4">
+  <div class="bg-white rounded shadow overflow-hidden mb-4 dark:bg-gray-800">
     <div
       v-if="props.tickets.data.length"
       class="divide-y divide-gray-100"
@@ -27,7 +27,7 @@ const remove = (ticketId) => {
       <div
         v-for="ticket in tickets.data"
         :key="ticket.id"
-        class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out"
+        class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out dark:hover:bg-gray-700/50"
       >
         <div class="flex justify-between gap-6 min-h-36">
           <div class="flex-grow flex flex-col justify-between">
@@ -37,20 +37,20 @@ const remove = (ticketId) => {
                 class="block group"
               >
                 <h3
-                  class="text-2xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200"
+                  class="text-2xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
                 >
                   {{ ticket.subject }}
                 </h3>
               </a>
-              <p>
+              <p class="dark:text-gray-300">
                 {{ ticket.content }}
               </p>
             </div>
             <div class="flex items-center gap-6 text-sm mt-4">
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-200">
                 {{ $t('Created At') }}: {{ getDateFormatFromLocale(ticket.created_at) }}
               </p>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-200">
                 {{ $t('Updated At') }}: {{ getDateFormatFromLocale(ticket.updated_at) }}
               </p>
             </div>

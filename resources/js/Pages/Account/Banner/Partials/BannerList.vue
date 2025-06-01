@@ -18,7 +18,7 @@ const remove = (bannerId) => {
 </script>
 
 <template>
-  <div class="bg-white rounded shadow overflow-hidden mb-4">
+  <div class="bg-white rounded-md overflow-hidden mb-4 dark:bg-gray-800">
     <div
       v-if="props.banners.data.length"
       class="divide-y divide-gray-100"
@@ -26,7 +26,7 @@ const remove = (bannerId) => {
       <div
         v-for="banner in banners.data"
         :key="banner.id"
-        class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out"
+        class="p-4 hover:bg-gray-100 transition duration-150 ease-in-out dark:hover:bg-gray-900"
       >
         <div class="flex justify-between gap-6 min-h-36">
           <div class="w-48">
@@ -43,14 +43,14 @@ const remove = (bannerId) => {
                 class="block group"
               >
                 <h3
-                  class="text-xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200"
+                  class="text-xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
                 >
                   {{ banner.name }}
                 </h3>
               </a>
             </div>
             <div class="flex items-center gap-6 text-sm mt-4">
-              <span class="flex items-center gap-2 text-gray-600">
+              <span class="flex items-center gap-2 text-gray-600 dark:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5"
@@ -66,7 +66,7 @@ const remove = (bannerId) => {
                 </svg>
                 {{ $t('limit') }} : {{ banner.limit }}
               </span>
-              <span class="flex items-center gap-2 text-gray-600">
+              <span class="flex items-center gap-2 text-gray-600 dark:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5"
@@ -77,7 +77,7 @@ const remove = (bannerId) => {
                 </svg>
                 {{ $t('clicks') }}: {{ banner.clicks ? banner.clicks : ' 0 ' }}
               </span>
-              <p class="text-sm text-gray-500">
+              <p class="text-sm text-gray-500 dark:text-gray-200">
                 {{ $t('Created At') }}: {{ getDateFormatFromLocale(banner.created_at) }}
               </p>
             </div>
