@@ -67,7 +67,7 @@ const updateSorting = (field) => {
 </script>
 
 <template>
-  <div class="grid-container shadow p-2 bg-white rounded-lg">
+  <div class="grid-container shadow p-2 bg-white rounded-lg dark:bg-gray-700">
     <DataTableHeader
       v-model:search-query="searchQuery"
       v-model:per-page="perPage"

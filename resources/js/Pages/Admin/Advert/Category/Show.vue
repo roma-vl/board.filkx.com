@@ -73,11 +73,13 @@ const deleteCategory = (attributeId) => {
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
+        <div
+          class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px] dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+        >
           <h1 class="text-2xl font-bold">
             {{ $t('category') }}: {{ props.category.name }}
           </h1>
-          <p class="text-gray-600">
+          <p class="text-gray-600 dark:text-gray-200">
             {{ $t('slug') }}: {{ props.category.slug }}
           </p>
 
@@ -90,22 +92,22 @@ const deleteCategory = (attributeId) => {
             </button>
           </div>
           <p>{{ $t('parents') }}</p>
-          <table class="w-full mt-4 border-collapse border border-gray-200">
+          <table class="w-full mt-4 border-collapse border border-gray-200 dark:border-gray-900">
             <thead>
-              <tr class="bg-gray-100">
-                <th class="border p-2">
+              <tr class="bg-gray-100 dark:bg-gray-900">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('ID') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('name') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('type') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('required') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('sort') }}
                 </th>
               </tr>
@@ -114,20 +116,21 @@ const deleteCategory = (attributeId) => {
               <tr
                 v-for="attr in parentAttributes"
                 :key="attr.id"
+                class="dark:bg-gray-800 dark:hover:bg-gray-700"
               >
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.id }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.name }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.type }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.required ? 'Так' : 'Ні' }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.sort }}
                 </td>
               </tr>
@@ -135,25 +138,25 @@ const deleteCategory = (attributeId) => {
           </table>
 
           <p>{{ $t('own') }}</p>
-          <table class="w-full mt-4 border-collapse border border-gray-200">
+          <table class="w-full mt-4 border-collapse border border-gray-200 dark:border-gray-900">
             <thead>
-              <tr class="bg-gray-100">
-                <th class="border p-2">
+              <tr class="bg-gray-100 dark:bg-gray-900">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('ID') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('name') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   Тип
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('required') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('sort') }}
                 </th>
-                <th class="border p-2">
+                <th class="border dark:border-gray-700 p-2">
                   {{ $t('actions') }}
                 </th>
               </tr>
@@ -162,23 +165,24 @@ const deleteCategory = (attributeId) => {
               <tr
                 v-for="attr in attributes"
                 :key="attr.id"
+                class="dark:bg-gray-800 dark:hover:bg-gray-700"
               >
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.id }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.name }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.type }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.required ? $t('yes') : $t('no') }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   {{ attr.sort }}
                 </td>
-                <td class="border p-2">
+                <td class="border dark:border-gray-700 p-2">
                   <button
                     class="text-blue-500 pr-2 hover:underline"
                     @click.stop="openEditModal(attr.id)"

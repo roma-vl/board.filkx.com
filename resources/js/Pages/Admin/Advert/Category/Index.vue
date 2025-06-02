@@ -27,7 +27,7 @@ const refreshCategories = () => {
 <template>
   <Head title="Категорії" />
   <AdminLayout>
-    <div class="py-2">
+    <div class="py-4 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="mb-2 flex justify-end">
           <button
@@ -37,7 +37,7 @@ const refreshCategories = () => {
             + {{ t('add.category') }}
           </button>
         </div>
-        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
+        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px] dark:bg-gray-700">
           <ul class="space-y-2">
             <CategoryItem
               v-for="category in categories"

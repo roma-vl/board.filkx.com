@@ -34,29 +34,11 @@ const routes = [
   { key: 'search', value: 'admin.adverts.moderation.search' },
 ];
 
-const deleteUser = (id) => {
-  if (confirm('Ви впевнені, що хочете видалити цього користувача?')) {
-    router.delete(route('admin.users.destroy', id), {
-      preserveScroll: true,
-      onSuccess: () => router.replace(route('admin.users.index')),
-    });
-  }
-};
-
-const restoreUser = (id) => {
-  router.put(
-    route('admin.users.restore', id),
-    {},
-    {
-      preserveScroll: true,
-      onSuccess: () => router.replace(route('admin.users.index')),
-    }
-  );
+const restoreAdvert = (id) => {
+  router.put(route('admin.adverts.actions.moderation.restore', id));
 };
 const activateAdvert = async (advert) => {
-  router.post(route('admin.adverts.actions.moderation.active', { advert: advert }), {
-    onSuccess: () => router.replace(route('admin.users.index')),
-  });
+  router.post(route('admin.adverts.actions.moderation.active', { advert: advert }));
 };
 
 const rejectAdvert = async (id) => {
@@ -66,7 +48,7 @@ const rejectAdvert = async (id) => {
 
 const deleteAdvert = (id) => {
   if (confirm('Ви впевнені, що хочете видалити оголошення?')) {
-    router.delete(route('account.adverts.destroy', id));
+    router.delete(route('admin.adverts.actions.moderation.destroy', id));
   }
 };
 </script>
@@ -74,10 +56,12 @@ const deleteAdvert = (id) => {
 <template>
   <Head :title="t('Adverts') + ' ' + t('for.moderation')" />
   <AdminLayout>
-    <div class="py-2">
+    <div class="py-4 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
-          {{ t('Adverts') + ' ' + t('for.moderation') }}
+        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px] dark:bg-gray-800">
+          <h2 class="dark:text-gray-200 text-[20px] pb-4 pl-2 bold">
+            {{ t('Adverts') + ' ' + t('for.moderation') }}
+          </h2>
           <Grid
             :items="adverts_moderation"
             :pagination="pagination"
@@ -142,7 +126,7 @@ const deleteAdvert = (id) => {
                   <a
                     v-else
                     class="text-green-600 hover:text-green-900 cursor-pointer"
-                    @click.prevent="restoreUser(row.id)"
+                    @click.prevent="restoreAdvert(row.id)"
                   >
                     <RefreshIcon />
                   </a>

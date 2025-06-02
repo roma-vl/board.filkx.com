@@ -38,8 +38,8 @@ const formattedPages = computed(() => getPagesOptions(pages));
 <template>
   <Head :title="$t('new.page')" />
 
-  <div class="mx-auto p-6 bg-white shadow rounded">
-    <h1 class="text-2xl font-bold mb-6">
+  <div class="mx-auto p-6 bg-white shadow rounded dark:bg-gray-800 dark:text-gray-200">
+    <h1 class="text-2xl font-bold mb-6 dark:text-gray-200">
       {{ $t('new.page') }}
     </h1>
 
@@ -48,11 +48,13 @@ const formattedPages = computed(() => getPagesOptions(pages));
       @submit.prevent="submit"
     >
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('title') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('title')
+        }}</label>
         <input
           v-model="form.title"
           type="text"
-          class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
+          class="w-full p-2 border border-gray-300 dark:border-gray-900 rounded focus:ring focus:border-blue-300 dark:bg-gray-900"
         >
         <div
           v-if="form.errors.title"
@@ -63,11 +65,13 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('menu.title') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('menu.title')
+        }}</label>
         <input
           v-model="form.menu_title"
           type="text"
-          class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
+          class="w-full p-2 border border-gray-300 dark:border-gray-900 rounded focus:ring focus:border-blue-300 dark:bg-gray-900"
         >
         <div
           v-if="form.errors.menu_title"
@@ -78,11 +82,13 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('slug') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('slug')
+        }}</label>
         <input
           v-model="form.slug"
           type="text"
-          class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
+          class="w-full p-2 border border-gray-300 dark:border-gray-900 rounded focus:ring focus:border-blue-300 dark:bg-gray-900"
         >
         <div
           v-if="form.errors.slug"
@@ -93,10 +99,12 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('parent.page') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('parent.page')
+        }}</label>
         <select
           v-model="form.parent_id"
-          class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
+          class="w-full p-2 border border-gray-300 dark:border-gray-900 rounded focus:ring focus:border-blue-300 dark:bg-gray-900"
         >
           <option :value="null">
             — {{ $t('without.parent.page') }}
@@ -118,11 +126,13 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('description') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('description')
+        }}</label>
         <textarea
           v-model="form.description"
           rows="3"
-          class="w-full p-2 border border-gray-300 rounded focus:ring focus:border-blue-300"
+          class="w-full p-2 border border-gray-300 rounded dark:border-gray-900 focus:ring focus:border-blue-300 dark:bg-gray-900"
         />
         <div
           v-if="form.errors.description"
@@ -133,7 +143,9 @@ const formattedPages = computed(() => getPagesOptions(pages));
       </div>
 
       <div>
-        <label class="block text-gray-700 font-medium mb-1">{{ $t('content') }}</label>
+        <label class="block text-gray-700 font-medium mb-1 dark:text-gray-200">{{
+          $t('content')
+        }}</label>
         <Editor v-model="form.content" />
         <div
           v-if="form.errors.content"

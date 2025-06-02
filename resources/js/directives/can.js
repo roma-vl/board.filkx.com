@@ -7,9 +7,7 @@ export default {
     const can = page.props?.can || [];
     const permissions = page.props?.auth?.permissions || [];
 
-    // Об'єднуємо унікальні значення
     const allPermissions = [...new Set([...can, ...permissions])];
-    console.log(can, 'allPermissions');
 
     const value = binding.value;
 

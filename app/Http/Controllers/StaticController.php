@@ -11,4 +11,9 @@ class StaticController extends Controller
     {
         return Inertia::render('Static/Contact');
     }
+
+    public function faq(): Response
+    {
+        return Inertia::render('Static/FAQ');
+    }
 }

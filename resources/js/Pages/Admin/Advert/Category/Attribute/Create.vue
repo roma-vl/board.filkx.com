@@ -36,28 +36,31 @@ const submit = () => {
 
 <template>
   <Head :title="$t('add.attribute')" />
-  <div class="p-6">
+  <div class="p-6 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
     <h1 class="text-2xl font-bold mb-4">
       {{ $t('add.attribute') }}
     </h1>
     <form @submit.prevent="submit">
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('title') }}</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('title') }}</label>
         <input
           v-model="form.name"
           type="text"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
           required
         >
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('type') }}</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('type') }}</label>
         <select
           v-model="form.type"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
         >
-          <option :value="null">
+          <option
+            :value="null"
+            class="dark:text-gray-200"
+          >
             {{ $t('select.type') }}
           </option>
           <option
@@ -75,14 +78,14 @@ const submit = () => {
           <input
             v-model="form.is_required"
             type="checkbox"
-            class="rounded"
+            class="rounded dark:bg-gray-900"
           >
           <span>{{ $t('required') }}</span>
         </label>
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('variants') }} ( {{ $t('one.per.line') }} )</label>
+        <label class="block text-gray-700 dark:text-gray-100">{{ $t('variants') }} ( {{ $t('one.per.line') }} )</label>
         <TagInput v-model="form.variants" />
       </div>
 
@@ -91,7 +94,7 @@ const submit = () => {
         <input
           v-model="form.sort"
           type="number"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
           required
         >
       </div>

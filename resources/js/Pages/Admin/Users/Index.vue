@@ -109,7 +109,7 @@ const restoreUser = (id) => {
   <Head title="Users" />
   <AdminLayout>
     <div class="py-2">
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 rounded-md pt-2 dark:bg-gray-900">
         <div class="mb-2 flex justify-end">
           <button
             v-can="'user.create'"

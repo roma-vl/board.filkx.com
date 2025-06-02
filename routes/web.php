@@ -134,6 +134,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/moderation', [AdvertsController::class, 'moderation'])->name('actions.moderation');
             Route::post('/moderation/{advert}/active', [AdvertsController::class, 'active'])->name('actions.moderation.active');
             Route::post('/moderation/{advert}/reject', [AdvertsController::class, 'reject'])->name('actions.moderation.reject');
+            Route::delete('/moderation/{advert}/destroy', [AdvertsController::class, 'destroy'])->name('actions.moderation.destroy');
+            Route::put('/moderation/{advert}/restore', [AdvertsController::class, 'restore'])->name('actions.moderation.restore');
 
             Route::get('/category/{category}/attributes/create', [AttributeController::class, 'create'])->name('category.attributes.create');
             Route::post('/category/{category}/attributes/store', [AttributeController::class, 'store'])->name('category.attributes.store');
@@ -196,6 +198,7 @@ require __DIR__.'/auth.php';
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 Route::get('/contact', [StaticController::class, 'contact'])->name('contact');
+Route::get('/faq', [StaticController::class, 'faq'])->name('faq');
 Route::get('/page/{page_path}', [PageController::class, 'show'])->name('page')->where('page_path', '.+');
 Route::get('/list/{urlPath?}', [IndexController::class, 'searchAdvert'])
     ->where('urlPath', '[a-z0-9-\/]+')->name('list.advert');

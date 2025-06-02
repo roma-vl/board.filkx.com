@@ -89,7 +89,7 @@ const moveToBottom = (id) => {
 <template>
   <li>
     <div
-      class="flex justify-between items-center bg-white hover:bg-gray-100 p-3 mb-2 rounded cursor-pointer shadow border-l-[3px] border-gray-300"
+      class="flex justify-between items-center bg-white hover:bg-gray-100 p-3 mb-2 rounded cursor-pointer shadow border-l-[3px] border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
     >
       <span class="font-semibold">{{ props.prefix }}{{ props.category.name }}</span>
       <div class="flex items-right">

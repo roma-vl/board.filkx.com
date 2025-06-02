@@ -127,7 +127,7 @@ loadCountries();
 <template>
   <Head :title="t('locations')" />
   <AdminLayout>
-    <div class="py-2">
+    <div class="py-4 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="mb-4 flex justify-end">
           <button
@@ -138,14 +138,16 @@ loadCountries();
             + {{ t('add.country') }}
           </button>
         </div>
-        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
+        <div
+          class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px] dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+        >
           <ul class="space-y-2">
             <li
               v-for="country in countries"
               :key="country.id"
             >
               <div
-                class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-4 mb-2 rounded cursor-pointer shadow-md"
+                class="flex justify-between items-center bg-white-100 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 p-4 mb-2 rounded cursor-pointer shadow-md"
                 @click="loadRegions(country.id)"
               >
                 <span class="font-semibold ml-3">
@@ -178,7 +180,7 @@ loadCountries();
                   class="pt-1"
                 >
                   <div
-                    class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-3 mb-2 rounded cursor-pointer shadow-md"
+                    class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-3 mb-2 rounded cursor-pointer shadow-md dark:bg-gray-800 dark:hover:bg-gray-900"
                     @click="loadAreas(region.id)"
                   >
                     <span class="ml-3"> {{ region.name }}</span>
@@ -208,7 +210,7 @@ loadCountries();
                       class="pt-1"
                     >
                       <div
-                        class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-2 ml-3 mb-2 rounded cursor-pointer shadow-md"
+                        class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-2 ml-3 mb-2 rounded cursor-pointer shadow-md dark:bg-gray-800 dark:hover:bg-gray-900"
                         @click="loadVillages(area.id)"
                       >
                         <span class="ml-3"> {{ area.name }}</span>
@@ -238,7 +240,7 @@ loadCountries();
                           class="pt-1"
                         >
                           <div
-                            class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-2 pl-3 mb-2 rounded cursor-pointer shadow-md"
+                            class="flex justify-between items-center bg-white-100 hover:bg-gray-100 p-2 pl-3 mb-2 rounded cursor-pointer shadow-md dark:bg-gray-800 dark:hover:bg-gray-900"
                           >
                             <span class="ml-3"> {{ village.name }}</span>
                             <button
@@ -261,14 +263,16 @@ loadCountries();
             v-if="modalOpen"
             class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
           >
-            <div class="bg-white p-6 rounded shadow-lg">
+            <div
+              class="bg-white p-6 rounded shadow-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200"
+            >
               <h2 class="text-xl font-bold mb-4">
                 {{ modalInfo }}
               </h2>
               <input
                 v-model="form.name"
                 :placeholder="t('title')"
-                class="border p-2 w-full mb-4"
+                class="border p-2 w-full mb-4 dark:bg-gray-900 dark:border-gray-800 rounded-md"
               >
               <div class="flex gap-2">
                 <button
@@ -278,7 +282,7 @@ loadCountries();
                   {{ t('Save') }}
                 </button>
                 <button
-                  class="bg-gray-500 text-white px-4 py-2 rounded"
+                  class="bg-gray-700 text-white px-4 py-2 rounded"
                   @click="closeModal"
                 >
                   {{ t('cancel') }}

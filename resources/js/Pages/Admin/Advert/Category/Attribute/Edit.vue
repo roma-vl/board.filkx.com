@@ -38,26 +38,26 @@ const submit = () => {
 
 <template>
   <Head :title="$t('edit.attribute')" />
-  <div class="p-6">
+  <div class="p-6 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
     <h1 class="text-2xl font-bold mb-4">
       {{ $t('edit.attribute') }}
     </h1>
     <form @submit.prevent="submit">
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('title') }}</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('title') }}</label>
         <input
           v-model="form.name"
           type="text"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
           required
         >
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('type') }}</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('type') }}</label>
         <select
           v-model="form.type"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
         >
           <option :value="null">
             {{ $t('select.type') }}
@@ -84,16 +84,16 @@ const submit = () => {
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('variants') }} ( {{ $t('one.per.line') }} )</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('variants') }} ( {{ $t('one.per.line') }} )</label>
         <TagInput v-model="form.variants" />
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700">{{ $t('sort') }}</label>
+        <label class="block text-gray-700 dark:text-gray-200">{{ $t('sort') }}</label>
         <input
           v-model="form.sort"
           type="number"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded dark:bg-gray-900"
           required
         >
       </div>
