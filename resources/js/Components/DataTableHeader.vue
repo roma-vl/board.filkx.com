@@ -72,13 +72,13 @@ onMounted(() => {
         ref="searchInputRef"
         v-model="searchQuery"
         type="search"
-        class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none text-gray-600 font-medium border-0"
+        class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none text-gray-600 font-medium border-0 dark:bg-gray-900 dark:text-gray-200"
         :placeholder="$t('search.button') + '...'"
       >
     </div>
     <div class="relative mr-2">
       <button
-        class="rounded-lg bg-white px-4 py-2 flex items-center shadow border-gray-300 hover:bg-gray-100"
+        class="rounded-lg bg-white px-4 py-2 flex items-center shadow border-gray-300 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200"
         @click.prevent="toggleDropdown"
       >
         <ViewColumnsIcon />
@@ -86,19 +86,29 @@ onMounted(() => {
       </button>
       <div
         v-if="isDropdownOpen"
-        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg z-10 dark:bg-gray-900 dark:text-gray-200"
       >
         <label
           v-for="heading in headings"
           :key="heading.key"
-          class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
-          :class="{ 'bg-gray-200 cursor-not-allowed hover:bg-gray-200': heading.disabled }"
+          class="flex items-center px-4 py-2"
+          :class="{
+            'bg-gray-200 dark:bg-gray-600 cursor-not-allowed  dark:hover:bg-gray-600':
+              heading.disabled,
+            'hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800 dark:bg-gray-700':
+              !heading.disabled,
+          }"
         >
           <input
             v-model="visibleColumns"
             type="checkbox"
-            class="mr-3 text-gray-800 rounded-sm cursor-pointer"
-            :class="{ 'bg-gray-200 cursor-not-allowed hover:bg-gray-200': heading.disabled }"
+            class="mr-3"
+            :class="{
+              'bg-gray-900 dark:bg-gray-600 cursor-not-allowed  dark:hover:bg-gray-600':
+                heading.disabled,
+              'hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800 text-gray-700 rounded-sm ':
+                !heading.disabled,
+            }"
             :value="heading.key"
             :disabled="heading.disabled"
           >
@@ -112,7 +122,9 @@ onMounted(() => {
         :width="'24'"
       >
         <template #trigger>
-          <button class="rounded-lg bg-white px-4 py-2 flex items-center shadow hover:bg-gray-100">
+          <button
+            class="rounded-lg bg-white px-4 py-2 flex items-center shadow hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200"
+          >
             {{ perPage }} <ArrowDownIcon />
           </button>
         </template>
@@ -120,7 +132,7 @@ onMounted(() => {
           <label
             v-for="count in perPageValues"
             :key="count"
-            class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            class="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-800"
           >
             <input
               v-model="perPage"

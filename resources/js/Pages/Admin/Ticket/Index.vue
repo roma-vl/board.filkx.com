@@ -29,10 +29,10 @@ const routes = [
   <AdminLayout>
     <div class="py-2">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3">
+        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg p-3 dark:bg-gray-900">
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
-              <h2 class="text-xl font-bold mb-4">
+              <h2 class="text-xl font-bold mb-4 dark:text-gray-50">
                 {{ t('tickets') }}
               </h2>
             </div>

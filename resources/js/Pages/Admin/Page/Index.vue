@@ -36,7 +36,7 @@ const refreshPages = () => {
             + {{ $t('new.page') }}
           </button>
         </div>
-        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px]">
+        <div class="min-w-full bg-white rounded-lg shadow p-6 min-h-[700px] dark:bg-gray-700">
           <ul class="space-y-2">
             <PageItem
               v-for="page in pages"

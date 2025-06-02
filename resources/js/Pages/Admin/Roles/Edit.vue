@@ -27,7 +27,7 @@ const submit = () => {
 </script>
 
 <template>
-  <div class="max-w-md mx-auto mt-8">
+  <div class="max-w-md mx-auto mt-8 dark:bg-gray-800 dark:text-gray-200">
     <h2 class="text-2xl font-semibold text-gray-700 text-center">
       {{ $t('edit.role') }}
     </h2>
@@ -38,14 +38,14 @@ const submit = () => {
       <div>
         <InputLabel
           for="name"
-          class="block text-sm font-medium text-gray-700"
+          class="block text-sm font-medium text-gray-700 dark:text-gray-100"
           :value="$t('name')"
         />
         <TextInput
           id="name"
           v-model="form.name"
           type="text"
-          class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200"
+          class="w-full mt-1 p-2 border-0 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-900"
           autocomplete="name"
           :placeholder="$t('role')"
         />
@@ -57,7 +57,7 @@ const submit = () => {
 
       <InputLabel
         for="is_enabled"
-        class="w-full mt-1 p-2 block text-sm font-medium text-gray-700"
+        class="w-full mt-1 p-2 block text-sm font-medium text-gray-700 dark:text-gray-100"
         :value="$t('activate')"
       />
       <input
@@ -68,7 +68,7 @@ const submit = () => {
 
       <InputLabel
         for="permissions"
-        class="block text-sm font-medium text-gray-700"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-100"
         :value="$t('permissions')"
       />
 

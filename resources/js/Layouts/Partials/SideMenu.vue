@@ -37,7 +37,7 @@ onBeforeUnmount(() => {
   <div>
     <button
       type="button"
-      class="fixed top-4 left-4 p-2 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+      class="dark:text-gray-200 dark:hover:bg-gray-900 fixed top-4 left-4 p-2 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
       @click.stop="toggleSidebar"
     >
       <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
           >
             <button
               type="button"
-              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-san s text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900"
+              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-san s text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
               @click="toggleMenu('adverts')"
             >
               <div class="grid mr-4 place-items-center">
@@ -162,7 +162,7 @@ onBeforeUnmount(() => {
               >
                 <div
                   role="button"
-                  class="justify-between hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="justify-between hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                   @click="toggleMenu('actions')"
                 >
                   <div class="grid mr-4 place-items-center">
@@ -209,7 +209,7 @@ onBeforeUnmount(() => {
                     v-can="'adverts'"
                     :href="route('admin.adverts.actions.moderation')"
                     role="button"
-                    class="dark:text-white hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                    class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                   >
                     <div class="grid mr-4 place-items-center pl-2">
                       <svg
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
                   v-can="'adverts'"
                   :href="route('admin.adverts.category.index')"
                   role="button"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -262,7 +262,7 @@ onBeforeUnmount(() => {
                   v-can="'location'"
                   :href="route('admin.locations.index')"
                   role="button"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -291,7 +291,7 @@ onBeforeUnmount(() => {
           v-can="'user.view'"
           :href="route('admin.users.index')"
           role="button"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg
@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
         <a
           :href="route('admin.tickets.index')"
           role="button"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg
@@ -339,7 +339,7 @@ onBeforeUnmount(() => {
           >
             <button
               type="button"
-              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900"
+              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
               @click="toggleMenu('manage')"
             >
               <div class="grid mr-4 place-items-center">
@@ -394,7 +394,7 @@ onBeforeUnmount(() => {
                 <Link
                   v-can="'role'"
                   :href="route('admin.roles.index')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -418,7 +418,7 @@ onBeforeUnmount(() => {
                 <Link
                   v-can="'permission'"
                   :href="route('admin.permissions.index')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -450,7 +450,7 @@ onBeforeUnmount(() => {
           >
             <button
               type="button"
-              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900"
+              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
               @click="toggleMenu('pages')"
             >
               <div class="grid mr-4 place-items-center">
@@ -505,7 +505,7 @@ onBeforeUnmount(() => {
                 <Link
                   v-can="'role'"
                   :href="route('admin.pages.index')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -526,30 +526,6 @@ onBeforeUnmount(() => {
                   </div>
                   Сторінки
                 </Link>
-                <Link
-                  v-can="'permission'"
-                  :href="route('admin.pages.create')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                >
-                  <div class="grid mr-4 place-items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="3"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                      class="w-5 h-3"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                      />
-                    </svg>
-                  </div>
-                  Додати нову
-                </Link>
               </nav>
             </div>
           </div>
@@ -562,7 +538,7 @@ onBeforeUnmount(() => {
           >
             <button
               type="button"
-              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900"
+              class="rounded-lg hover:bg-gray-200 flex items-center justify-between w-full p-3 font-sans text-xl antialiased font-semibold leading-snug text-left transition-colors border-b-0 select-none border-b-blue-gray-100 text-blue-gray-700 hover:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
               @click="toggleMenu('logs')"
             >
               <div class="grid mr-4 place-items-center">
@@ -616,7 +592,7 @@ onBeforeUnmount(() => {
               >
                 <Link
                   :href="route('admin.logs')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -639,9 +615,9 @@ onBeforeUnmount(() => {
                   </div>
                   Системні логи
                 </Link>
-                <Link
+                <a
                   :href="route('admin.activity.logs')"
-                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+                  class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
                 >
                   <div class="grid mr-4 place-items-center">
                     <svg
@@ -662,8 +638,8 @@ onBeforeUnmount(() => {
                       />
                     </svg>
                   </div>
-                  Аctivitylog логи
-                </Link>
+                  Activity log логи
+                </a>
               </nav>
             </div>
           </div>
@@ -671,7 +647,7 @@ onBeforeUnmount(() => {
         <hr class="my-2 border-blue-gray-50">
         <div
           role="button"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg
@@ -699,7 +675,7 @@ onBeforeUnmount(() => {
         </div>
         <Link
           :href="route('account.profile.settings')"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg
@@ -721,7 +697,7 @@ onBeforeUnmount(() => {
         <a
           :href="route('admin.settings.index')"
           role="button"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg
@@ -744,7 +720,7 @@ onBeforeUnmount(() => {
           :href="route('logout')"
           method="post"
           type="button"
-          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          class="hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
         >
           <div class="grid mr-4 place-items-center">
             <svg

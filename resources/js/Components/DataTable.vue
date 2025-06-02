@@ -43,13 +43,15 @@ const processedItems = computed(() => {
 </script>
 
 <template>
-  <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 border-b mb-2">
+  <table
+    class="w-full border-collapse bg-white text-left text-sm text-gray-500 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700"
+  >
     <thead class="bg-gray-50">
       <tr>
         <th
           v-for="heading in props.headings"
           :key="heading.key"
-          class="border-b px-3 py-3 text-gray-700 uppercase text-xs flex-col"
+          class="border-b px-3 py-3 text-gray-700 uppercase text-xs flex-col dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-900"
           :class="{
             'border-b bg-gray-100 border-gray-900 text-gray-900 font-bold ':
               sortField === heading.key && heading.sortable === true,
@@ -58,11 +60,11 @@ const processedItems = computed(() => {
           @click="emit('sort', heading.key)"
         >
           <div class="flex gap-2">
-            <span class="inline-flex items-center gap-1">
+            <span class="inline-flex items-center gap-1 dark:text-gray-200">
               {{ heading.value }}
             </span>
             <span
-              class="flex items-end gap-1 cursor-pointer text-gray-400 hover:text-gray-600"
+              class="flex items-end gap-1 cursor-pointer text-gray-400 hover:text-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700"
               :class="{ 'text-gray-900 font-bold': sortField === heading.key }"
             >
               <ArrowUpDownIcon
@@ -74,16 +76,18 @@ const processedItems = computed(() => {
         </th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200 border-t border-gray-100">
+    <tbody
+      class="divide-y divide-gray-200 border-t dark:divide-gray-900 border-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
+    >
       <tr
         v-for="item in processedItems"
         :key="item[uniqueKey]"
-        class="hover:bg-gray-50"
+        class="hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
       >
         <td
           v-for="heading in headings"
           :key="heading.key"
-          class="px-6 py-4 text-gray-600"
+          class="px-6 py-4 text-gray-600 dark:text-gray-200"
         >
           <slot
             :name="`column-${heading.key}`"

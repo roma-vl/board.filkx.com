@@ -38,4 +38,14 @@ class AdvertsController extends Controller
 
         return back()->with('success', __('adverts.advert_is_rejected'));
     }
+
+    public function destroy(Advert $advert): RedirectResponse
+    {
+        return back()->with('success', __('adverts.advert_is_deleted'));
+    }
+
+    public function restore(Advert $advert): RedirectResponse
+    {
+        return back()->with('success', __('adverts.advert_is_restored'));
+    }
 }

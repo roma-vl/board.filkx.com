@@ -58,7 +58,7 @@ const deletePermission = (id) => {
 <template>
   <Head :title="t('permissions')" />
   <AdminLayout>
-    <div class="py-2">
+    <div class="py-4 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="mb-2 flex justify-end">
           <button
