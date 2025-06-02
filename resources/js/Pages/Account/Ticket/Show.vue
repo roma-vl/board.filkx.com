@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { getDateFormatFromLocale } from '@/helpers.js';
 import { ref } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router, useForm } from '@inertiajs/vue3';
 const props = defineProps({
   ticket: {
     type: Object,
@@ -18,12 +18,15 @@ const props = defineProps({
   },
 });
 
-const newComment = ref('');
-
+const form = useForm({
+  message: '',
+});
 function submitComment() {
-  if (!newComment.value.trim()) return;
-  console.log('Коментар надіслано:', newComment.value);
-  newComment.value = '';
+  if (!form.message.trim()) return;
+  form.post(route('account.tickets.add.message', props.ticket.id), {
+    preserveScroll: true,
+  });
+  form.message = '';
 }
 </script>
 
@@ -97,7 +100,7 @@ function submitComment() {
                   {{ $t('leave.comment') }}
                 </p>
                 <textarea
-                  v-model="newComment"
+                  v-model="form.message"
                   rows="4"
                   class="w-full p-3 border rounded-lg focus:ring focus:ring-blue-200 focus:outline-none resize-y dark:bg-gray-800 dark:border-gray-800"
                   :placeholder="$t('enter.comment')"
