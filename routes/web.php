@@ -61,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('favorites/{advert}', [FavoriteController::class, 'remove'])->name('favorites.remove');
 
         Route::resource('tickets', TicketController::class);
-        Route::post('tickets/{ticket}/message', [TicketController::class, 'message'])->name('tickets.message');
+        Route::post('tickets/{ticket}/message', [TicketController::class, 'message'])->name('tickets.add.message');
 
         Route::prefix('/adverts')->name('adverts.')->group(function () {
             Route::get('/', [AdvertController::class, 'index'])->name('index');
