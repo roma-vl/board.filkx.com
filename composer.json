@@ -32,7 +32,7 @@
     "tightenco/ziggy": "^2.0",
     "twilio/sdk": "^8.3",
     "zircote/swagger-php": "^5.1",
-      "ext-pdo": "*"
+    "ext-pdo": "*"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "*",

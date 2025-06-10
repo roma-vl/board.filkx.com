@@ -32,9 +32,9 @@ class AuthServiceProvider extends ServiceProvider
                     });
                 }
             }
-        } catch (PDOException | QueryException $e) {
+        } catch (PDOException|QueryException $e) {
             // Не доступна БД — пропустити
-            logger()->warning('Skipping gate registration due to DB connection issue: ' . $e->getMessage());
+            logger()->warning('Skipping gate registration due to DB connection issue: '.$e->getMessage());
         }
 
         Gate::define('telescope', function (User $user) {

@@ -25,11 +25,13 @@ services:
     networks:
       - sail
     depends_on:
-      - mysql
-      - redis
-      #      - meilisearch
-      #      - mailpit
-      - elasticsearch
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      elasticsearch:
+        condition: service_started
+
   mysql:
     image: 'mysql/mysql-server:8.0'
     restart: always
