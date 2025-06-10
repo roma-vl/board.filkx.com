@@ -91,7 +91,7 @@ services:
     image: elasticsearch:8.17.3
     restart: always
     ports:
-      - "${ELASTICSEARCH_PORT:-9200}:9200"
+      - '${ELASTICSEARCH_PORT:-9200}:9200'
       - '9300:9300'
     environment:
       - discovery.type=single-node
