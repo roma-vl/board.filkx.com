@@ -4,7 +4,7 @@ services:
       context: '../8.4'
       dockerfile: Dockerfile
       args:
-        WWWGROUP: '${WWWGROUP}'
+        WWWGROUP: '1000'
     env_file:
       - .env
     image: 'sail-8.4/app'
