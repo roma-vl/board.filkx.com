@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Adverts\Advert;
-use App\Models\Permission;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use PDOException;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,16 +20,21 @@ class AuthServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        DB::connection()->getPdo();
+        try {
+            DB::connection()->getPdo();
 
-        if (Schema::hasTable('permissions')) {
-            $permissions = \App\Models\Permission::pluck('key')->toArray();
+            if (Schema::hasTable('permissions')) {
+                $permissions = \App\Models\Permission::pluck('key')->toArray();
 
-            foreach ($permissions as $permission) {
-                Gate::define($permission, function (User $user) use ($permission) {
-                    return $user->hasPermission($permission);
-                });
+                foreach ($permissions as $permission) {
+                    Gate::define($permission, function (User $user) use ($permission) {
+                        return $user->hasPermission($permission);
+                    });
+                }
             }
+        } catch (PDOException | QueryException $e) {
+            // Не доступна БД — пропустити
+            logger()->warning('Skipping gate registration due to DB connection issue: ' . $e->getMessage());
         }
 
         Gate::define('telescope', function (User $user) {
