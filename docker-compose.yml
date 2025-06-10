@@ -106,6 +106,22 @@ services:
       - elasticsearch:/usr/share/elasticsearch/data
     networks:
       - sail
+  queue:
+      build:
+          context: './docker/8.4'
+          dockerfile: Dockerfile
+          args:
+              WWWGROUP: '${WWWGROUP}'
+      image: 'sail-8.4/app'
+      restart: always
+      volumes:
+          - '.:/var/www/html'
+      networks:
+          - sail
+      depends_on:
+          - mysql
+          - redis
+      command: sail php artisan queue:work --sleep=3 --tries=3 --timeout=60
 #    selenium:
 #        image: selenium/standalone-chromium
 #        restart: always

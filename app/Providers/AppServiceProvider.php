@@ -45,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
         //        if (app()->environment('local')) {
         //            URL::forceScheme('https');
         //        }
+
+        if (app()->environment('production')) {
+            Vite::useBuildDirectory('build');
+        }
+
         $locale = Auth::user()?->locale ?? Session::get('locale') ?? config('app.locale');
         App::setLocale($locale);
         Vite::prefetch(concurrency: 3);
