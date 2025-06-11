@@ -39,17 +39,17 @@ cp -r "$BUILD_SOURCE/." "$RELEASE_DIR"
 cd "$RELEASE_DIR"
 
 # ⚙️ Laravel-команди через контейнер
-docker compose -f "$RELEASE_DIR/docker-compose.yml" ps
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test whoami
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" ps
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test whoami
 
 # Запускаємо composer всередині контейнера
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Artisan-команди
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan migrate --force
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan config:cache
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan route:cache
-docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan view:cache
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan migrate --force
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan config:cache
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan route:cache
+docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan view:cache
 
 
 echo "🔐 Права доступу"
