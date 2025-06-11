@@ -39,6 +39,8 @@ cp -r "$BUILD_SOURCE/." "$RELEASE_DIR"
 cd "$RELEASE_DIR"
 
 # ⚙️ Laravel-команди через контейнер
+docker compose -f "$RELEASE_DIR/docker-compose.yml" ps
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test whoami
 
 # Запускаємо composer всередині контейнера
 docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
