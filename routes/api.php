@@ -18,7 +18,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/home', [HomeController::class, 'home']);
 
     Route::middleware('auth:api')->group(function () {
-        Route::resource('adverts', AdvertController::class)->only('index', 'show');
+//        Route::resource('adverts', AdvertController::class)->only('index', 'show');
         Route::post('/adverts/{advert}/favorite', [FavoriteController::class, 'add']);
         Route::delete('/adverts/{advert}/favorite', [FavoriteController::class, 'remove']);
 
