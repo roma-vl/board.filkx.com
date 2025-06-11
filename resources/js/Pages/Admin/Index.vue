@@ -1,6 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
+
+console.log('TEST BLUE')
 </script>
 
 <template>
