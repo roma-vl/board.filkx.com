@@ -38,16 +38,16 @@ cp -r "$BUILD_SOURCE/." "$RELEASE_DIR"
 # ⚙️ Laravel-команди
 cd "$RELEASE_DIR"
 
-echo "📦 composer install"
-composer install --no-interaction --prefer-dist --optimize-autoloader
+# ⚙️ Laravel-команди через контейнер
 
-echo "🛠 artisan migrate"
-php artisan migrate --force
+# Запускаємо composer всередині контейнера
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
 
-echo "⚙️ Кешування конфігів і маршрутів"
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+# Artisan-команди
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan migrate --force
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan config:cache
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan route:cache
+docker compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan view:cache
 
 
 echo "🔐 Права доступу"
