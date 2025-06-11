@@ -3,7 +3,7 @@ set -e
 
 # 🔧 Шлях до прод-апки
 APP_DIR="/var/www/board.filkx.com"
-CURRENT_COLOR_FILE="/home/deploy/current/teamcity-meta/current_color"
+CURRENT_COLOR_FILE="/home/deploy/releases/current/teamcity-meta/current_color"
 BLUE_DIR="$APP_DIR/blue"
 GREEN_DIR="$APP_DIR/green"
 BUILD_SOURCE="/opt/buildagent/work/40627a24d1766524"
