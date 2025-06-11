@@ -11,7 +11,7 @@ BUILD_SOURCE="/opt/buildagent/work/40627a24d1766524"
 
 # Якщо файл кольору не існує — створимо
 if [ ! -f "$CURRENT_COLOR_FILE" ]; then
-  echo "green" > "$CURRENT_COLOR_FILE"
+  echo "blue" > "$CURRENT_COLOR_FILE"
 fi
 
 CURRENT_COLOR=$(cat "$CURRENT_COLOR_FILE")
@@ -41,12 +41,6 @@ cp -r "$BUILD_SOURCE/." "$RELEASE_DIR"
 
 # ⚙️ Laravel-команди
 cd "$RELEASE_DIR"
-
-# ⚙️ Laravel-команди через контейнер
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" ps
-
-# Запускаємо composer всередині контейнера
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # ⚙️ Запуск міграцій
 echo "⚙️ Виконуємо міграції бази даних…"
