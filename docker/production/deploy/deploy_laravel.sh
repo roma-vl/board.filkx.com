@@ -40,16 +40,20 @@ cd "$RELEASE_DIR"
 
 # ⚙️ Laravel-команди через контейнер
 docker-compose -f "$RELEASE_DIR/docker-compose.yml" ps
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test whoami
 
 # Запускаємо composer всередині контейнера
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Artisan-команди
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan migrate --force
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan config:cache
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan route:cache
-docker-compose -f "$RELEASE_DIR/docker-compose.yml" exec -T laravel.test php artisan view:cache
+# ⚙️ Запуск міграцій
+echo "⚙️ Виконуємо міграції бази даних…"
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan migrate --force
+
+# 🧹 Очистка кешу та кешування конфігів
+echo "🧹 Очищення кешу та кешування конфігів…"
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:clear
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan route:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
 
 
 echo "🔐 Права доступу"
