@@ -8,6 +8,7 @@ BLUE_DIR="$APP_DIR/blue"
 GREEN_DIR="$APP_DIR/green"
 BUILD_SOURCE="/opt/buildagent/work/40627a24d1766524"
 
+
 # Якщо файл кольору не існує — створимо
 if [ ! -f "$CURRENT_COLOR_FILE" ]; then
   echo "green" > "$CURRENT_COLOR_FILE"
@@ -24,6 +25,9 @@ else
 fi
 
 RELEASE_DIR="$COLOR_DIR/current"
+DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker-compose.yml"
+WORKDIR_IN_CONTAINER="/var/www/html"
+
 
 echo "➡️ Деплой у $NEXT_COLOR середовище…"
 echo "📁 Цільова папка: $RELEASE_DIR"
