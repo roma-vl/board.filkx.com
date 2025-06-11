@@ -16,7 +16,7 @@ fi
 
 CURRENT_COLOR=$(cat "$CURRENT_COLOR_FILE")
 
-if [ "$CURRENT_COLOR" != "green" ]; then
+if [ "$CURRENT_COLOR" = "green" ]; then
   NEXT_COLOR="blue"
   COLOR_DIR="$BLUE_DIR"
 else
