@@ -232,12 +232,6 @@ console.log(usePage().props.can, 'usePage()');
           </div>
         </div>
 
-        <!--          <Breadcrumbs-->
-        <!--              class="mb-6"-->
-        <!--              :categories="props.categories"-->
-        <!--              :locations="props.locations"-->
-        <!--          />-->
-        <!--          -->
         <div class="list-disc list-inside text-gray-800 dark:text-gray-200 dark:border-gray-700">
           <span class="underline cursor-pointer"> {{ $t('main') }} </span> /
           <span
@@ -277,10 +271,12 @@ console.log(usePage().props.can, 'usePage()');
         >
           {{ $t('status.rejected') }}: {{ advert.reject_reason }}
         </div>
-        <div class="flex gap-6">
-          <div class="w-2/3">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <div class="w-full lg:w-2/3">
             <div class="bg-white rounded-lg shadow p-3 dark:bg-gray-700">
-              <div class="w-full h-[600px] flex justify-center items-center">
+              <div
+                class="w-full h-[300px] md:h-[400px] lg:h-[600px] flex justify-center items-center"
+              >
                 <img
                   :src="mainPhoto"
                   class="w-full h-full object-contain"
@@ -323,7 +319,7 @@ console.log(usePage().props.can, 'usePage()');
               </div>
             </div>
           </div>
-          <div class="w-1/3">
+          <div class="w-full lg:w-1/3">
             <div class="rounded-lg shadow p-3 bg-white dark:bg-gray-700">
               <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
                 {{ $t('published') }} {{ getDateFormatFromLocale(advert.created_at) }}
