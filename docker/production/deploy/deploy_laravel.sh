@@ -21,6 +21,11 @@ fi
 echo "🚀 Деплой у $COLOR середовище"
 cd "$RELEASE_DIR"
 
+echo "Копіюєм файли у $COLOR середовище"
+cp $RELEASE_DIR/docker/production/8.4 $RELEASE_DIR/docker/8.4
+cp $RELEASE_DIR/docker/production/docker-compose.yml $RELEASE_DIR/docker-compose.yml
+cp $RELEASE_DIR/docker/production/vite.config.js $RELEASE_DIR/vite.config.js
+
 # 🔗 Shared user directories (adverts + banners)
 rm -rf "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
