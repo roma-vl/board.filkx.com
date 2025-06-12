@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 
-console.log('TEST BLUE');
+console.log('TEST 112 BLUE');
 </script>
 
 <template>
