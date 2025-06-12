@@ -11,7 +11,6 @@ import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import messages from '@/lang';
 import CanDirective from '@/directives/can.js';
-import { bugsnagVue } from '@/Bugsnag.js';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -36,7 +35,6 @@ createInertiaApp({
       .use(i18n)
       .directive('can', CanDirective)
       .use(plugin)
-      .use(bugsnagVue)
       .use(ZiggyVue)
       .use(Vue3Toastify, {
         autoClose: 4000,

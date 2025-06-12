@@ -47,6 +47,6 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" lara
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
 
 # 🔗 Перемикаємо current
-ln -sfn "$APP_DIR/$COLOR" "$APP_DIR/current"
+ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
 
 echo "✅ Деплой завершено. Активне середовище — $COLOR"
