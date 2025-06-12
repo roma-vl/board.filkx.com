@@ -213,6 +213,7 @@ onMounted(async () => {
         >
           <div class="p-8">
             <!-- Пошук -->
+
             <div
               class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30 dark:bg-gradient-to-br dark:from-gray-900 dark:gray-800 dark:gray-700"
             >
@@ -220,16 +221,17 @@ onMounted(async () => {
                 v-model="searchQuery"
                 @select-suggestion="handleSearch"
               />
-              <div class="flex items-center gap-4">
+              <div class="flex flex-col md:flex-row items-center gap-4 w-full">
                 <LocationSelector
                   v-model="cityIdSearchQuery"
+                  class="w-full md:w-auto md:rounded-lg"
                   @select-city="handleCitySelect"
                 />
                 <button
-                  class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
+                  class="w-full md:w-auto md:rounded-lg px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
                   @click="search(getCategorySlugs(props.categoryFilters))"
                 >
-                  🔍 {{ $t('search.button') }}
+                  {{ $t('search.button') }}
                 </button>
               </div>
             </div>
