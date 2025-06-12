@@ -1,68 +1,52 @@
 #!/bin/bash
 set -e
 
-# 🔧 Шлях до прод-апки
+COLOR=$1
 APP_DIR="/var/www/board.filkx.com"
-CURRENT_COLOR_FILE="/home/deploy/releases/current/shared/teamcity-meta/current_color"
-BLUE_DIR="$APP_DIR/blue"
-GREEN_DIR="$APP_DIR/green"
-BUILD_SOURCE="/opt/buildagent/work/40627a24d1766524"
-
-
-# Якщо файл кольору не існує — створимо
-if [ ! -f "$CURRENT_COLOR_FILE" ]; then
-  echo "blue" > "$CURRENT_COLOR_FILE"
-fi
-
-CURRENT_COLOR=$(cat "$CURRENT_COLOR_FILE")
-
-if [ "$CURRENT_COLOR" = "green" ]; then
-  NEXT_COLOR="blue"
-  COLOR_DIR="$BLUE_DIR"
-else
-  NEXT_COLOR="green"
-  COLOR_DIR="$GREEN_DIR"
-fi
-
-RELEASE_DIR="$COLOR_DIR/current"
+RELEASE_DIR="$APP_DIR/$COLOR/current"
 DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker-compose.yml"
 WORKDIR_IN_CONTAINER="/var/www/html"
 
+# ✅ Перевірки
+if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
+  echo "❌ Некоректне середовище: $COLOR"
+  exit 1
+fi
 
-echo "➡️ Деплой у $NEXT_COLOR середовище…"
-echo "📁 Цільова папка: $RELEASE_DIR"
+if [ ! -d "$RELEASE_DIR" ]; then
+  echo "❌ Папка релізу не знайдена: $RELEASE_DIR"
+  exit 1
+fi
 
-# 🔄 Очистити цільову папку та створити нову
-rm -rf "$RELEASE_DIR"
-mkdir -p "$RELEASE_DIR"
-
-# 📦 Скопіювати білд
-cp -r "$BUILD_SOURCE/." "$RELEASE_DIR"
-
-# ⚙️ Laravel-команди
+echo "🚀 Деплой у $COLOR середовище"
 cd "$RELEASE_DIR"
 
-# ⚙️ Запуск міграцій
-echo "⚙️ Виконуємо міграції бази даних…"
+# 🔗 Shared user directories (adverts + banners)
+rm -rf "$RELEASE_DIR/storage/app/public/adverts"
+ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
+
+rm -rf "$RELEASE_DIR/storage/app/public/banners"
+ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR/storage/app/public/banners"
+
+# 🔗 Shared .env
+ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
+
+# 🔐 Права (до artisan migrate)
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chmod -R 775 storage bootstrap/cache
+
+# ⚙️ Міграції
+echo "⚙️ Міграції..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan migrate --force
 
-# 🧹 Очистка кешу та кешування конфігів
-echo "🧹 Очищення кешу та кешування конфігів…"
+# 🧹 Кешування
+echo "🧹 Кешування..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:clear
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan route:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
 
+# 🔗 Перемикаємо current
+ln -sfn "$APP_DIR/$COLOR" "$APP_DIR/current"
 
-echo "🔐 Права доступу"
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chmod -R 775 storage bootstrap/cache
-
-
-# 🔗 Перемикаємо лінк
-ln -sfn "$COLOR_DIR" "$APP_DIR/current"
-
-# 💾 Записати новий колір
-echo "$NEXT_COLOR" > "$CURRENT_COLOR_FILE"
-
-echo "✅ Деплой завершено. Активне середовище — $NEXT_COLOR"
+echo "✅ Деплой завершено. Активне середовище — $COLOR"

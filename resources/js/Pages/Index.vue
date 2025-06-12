@@ -69,6 +69,8 @@ const subCategories = computed(() => {
   const category = categories.find((c) => c.id === openCategory.value);
   return category ? category.children : [];
 });
+
+console.log('TEST 112 BLUE');
 </script>
 
 <template>
