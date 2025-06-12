@@ -21,20 +21,22 @@ fi
 echo "🚀 Деплой у $COLOR середовище"
 cd "$RELEASE_DIR"
 
-echo "Копіюєм файли у $COLOR середовище"
-cp $RELEASE_DIR/docker/production/8.4 $RELEASE_DIR/docker/8.4
-cp $RELEASE_DIR/docker/production/docker-compose.yml $RELEASE_DIR/docker-compose.yml
-cp $RELEASE_DIR/docker/production/vite.config.js $RELEASE_DIR/vite.config.js
-
 # 🔗 Shared user directories (adverts + banners)
-rm -rf "$RELEASE_DIR/storage/app/public/adverts"
+[ -e "$RELEASE_DIR/storage/app/public/adverts" ] && rm -rf "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
 
-rm -rf "$RELEASE_DIR/storage/app/public/banners"
+[ -e "$RELEASE_DIR/storage/app/public/banners" ] && rm -rf "$RELEASE_DIR/storage/app/public/banners"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR/storage/app/public/banners"
 
 # 🔗 Shared .env
+rm -f "$RELEASE_DIR/.env"
 ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
+
+until docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T laravel.test true 2>/dev/null; do
+  echo "⌛ Очікування laravel.test..."
+  sleep 2
+done
+
 
 # 🔐 Права (до artisan migrate)
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
