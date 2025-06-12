@@ -8,6 +8,7 @@ export default defineConfig({
       input: ['resources/js/app.js'],
       refresh: true,
       buildDirectory: 'build',
+      manifest: 'public/build/manifest.json',
     }),
     vue({
       template: {

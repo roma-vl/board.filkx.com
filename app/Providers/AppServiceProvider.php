@@ -20,8 +20,7 @@ use Laravel\Passport\Passport;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
-
-// use URL;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,11 +41,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //        if (app()->environment('local')) {
-        //            URL::forceScheme('https');
-        //        }
-
         if (app()->environment('production')) {
+            URL::forceScheme('https');
             Vite::useBuildDirectory('build');
         }
 
