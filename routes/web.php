@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit/phone', [PhoneController::class, 'form'])->name('phone.form');
             Route::put('/edit/phone', [PhoneController::class, 'verify'])->name('phone.verify');
             Route::patch('/update/phone', [PhoneController::class, 'update'])->name('phone.update');
+            Route::post('/avatar/upload', [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
 
             Route::get('/', [ProfileController::class, 'index'])->name('index');
             Route::get('/settings', [ProfileController::class, 'settings'])->name('settings');

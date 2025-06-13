@@ -4,6 +4,7 @@ import { Head, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import AvatarUploader from '@/Components/AvatarUploader.vue';
 
 const { t } = useI18n();
 const user = usePage().props.auth.user;
@@ -23,16 +24,7 @@ const user = usePage().props.auth.user;
             <div
               class="w-1/3 bg-white flex items-center justify-center overflow-hidden dark:bg-gray-800 rounded-md shadow-md"
             >
-              <img
-                v-if="user.avatar_url"
-                class="w-60 h-60 bg-gray-400 rounded-lg"
-                :src="user.avatar_url"
-                alt=""
-              >
-              <div
-                v-else
-                class="w-48 h-48 bg-gray-400 rounded-full"
-              />
+              <AvatarUploader />
             </div>
 
             <div
