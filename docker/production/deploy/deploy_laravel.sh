@@ -41,7 +41,7 @@ echo "🚀 Запуск контейнерів..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
 
 # 🔐 Права (до artisan migrate)
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R sail:www-data storage bootstrap/cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chmod -R 775 storage bootstrap/cache
 
 # ⚙️ Міграції
