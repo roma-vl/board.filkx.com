@@ -23,7 +23,7 @@ class InitCommand extends Command
         $this->initAdverts();
         $this->initBanners();
 
-        return true;
+        return self::SUCCESS;
     }
 
     private function initAdverts(): void
@@ -35,10 +35,10 @@ class InitCommand extends Command
             if ($e->getCode() === 404) {
                 $this->warn('Індекс adverts не існує');
             } else {
-                $this->error('Помилка видалення індексу: '.$e->getMessage());
+                $this->error('Помилка видалення індексу adverts: '.$e->getMessage());
             }
         }
-
+        try {
         $this->client->indices()->create([
             'index' => 'adverts',
             'body' => [
@@ -103,6 +103,10 @@ class InitCommand extends Command
                 ],
             ],
         ]);
+            $this->info('Індекс adverts успішно створено');
+        } catch (\Throwable $e) {
+            $this->error('Помилка створення індексу adverts: ' . $e->getMessage());
+        }
     }
 
     private function initBanners(): void
@@ -111,14 +115,15 @@ class InitCommand extends Command
             $this->client->indices()->delete([
                 'index' => 'banners',
             ]);
+            $this->info('Індекс banners успішно видалено');
         } catch (ClientResponseException $e) {
             if ($e->getCode() === 404) {
                 $this->warn('Індекс banners не існує');
             } else {
-                $this->error('Помилка видалення індексу: '.$e->getMessage());
+                $this->error('Помилка видалення індексу banners: '.$e->getMessage());
             }
         }
-
+        try {
         $this->client->indices()->create([
             'index' => 'banners',
             'body' => [
@@ -146,5 +151,9 @@ class InitCommand extends Command
                 ],
             ],
         ]);
+            $this->info('Індекс banners успішно створено');
+        } catch (\Throwable $e) {
+            $this->error('Помилка створення індексу banners: ' . $e->getMessage());
+        }
     }
 }
