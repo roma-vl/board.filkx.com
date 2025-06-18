@@ -56,8 +56,25 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" lara
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
 
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan storage:link
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
+
+echo "⏳ Очікуємо підняття Elasticsearch..."
+
+for i in {1..30}; do
+    if curl -s http://localhost:9201 | grep -q "cluster_name"; then
+        echo "✅ Elasticsearch готовий"
+        break
+    fi
+    echo "🔄 Очікуємо Elasticsearch... ($i сек)"
+    sleep 1
+done
+
+# Якщо Elasticsearch так і не піднявся — покажи помилку, але не падай
+if ! curl -s http://localhost:9201 | grep -q "cluster_name"; then
+    echo "⚠️ Elasticsearch не відповідає. Пропускаємо search:init"
+else
+    docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
+    docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
+fi
 
 # 🔗 Перемикаємо current
 ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
