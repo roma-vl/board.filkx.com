@@ -14,6 +14,7 @@ Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])
     ->middleware(['throttle', 'api'])->name('passport.token');
 
 Route::prefix('v1')->group(function () {
+    Route::get('/', [HomeController::class, 'home']);
     Route::post('/register', [RegisteredUserController::class, 'register']);
     Route::get('/home', [HomeController::class, 'home']);
 

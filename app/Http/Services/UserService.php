@@ -5,10 +5,7 @@ namespace App\Http\Services;
 use App\Filters\UserFilter;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
-use Illuminate\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
@@ -47,15 +44,14 @@ class UserService
         return $user;
     }
 
-    public function createUserFromGoogle(): User|Application|RedirectResponse|Redirector
+    public function createUserFromGoogle(): ?User
     {
         $googleUser = Socialite::driver('google')->stateless()->user();
         $existingUser = User::where('email', $googleUser->getEmail())->first();
 
         if ($existingUser) {
             if ($existingUser->google_id !== $googleUser->getId()) {
-                return redirect('/')
-                    ->with('error', 'Цей email вже використовується. Спробуйте увійти звичайним способом.');
+                return null;
             }
 
             $user = $existingUser;
@@ -64,7 +60,7 @@ class UserService
                 'name' => $googleUser->getName(),
                 'email' => $googleUser->getEmail(),
                 'google_id' => $googleUser->getId(),
-                'avatar' => $googleUser->getAvatar(),
+                'avatar_url' => $googleUser->getAvatar(),
                 'email_verified_at' => now(),
             ]);
 

@@ -17,7 +17,7 @@ use OpenApi\Attributes as OA;
     scheme: 'bearer'
 )]
 #[OA\Server(
-    url: 'http://localhost',
+    url: 'https://board.filkx.com',
     description: 'Основний сервер'
 )]
 class HomeController
