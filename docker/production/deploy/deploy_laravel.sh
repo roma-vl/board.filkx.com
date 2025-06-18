@@ -57,24 +57,29 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" lara
 
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan storage:link
 
-echo "⏳ Очікуємо підняття Elasticsearch..."
+echo "⏳ Очікуємо повну готовність Elasticsearch..."
 
 for i in {1..30}; do
-    if curl -s http://localhost:9201 | grep -q "cluster_name"; then
-        echo "✅ Elasticsearch готовий"
+    STATUS=$(curl -s http://localhost:9201/_cluster/health | jq -r '.status')
+
+    if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
+        echo "✅ Elasticsearch статус: $STATUS"
         break
     fi
-    echo "🔄 Очікуємо Elasticsearch... ($i сек)"
-    sleep 1
+
+    echo "🔄 Статус: $STATUS (спроба $i)"
+    sleep 2
 done
 
-# Якщо Elasticsearch так і не піднявся — покажи помилку, але не падай
-if ! curl -s http://localhost:9201 | grep -q "cluster_name"; then
-    echo "⚠️ Elasticsearch не відповідає. Пропускаємо search:init"
+# Якщо все ще не готовий — показати попередження, але не падати
+FINAL_STATUS=$(curl -s http://localhost:9201/_cluster/health | jq -r '.status')
+if [[ "$FINAL_STATUS" != "yellow" && "$FINAL_STATUS" != "green" ]]; then
+    echo "⚠️ Elasticsearch досі не готовий (статус: $FINAL_STATUS). Пропускаємо search:init"
 else
     docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
     docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
 fi
+
 
 # 🔗 Перемикаємо current
 ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
