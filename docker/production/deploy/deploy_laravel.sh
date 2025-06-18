@@ -60,7 +60,7 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" lara
 echo "⏳ Очікуємо повну готовність Elasticsearch..."
 
 for i in {1..30}; do
-    STATUS=$(curl -s http://localhost:9201/_cluster/health | jq -r '.status')
+    STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
 
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
         echo "✅ Elasticsearch статус: $STATUS"
@@ -72,7 +72,7 @@ for i in {1..30}; do
 done
 
 # Якщо все ще не готовий — показати попередження, але не падати
-FINAL_STATUS=$(curl -s http://localhost:9201/_cluster/health | jq -r '.status')
+FINAL_STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
 if [[ "$FINAL_STATUS" != "yellow" && "$FINAL_STATUS" != "green" ]]; then
     echo "⚠️ Elasticsearch досі не готовий (статус: $FINAL_STATUS). Пропускаємо search:init"
 else
