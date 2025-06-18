@@ -77,7 +77,6 @@ if [[ "$FINAL_STATUS" != "yellow" && "$FINAL_STATUS" != "green" ]]; then
     echo "⚠️ Elasticsearch досі не готовий (статус: $FINAL_STATUS). Пропускаємо search:init"
 else
     docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
-    docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
 fi
 
 
