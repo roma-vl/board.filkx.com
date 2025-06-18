@@ -11,6 +11,7 @@ import GuideIcon from '@/Components/Icon/GuideIcon.vue';
 import UpDownIcon from '@/Components/Icon/UpDownIcon.vue';
 import { Link } from '@inertiajs/vue3';
 import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
+import { getFullPathForAvatarImage } from '@/helpers.js';
 </script>
 
 <template>
@@ -45,7 +46,7 @@ import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
               class="flex mr-auto items-center space-x-4"
             >
               <img
-                :src="$page.props.auth?.user?.avatar_url"
+                :src="getFullPathForAvatarImage($page.props.auth?.user?.avatar_url)"
                 :alt="$page.props.auth?.user?.name"
                 class="w-16 h-16 shrink-0 rounded-full"
               >

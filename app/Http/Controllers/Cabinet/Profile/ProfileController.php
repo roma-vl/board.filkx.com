@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\File;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -47,6 +50,35 @@ class ProfileController extends Controller
         Mail::to($request->user()->email)->send(new \App\Mail\TestEmail($request->user()));
 
         return Redirect::route('account.profile.settings')->with('success', __('profile.profile_information_update'));
+    }
+
+    public function uploadAvatar(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'avatar' => [
+                'required',
+                File::image()->max(5 * 1024), // до 5MB
+            ],
+        ]);
+
+        $user = $request->user();
+
+        // Видалення попереднього аватара
+        if ($user->avatar_url && Storage::disk('public')->exists($user->avatar_url)) {
+            Storage::disk('public')->delete($user->avatar_url);
+        }
+
+        $filename = 'avatars/'.Str::uuid().'.'.$request->file('avatar')->getClientOriginalExtension();
+
+        // Зберігаємо новий аватар
+        $path = $request->file('avatar')->storeAs('avatars', basename($filename), 'public');
+
+        // Зберігаємо шлях в БД
+        $user->avatar_url = $path;
+        $user->save();
+
+        return Redirect::back()
+            ->with('success', __('profile.avatar_uploaded_successfully'));
     }
 
     /**

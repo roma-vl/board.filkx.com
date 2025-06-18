@@ -27,6 +27,12 @@ class GoogleController extends Controller
     {
         try {
             $user = $this->userService->createUserFromGoogle();
+
+            if (! $user) {
+                return redirect('/')
+                    ->with('error', 'Цей email вже використовується. Спробуйте увійти звичайним способом.');
+            }
+
             Auth::login($user, true);
 
             return redirect()->intended('/');

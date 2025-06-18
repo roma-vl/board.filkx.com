@@ -29,6 +29,13 @@ export const getFullPathForImage = (path) => {
   return import.meta.env.VITE_APP_STORAGE_URL + path;
 };
 
+export const getFullPathForAvatarImage = (path) => {
+  if (path === '' || path === undefined || path === null) {
+    return import.meta.env.VITE_APP_STORAGE_URL + 'images/avatars/info/empty.png';
+  }
+  return import.meta.env.VITE_APP_STORAGE_URL + path;
+};
+
 export const getFullPathForStaticImage = (path) => {
   return import.meta.env.VITE_APP_STORAGE_URL + 'static/' + path;
 };

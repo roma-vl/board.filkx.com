@@ -52,15 +52,15 @@ class AppServiceProvider extends ServiceProvider
         $this->bootSearchable();
 
         Passport::ignoreRoutes();
-        Passport::loadKeysFrom(storage_path());
+        Passport::loadKeysFrom(storage_path('oauth'));
 
         $this->app->bind(AuthorizationServer::class, function ($app) {
             $server = new AuthorizationServer(
                 $app->make(ClientRepository::class),
                 $app->make(AccessTokenRepository::class),
                 $app->make(ScopeRepository::class),
-                'file://'.storage_path('oauth-private.key'),
-                'file://'.storage_path('oauth-public.key')
+                'file://'.storage_path('oauth/oauth-private.key'),
+                'file://'.storage_path('oauth/oauth-public.key')
             );
 
             // додаємо PasswordGrant

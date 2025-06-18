@@ -10,6 +10,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.3",
+    "ext-pdo": "*",
     "bugsnag/bugsnag-laravel": "^2.29",
     "elasticsearch/elasticsearch": "^8.17",
     "ezyang/htmlpurifier": "^4.18",
@@ -29,10 +30,10 @@
     "spatie/laravel-activitylog": "^4.10",
     "spatie/laravel-settings": "^3.4",
     "spatie/laravel-sluggable": "^3.7",
+    "symfony/dom-crawler": "^7.3",
     "tightenco/ziggy": "^2.0",
     "twilio/sdk": "^8.3",
-    "zircote/swagger-php": "^5.1",
-    "ext-pdo": "*"
+    "zircote/swagger-php": "^5.1"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "*",
