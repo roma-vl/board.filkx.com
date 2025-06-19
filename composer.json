@@ -11,6 +11,7 @@
   "require": {
     "php": "^8.3",
     "ext-pdo": "*",
+    "barryvdh/laravel-dompdf": "^3.1",
     "bugsnag/bugsnag-laravel": "^2.29",
     "elasticsearch/elasticsearch": "^8.17",
     "ezyang/htmlpurifier": "^4.18",

@@ -2,6 +2,8 @@
 
 namespace App\Models\Adverts;
 
+use App\Models\Adverts\Boost\AdvertBoost;
+use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Dialog\Dialog;
 use App\Models\Location;
 use App\Models\User;
@@ -74,6 +76,24 @@ class Advert extends Model implements Auditable
     ];
 
     protected $appends = ['is_favorited'];
+
+    public function services()
+    {
+        return $this->hasMany(AdvertService::class);
+    }
+
+    public function boosts()
+    {
+        return $this->hasMany(AdvertBoost::class);
+    }
+
+    public function scopeWithActiveBoosts($query)
+    {
+        return $query->whereHas('boosts', function ($q) {
+            $q->where('starts_at', '<=', now())
+                ->where('ends_at', '>=', now());
+        });
+    }
 
     public function user()
     {
