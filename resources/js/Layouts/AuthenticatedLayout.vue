@@ -235,8 +235,11 @@ const handleSubmit = (message) => {
         <div
           class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500 dark:text-gray-400"
         >
-          &copy; {{ new Date().getFullYear() }} Зозулька. Усі права захищено. Зроблено з ❤️ в
-          Україні.
+          &copy; {{ new Date().getFullYear() }}
+          <a
+            href="https://filkx.com"
+            class="hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+          >filkx.com</a>
         </div>
       </div>
     </footer>
