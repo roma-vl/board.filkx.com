@@ -5,12 +5,19 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import Grid from '@/Components/Grid.vue';
 import { useI18n } from 'vue-i18n';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
-
+import { route } from 'ziggy-js';
+import PdfModal from '@/Components/PdfModal.vue';
+import { ref } from 'vue';
 const orders = computed(() => usePage().props.orders.data);
-console.log(orders.value, 'orders');
 const { t } = useI18n();
 const pagination = computed(() => usePage().props.orders);
+const pdfVisible = ref(false);
+const currentPdfUrl = ref(null);
 
+const showPdf = (orderId) => {
+  currentPdfUrl.value = route('admin.adverts.orders.receipt', orderId);
+  pdfVisible.value = true;
+};
 const headings = [
   { key: 'id', value: t('ID'), sortable: true, disabled: true },
   { key: 'advert', value: t('advert'), sortable: true },
@@ -20,6 +27,7 @@ const headings = [
   { key: 'status', value: t('status') },
   { key: 'created_at', value: t('Created At') },
   { key: 'updated_at', value: t('Updated At') },
+  { key: 'actions', value: t('actions') },
 ];
 
 const routes = [
@@ -48,7 +56,7 @@ const routes = [
             >
               <template #column-advert="{ row }">
                 <div class="flex gap-2 font-normal">
-                  <div class="relative w-28">
+                  <div class="relative w-20">
                     <img
                       :src="getFullPathForImage(row.advert.first_photo.file)"
                       :alt="row.advert.title"
@@ -68,7 +76,20 @@ const routes = [
               <template #column-updated_at="{ row }">
                 {{ getDateFormatFromLocale(row.updated_at) }}
               </template>
+              <template #column-actions="{ row }">
+                <button
+                  class="px-3 py-1 bg-indigo-600 text-white text-sm rounded hover:bg-indigo-700"
+                  @click="showPdf(row.id)"
+                >
+                  {{ t('View Receipt') }}
+                </button>
+              </template>
             </Grid>
+            <PdfModal
+              :visible="pdfVisible"
+              :pdf-url="currentPdfUrl"
+              @close="pdfVisible = false"
+            />
           </div>
         </div>
       </div>

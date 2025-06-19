@@ -20,6 +20,7 @@ return new class extends Migration
         Schema::create('advert_boost_packages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('title');
             $table->json('features'); // ["highlight", "vip", "pin", "urgent"]
             $table->integer('duration_days');
             $table->decimal('price', 8, 2);

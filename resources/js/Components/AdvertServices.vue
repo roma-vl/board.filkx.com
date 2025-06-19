@@ -43,9 +43,7 @@ const services = ref([
     title: 'Преміум',
     description: 'На головній у блоці "Преміум"',
     tooltip:
-      'Ваше оголошення буде позначено написом «Терміново» на період 7 днів. Вартість послуги – 25 грн \n' +
-      '- Ви привертаєте більше уваги, а значить отримуєте більше відгуків \n' +
-      '- Ваше оголошення стає більш помітним серед інших',
+      'Ваше оголошення на день закріплюється в блоці Преміум оголошення; на головній сторінці сайту. Вартість послуги 25 грн',
     price: 25,
   },
 ]);
@@ -230,7 +228,7 @@ const submit = async () => {
     </div>
 
     <!-- ✅ Підсумок -->
-    <div class="flex justify-between items-center border-t pt-4">
+    <div class="flex justify-between items-center pt-4">
       <p class="text-lg font-semibold">
         Обрано: {{ selectedPackages.length + selectedServices.length }} | Сума: {{ totalPrice }} грн
       </p>

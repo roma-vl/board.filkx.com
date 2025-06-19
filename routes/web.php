@@ -197,6 +197,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('logs', [LogViewerController::class, 'index'])->name('logs');
         Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity.logs');
+        Route::get('/orders/{order}/receipt', [OrderController::class, 'pdfReceipt'])
+            ->name('adverts.orders.receipt');
 
     });
 
