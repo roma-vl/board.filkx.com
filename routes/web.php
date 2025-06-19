@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\Adverts\AdvertsController;
 use App\Http\Controllers\Admin\Adverts\AttributeController;
 use App\Http\Controllers\Admin\Adverts\CategoryController;
+use App\Http\Controllers\Admin\Adverts\OrderController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\LocationController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BannerController as PublicBannerController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertController;
+use App\Http\Controllers\Cabinet\Adverts\AdvertServiceController;
 use App\Http\Controllers\Cabinet\Adverts\FavoriteController;
 use App\Http\Controllers\Cabinet\Banner\BannerController;
 use App\Http\Controllers\Cabinet\Banner\CreateController;
@@ -79,6 +81,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/villages/{areaId}', [AdvertController::class, 'getVillages'])->name('villages');
             Route::get('/attributes/{categoryId}', [AdvertController::class, 'getAttributes'])->name('attributes');
 
+            Route::get('/promote/{advert}', [AdvertServiceController::class, 'promote'])->name('promote');
+            Route::post('/purchase/{advert}', [AdvertServiceController::class, 'purchase'])->name('purchase');
+
         });
 
         Route::prefix('/banners')->name('banners.')->group(function () {
@@ -132,6 +137,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('/adverts')->name('adverts.')->group(function () {
 
+            Route::get('/orders', [OrderController::class, 'orders'])->name('orders.index');
             Route::get('/moderation', [AdvertsController::class, 'moderation'])->name('actions.moderation');
             Route::post('/moderation/{advert}/active', [AdvertsController::class, 'active'])->name('actions.moderation.active');
             Route::post('/moderation/{advert}/reject', [AdvertsController::class, 'reject'])->name('actions.moderation.reject');
