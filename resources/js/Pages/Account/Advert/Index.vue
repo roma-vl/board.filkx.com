@@ -8,6 +8,7 @@ const adverts = usePage().props.adverts;
 
 const routes = {
   edit: 'account.adverts.edit',
+  promote: 'account.adverts.promote',
   remove: 'account.adverts.destroy',
   show: 'adverts.show',
 };

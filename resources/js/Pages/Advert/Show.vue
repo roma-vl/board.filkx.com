@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { router, useForm, usePage } from '@inertiajs/vue3';
+import { Link, router, useForm, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
@@ -366,6 +366,28 @@ console.log(usePage().props.can, 'usePage()');
                 </span>
               </button>
             </div>
+
+            <div
+              class="mt-6 rounded-xl border border-yellow-300 bg-yellow-50 p-6 dark:border-yellow-500 dark:bg-gray-800"
+            >
+              <div class="flex flex-col gap-4">
+                <div
+                  class="text-gray-800 text-lg font-medium dark:text-gray-100 text-center md:text-left"
+                >
+                  🔥 Хочете, щоб більше людей побачили ваше оголошення?
+                </div>
+
+                <div class="mt-2">
+                  <Link
+                    :href="route('account.adverts.promote', props.advert.id)"
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-blue-600 bg-blue-500 px-6 py-3 text-white text-base font-semibold transition hover:bg-transparent hover:text-blue-600 dark:bg-blue-500 dark:hover:bg-transparent dark:hover:text-blue-400"
+                  >
+                    🚀 Просувати
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <div class="rounded-lg shadow p-3 bg-white mt-5 dark:bg-gray-700">
               <p class="font-bold pb-3 p-2 dark:text-gray-200">
                 {{ $t('user') }}

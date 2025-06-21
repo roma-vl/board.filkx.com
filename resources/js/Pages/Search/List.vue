@@ -221,7 +221,7 @@ onMounted(async () => {
                 v-model="searchQuery"
                 @select-suggestion="handleSearch"
               />
-              <div class="flex flex-col md:flex-row items-center gap-4 w-full">
+              <div class="flex flex-col md:flex-row items-center gap-4 w-3/5">
                 <LocationSelector
                   v-model="cityIdSearchQuery"
                   class="w-full md:w-auto md:rounded-lg"

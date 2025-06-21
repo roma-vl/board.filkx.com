@@ -6,6 +6,7 @@ import axios from 'axios';
 import InputError from '@/Components/InputError.vue';
 import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.vue';
 import { useI18n } from 'vue-i18n';
+
 const { t } = useI18n();
 const props = defineProps({
   categories: {
@@ -267,7 +268,7 @@ onBeforeUnmount(() => {
                     <select
                       :id="'attributes.' + attribute.id"
                       v-model="form.attributes[attribute.id]"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                     >
                       <option value="" />
                       <option
@@ -284,7 +285,7 @@ onBeforeUnmount(() => {
                       :id="'attributes.' + attribute.id"
                       v-model="form.attributes[attribute.id]"
                       type="number"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                     >
                   </template>
                   <template v-else>
@@ -292,7 +293,7 @@ onBeforeUnmount(() => {
                       :id="'attributes.' + attribute.id"
                       v-model="form.attributes[attribute.id]"
                       type="text"
-                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                      class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                     >
                   </template>
                 </div>
