@@ -80,6 +80,18 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $this->notify(new CustomVerifyEmail);
     }
 
+    // app/Models/User.php
+
+    public function socialAccounts()
+    {
+        return $this->hasMany(UserSocial::class);
+    }
+
+    public function hasLinkedProvider(string $provider): bool
+    {
+        return $this->socialAccounts()->where('provider', $provider)->exists();
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_roles');

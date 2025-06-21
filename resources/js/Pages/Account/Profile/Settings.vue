@@ -7,6 +7,7 @@ import { Head } from '@inertiajs/vue3';
 import UpdateProfilePhoneForm from '@/Pages/Account/Profile/Partials/UpdateProfilePhoneForm.vue';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
 import { useI18n } from 'vue-i18n';
+import Socialite from '@/Pages/Account/Profile/Partials/Socialite.vue';
 
 const { t } = useI18n();
 </script>
@@ -26,6 +27,10 @@ const { t } = useI18n();
 
             <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
               <UpdateProfilePhoneForm class="max-w-xl" />
+            </div>
+
+            <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">
+              <Socialite class="max-w-xl" />
             </div>
 
             <div class="bg-white p-4 sm:rounded-lg sm:p-8 dark:bg-gray-700 mb-4">

@@ -5,9 +5,11 @@ namespace App\Http\Services;
 use App\Filters\UserFilter;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use App\Models\UserSocial;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Contracts\User as ProviderUser;
 use Laravel\Socialite\Facades\Socialite;
 
 class UserService
@@ -44,6 +46,42 @@ class UserService
         return $user;
     }
 
+    public function findOrCreateUserViaSocial(ProviderUser $providerUser, string $provider): User
+    {
+        // 1. Шукаємо соціальну прив’язку
+        $socialAccount = UserSocial::where('provider', $provider)
+            ->where('provider_user_id', $providerUser->getId())
+            ->first();
+
+        if ($socialAccount) {
+            return $socialAccount->user;
+        }
+
+        // 2. Шукаємо користувача за email
+        $user = User::where('email', $providerUser->getEmail())->first();
+
+        // 3. Якщо немає користувача — створюємо
+        if (! $user) {
+            $user = User::create([
+                'name' => $providerUser->getName() ?? $providerUser->getNickname() ?? 'Без імені',
+                'email' => $providerUser->getEmail(),
+                'avatar_url' => $providerUser->getAvatar(),
+                'email_verified_at' => now(),
+            ]);
+
+            $user->roles()->sync(self::DEFAULT_ROLE_TO_USER);
+        }
+
+        // 4. Прив’язуємо соцмережу
+        $user->socialAccounts()->create([
+            'provider' => $provider,
+            'provider_user_id' => $providerUser->getId(),
+            'avatar_url' => $providerUser->getAvatar(),
+        ]);
+
+        return $user;
+    }
+
     public function createUserFromGoogle(): ?User
     {
         $googleUser = Socialite::driver('google')->stateless()->user();
@@ -68,6 +106,19 @@ class UserService
         }
 
         return $user;
+    }
+
+    public function linkSocialAccount(User $user, $providerUser, string $provider): void
+    {
+        $user->socialAccounts()->updateOrCreate(
+            ['provider' => $provider, 'provider_user_id' => $providerUser->getId()],
+            ['avatar_url' => $providerUser->getAvatar()]
+        );
+    }
+
+    public function unlinkSocialAccount(User $user, string $provider): void
+    {
+        $user->socialAccounts()->where('provider', $provider)->delete();
     }
 
     public function updateUser(User $user, array $data): User

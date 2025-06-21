@@ -40,7 +40,8 @@ class ReindexCommand extends Command
 
             $this->info('Індекс banners успішно переіндексовано');
         } catch (\Throwable $e) {
-            $this->error('❌ Помилка при переіндексації: ' . $e->getMessage());
+            $this->error('❌ Помилка при переіндексації: '.$e->getMessage());
+
             return self::FAILURE;
         }
 

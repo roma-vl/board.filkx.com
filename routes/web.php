@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TicketController as AdminTicketController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\BannerController as PublicBannerController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertServiceController;
@@ -204,8 +205,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 require __DIR__.'/auth.php';
-Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.redirect');
-Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+Route::get('/auth/{provider}/register', [GoogleController::class, 'registerToGoogle'])->name('social.register');
+Route::get('/auth/{provider}/callback', [GoogleController::class, 'handleGoogleCallback'])->name('social.callback');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/auth/{provider}/connect', [SocialAuthController::class, 'redirect'])->name('social.connect');
+    //    Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
+    Route::delete('/auth/{provider}/disconnect', [SocialAuthController::class, 'disconnect'])->name('social.disconnect');
+});
+
 Route::get('/contact', [StaticController::class, 'contact'])->name('contact');
 Route::get('/faq', [StaticController::class, 'faq'])->name('faq');
 Route::get('/page/{page_path}', [PageController::class, 'show'])->name('page')->where('page_path', '.+');

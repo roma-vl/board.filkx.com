@@ -1,21 +1,18 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import InputLabel from '@/Components/InputLabel.vue';
+import InputError from '@/Components/InputError.vue';
+import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import GoogleIcon from '@/Components/Icon/GoogleIcon.vue';
+import FacebookIcon from '@/Components/Icon/FacebookIcon.vue';
+import { getFullPathForStaticImage } from '@/helpers.js';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
 
-defineProps({
-  canResetPassword: {
-    type: Boolean,
-    default: false,
-  },
-  status: {
-    type: String,
-    default: '',
-  },
+const props = defineProps({
+  canResetPassword: Boolean,
 });
 
 const form = useForm({
@@ -24,164 +21,177 @@ const form = useForm({
   remember: false,
 });
 
+const showPassword = ref(false);
+
 const submit = () => {
   form.post(route('login'), {
     onFinish: () => form.reset('password'),
   });
 };
-const loginWithGoogle = () => {
-  window.location.href = route('google.redirect');
+
+const connect = (provider) => {
+  window.location.href = route('social.register', provider);
 };
 </script>
-
 <template>
   <GuestLayout>
     <Head :title="$t('login')" />
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="hidden lg:flex items-center justify-center dark:bg-gray-900 p-10">
+        <div class="max-w-md text-center">
+          <img
+            :src="getFullPathForStaticImage('images/auth/login.webp')"
+            alt="Login illustration"
+            class="mb-16 w-full h-auto"
+          >
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+            {{ $t('welcome_back') }}
+          </h2>
+        </div>
+      </div>
 
-    <div
-      v-if="status"
-      class="mb-4 text-sm font-medium text-green-600"
-    >
-      {{ status }}
+      <div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md space-y-8">
+          <div>
+            <h2
+              class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              {{ $t('login') }}
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+              {{ $t('dont_have_account') }}
+              <Link
+                :href="route('register')"
+                class="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                {{ $t('register') }}
+              </Link>
+            </p>
+          </div>
+          <div class="flex flex-col gap-4">
+            <button
+              type="button"
+              class="btn-social-google"
+              @click="connect('google')"
+            >
+              <GoogleIcon />
+              <span class="icon-google" /> Sign in with Google
+            </button>
+            <button
+              type="button"
+              class="text-white rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3 transition bg-blue-300 hover:bg-blue-200 cursor-not-allowed"
+            >
+              <FacebookIcon />
+              <span class="icon-facebook" /> Sign in with Facebook
+            </button>
+          </div>
+          <form
+            class="mt-8 space-y-6"
+            @submit.prevent="submit"
+          >
+            <div class="relative">
+              <InputLabel
+                for="email"
+                :value="$t('email')"
+              />
+              <TextInput
+                id="email"
+                v-model="form.email"
+                type="email"
+                class="mt-1 block w-full"
+                required
+                autocomplete="username"
+              />
+              <InputError
+                :message="form.errors.email"
+                class="mt-2"
+              />
+            </div>
+
+            <div class="relative">
+              <InputLabel
+                for="password"
+                :value="$t('password')"
+              />
+              <TextInput
+                id="password"
+                v-model="form.password"
+                :type="showPassword ? 'text' : 'password'"
+                class="mt-1 block w-full"
+                required
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                class="absolute right-3 top-9 text-sm text-indigo-500"
+                @click="showPassword = !showPassword"
+              >
+                {{ showPassword ? $t('hide') : $t('show') }}
+              </button>
+              <InputError
+                :message="form.errors.password"
+                class="mt-2"
+              />
+            </div>
+
+            <div class="flex items-center justify-between">
+              <label class="flex items-center">
+                <Checkbox
+                  v-model:checked="form.remember"
+                  name="remember"
+                />
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-300">{{
+                  $t('remember')
+                }}</span>
+              </label>
+              <Link
+                v-if="canResetPassword"
+                :href="route('password.request')"
+                class="text-sm text-indigo-600 hover:text-indigo-500"
+              >
+                {{ $t('forgot.password') }}
+              </Link>
+            </div>
+
+            <div>
+              <PrimaryButton
+                type="submit"
+                class="w-full justify-center"
+                :disabled="form.processing"
+                :class="{ 'opacity-50': form.processing }"
+              >
+                {{ $t('login') }}
+              </PrimaryButton>
+            </div>
+
+            <p class="text-xs text-gray-400 text-center">
+              {{ $t('accept') }}
+              <Link
+                href="/"
+                class="underline"
+              >
+                {{ $t('terms') }}
+              </Link>
+              {{ $t('and') }}
+              <Link
+                href="/"
+                class="underline"
+              >
+                {{ $t('privacy') }}
+              </Link>
+            </p>
+          </form>
+        </div>
+      </div>
     </div>
-    <form @submit.prevent="submit">
-      <div class="flex flex-col w-full gap-y-5 pb-6">
-        <button
-          class="bg-white flex items-center text-gray-700 dark:text-gray-300 justify-center gap-x-3 text-sm sm:text-base dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-gray-800 rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5"
-          @click.stop="loginWithGoogle"
-        >
-          <svg
-            class="w-5 h-5 sm:h-6 sm:w-6"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_3033_94454)">
-              <path
-                d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z"
-                fill="#4285F4"
-              />
-              <path
-                d="M12.2401 24.0008C15.4766 24.0008 18.2059 22.9382 20.1945 21.1039L16.3276 18.1055C15.2517 18.8375 13.8627 19.252 12.2445 19.252C9.11388 19.252 6.45946 17.1399 5.50705 14.3003H1.5166V17.3912C3.55371 21.4434 7.7029 24.0008 12.2401 24.0008Z"
-                fill="#34A853"
-              />
-              <path
-                d="M5.50253 14.3003C4.99987 12.8099 4.99987 11.1961 5.50253 9.70575V6.61481H1.51649C-0.18551 10.0056 -0.18551 14.0004 1.51649 17.3912L5.50253 14.3003Z"
-                fill="#FBBC04"
-              />
-              <path
-                d="M12.2401 4.74966C13.9509 4.7232 15.6044 5.36697 16.8434 6.54867L20.2695 3.12262C18.1001 1.0855 15.2208 -0.034466 12.2401 0.000808666C7.7029 0.000808666 3.55371 2.55822 1.5166 6.61481L5.50264 9.70575C6.45064 6.86173 9.10947 4.74966 12.2401 4.74966Z"
-                fill="#EA4335"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_3033_94454">
-                <rect
-                  width="24"
-                  height="24"
-                  fill="white"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-          <span>Sign in with Google</span>
-        </button>
-
-        <button
-          class="bg-[#1877F2] flex gap-x-3 text-sm sm:text-base items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-8 py-2.5"
-        >
-          <svg
-            class="w-5 h-5 sm:h-6 sm:w-6"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_3033_94669)">
-              <path
-                d="M24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 17.9895 4.3882 22.954 10.125 23.8542V15.4688H7.07812V12H10.125V9.35625C10.125 6.34875 11.9166 4.6875 14.6576 4.6875C15.9701 4.6875 17.3438 4.92188 17.3438 4.92188V7.875H15.8306C14.34 7.875 13.875 8.80008 13.875 9.75V12H17.2031L16.6711 15.4688H13.875V23.8542C19.6118 22.954 24 17.9895 24 12Z"
-                fill="white"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_3033_94669">
-                <rect
-                  width="24"
-                  height="24"
-                  fill="white"
-                />
-              </clipPath>
-            </defs>
-          </svg>
-          <span>Sign in with Facebook</span>
-        </button>
-      </div>
-      <div>
-        <InputLabel
-          for="email"
-          :value="$t('email')"
-        />
-        <TextInput
-          id="email"
-          v-model="form.email"
-          type="email"
-          class="mt-1 block w-full"
-          required
-          autofocus
-          autocomplete="username"
-        />
-        <InputError
-          class="mt-2"
-          :message="form.errors.email"
-        />
-      </div>
-
-      <div class="mt-4">
-        <InputLabel
-          for="password"
-          :value="$t('password')"
-        />
-        <TextInput
-          id="password"
-          v-model="form.password"
-          type="password"
-          class="mt-1 block w-full"
-          required
-          autocomplete="current-password"
-        />
-        <InputError
-          class="mt-2"
-          :message="form.errors.password"
-        />
-      </div>
-
-      <div class="mt-4 block">
-        <label class="flex items-center">
-          <Checkbox
-            v-model:checked="form.remember"
-            name="remember"
-          />
-          <span class="ms-2 text-sm text-gray-600">{{ $t('remember') }} </span>
-        </label>
-      </div>
-
-      <div class="mt-4 flex items-center justify-end">
-        <Link
-          v-if="canResetPassword"
-          :href="route('password.request')"
-          class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          {{ $t('forgot.password') }}
-        </Link>
-
-        <PrimaryButton
-          class="ms-4"
-          :class="{ 'opacity-25': form.processing }"
-          :disabled="form.processing"
-          @click.stop="submit"
-        >
-          {{ $t('login') }}
-        </PrimaryButton>
-      </div>
-    </form>
   </GuestLayout>
 </template>
+
+<style scoped>
+.btn-social-google {
+  @apply bg-white text-gray-700 border hover:bg-gray-100 rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3 transition;
+}
+.btn-social-facebook {
+  @apply text-white rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3  transition;
+}
+</style>

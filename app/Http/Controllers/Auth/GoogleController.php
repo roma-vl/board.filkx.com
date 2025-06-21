@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Services\UserService;
 use Exception;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse as SymfonyRedirectResponse;
@@ -18,25 +16,24 @@ class GoogleController extends Controller
         private readonly UserService $userService
     ) {}
 
-    public function redirectToGoogle(): SymfonyRedirectResponse|RedirectResponse
+    public function registerToGoogle(string $provider): SymfonyRedirectResponse|RedirectResponse
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver($provider)->stateless()->redirect();
     }
 
-    public function handleGoogleCallback(): Application|Redirector|RedirectResponse
+    public function handleGoogleCallback(string $provider)
     {
         try {
-            $user = $this->userService->createUserFromGoogle();
+            $providerUser = Socialite::driver($provider)->stateless()->user();
 
-            if (! $user) {
-                return redirect('/')
-                    ->with('error', 'Цей email вже використовується. Спробуйте увійти звичайним способом.');
-            }
+            $user = $this->userService->findOrCreateUserViaSocial($providerUser, $provider);
 
             Auth::login($user, true);
 
-            return redirect()->intended('/');
+            return redirect()->back();
         } catch (Exception $e) {
+            report($e); // лог помилки в storage/logs/laravel.log
+
             return redirect('/')->with('error', 'Помилка при авторизації через Google.');
         }
     }
