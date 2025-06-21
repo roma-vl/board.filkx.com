@@ -37,7 +37,7 @@ export const getFullPathForAvatarImage = (path) => {
 };
 
 export const getFullPathForStaticImage = (path) => {
-  return import.meta.env.VITE_APP_STORAGE_URL + 'static/' + path;
+  return import.meta.env.VITE_APP_STORAGE_URL + path;
 };
 
 export const fullPath = () => {
