@@ -342,4 +342,9 @@ export default {
   price: 'Ціна',
   'for.moderation': 'для модерації',
   tickets: 'Тікети',
+  'social.connections': 'Соціальні мережі',
+  accept: 'Прийняти',
+  terms: 'умови',
+  and: 'і',
+  privacy: 'конфіденційність',
 };

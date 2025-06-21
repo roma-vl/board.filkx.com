@@ -339,4 +339,9 @@ export default {
   price: 'Price',
   'for.moderation': 'for moderation',
   tickets: 'Tickets',
+  'social.connections': 'Social connections',
+  accept: 'Accept',
+  terms: 'terms',
+  and: 'and',
+  privacy: 'privacy',
 };

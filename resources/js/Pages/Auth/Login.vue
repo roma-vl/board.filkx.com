@@ -29,8 +29,8 @@ const submit = () => {
   });
 };
 
-const loginWithGoogle = () => {
-  window.location.href = route('google.redirect');
+const connect = (provider) => {
+  window.location.href = route('social.register', provider);
 };
 </script>
 <template>
@@ -72,14 +72,14 @@ const loginWithGoogle = () => {
             <button
               type="button"
               class="btn-social-google"
-              @click="loginWithGoogle()"
+              @click="connect('google')"
             >
               <GoogleIcon />
               <span class="icon-google" /> Sign in with Google
             </button>
             <button
               type="button"
-              class="btn-social-facebook"
+              class="text-white rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3 transition bg-blue-300 hover:bg-blue-200 cursor-not-allowed"
             >
               <FacebookIcon />
               <span class="icon-facebook" /> Sign in with Facebook
@@ -165,16 +165,16 @@ const loginWithGoogle = () => {
             </div>
 
             <p class="text-xs text-gray-400 text-center">
-              {{ $t('accept_terms') }}
+              {{ $t('accept') }}
               <Link
-                href="/terms"
+                href="/"
                 class="underline"
               >
                 {{ $t('terms') }}
               </Link>
               {{ $t('and') }}
               <Link
-                href="/privacy"
+                href="/"
                 class="underline"
               >
                 {{ $t('privacy') }}
@@ -192,6 +192,6 @@ const loginWithGoogle = () => {
   @apply bg-white text-gray-700 border hover:bg-gray-100 rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3 transition;
 }
 .btn-social-facebook {
-  @apply bg-[#1877F2] text-white rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3 hover:bg-[#1877F2]/90 transition;
+  @apply text-white rounded-lg px-5 py-2.5 w-full flex items-center justify-center gap-3  transition;
 }
 </style>

@@ -7,6 +7,7 @@ import { router } from '@inertiajs/vue3';
 const emit = defineEmits(['close']);
 const props = defineProps({
   image: String,
+  default: null,
 });
 
 const cropperRef = ref();

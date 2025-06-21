@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Mail\TestEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,9 +29,14 @@ class ProfileController extends Controller
      */
     public function settings(Request $request): Response
     {
+        $user = $request->user()->load('socialAccounts');
+
         return Inertia::render('Account/Profile/Settings', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
+            'auth' => [
+                'user' => $user,
+            ],
         ]);
     }
 
@@ -47,7 +53,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        Mail::to($request->user()->email)->send(new \App\Mail\TestEmail($request->user()));
+        Mail::to($request->user()->email)->send(new TestEmail($request->user()));
 
         return Redirect::route('account.profile.settings')->with('success', __('profile.profile_information_update'));
     }
