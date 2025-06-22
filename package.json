@@ -59,6 +59,7 @@
     "@tiptap/vue-3": "^2.12.0",
     "laravel-echo": "^1.18.0",
     "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "lowlight": "^3.3.0",
     "pusher-js": "^8.4.0-rc2",
     "uuid": "^11.1.0",

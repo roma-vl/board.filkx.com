@@ -6,8 +6,10 @@ use App\Http\Requests\Adverts\SearchRequest;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
 use App\Models\Location;
+use App\Models\User;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 readonly class SearchService
@@ -129,5 +131,74 @@ readonly class SearchService
         return array_filter($attrs, function ($value) {
             return ! empty($value['equals']) || ! empty($value['from']) || ! empty($value['to']);
         });
+    }
+
+    public function searchByUser(User $user, Request $request, int $page = 1, int $perPage = 10): SearchResult
+    {
+        $query = (string) $request->input('query');
+        $category = (int) $request->input('category_id');
+
+        $params = [
+            'index' => 'adverts',
+            'body' => [
+                '_source' => ['id'],
+                'from' => ($page - 1) * $perPage,
+                'size' => $perPage,
+                'sort' => [['published_at' => ['order' => 'desc']]],
+                'query' => [
+                    'bool' => [
+                        'must' => array_values(array_filter(array_merge(
+                            [
+                                ['term' => ['user_id' => $user->id]],
+                                ['term' => ['status' => 'active']],
+                            ],
+                            $category ? [['term' => ['categories' => $category]]] : [],
+                            ! empty($query) ? [[
+                                'multi_match' => [
+                                    'query' => $query,
+                                    'fields' => ['title^3', 'content'],
+                                ],
+                            ]] : []
+                        ))),
+
+                    ],
+                ],
+                'aggs' => [
+                    'group_by_category' => [
+                        'terms' => [
+                            'field' => 'categories',
+                            'size' => 100,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this->client->search($params);
+
+        $ids = array_column($response['hits']['hits'], '_id');
+
+        $items = $ids ? Advert::query()
+            ->with(['category', 'region', 'firstPhoto', 'favorites'])
+            ->whereIn('id', $ids)
+            ->orderByRaw('FIELD(id, '.implode(',', $ids).')')
+            ->get() : collect();
+
+        $pagination = new LengthAwarePaginator(
+            $items,
+            $response['hits']['total']['value'],
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        $categoryCounts = collect($response['aggregations']['group_by_category']['buckets'])
+            ->mapWithKeys(fn ($bucket) => [$bucket['key'] => $bucket['doc_count']]);
+
+        return new SearchResult(
+            $pagination,
+            [],
+            $categoryCounts->all()
+        );
     }
 }

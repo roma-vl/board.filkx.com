@@ -14,6 +14,7 @@ use App\Models\Location;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -118,6 +119,34 @@ class IndexController extends Controller
         ]);
     }
 
+    public function searchAdvertByUser(Request $request, User $user): Response
+    {
+        $pagination = $this->preparePaginationData2($request);
+
+        $result = $this->searchService->searchByUser($user, $request, $pagination['page'], $pagination['perPage']);
+
+        $categoryModels = Category::whereIn('id', array_keys($result->categoriesCounts))->get();
+
+        return Inertia::render('Search/User', [
+            'adverts' => [
+                'data' => $result->adverts->items(),
+                'total' => $result->adverts->total(),
+                'page' => $result->adverts->currentPage(),
+                'per_page' => $result->adverts->perPage(),
+                'last_page' => $result->adverts->lastPage(),
+                'links' => $result->adverts->linkCollection(),
+            ],
+            'user' => $user,
+            'query' => $request->query(),
+            'categoriesCounts' => $categoryModels->map(fn ($cat) => [
+                'id' => $cat->id,
+                'parent_id' => $cat->parent_id,
+                'name' => $cat->name,
+                'count' => $result->categoriesCounts[$cat->id] ?? 0,
+            ])->values(),
+        ]);
+    }
+
     private function formatCategoryWithAttributes(Category $category): array
     {
         return [
@@ -167,6 +196,14 @@ class IndexController extends Controller
     public function phone(Advert $advert): string
     {
         return $advert->user->phone;
+    }
+
+    private function preparePaginationData2(Request $request): array
+    {
+        $page = max((int) $request->input('page', 1), 1);
+        $perPage = max((int) $request->input('per_page', 5), 1);
+
+        return compact('page', 'perPage');
     }
 
     private function preparePaginationData(SearchRequest $request): array

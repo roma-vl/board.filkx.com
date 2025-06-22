@@ -36,6 +36,7 @@ class AdvertIndexer
             'id' => $advert->id,
             'body' => [
                 'id' => $advert->id,
+                'user_id' => $advert->user_id,
                 'published_at' => $advert->published_at ? $advert->published_at->format(DATE_ATOM) : null,
                 'title' => $advert->title,
                 'content' => $advert->content,

@@ -32,11 +32,12 @@ const toggleLike = (advert) => {
     >
     <div class="p-5 space-y-2">
       <div class="flex justify-between items-start">
-        <h3
+        <Link
+          :href="route('adverts.show', advert.id)"
           class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200 dark:text-gray-200 dark:hover:text-indigo-500"
         >
           {{ advert.title }}
-        </h3>
+        </Link>
         <span class="text-lg font-bold text-green-600">
           {{ advert.price }} {{ advert.currency }} грн.
         </span>
