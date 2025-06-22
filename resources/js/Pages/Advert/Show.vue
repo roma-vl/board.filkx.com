@@ -6,7 +6,11 @@ import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
 import Reject from '@/Pages/Admin/Advert/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
-import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
+import {
+  getDateFormatFromLocale,
+  getFullPathForAvatarImage,
+  getFullPathForImage,
+} from '@/helpers.js';
 import axios from 'axios';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
 const props = defineProps({
@@ -395,7 +399,7 @@ console.log(usePage().props.can, 'usePage()');
               <div class="flex flex-row p-2">
                 <img
                   class="w-16 h-16 rounded-full"
-                  :src="advert.user?.avatar_url"
+                  :src="getFullPathForAvatarImage(advert.user?.avatar_url)"
                   alt=""
                 >
                 <div class="pl-4">
@@ -411,7 +415,7 @@ console.log(usePage().props.can, 'usePage()');
               <div class="my-4 border border-b-1 mx-3" />
               <div class="flex items-center justify-center">
                 <a
-                  href="#"
+                  :href="route('list.advert.user', advert.user.id)"
                   class="text-blue-500 hover:text-blue-600"
                 >
                   {{ $t('user.all.adverts') }} >

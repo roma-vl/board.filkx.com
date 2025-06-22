@@ -91,6 +91,7 @@ class InitCommand extends Command
                             'status' => ['type' => 'keyword'],
                             'categories' => ['type' => 'integer'],
                             'regions' => ['type' => 'integer'],
+                            'user_id' => ['type' => 'integer'],
                             'values' => [
                                 'type' => 'nested',
                                 'properties' => [

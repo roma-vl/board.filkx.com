@@ -39,25 +39,29 @@ const toggleLike = (advert) => {
       :alt="advert.title"
     >
     <div class="p-5 flex-1 space-y-2">
-      <div class="flex justify-between items-start">
-        <h3
-          class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200 dark:text-gray-200 dark:hover:text-indigo-500"
-        >
-          {{ advert.title }}
-        </h3>
-        <span class="text-lg font-bold text-green-600">
-          {{ advert.price }} {{ advert.currency }} грн.
-        </span>
+      <div class="">
+        <div class="flex justify-between items-start pb-3">
+          <Link
+            :href="route('adverts.show', advert.id)"
+            class="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-200 dark:text-gray-200 dark:hover:text-indigo-500"
+          >
+            {{ advert.title }}
+          </Link>
+          <span class="text-lg font-bold text-green-600">
+            {{ advert.price }} {{ advert.currency }} грн.
+          </span>
+        </div>
+
+        <p class="text-gray-700 text-sm dark:text-gray-300">
+          {{ truncateContent(advert.content, 200) }}
+        </p>
       </div>
-      <div class="text-sm text-gray-500 dark:text-gray-400">
-        {{ advert.region.name }} - {{ getDateFormatFromLocale(advert.created_at) }}
-      </div>
-      <p class="text-gray-700 text-sm dark:text-gray-300">
-        {{ truncateContent(advert.content, 100) }}
-      </p>
       <div
         class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100 dark:border-gray-700"
       >
+        <div class="text-sm text-gray-500 dark:text-gray-400">
+          {{ advert.region.name }} - {{ getDateFormatFromLocale(advert.created_at) }}
+        </div>
         <button @click="toggleLike(advert)">
           <span :class="['inline-block', heartAnimate ? 'heart-animate' : '']">
             <HeartIcon
@@ -70,12 +74,6 @@ const toggleLike = (advert) => {
             />
           </span>
         </button>
-        <Link
-          :href="route('adverts.show', advert.id)"
-          class="text-blue-600 hover:underline dark:text-blue-500"
-        >
-          {{ $t('more.details') }}
-        </Link>
       </div>
     </div>
   </div>

@@ -217,6 +217,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/contact', [StaticController::class, 'contact'])->name('contact');
 Route::get('/faq', [StaticController::class, 'faq'])->name('faq');
 Route::get('/page/{page_path}', [PageController::class, 'show'])->name('page')->where('page_path', '.+');
+Route::get('/list/user/{user}', [IndexController::class, 'searchAdvertByUser'])->name('list.advert.user');
 Route::get('/list/{urlPath?}', [IndexController::class, 'searchAdvert'])
     ->where('urlPath', '[a-z0-9-\/]+')->name('list.advert');
 Route::get('/{urlPath?}', [IndexController::class, 'searchAdvert'])
