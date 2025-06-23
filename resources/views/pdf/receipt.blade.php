@@ -74,14 +74,6 @@
         <td>{{ $order->advert_id }}</td>
     </tr>
     <tr>
-        <th>Тип послуги</th>
-        <td>{{ $order->service_type }}</td>
-    </tr>
-    <tr>
-        <th>Ціна</th>
-        <td>{{ number_format($order->price, 2) }} грн</td>
-    </tr>
-    <tr>
         <th>Метод оплати</th>
         <td>{{ $order->payment_method }}</td>
     </tr>
@@ -90,6 +82,32 @@
         <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i') }}</td>
     </tr>
 </table>
+
+<h3 style="margin-top: 30px;">Склад замовлення:</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Послуга</th>
+        <th>Ціна</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach ($order->items as $index => $item)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ ucfirst($item->service_type) }}</td>
+            <td>{{ number_format($item->price, 2) }} грн</td>
+        </tr>
+    @endforeach
+    <tr>
+        <th colspan="2">Всього:</th>
+        <th>{{ number_format($order->price, 2) }} грн</th>
+    </tr>
+    </tbody>
+</table>
+
 
 <div class="footer">
     <div class="date">Дата: {{ now()->format('d.m.Y') }}</div>

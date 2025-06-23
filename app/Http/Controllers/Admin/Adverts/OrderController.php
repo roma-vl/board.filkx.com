@@ -27,6 +27,8 @@ class OrderController extends Controller
 
     public function pdfReceipt(AdvertOrder $order)
     {
+        $order->load('items'); // ← важливо
+
         $pdf = Pdf::loadView('pdf.receipt', ['order' => $order]);
 
         return $pdf->stream("receipt_{$order->id}.pdf");

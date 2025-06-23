@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import axios from 'axios';
 import TooltipIcon from '@/Components/TooltipIcon.vue';
 import { route } from 'ziggy-js';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
   advert: Object,
@@ -74,7 +75,7 @@ const packages = ref([
     includes: ['highlight', 'pin', 'urgent', 'premium'],
   },
   {
-    key: 'max',
+    key: 'maximal',
     title: 'Пакет "Максимальний" *"',
     description:
       'Це найбільш зручний варіант виділення оголошення на сайті цілий місяць. Вартість такого пакету послуг складає 149 грн. Він включає всі види просування на сайті:\n' +
@@ -152,6 +153,9 @@ const submit = async () => {
     alert('Помилка покупки');
   }
 };
+const repeatPurchase = (type) => {
+  router.post(route('account.adverts.extend', advert.id), { type });
+};
 </script>
 <template>
   <div class="max-w-2xl mx-auto space-y-6">
@@ -223,9 +227,21 @@ const submit = async () => {
               <p class="font-bold mt-1 text-sm">💰 {{ service.price }} грн</p>
             </div>
           </label>
+          <button
+            class="btn btn-primary"
+            @click="repeatPurchase(service.type)"
+          >
+            Продовжити
+          </button>
         </div>
       </div>
     </div>
+    <input
+      v-model="couponCode"
+      type="text"
+      placeholder="Промокод"
+      class="input"
+    >
 
     <!-- ✅ Підсумок -->
     <div class="flex justify-between items-center pt-4">

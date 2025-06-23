@@ -14,6 +14,7 @@ const menuItems = [
   { key: 'settings', route: 'account.profile.settings' },
   { key: 'banners', route: 'account.banners.index' },
   { key: 'tickets', route: 'account.tickets.index' },
+  { key: 'pay', route: 'account.orders.index' },
 ];
 </script>
 
