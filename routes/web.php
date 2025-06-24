@@ -117,7 +117,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('/orders')->name('orders.')->group(function () {
             Route::get('/', [OrdersController::class, 'index'])->name('index');
             Route::get('/orders/{order}/receipt', [OrdersController::class, 'pdfReceipt'])
-                ->name('adverts.orders.receipt');
+                ->name('receipt');
         });
 
     });
