@@ -3,6 +3,8 @@
 use App\Contracts\SmsServiceInterface;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\ShareLocale;
+use App\Http\Services\PDF\PdfGeneratorInterface;
+use App\Http\Services\PDF\ReceiptPdfGenerator;
 use App\Http\Services\Sms\LogSmsService;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -47,5 +49,6 @@ return Application::configure(basePath: dirname(__DIR__))
         });
     })
     ->withBindings([
-        SmsServiceInterface::class => LogSmsService::class, // TwilioSmsService::class
+        SmsServiceInterface::class => LogSmsService::class,
+        PdfGeneratorInterface::class => ReceiptPdfGenerator::class,
     ])->create();

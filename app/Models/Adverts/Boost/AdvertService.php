@@ -18,19 +18,12 @@ class AdvertService extends Model
         'ends_at',
         'auto_ups_left',
         'order_id',
+        'notified_before_expire',
     ];
 
     protected $casts = [
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
-    ];
-
-    public const TYPES = [
-        'highlight',
-        'pin',
-        'premium',
-        'urgent',
-        'boost',
     ];
 
     public function advert(): BelongsTo

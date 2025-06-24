@@ -4,21 +4,19 @@ namespace App\Http\Controllers\Admin\Adverts;
 
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Services\Adverts\AdvertOrderService;
+use App\Http\Services\PDF\PdfGeneratorInterface;
 use App\Models\Adverts\AdvertOrder;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class OrderController extends Controller
 {
-    private AdvertOrderService $advertOrderService;
+    public function __construct(
+        private readonly PdfGeneratorInterface $pdfGenerator,
+        private readonly AdvertOrderService $advertOrderService
+    ) {}
 
-    public function __construct(AdvertOrderService $advertOrderService)
-    {
-
-        $this->advertOrderService = $advertOrderService;
-    }
-
-    public function orders()
+    public function orders(): Response
     {
         return Inertia::render('Admin/Orders/Orders', [
             'orders' => $this->advertOrderService->getAdvertOrders(),
@@ -27,8 +25,6 @@ class OrderController extends Controller
 
     public function pdfReceipt(AdvertOrder $order)
     {
-        $pdf = Pdf::loadView('pdf.receipt', ['order' => $order]);
-
-        return $pdf->stream("receipt_{$order->id}.pdf");
+        return $this->pdfGenerator->generate($order);
     }
 }

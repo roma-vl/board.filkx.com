@@ -213,26 +213,11 @@ class AdvertService
     public function getVip(): Collection
     {
         return Advert::query()
-            ->where('status', 'active')
             ->where('premium', 1)
             ->with(['firstPhoto', 'favorites'])
-            ->latest()
+            ->inRandomOrder() // вибирає випадкові
             ->take(4)
             ->get();
-    }
-
-    public function getPremium(): Collection
-    {
-        return Advert::whereHas('services', function ($q) {
-            $q->where('type', 'premium')
-                ->where('starts_at', '<=', now())
-                ->where('ends_at', '>=', now());
-        })
-            ->with(['firstPhoto', 'favorites'])
-            ->latest()
-            ->take(4)
-            ->get();
-
     }
 
     public function getAdvertForModeration()

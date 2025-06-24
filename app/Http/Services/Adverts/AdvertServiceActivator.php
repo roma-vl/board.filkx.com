@@ -2,19 +2,13 @@
 
 namespace App\Http\Services\Adverts;
 
+use App\Models\Adverts\Advert;
+use App\Models\Adverts\AdvertOrder;
 use App\Models\Adverts\Boost\AdvertService;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdvertServiceActivator
 {
-    private BillingService $billingService;
-
-    public function __construct(BillingService $billingService)
-    {
-        $this->billingService = $billingService;
-    }
-
-    public function activate(int $advertId, string $type)
+    public function activate(Advert $advert, string $type, AdvertOrder $order): void
     {
         $durationDays = match ($type) {
             'highlight', 'urgent', 'pin', 'premium' => 7,
@@ -23,10 +17,8 @@ class AdvertServiceActivator
             default => 0
         };
 
-        $order = $this->billingService->purchase($advertId, $type);
-
         AdvertService::create([
-            'advert_id' => $advertId,
+            'advert_id' => $advert->id,
             'type' => $type,
             'starts_at' => now(),
             'ends_at' => now()->addDays($durationDays),
@@ -34,7 +26,9 @@ class AdvertServiceActivator
             'order_id' => $order->id,
         ]);
 
-        return Pdf::loadView('pdf.receipt', ['order' => $order])
-            ->download("receipt_{$order->id}.pdf");
+        AdvertServiceLogger::log($advert->id, 'activate', [
+            'service' => $type,
+            'duration_days' => $durationDays,
+        ]);
     }
 }

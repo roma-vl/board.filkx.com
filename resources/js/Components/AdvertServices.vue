@@ -3,11 +3,13 @@ import { computed, ref } from 'vue';
 import axios from 'axios';
 import TooltipIcon from '@/Components/TooltipIcon.vue';
 import { route } from 'ziggy-js';
+import { router } from '@inertiajs/vue3';
+import { getFullPathForStaticImage } from '@/helpers.js';
 
 const props = defineProps({
   advert: Object,
 });
-const selected = ref([]);
+
 const services = ref([
   {
     key: 'highlight',
@@ -74,7 +76,7 @@ const packages = ref([
     includes: ['highlight', 'pin', 'urgent', 'premium'],
   },
   {
-    key: 'max',
+    key: 'maximal',
     title: 'Пакет "Максимальний" *"',
     description:
       'Це найбільш зручний варіант виділення оголошення на сайті цілий місяць. Вартість такого пакету послуг складає 149 грн. Він включає всі види просування на сайті:\n' +
@@ -90,30 +92,9 @@ const packages = ref([
 
 const selectedPackages = ref([]);
 const selectedServices = ref([]);
+const couponCode = ref('');
 
 const serviceMap = computed(() => Object.fromEntries(services.value.map((s) => [s.key, s])));
-
-const isIncludedInPackage = (key) =>
-  packages.value.some((p) => selectedPackages.value.includes(p.key) && p.includes.includes(key));
-
-const handlePackageChange = (pack) => {
-  const isSelected = selectedPackages.value.includes(pack.key);
-
-  if (isSelected) {
-    // Якщо вибрано — додаємо залежні послуги
-    pack.includes.forEach((k) => {
-      if (!selectedServices.value.includes(k)) {
-        selectedServices.value.push(k);
-      }
-    });
-  } else {
-    // Якщо зняли — знімаємо залежні послуги
-    pack.includes.forEach((k) => {
-      const index = selectedServices.value.indexOf(k);
-      if (index !== -1) selectedServices.value.splice(index, 1);
-    });
-  }
-};
 
 const totalPrice = computed(() => {
   const serviceKeysInPackages = new Set(
@@ -144,6 +125,7 @@ const submit = async () => {
   try {
     await axios.post(route('account.adverts.purchase', props.advert.id), {
       types: [...selectedPackages.value, ...selectedServices.value],
+      couponCode: couponCode.value,
     });
     alert('Послуги активовано!');
     selectedPackages.value = [];
@@ -152,9 +134,12 @@ const submit = async () => {
     alert('Помилка покупки');
   }
 };
+const repeatPurchase = (type) => {
+  router.post(route('account.adverts.extend', advert.id), { type });
+};
 </script>
 <template>
-  <div class="max-w-2xl mx-auto space-y-6">
+  <div class="max-w-2xl mx-auto space-y-6 pb-4">
     <h2 class="text-2xl font-bold">
       Послуги просування
     </h2>
@@ -168,19 +153,20 @@ const submit = async () => {
         <div
           v-for="pack in packages"
           :key="pack.key"
-          class="border-l-4 border-yellow-400 bg-yellow-50 p-4 rounded-md shadow"
+          class="border-l-4 border-yellow-500 bg-yellow-100/70 hover:bg-yellow-50 transition-all duration-200 p-5 rounded-xl shadow-md"
         >
-          <label class="flex items-start gap-3 cursor-pointer">
+          <label class="flex flex-col sm:flex-row sm:items-start gap-3 cursor-pointer">
             <input
               v-model="selectedPackages"
               type="checkbox"
-              class="form-checkbox h-5 w-5 mt-1 text-yellow-600"
+              class="form-checkbox h-6 w-6 mt-1 accent-yellow-600"
               :value="pack.key"
-              @change="handlePackageChange(pack)"
             >
             <div>
-              <h4 class="font-bold text-lg">{{ pack.title }} — {{ pack.price }} грн</h4>
-              <p class="text-sm text-gray-800 whitespace-pre-line">{{ pack.description }}</p>
+              <h4 class="font-bold text-xl text-yellow-900">
+                {{ pack.title }} — {{ pack.price }} грн
+              </h4>
+              <p class="text-sm text-gray-700 whitespace-pre-line mt-1">{{ pack.description }}</p>
               <ul class="list-disc ml-4 text-sm mt-2 text-gray-600">
                 <li
                   v-for="service in pack.includes"
@@ -204,40 +190,86 @@ const submit = async () => {
         <div
           v-for="service in services"
           :key="service.key"
-          class="border p-4 rounded-md shadow-sm"
+          class="border border-gray-300 bg-white hover:bg-gray-50 transition-all duration-200 p-5 rounded-xl shadow-sm"
         >
-          <label class="flex items-start gap-3 cursor-pointer">
+          <label class="flex flex-col sm:flex-row sm:items-start gap-3 cursor-pointer">
             <input
               v-model="selectedServices"
               type="checkbox"
-              class="form-checkbox mt-1 h-5 w-5 text-blue-600"
+              class="form-checkbox mt-1 h-6 w-6 accent-blue-600"
               :value="service.key"
-              :disabled="isIncludedInPackage(service.key)"
             >
-            <div>
-              <div class="flex items-center gap-2">
-                <h4 class="font-semibold text-base">{{ service.title }}</h4>
-                <TooltipIcon :message="service.tooltip" />
+            <div class="w-full">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <h4 class="font-semibold text-base text-gray-900">{{ service.title }}</h4>
+                  <TooltipIcon :message="service.tooltip" />
+                </div>
+                <span class="text-sm font-bold text-green-700">💰 {{ service.price }} грн</span>
               </div>
-              <p class="text-sm text-gray-600">{{ service.description }}</p>
-              <p class="font-bold mt-1 text-sm">💰 {{ service.price }} грн</p>
+              <p class="text-sm text-gray-600 mt-1">{{ service.description }}</p>
             </div>
           </label>
+
+          <div class="mt-3 text-right">
+            <button
+              class="text-sm text-blue-600 hover:underline"
+              @click="repeatPurchase(service.type)"
+            >
+              🔁 Продовжити
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input
+      v-model="couponCode"
+      type="text"
+      placeholder="Промокод"
+      class="input w-full mt-4 px-4 py-3 text-base rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500"
+    >
+
+    <div v-if="canSubmit">
+      <h3 class="text-lg font-semibold mb-3">
+        Метод оплати
+      </h3>
+      <div class="mt-6 border rounded-lg p-5 shadow bg-gray-50 dark:bg-gray-800 dark:text-white">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <label class="flex items-center gap-3">
+            <input
+              type="radio"
+              name="payment_method"
+              value="liqpay"
+              checked
+              disabled
+            >
+            <img
+              :src="getFullPathForStaticImage('images/pays/liqpay_logo.png')"
+              class="w-20"
+              alt="LiqPay"
+            >
+            <span class="text-base font-medium">LiqPay</span>
+          </label>
+          <span class="text-sm text-gray-500">(доступний тільки LiqPay)</span>
         </div>
       </div>
     </div>
 
-    <!-- ✅ Підсумок -->
-    <div class="flex justify-between items-center pt-4">
-      <p class="text-lg font-semibold">
+    <div
+      v-if="canSubmit"
+      class="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t px-4 sm:px-6 py-3 sm:py-4 shadow-xl flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-2"
+    >
+      <div
+        class="text-base sm:text-lg font-semibold text-gray-800 dark:text-white text-center sm:text-left"
+      >
         Обрано: {{ selectedPackages.length + selectedServices.length }} | Сума: {{ totalPrice }} грн
-      </p>
+      </div>
       <button
         :disabled="!canSubmit"
-        class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 disabled:opacity-50"
+        class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 w-full sm:w-auto"
         @click="submit"
       >
-        Купити вибране
+        ✅ Купити вибране
       </button>
     </div>
   </div>
