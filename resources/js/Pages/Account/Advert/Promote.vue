@@ -12,19 +12,20 @@ const props = defineProps({
 </script>
 
 <template>
-    <AuthenticatedLayout>
-        <div class="py-2">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md flex flex-col lg:flex-row gap-6">
-                    <div class="w-full lg:w-2/3">
-                        <AdvertServices :advert="props.advert" />
-                    </div>
-                    <div class="w-full lg:w-1/3">
-                        <AdvertSummaryCard :advert="props.advert" />
-                    </div>
-                </div>
-            </div>
+  <AuthenticatedLayout>
+    <div class="py-2">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+          class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md flex flex-col lg:flex-row gap-6"
+        >
+          <div class="w-full lg:w-2/3">
+            <AdvertServices :advert="props.advert" />
+          </div>
+          <div class="w-full lg:w-1/3">
+            <AdvertSummaryCard :advert="props.advert" />
+          </div>
         </div>
-    </AuthenticatedLayout>
-
+      </div>
+    </div>
+  </AuthenticatedLayout>
 </template>
