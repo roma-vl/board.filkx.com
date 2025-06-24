@@ -2,6 +2,7 @@
 
 namespace App\Models\Adverts;
 
+use App\Models\Adverts\Boost\AdvertAutoLift;
 use App\Models\Adverts\Boost\AdvertBoost;
 use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Dialog\Dialog;
@@ -134,6 +135,11 @@ class Advert extends Model implements Auditable
     public function region()
     {
         return $this->belongsTo(Location::class, 'region_id');
+    }
+
+    public function autoLifts()
+    {
+        return $this->hasMany(AdvertAutoLift::class);
     }
 
     public function isDraft(): bool
