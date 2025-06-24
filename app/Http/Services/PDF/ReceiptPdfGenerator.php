@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Services\PDF;
 
 use App\Models\Adverts\AdvertOrder;

@@ -1,24 +1,15 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, router, usePage } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
 import { computed, ref } from 'vue';
-import Modal from '@/Components/Modal.vue';
-import Create from '@/Pages/Account/Ticket/Create.vue';
 import OrderList from '@/Pages/Account/Orders/OrderList.vue';
 
 const orders = computed(() => usePage().props.orders);
 
-const isCreateModalOpen = ref(false);
-const selectedPages = ref(null);
-const refreshPages = () => {
-  router.get(route('admin.orders.index'), {
-    preserveScroll: true,
-    onSuccess: () => router.replace(route('admin.orders.index')),
-  });
+const routes = {
+  receipt: 'account.orders.receipt',
 };
-
-const routes = {};
 </script>
 
 <template>
@@ -38,21 +29,11 @@ const routes = {};
             </div>
             <OrderList
               :orders="orders"
-              :routes="orders"
+              :routes="routes"
             />
           </div>
         </div>
       </div>
     </div>
-    <Modal
-      :show="isCreateModalOpen"
-      max-width="2xl"
-      @close="isCreateModalOpen = false"
-    >
-      <Create
-        :pages="selectedPages"
-        @page-created="refreshPages"
-      />
-    </Modal>
   </AuthenticatedLayout>
 </template>

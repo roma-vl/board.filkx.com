@@ -18,6 +18,7 @@ class OrdersController
         $orders = AdvertOrder::query()
             ->where('user_id', $user->id)
             ->with('advert', 'items')
+            ->orderBy('created_at', 'desc')
             ->paginate(20);
 
         return Inertia::render('Account/Orders/Index', [
