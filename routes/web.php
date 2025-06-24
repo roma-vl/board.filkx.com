@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Adverts\AttributeController;
 use App\Http\Controllers\Admin\Adverts\CategoryController;
 use App\Http\Controllers\Admin\Adverts\OrderController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
@@ -203,6 +204,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/settings/user', [SettingsController::class, 'updateUser'])->name('settings.user');
         });
 
+        Route::prefix('coupons')->name('coupons.')->group(function () {
+            Route::get('/', [CouponController::class, 'index'])->name('index');
+            Route::get('/create', [CouponController::class, 'create'])->name('create');
+            Route::get('/edit/{coupon}', [CouponController::class, 'edit'])->name('edit');
+            Route::put('/{coupon}', [CouponController::class, 'update'])->name('update');
+            Route::post('/', [CouponController::class, 'store'])->name('store');
+            Route::delete('/{coupon}', [CouponController::class, 'destroy'])->name('destroy');
+        });
+
         Route::get('logs', [LogViewerController::class, 'index'])->name('logs');
         Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity.logs');
         Route::get('/orders/{order}/receipt', [OrderController::class, 'pdfReceipt'])
@@ -217,7 +227,6 @@ Route::get('/auth/{provider}/callback', [GoogleController::class, 'handleGoogleC
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/auth/{provider}/connect', [SocialAuthController::class, 'redirect'])->name('social.connect');
-    //    Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
     Route::delete('/auth/{provider}/disconnect', [SocialAuthController::class, 'disconnect'])->name('social.disconnect');
 });
 

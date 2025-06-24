@@ -91,6 +91,7 @@ const packages = ref([
 
 const selectedPackages = ref([]);
 const selectedServices = ref([]);
+const couponCode = ref('');
 
 const serviceMap = computed(() => Object.fromEntries(services.value.map((s) => [s.key, s])));
 
@@ -145,6 +146,7 @@ const submit = async () => {
   try {
     await axios.post(route('account.adverts.purchase', props.advert.id), {
       types: [...selectedPackages.value, ...selectedServices.value],
+      couponCode: couponCode.value,
     });
     alert('Послуги активовано!');
     selectedPackages.value = [];
