@@ -42,7 +42,7 @@ class IndexController extends Controller
         return Inertia::render('Index', [
             'categories' => $this->categoryService->getFirstLevelCategoriesWithChildren(),
             'news' => $this->advertService->getLatest(),
-            'vip' => $this->advertService->getPremium(),
+            'vip' => $this->advertService->getVip(),
         ]);
     }
 

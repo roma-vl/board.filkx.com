@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Cabinet\Orders;
 
+use App\Http\Services\PDF\PdfGeneratorInterface;
 use App\Models\Adverts\AdvertOrder;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class OrdersController
 {
+    public function __construct(private readonly PdfGeneratorInterface $pdfGenerator) {}
+
     public function index(Request $request): Response
     {
         $user = $request->user();
@@ -25,10 +27,6 @@ class OrdersController
 
     public function pdfReceipt(AdvertOrder $order)
     {
-        $order->load('items'); // ← важливо
-
-        $pdf = Pdf::loadView('pdf.receipt', ['order' => $order]);
-
-        return $pdf->stream("receipt_{$order->id}.pdf");
+        return $this->pdfGenerator->generate($order);
     }
 }

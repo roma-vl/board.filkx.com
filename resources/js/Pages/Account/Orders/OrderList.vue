@@ -19,7 +19,7 @@ const pdfVisible = ref(false);
 const currentPdfUrl = ref(null);
 
 const showPdf = (orderId) => {
-  currentPdfUrl.value = route('admin.adverts.orders.receipt', orderId);
+  currentPdfUrl.value = route(props.routes.receipt, orderId);
   pdfVisible.value = true;
 };
 </script>
