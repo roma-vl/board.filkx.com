@@ -23,6 +23,7 @@ use App\Http\Controllers\Cabinet\Adverts\FavoriteController;
 use App\Http\Controllers\Cabinet\Banner\BannerController;
 use App\Http\Controllers\Cabinet\Banner\CreateController;
 use App\Http\Controllers\Cabinet\Chat\ChatController;
+use App\Http\Controllers\Cabinet\Orders\OrdersController;
 use App\Http\Controllers\Cabinet\Profile\PhoneController;
 use App\Http\Controllers\Cabinet\Profile\ProfileController;
 use App\Http\Controllers\Cabinet\TicketController;
@@ -111,6 +112,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/chats/{chat}/messages', [ChatController::class, 'show'])->name('show');
             Route::get('/{advert}/messages', [ChatController::class, 'getDialogByAdvert'])->name('get.dialog');
             Route::post('/chats/{advert}/messages', [ChatController::class, 'store'])->name('store');
+        });
+
+        Route::prefix('/orders')->name('orders.')->group(function () {
+            Route::get('/', [OrdersController::class, 'index'])->name('index');
+            Route::get('/orders/{order}/receipt', [OrdersController::class, 'pdfReceipt'])
+                ->name('adverts.orders.receipt');
         });
 
     });

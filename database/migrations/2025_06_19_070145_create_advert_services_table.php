@@ -17,7 +17,9 @@ return new class extends Migration
             $table->enum('type', ['highlight', 'pin', 'premium', 'urgent', 'boost']);
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
-            $table->integer('auto_ups_left')->nullable(); // для max-пакету
+            $table->integer('auto_ups_left')->nullable();
+            $table->integer('is_expired')->default(0);
+
             $table->timestamps();
         });
     }
