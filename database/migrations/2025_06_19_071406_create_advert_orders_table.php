@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('advert_orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('advert_id')->constrained('advert_adverts');
-            $table->string('service_type');
+            $table->string('service_type')->nullable();
             $table->decimal('price', 8, 2);
             $table->enum('status', ['pending', 'paid', 'failed'])->default('paid');
             $table->string('payment_method')->nullable();

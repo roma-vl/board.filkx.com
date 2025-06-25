@@ -6,6 +6,7 @@ import PencilIcon from '@/Components/Icon/PencilIcon.vue';
 import Modal from '@/Components/Modal.vue';
 import { ref, computed } from 'vue';
 import { usePage, router } from '@inertiajs/vue3';
+import { getDateFormatFromLocale } from '@/helpers.js';
 
 const coupons = computed(() => usePage().props.coupons.data);
 const pagination = computed(() => usePage().props.coupons);
@@ -35,8 +36,8 @@ const headings = [
 ];
 
 const routes = [
-  { key: 'index', value: 'admin.tickets.index' },
-  { key: 'search', value: 'admin.tickets.search' },
+  { key: 'index', value: 'admin.coupons.index' },
+  { key: 'search', value: 'admin.coupons.search' },
 ];
 
 const openCreateModal = () => {
@@ -99,7 +100,7 @@ const destroyCoupon = (id) => {
         routes=""
       >
         <template #column-expires_at="{ row }">
-          {{ row.expires_at ?? '—' }}
+          {{ getDateFormatFromLocale(row.expires_at) ?? '—' }}
         </template>
 
         <template #column-actions="{ row }">

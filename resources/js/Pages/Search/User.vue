@@ -8,10 +8,22 @@ import CategoryItem from '@/Components/Advert/Show/CategoryItem.vue';
 import { getDateFormatFromLocale, getFullPathForAvatarImage } from '@/helpers.js';
 
 const props = defineProps({
-  adverts: Object,
-  user: Object,
-  query: Object,
-  categoriesCounts: Object,
+  adverts: {
+    type: Object,
+    default: () => ({}),
+  },
+  user: {
+    type: Object,
+    default: () => ({}),
+  },
+  query: {
+    type: Object,
+    default: () => ({}),
+  },
+  categoriesCounts: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 const query = ref(props.query?.query || '');
