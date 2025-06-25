@@ -7,6 +7,7 @@ use App\Notifications\ResetPasswordNotification;
 use App\Traits\Filterable;
 use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -203,5 +204,10 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
             ->logOnlyDirty() // тільки коли змінились
             ->useLogName('user') // назва для фільтрації логів
             ->setDescriptionForEvent(fn (string $eventName) => "User was {$eventName}");
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->whereNotNull('email_verified_at');
     }
 }

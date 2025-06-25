@@ -30,11 +30,11 @@ const toggleFullscreen = () => {
           <div class="flex">
             <div class="flex shrink-0 items-center">
               <Link :href="route('admin.index')">
-                <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                <ApplicationLogo class="block h-12 w-auto fill-current text-gray-800 pl-6" />
               </Link>
             </div>
 
-            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+            <div class="hidden space-x-6 sm:-my-px sm:ms-10 sm:flex">
               <NavLink
                 :href="route('main')"
                 class="dark:text-white"
