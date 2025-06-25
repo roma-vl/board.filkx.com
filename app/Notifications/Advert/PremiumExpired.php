@@ -24,7 +24,7 @@ class PremiumExpired extends Notification
             ->subject('Преміум послуга завершилась')
             ->greeting("Привіт, {$notifiable->name}!")
             ->line("Преміум розміщення для вашого оголошення '{$this->advert->title}' завершилось.")
-            ->action('Продовжити преміум', route('account.adverts.purchase', $this->advert->id))
+            ->action('Продовжити преміум', route('account.adverts.promote', $this->advert->id))
             ->line('Дякуємо, що користуєтесь нашим сервісом!');
     }
 }

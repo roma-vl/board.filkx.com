@@ -14,3 +14,5 @@ Schedule::command('banner:expire')->hourly()
 Schedule::command('adverts:expire-premium')->hourly()
     ->appendOutputTo(storage_path('logs/cron-advert-expire-premium.log'));
 Schedule::command('adverts:check-expiring-services')->dailyAt('09:00');
+Schedule::command('newsletters:send')->everyMinute()
+    ->appendOutputTo(storage_path('logs/newsletters.log'));

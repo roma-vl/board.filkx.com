@@ -218,6 +218,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/orders/{order}/receipt', [OrderController::class, 'pdfReceipt'])
             ->name('adverts.orders.receipt');
 
+        Route::resource('newsletters', App\Http\Controllers\Admin\NewsletterController::class);
     });
 
 });
