@@ -60,3 +60,10 @@ export function getDateFormatFromLocale(date) {
     // minute: "2-digit"
   });
 }
+
+export function getTimeFormatFromLocale(datetime) {
+  return new Date(datetime).toLocaleTimeString('uk-UA', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
