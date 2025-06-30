@@ -138,7 +138,7 @@ const handleSubmit = (message) => {
     </header>
 
     <!-- Page Content -->
-    <main class="flex-grow bg-gray-100 dark:bg-gray-800">
+    <main class="flex-grow bg-gray-100 dark:bg-gray-800 p-4">
       <ToastRenderer :flash="flash" />
       <slot />
     </main>

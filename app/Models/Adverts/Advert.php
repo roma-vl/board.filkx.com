@@ -216,14 +216,14 @@ class Advert extends Model implements Auditable
         ]);
     }
 
-    public function writeClientMessage(int $fromId, string $message): void
+    public function writeClientMessage(int $fromId, string $message): Model
     {
-        $this->getOrCreateDialogWith($fromId)->writeMessageByClient($fromId, $message);
+        return $this->getOrCreateDialogWith($fromId)->writeMessageByClient($fromId, $message);
     }
 
-    public function writeOwnerMessage(int $toId, string $message): void
+    public function writeOwnerMessage(int $toId, string $message): Model
     {
-        $this->getDialogWith($toId)->writeMessageByOwner($this->user_id, $message);
+        return $this->getDialogWith($toId)->writeMessageByOwner($this->user_id, $message);
     }
 
     public function readClientMessages(int $userId): void

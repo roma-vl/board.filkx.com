@@ -35,7 +35,7 @@ import { getFullPathForAvatarImage } from '@/helpers.js';
     <template #content>
       <div class="flex items-center justify-center">
         <div
-          class="w-full max-w-sm rounded-lg bg-white p-3 drop-shadow-xl divide-y divide-gray-200 dark:bg-gray-700 shadow-md"
+          class="w-full max-w-sm rounded-lg bg-white p-3 divide-y divide-gray-200 dark:bg-gray-700"
         >
           <div
             aria-label="header"
@@ -118,21 +118,27 @@ import { getFullPathForAvatarImage } from '@/helpers.js';
               </a>
             </nav>
           </div>
-          <!--                                                <div aria-label="account-upgrade" class="px-4 py-6">-->
-          <!--                                                    <div class="flex items-center space-x-3">-->
-          <!--                                                        <div class="mr-auto space-y-2">-->
-          <!--                                                            <p class="font-medium text-xl text-gray-900 leading-none">-->
-          <!--                                                                Free Plan-->
-          <!--                                                            </p>-->
-          <!--                                                            <p class="font-normal text-lg text-gray-500 leading-none">-->
-          <!--                                                                12,000 views-->
-          <!--                                                            </p>-->
-          <!--                                                        </div>-->
-          <!--                                                        <button type="button" class="inline-flex px-6 leading-6 py-3 rounded-md bg-indigo-50 hover:bg-indigo-50/80 transition-colors duration-200 text-indigo-500 font-medium text-lg">-->
-          <!--                                                            Upgrade-->
-          <!--                                                        </button>-->
-          <!--                                                    </div>-->
-          <!--                                                </div>-->
+          <div
+            aria-label="account-upgrade"
+            class="px-4 py-6"
+          >
+            <div class="flex items-center space-x-1">
+              <div class="mr-auto w-2/3">
+                <p class="font-medium text-lg text-gray-500 leading-none p-1">
+                  Ваш рахунок:
+                </p>
+                <p class="font-normal text-xl text-gray-900 leading-none p-1">
+                  0 грн.
+                </p>
+              </div>
+              <button
+                type="button"
+                class="inline-flex px-2 leading-6 py-2 rounded-md bg-indigo-50 hover:bg-indigo-50/80 transition-colors duration-200 text-indigo-500 font-medium text-lg"
+              >
+                Поповнити гаманець
+              </button>
+            </div>
+          </div>
           <div
             v-if="$page.props.auth?.user"
             aria-label="footer"
@@ -155,7 +161,7 @@ import { getFullPathForAvatarImage } from '@/helpers.js';
             <Link
               :href="route('login')"
               type="button"
-              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
+              class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-200"
             >
               <LogoutIcon /> <span>{{ $t('login') }}</span>
             </Link>

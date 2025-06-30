@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\RolesController as AdminRolesController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TicketController as AdminTicketController;
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Api\Cabinet\NotificationController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\BannerController as PublicBannerController;
@@ -48,6 +49,14 @@ Route::prefix('/adverts')->name('adverts.')->group(function () {
 Route::get('/greeting/{locale}', [IndexController::class, 'changeLocale'])->name('greeting');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/mark-all-read', function () {
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return response()->json(['status' => 'ok']);
+    });
+
     Route::prefix('/account')->name('account.')->group(function () {
         Route::prefix('/profile')->name('profile.')->group(function () {
             Route::get('/phone', [PhoneController::class, 'request'])->name('phone.request');
@@ -109,8 +118,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('/chats')->name('chats.')->group(function () {
             Route::get('/', [ChatController::class, 'index'])->name('index');
+            //            Route::get('/{dialog}', [ChatController::class, 'show'])->name('show');
             Route::post('/create-dialog', [ChatController::class, 'createDialog'])->name('dialog.create');
-            Route::get('/chats/{chat}/messages', [ChatController::class, 'show'])->name('show');
+            Route::get('/{dialog}/messages', [ChatController::class, 'show'])->name('show');
+            Route::get('/dialog/{dialog}/messages', [ChatController::class, 'getMessages'])->name('messages');
+
             Route::get('/{advert}/messages', [ChatController::class, 'getDialogByAdvert'])->name('get.dialog');
             Route::post('/chats/{advert}/messages', [ChatController::class, 'store'])->name('store');
         });
