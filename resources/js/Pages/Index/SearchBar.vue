@@ -46,3 +46,12 @@ const onCitySelect = (slug) => {
     </div>
   </div>
 </template>
+<style scoped>
+nav,
+header,
+main,
+.parent-containers {
+  overflow: visible !important; /* Якщо було hidden або auto, змінити */
+  position: relative; /* Створити локальний stacking context */
+}
+</style>

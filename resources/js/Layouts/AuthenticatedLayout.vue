@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
@@ -20,11 +20,11 @@ const showRatingPopup = ref(false);
 const handleSubmit = (message) => {
   showRatingPopup.value = false;
 };
-// onMounted(() => {
-//     setTimeout(() => {
-//         showRatingPopup.value = true;
-//     }, 300000);
-// });
+onMounted(() => {
+  setTimeout(() => {
+    showRatingPopup.value = true;
+  }, 300000);
+});
 </script>
 
 <template>
