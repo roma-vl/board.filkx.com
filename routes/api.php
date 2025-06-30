@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\HomeController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 
+Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
 Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])
     ->middleware(['throttle', 'api'])->name('passport.token');
 

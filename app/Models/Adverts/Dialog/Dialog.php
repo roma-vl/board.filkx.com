@@ -2,6 +2,7 @@
 
 namespace App\Models\Adverts\Dialog;
 
+use App\Models\Adverts\Advert;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -24,24 +25,28 @@ class Dialog extends Model
 
     protected $guarded = ['id'];
 
-    public function writeMessageByOwner(int $userId, string $message): void
+    public function writeMessageByOwner(int $userId, string $message): Model
     {
-        $this->messages()->create([
+        $data = $this->messages()->create([
             'user_id' => $userId,
             'message' => $message,
         ]);
         $this->client_new_messages++;
         $this->save();
+
+        return $data;
     }
 
-    public function writeMessageByClient(int $userId, string $message): void
+    public function writeMessageByClient(int $userId, string $message): Model
     {
-        $this->messages()->create([
+        $data = $this->messages()->create([
             'user_id' => $userId,
             'message' => $message,
         ]);
         $this->user_new_messages++;
         $this->save();
+
+        return $data;
     }
 
     public function readByOwner(): void
@@ -54,6 +59,11 @@ class Dialog extends Model
         $this->update(['client_new_messages' => 0]);
     }
 
+    public function advert()
+    {
+        return $this->belongsTo(Advert::class);
+    }
+
     public function client(): BelongsTo
     {
         return $this->belongsTo(User::class, 'client_id', 'id');
@@ -61,6 +71,6 @@ class Dialog extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Message::class, 'dialog_id', 'id');
+        return $this->hasMany(Message::class, 'dialog_id', 'id')->latest();
     }
 }
