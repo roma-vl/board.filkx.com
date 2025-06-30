@@ -14,7 +14,6 @@ use Inertia\Response;
 
 class ChatController extends Controller
 {
-    // GET /chat
     public function index(): Response
     {
         $user = auth()->user();
@@ -32,7 +31,7 @@ class ChatController extends Controller
 
     public function show(Request $request, Dialog $dialog): Response
     {
-        $this->authorizeDialog($dialog);
+//        $this->authorizeDialog($dialog);
 
         $dialog->load('advert', 'client');
         $user = auth()->user();
@@ -53,7 +52,7 @@ class ChatController extends Controller
 
     public function getMessages(Dialog $dialog, Request $request): JsonResponse
     {
-        $this->authorizeDialog($dialog);
+//        $this->authorizeDialog($dialog);
 
         $messages = $dialog->messages()->with('user')->latest()->paginate(10);
 

@@ -71,6 +71,6 @@ class Dialog extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Message::class, 'dialog_id', 'id');
+        return $this->hasMany(Message::class, 'dialog_id', 'id')->latest();
     }
 }

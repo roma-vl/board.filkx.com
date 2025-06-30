@@ -80,7 +80,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('/adverts')->name('adverts.')->group(function () {
             Route::get('/', [AdvertController::class, 'index'])->name('index');
-            //            Route::get('/show/{advert}', [IndexController::class, 'show'])->name('show');
             Route::get('/edit/{advert}', [AdvertController::class, 'edit'])->name('edit');
             Route::post('/update/{advert}', [AdvertController::class, 'update'])->name('update');
             Route::delete('/destroy/{advert}', [AdvertController::class, 'destroy'])->name('destroy');
@@ -118,12 +117,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('/chats')->name('chats.')->group(function () {
             Route::get('/', [ChatController::class, 'index'])->name('index');
-            //            Route::get('/{dialog}', [ChatController::class, 'show'])->name('show');
             Route::post('/create-dialog', [ChatController::class, 'createDialog'])->name('dialog.create');
             Route::get('/{dialog}/messages', [ChatController::class, 'show'])->name('show');
             Route::get('/dialog/{dialog}/messages', [ChatController::class, 'getMessages'])->name('messages');
 
-            Route::get('/{advert}/messages', [ChatController::class, 'getDialogByAdvert'])->name('get.dialog');
+            Route::get('get-dialog/{advert}/messages', [ChatController::class, 'getDialogByAdvert'])->name('get.dialog');
             Route::post('/chats/{advert}/messages', [ChatController::class, 'store'])->name('store');
         });
 
