@@ -33,7 +33,7 @@ import { getFullPathForAvatarImage } from '@/helpers.js';
     </template>
 
     <template #content>
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center relative">
         <div
           class="w-full max-w-sm rounded-lg bg-white p-3 divide-y divide-gray-200 dark:bg-gray-700"
         >
@@ -43,7 +43,7 @@ import { getFullPathForAvatarImage } from '@/helpers.js';
           >
             <div
               aria-label="avatar"
-              class="flex mr-auto items-center space-x-4"
+              class="flex mr-auto items-center space-x-4 relative"
             >
               <img
                 :src="getFullPathForAvatarImage($page.props.auth?.user?.avatar_url)"

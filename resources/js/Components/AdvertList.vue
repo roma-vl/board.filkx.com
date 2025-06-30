@@ -109,7 +109,7 @@ const remove = (advertId) => {
               <a
                 v-if="props.routes.promote"
                 :href="route(props.routes.promote, advert.id)"
-                class="p-2 text-gray-100 hover:text-gray-50 hover:bg-violet-700 rounded-lg transition duration-150 group relative bg-violet-600"
+                class="p-2 text-gray-100 hover:text-gray-50 hover:bg-violet-700 rounded-lg transition duration-150 group bg-violet-600"
               >
                 <span class="flex">
                   <p class="pr-2">Рекламувати</p>
@@ -121,7 +121,7 @@ const remove = (advertId) => {
                 v-if="props.routes.edit"
                 :href="route(props.routes.edit, advert.id)"
                 title="Редагувати"
-                class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group relative"
+                class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group"
               >
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
@@ -134,7 +134,7 @@ const remove = (advertId) => {
                 v-if="props.routes.show"
                 :href="route(props.routes.show, advert.id)"
                 title="Переглянути"
-                class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group relative"
+                class="p-1.5 text-violet-600 hover:text-violet-700 hover:bg-violet-50 rounded-lg transition duration-150 group"
               >
                 <span
                   class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-sm text-white bg-gray-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap"
@@ -146,7 +146,7 @@ const remove = (advertId) => {
               <button
                 v-if="props.routes.remove"
                 title="Видалити"
-                class="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition duration-150 group relative"
+                class="p-1.5 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition duration-150 group"
                 @click="remove(advert.id)"
               >
                 <span
