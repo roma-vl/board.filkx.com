@@ -13,7 +13,7 @@ import {
 } from '@/helpers.js';
 import axios from 'axios';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-import {log10} from "chart.js/helpers";
+import { log10 } from 'chart.js/helpers';
 const props = defineProps({
   advert: {
     type: Object,
@@ -47,47 +47,41 @@ const isRejectModalOpen = ref(false);
 const advertId = ref(null);
 const isMessengerOpen = ref(false);
 const messages = ref({
-    data: [],
-    current_page: 1,
-    last_page: 1,
+  data: [],
+  current_page: 1,
+  last_page: 1,
 });
 const dialogId = ref(null);
 
 const loadMessages = async (page = 1) => {
-    isMessengerOpen.value = true;
-    try {
+  isMessengerOpen.value = true;
+  try {
+    const dialogResponse = await axios.get(route('account.chats.get.dialog', props.advert.id));
+    dialogId.value = dialogResponse.data.id;
+    console.log(dialogResponse.data.id, 'dialogResponse.data.id');
+    const response = await axios.get(route('account.chats.messages', dialogId.value), {
+      params: { page },
+    });
 
-        const dialogResponse = await axios.get(route('account.chats.get.dialog', props.advert.id));
-        dialogId.value = dialogResponse.data.id;
-        console.log(dialogResponse.data.id, 'dialogResponse.data.id')
-        const response = await axios.get(route('account.chats.messages', dialogId.value), {
-            params: { page },
-        });
-
-
-        if (page === 1) {
-            messages.value = response.data.messages;
-        } else {
-            messages.value.data = [
-                ...response.data.messages.data,
-                ...messages.value.data,
-            ];
-            messages.value.current_page = response.data.messages.current_page;
-            messages.value.last_page = response.data.messages.last_page;
-        }
-    } catch (error) {
-        console.error(error);
+    if (page === 1) {
+      messages.value = response.data.messages;
+    } else {
+      messages.value.data = [...response.data.messages.data, ...messages.value.data];
+      messages.value.current_page = response.data.messages.current_page;
+      messages.value.last_page = response.data.messages.last_page;
     }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const toggleMessenger = async () => {
-    if (isMessengerOpen.value) {
-        isMessengerOpen.value = false;
-    } else {
-        await loadMessages();
-    }
+  if (isMessengerOpen.value) {
+    isMessengerOpen.value = false;
+  } else {
+    await loadMessages();
+  }
 };
-
 
 const toggleLike = () => {
   if (props.isFavorited === true) {
@@ -156,23 +150,23 @@ const deleteAdvert = () => {
 };
 
 const sendMessage = () => {
-    const text = messageForm.message.trim();
-    if (!text) return;
+  const text = messageForm.message.trim();
+  if (!text) return;
 
-    messageForm.post(route('account.chats.store', props.advert.id), {
-        onSuccess: (page) => {
-            messages.value.data.unshift({
-                id: Date.now(), // тимчасовий id
-                message: text,
-                user: {
-                    id: user.id,
-                    avatar_url: user.avatar_url,
-                },
-            });
-            messageForm.reset('message');
-            scrollToBottom();
+  messageForm.post(route('account.chats.store', props.advert.id), {
+    onSuccess: (page) => {
+      messages.value.data.unshift({
+        id: Date.now(), // тимчасовий id
+        message: text,
+        user: {
+          id: user.id,
+          avatar_url: user.avatar_url,
         },
-    });
+      });
+      messageForm.reset('message');
+      scrollToBottom();
+    },
+  });
 };
 
 const scrollToBottom = () => {};
@@ -388,7 +382,7 @@ const messageForm = useForm({
                 </span>
               </div>
               <button
-                  v-if="user.id !== advert.user.id"
+                v-if="user.id !== advert.user.id"
                 class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white dark:hover:bg-gray-700 dark:text-gray-200 hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click="toggleMessenger"
               >
@@ -494,7 +488,7 @@ const messageForm = useForm({
             class="flex-1 overflow-y-auto p-4 space-y-2 max-w-[340px]"
           >
             <div
-                v-for="message in messages.data.slice().reverse()"
+              v-for="message in messages.data.slice().reverse()"
               :key="message.id"
               class="flex items-end"
               :class="message.user.id === user.id ? 'justify-end' : 'justify-start'"

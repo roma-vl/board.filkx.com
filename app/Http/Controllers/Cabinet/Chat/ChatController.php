@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\NotificationService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Dialog\Dialog;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -31,7 +32,7 @@ class ChatController extends Controller
 
     public function show(Request $request, Dialog $dialog): Response
     {
-//        $this->authorizeDialog($dialog);
+        //        $this->authorizeDialog($dialog);
 
         $dialog->load('advert', 'client');
         $user = auth()->user();
@@ -52,7 +53,7 @@ class ChatController extends Controller
 
     public function getMessages(Dialog $dialog, Request $request): JsonResponse
     {
-//        $this->authorizeDialog($dialog);
+        //        $this->authorizeDialog($dialog);
 
         $messages = $dialog->messages()->with('user')->latest()->paginate(10);
 
@@ -67,8 +68,7 @@ class ChatController extends Controller
 
         $dialog = $advert
             ->dialogs()
-            ->where('user_id', $user->id)
-            ->orWhere('client_id', $user->id)
+            ->where('client_id', $user->id)
             ->with('messages.user', 'client')
             ->get()
             ->first();
@@ -84,14 +84,15 @@ class ChatController extends Controller
 
         if ($advert->user->id !== $request->user()->id) {
             $message = $advert->writeClientMessage($request->user()->id, $request->input('message'));
-            NotificationService::notify($request->user(), 'chat.new', [
+            NotificationService::notify($advert->user, 'chat.new', [
                 'message_id' => $message->id,
                 'text' => Str::limit($message->message, 50),
             ]);
 
         } else {
             $message = $advert->writeOwnerMessage($request->input('client_id'), $request->input('message'));
-            NotificationService::notify($request->user(), 'chat.new', [
+            $client = User::findOrFail($request->input('client_id'));
+            NotificationService::notify($client, 'chat.new', [
                 'message_id' => $message->id,
                 'text' => Str::limit($message->message, 50),
             ]);

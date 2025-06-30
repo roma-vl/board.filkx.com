@@ -16,6 +16,7 @@ const toggleDropdown = () => (show.value = !show.value);
 onMounted(async () => {
   const res = await axios.get(fullPath() + '/notifications');
   notifications.value = res.data.notifications;
+  console.log(notifications, 'notifications');
   unreadCount.value = res.data.unread_count;
 });
 
@@ -66,14 +67,9 @@ const markAllRead = async () => {
           ]"
         >
           <div class="flex items-start space-x-3">
-            <img
-              class="w-10 h-10 rounded-full object-cover"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&auto=format&fit=crop&w=80&q=80"
-              alt="Avatar"
-            >
             <div class="flex-1">
               <p class="text-sm font-medium text-gray-800 dark:text-white">
-                {{ n.data.message || 'Нове повідомлення' }}
+                {{ n.data.text || 'Нове повідомлення' }}
               </p>
               <div class="flex items-center gap-1 mt-1 text-xs text-gray-500 dark:text-gray-400">
                 <TimerIcon class="w-4 h-4" />
