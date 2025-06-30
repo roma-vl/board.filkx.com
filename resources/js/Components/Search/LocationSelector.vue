@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative 3xs:w-full md:w-[250px] 3xs:w-auto search-container">
+  <div class="relative md:w-[250px] search-container">
     <input
       v-model="citySearchQuery"
       type="text"

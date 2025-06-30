@@ -28,7 +28,6 @@ const showLocationDropdown = ref(false);
 const loadingCities = ref(false);
 const citySearchQuery = ref(props.banner.region[0].name);
 const filteredCities = ref([]);
-console.log(props.banner, 'props.advert.images');
 const form = useForm({
   category_id: props.banner.category_id,
   region_id: props.banner.region_id,

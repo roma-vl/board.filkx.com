@@ -58,7 +58,7 @@ const routes = [
                 <div class="flex gap-2 font-normal">
                   <div class="relative w-20">
                     <img
-                      :src="getFullPathForImage(row.advert.first_photo.file)"
+                      :src="getFullPathForImage(row.advert?.first_photo?.file)"
                       :alt="row.advert.title"
                       class="rounded"
                     >

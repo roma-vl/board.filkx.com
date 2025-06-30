@@ -11,7 +11,6 @@ import { getDateFormatFromLocale } from '@/helpers.js';
 const { t } = useI18n();
 const tickets = computed(() => usePage().props.tickets.data);
 const pagination = computed(() => usePage().props.tickets);
-console.log(tickets, 'tickets');
 const isEditModalOpen = ref(false);
 const showForbidden = ref(false);
 const errorForbidden = ref(false);

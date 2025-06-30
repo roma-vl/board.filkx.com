@@ -12,8 +12,6 @@ if (csrfToken) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 }
 
-// console.log('Reverb app key:', import.meta.env.VITE_REVERB_APP_KEY);
-
 window.Echo = new Echo({
   broadcaster: 'reverb',
   key: import.meta.env.VITE_REVERB_APP_KEY,
@@ -39,21 +37,12 @@ window.Echo = new Echo({
 const userId = document.querySelector('meta[name="user-id"]')?.getAttribute('content');
 
 if (userId) {
-  // window.Echo.private(`App.Models.User.${userId}`)
-  //     .notification((notification) => {
-  //         console.log('🔔 Notification received:', notification);
-  //         // update UI
-  //     });
-
   window.Echo.private(`App.Models.User.${user.id}`).notification((notification) => {
-    console.log('🔔 Notification received:', notification);
-    // онови список або додай у список
     notifications.value.unshift({
       ...notification,
       read_at: null,
       created_at: 'щойно',
     });
-    console.log(notifications, 'notifications');
     unreadCount.value++;
   });
 } else {
@@ -67,15 +56,3 @@ window.Echo.private('test.name')
   .error((error) => {
     console.error('Echo error:', error);
   });
-
-// window.Echo.private(`App.Models.User.${user.id}`)
-//     .notification((notification) => {
-//         console.log('🔔 Notification received:', notification);
-//         // онови список або додай у список
-//         notifications.value.unshift({
-//             ...notification,
-//             read_at: null,
-//             created_at: 'щойно',
-//         });
-//         unreadCount.value++;
-//     });

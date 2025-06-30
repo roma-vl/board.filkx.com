@@ -54,7 +54,6 @@ const openCreateModal = () => {
 };
 
 const openEditModal = (coupon) => {
-  console.log(coupon, 'coupon');
   form.value = { ...coupon };
   form.value.expires_at = modalOpen.value = true;
 };

@@ -121,7 +121,6 @@ const canSubmit = computed(
 );
 
 const submit = async () => {
-  console.log([...selectedPackages.value, ...selectedServices.value]);
   try {
     await axios.post(route('account.adverts.purchase', props.advert.id), {
       types: [...selectedPackages.value, ...selectedServices.value],

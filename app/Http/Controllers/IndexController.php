@@ -39,7 +39,7 @@ class IndexController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('Index', [
+        return Inertia::render('Index/Index', [
             'categories' => $this->categoryService->getFirstLevelCategoriesWithChildren(),
             'news' => $this->advertService->getLatest(),
             'vip' => $this->advertService->getVip(),

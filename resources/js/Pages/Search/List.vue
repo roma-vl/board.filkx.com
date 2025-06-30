@@ -198,7 +198,6 @@ onMounted(async () => {
       format: '240x400',
     },
   });
-  console.log(res, 'res.data.banner');
   banner.value = res.data.banner;
 });
 </script>
