@@ -8,6 +8,7 @@ use App\Models\Adverts\Boost\AdvertService;
 use App\Observers\AdvertServiceObserver;
 use DateInterval;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -47,6 +48,13 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
             Vite::useBuildDirectory('build');
         }
+
+        Paginator::useBootstrap();
+
+        // Форсуємо генерацію відносних URL
+        Paginator::currentPageResolver(function ($pageName = 'page') {
+            return request()->input($pageName);
+        });
 
         $locale = Auth::user()?->locale ?? Session::get('locale') ?? config('app.locale');
         App::setLocale($locale);

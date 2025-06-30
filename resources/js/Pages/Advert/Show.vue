@@ -58,7 +58,6 @@ const loadMessages = async (page = 1) => {
   try {
     const dialogResponse = await axios.get(route('account.chats.get.dialog', props.advert.id));
     dialogId.value = dialogResponse.data.id;
-    console.log(dialogResponse.data.id, 'dialogResponse.data.id');
     const response = await axios.get(route('account.chats.messages', dialogId.value), {
       params: { page },
     });
@@ -159,8 +158,8 @@ const sendMessage = () => {
         id: Date.now(), // тимчасовий id
         message: text,
         user: {
-          id: user.id,
-          avatar_url: user.avatar_url,
+          id: user?.id,
+          avatar_url: user?.avatar_url,
         },
       });
       messageForm.reset('message');
@@ -178,8 +177,8 @@ const handleFileUpload = (event) => {
       id: Date.now(),
       text: `📎 Файл: ${file.name}`,
       user: {
-        id: user.id,
-        avatar_url: user.avatar_url,
+        id: user?.id,
+        avatar_url: user?.avatar_url,
       },
     });
   }
@@ -382,7 +381,7 @@ const messageForm = useForm({
                 </span>
               </div>
               <button
-                v-if="user.id !== advert.user.id"
+                v-if="user?.id !== advert?.user?.id"
                 class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white dark:hover:bg-gray-700 dark:text-gray-200 hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
                 @click="toggleMessenger"
               >

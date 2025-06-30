@@ -21,7 +21,7 @@ const props = defineProps({
     <div class="flex gap-4">
       <div class="shrink-0">
         <img
-          :src="getFullPathForImage(props.advert.photo[0].file)"
+          :src="getFullPathForImage(props.advert?.photo[0]?.file)"
           alt="Фото оголошення"
           class="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-md border"
         >

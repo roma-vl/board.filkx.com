@@ -58,8 +58,6 @@ const deleteAdvert = () => {
     router.delete(route('account.banners.destroy', props.banner.id));
   }
 };
-
-console.log(props.banner);
 </script>
 
 <template>

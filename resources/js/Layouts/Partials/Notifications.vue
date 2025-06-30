@@ -16,7 +16,6 @@ const toggleDropdown = () => (show.value = !show.value);
 onMounted(async () => {
   const res = await axios.get(fullPath() + '/notifications');
   notifications.value = res.data.notifications;
-  console.log(notifications, 'notifications');
   unreadCount.value = res.data.unread_count;
 });
 
