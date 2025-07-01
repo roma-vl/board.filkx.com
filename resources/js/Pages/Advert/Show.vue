@@ -13,9 +13,16 @@ import {
 } from '@/helpers.js';
 import axios from 'axios';
 import Breadcrumbs from '@/Components/Breadcrumbs.vue';
-import { log10 } from 'chart.js/helpers';
 const props = defineProps({
   advert: {
+    type: Object,
+    default: () => ({}),
+  },
+  categories: {
+    type: Object,
+    default: () => ({}),
+  },
+  locations: {
     type: Object,
     default: () => ({}),
   },
@@ -153,9 +160,9 @@ const sendMessage = () => {
   if (!text) return;
 
   messageForm.post(route('account.chats.store', props.advert.id), {
-    onSuccess: (page) => {
+    onSuccess: () => {
       messages.value.data.unshift({
-        id: Date.now(), // тимчасовий id
+        id: Date.now(),
         message: text,
         user: {
           id: user?.id,
@@ -200,11 +207,11 @@ const messageForm = useForm({
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
         <div
           v-can="['manage.own.advert', 'admin']"
-          class="flex justify-between gap-2 mb-6 bg-white p-3 dark:bg-gray-700 rounded-md shadow-md"
+          class="bg-violet-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6 p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
           <div
             v-can="'manage.own.advert'"
-            class="flex flex-row gap-2"
+            class="flex flex-wrap gap-2 w-full sm:w-auto"
           >
             <a
               :href="route('account.adverts.edit', props.advert.id)"
@@ -242,7 +249,7 @@ const messageForm = useForm({
           </div>
           <div
             v-can="'admin'"
-            class="flex flex-row gap-2 items-center"
+            class="flex flex-wrap gap-2 w-full sm:w-auto"
           >
             <button
               v-if="isOnModeration"
@@ -261,27 +268,13 @@ const messageForm = useForm({
           </div>
         </div>
 
-        <div class="list-disc list-inside text-gray-800 dark:text-gray-200 dark:border-gray-700">
-          <span class="underline cursor-pointer"> {{ $t('main') }} </span> /
-          <span
-            v-for="ancestor in props.category.ancestors"
-            :key="ancestor.id"
-          >
-            <span class="underline cursor-pointer">
-              {{ ancestor.name }}
-            </span>
-            /
-          </span>
-          <span class="underline cursor-pointer">
-            {{ category.name }}
-          </span>
-          /
-          <span class="">
-            {{ advert.region?.name }}
-          </span>
-        </div>
+        <Breadcrumbs
+          class=""
+          :categories="props.categories"
+          :locations="props.locations"
+        />
       </div>
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6 bg-white-50">
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 bg-white-50">
         <div
           v-if="isDraft"
           class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
@@ -430,7 +423,7 @@ const messageForm = useForm({
                 >
                 <div class="pl-4">
                   <p class="text-gray-600 mt-1 text-lg font-bold dark:text-gray-200">
-                    {{ advert.user.name + ' ' + advert.user?.first_name }}
+                    {{ advert.user?.name + ' ' + advert.user?.first_name }}
                   </p>
                   <p class="text-gray-600 mt-1 dark:text-gray-400 text-sm">
                     {{ $t('registered.since') }}
@@ -441,7 +434,7 @@ const messageForm = useForm({
               <div class="my-4 border border-b-1 mx-3" />
               <div class="flex items-center justify-center">
                 <a
-                  :href="route('list.advert.user', advert.user.id)"
+                  :href="route('list.advert.user', advert.user?.id || 0)"
                   class="text-blue-500 hover:text-blue-600"
                 >
                   {{ $t('user.all.adverts') }} >

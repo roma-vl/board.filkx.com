@@ -37,7 +37,7 @@ const generateLocationLink = (index, slug = null) => {
   >
     <a
       class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
-      :href="route('main')"
+      :href="route('list.advert')"
     >{{ $t('main') }}</a>
     <template v-if="categories.length">
       <span

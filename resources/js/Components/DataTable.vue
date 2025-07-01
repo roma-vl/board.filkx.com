@@ -24,7 +24,7 @@ const props = defineProps({
 const emit = defineEmits(['sort']);
 const sortField = JSON.parse(localStorage.getItem('sortField'));
 const highlightText = (text, query) => {
-  if (!query || !text) return text;
+  if (!query || typeof text !== 'string') return text;
   const regex = new RegExp(`(${query})`, 'gi');
   return text.replace(regex, '<span class="bg-yellow-200">$1</span>');
 };
@@ -33,7 +33,7 @@ const processedItems = computed(() => {
   return props.items.map((item) => {
     const newItem = { ...item };
     props.headings.forEach((heading) => {
-      if (heading.highlight) {
+      if (heading.highlight && typeof heading.highlight === 'string') {
         newItem[heading.key] = highlightText(item[heading.key], props.searchQuery);
       }
     });

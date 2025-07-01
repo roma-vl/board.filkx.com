@@ -8,6 +8,7 @@ use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Dialog\Dialog;
 use App\Models\Location;
 use App\Models\User;
+use App\Traits\Filterable;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use DomainException;
@@ -49,7 +50,7 @@ use Spatie\Sluggable\SlugOptions;
  */
 class Advert extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, HasSlug, LogsActivity, Searchable, SoftDeletes;
+    use AuditableTrait, Filterable, HasFactory, HasSlug, LogsActivity, Searchable, SoftDeletes;
 
     public const string STATUS_DRAFT = 'draft';
 
@@ -98,7 +99,7 @@ class Advert extends Model implements Auditable
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->withTrashed();
     }
 
     public function category()

@@ -13,6 +13,11 @@ class Location extends Model
 
     protected $fillable = ['name', 'slug', 'depth', 'parent_id'];
 
+    public function children()
+    {
+        return $this->hasMany(Location::class, 'parent_id')->with('children');
+    }
+
     public static function generateSlug($name, $parentId = null)
     {
         $slug = Str::slug($name);

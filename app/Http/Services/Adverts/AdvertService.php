@@ -4,6 +4,7 @@ namespace App\Http\Services\Adverts;
 
 use App\Events\Advert\AdvertChanged;
 use App\Events\Advert\ModerationPassed;
+use App\Filters\AdvertFilter;
 use App\Http\Requests\Admin\Adverts\RejectRequest;
 use App\Http\Requests\Cabinet\Adverts\AttributesRequest;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
@@ -16,6 +17,7 @@ use App\Models\Location;
 use App\Models\User;
 use App\Notifications\Advert\ModerationRejectNotification;
 use Carbon\Carbon;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -226,5 +228,17 @@ class AdvertService
             ->where('status', Advert::STATUS_MODERATION)
             ->orderByDesc('created_at')
             ->paginate(self::PER_PAGE);
+    }
+
+    public function getFilteredPaginatedAdverts(array $params): LengthAwarePaginator
+    {
+        $filter = new AdvertFilter($params);
+
+        return Advert::query()
+            ->with('region', 'category', 'user')
+            ->withTrashed()
+            ->filter($filter)
+            ->orderBy($params['sort_by'], $params['sort_order'])
+            ->paginate($params['per_page']);
     }
 }

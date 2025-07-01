@@ -155,7 +155,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
         Route::prefix('/adverts')->name('adverts.')->group(function () {
-
+            Route::get('/', [AdvertsController::class, 'index'])->name('index');
+            Route::get('/search', [AdvertsController::class, 'search'])->name('search');
             Route::get('/orders', [OrderController::class, 'orders'])->name('orders.index');
             Route::get('/moderation', [AdvertsController::class, 'moderation'])->name('actions.moderation');
             Route::post('/moderation/{advert}/active', [AdvertsController::class, 'active'])->name('actions.moderation.active');
