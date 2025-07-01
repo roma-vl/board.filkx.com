@@ -11,7 +11,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Contracts\User as ProviderUser;
 
 class UserService
 {
@@ -47,57 +49,36 @@ class UserService
         return $user;
     }
 
-    public function findOrCreateUserViaSocial(array $data): User
+    public function findOrCreateUserViaSocial(ProviderUser $providerUser, string $provider): User
     {
-        // Обгортка в транзакцію на всяк випадок
-        return DB::transaction(function () use ($data) {
-            $provider = $data['provider'];
-            $providerId = $data['provider_id'];
+        $socialAccount = UserSocial::where('provider', $provider)
+            ->where('provider_user_id', $providerUser->getId())
+            ->first();
 
-            // Пошук соціального зв’язку
-            $socialAccount = UserSocial::where('provider', $provider)
-                ->where('provider_id', $providerId)
-                ->first();
+        if ($socialAccount) {
+            return $socialAccount->user;
+        }
 
-            // Перевірка зв’язку з користувачем
-            if ($socialAccount && $socialAccount->user) {
-                return $socialAccount->user;
-            }
+        $user = User::where('email', $providerUser->getEmail())->first();
 
-            // Якщо є соціальний запис, але користувача вже нема — видаляємо зомбі
-            if ($socialAccount && ! $socialAccount->user) {
-                Log::warning('UserSocial found but user missing — cleaning up.', [
-                    'provider' => $provider,
-                    'provider_id' => $providerId,
-                ]);
-                $socialAccount->delete();
-            }
-
-            // Шукаємо користувача по email
-            $user = User::where('email', $data['email'])->first();
-
-            if (! $user) {
-                // Створення користувача
-                $user = User::create([
-                    'name' => $data['name'] ?? 'User',
-                    'email' => $data['email'],
-                    'password' => bcrypt(Str::random(16)),
-                    'email_verified_at' => now(),
-                ]);
-            }
-
-            // Створюємо новий social account для користувача
-            $user->socials()->create([
-                'provider' => $provider,
-                'provider_id' => $providerId,
+        if (! $user) {
+            $user = User::create([
+                'name' => $providerUser->getName() ?? $providerUser->getNickname() ?? 'Без імені',
+                'email' => $providerUser->getEmail(),
+                'avatar_url' => $providerUser->getAvatar(),
+                'email_verified_at' => now(),
             ]);
 
-            if (! $user) {
-                throw new \RuntimeException('User could not be created via social login');
-            }
+            $user->roles()->sync(self::DEFAULT_ROLE_TO_USER);
+        }
 
-            return $user;
-        });
+        $user->socialAccounts()->create([
+            'provider' => $provider,
+            'provider_user_id' => $providerUser->getId(),
+            'avatar_url' => $providerUser->getAvatar(),
+        ]);
+
+        return $user;
     }
 
     public function createUserFromGoogle(): ?User
