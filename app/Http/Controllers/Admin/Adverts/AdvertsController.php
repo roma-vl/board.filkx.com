@@ -48,4 +48,11 @@ class AdvertsController extends Controller
     {
         return back()->with('success', __('adverts.advert_is_restored'));
     }
+
+    public function orders(): Response
+    {
+        return Inertia::render('Admin/Advert/Index', [
+            'orders' => $this->advertOrderService->getAdvertOrders(),
+        ]);
+    }
 }

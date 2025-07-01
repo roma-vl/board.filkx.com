@@ -268,12 +268,12 @@ const messageForm = useForm({
             :key="ancestor.id"
           >
             <span class="underline cursor-pointer">
-              {{ ancestor.name }}
+              {{ ancestor?.name }}
             </span>
             /
           </span>
           <span class="underline cursor-pointer">
-            {{ category.name }}
+            {{ category?.name }}
           </span>
           /
           <span class="">
@@ -430,7 +430,7 @@ const messageForm = useForm({
                 >
                 <div class="pl-4">
                   <p class="text-gray-600 mt-1 text-lg font-bold dark:text-gray-200">
-                    {{ advert.user.name + ' ' + advert.user?.first_name }}
+                    {{ advert.user?.name + ' ' + advert.user?.first_name }}
                   </p>
                   <p class="text-gray-600 mt-1 dark:text-gray-400 text-sm">
                     {{ $t('registered.since') }}
