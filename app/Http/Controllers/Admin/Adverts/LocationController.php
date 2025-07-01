@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Adverts;
 
+use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\LocationRequest;
 use App\Http\Services\Adverts\LocationService;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;

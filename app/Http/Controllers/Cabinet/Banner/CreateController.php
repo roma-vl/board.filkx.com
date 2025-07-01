@@ -6,8 +6,8 @@ use App\Http\Requests\Cabinet\Banners\CreateRequest;
 use App\Http\Services\Adverts\CategoryService;
 use App\Http\Services\Banners\BannerService;
 use App\Models\Adverts\Category;
+use App\Models\Adverts\Location;
 use App\Models\Banners\Banner;
-use App\Models\Location;
 use Inertia\Inertia;
 
 class CreateController

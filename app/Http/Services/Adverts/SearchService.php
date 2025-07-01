@@ -5,7 +5,7 @@ namespace App\Http\Services\Adverts;
 use App\Http\Requests\Adverts\SearchRequest;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use App\Models\Users\User;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Database\Query\Expression;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Logs;
 
+use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Logs\ActivityLogsRequest;
 use Inertia\Inertia;
 use Spatie\Activitylog\Models\Activity;

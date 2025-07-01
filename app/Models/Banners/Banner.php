@@ -3,7 +3,7 @@
 namespace App\Models\Banners;
 
 use App\Models\Adverts\Category;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

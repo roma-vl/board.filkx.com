@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Banners;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Banner\GetRequest;
 use App\Http\Services\Banners\BannerService;
 use App\Models\Banners\Banner;

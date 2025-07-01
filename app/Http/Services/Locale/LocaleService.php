@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Locale;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;

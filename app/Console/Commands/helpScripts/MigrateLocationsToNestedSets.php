@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\helpScripts;
 
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

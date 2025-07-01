@@ -1,24 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\Adverts\AdvertsController;
 use App\Http\Controllers\Admin\Adverts\AttributeController;
 use App\Http\Controllers\Admin\Adverts\CategoryController;
+use App\Http\Controllers\Admin\Adverts\LocationController;
 use App\Http\Controllers\Admin\Adverts\OrderController;
-use App\Http\Controllers\Admin\BannerController as AdminBannerController;
-use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\Banners\BannerController as AdminBannerController;
+use App\Http\Controllers\Admin\Billing\CouponController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
-use App\Http\Controllers\Admin\LocationController;
-use App\Http\Controllers\Admin\PageController as AdminPageController;
-use App\Http\Controllers\Admin\PermissionsController as AdminPermissionsController;
-use App\Http\Controllers\Admin\RolesController as AdminRolesController;
-use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Admin\TicketController as AdminTicketController;
-use App\Http\Controllers\Admin\UsersController as AdminUsersController;
+use App\Http\Controllers\Admin\Logs\ActivityLogController;
+use App\Http\Controllers\Admin\Pages\PageController as AdminPageController;
+use App\Http\Controllers\Admin\Settings\SettingsController;
+use App\Http\Controllers\Admin\Tickets\TicketController as AdminTicketController;
+use App\Http\Controllers\Admin\Users\PermissionsController as AdminPermissionsController;
+use App\Http\Controllers\Admin\Users\RolesController as AdminRolesController;
+use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
 use App\Http\Controllers\Api\Cabinet\NotificationController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\SocialAuthController;
-use App\Http\Controllers\BannerController as PublicBannerController;
+use App\Http\Controllers\Banners\BannerController as PublicBannerController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertServiceController;
 use App\Http\Controllers\Cabinet\Adverts\FavoriteController;
@@ -30,8 +30,8 @@ use App\Http\Controllers\Cabinet\Profile\PhoneController;
 use App\Http\Controllers\Cabinet\Profile\ProfileController;
 use App\Http\Controllers\Cabinet\TicketController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\StaticController;
+use App\Http\Controllers\Pages\PageController;
+use App\Http\Controllers\Static\StaticController;
 use Illuminate\Support\Facades\Route;
 use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
@@ -229,7 +229,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/orders/{order}/receipt', [OrderController::class, 'pdfReceipt'])
             ->name('adverts.orders.receipt');
 
-        Route::resource('newsletters', App\Http\Controllers\Admin\NewsletterController::class);
+        Route::resource('newsletters', \App\Http\Controllers\Admin\Newsletters\NewsletterController::class);
     });
 
 });

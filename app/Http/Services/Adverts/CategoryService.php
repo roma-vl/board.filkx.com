@@ -3,7 +3,7 @@
 namespace App\Http\Services\Adverts;
 
 use App\Models\Adverts\Category;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Billing;
 
 use App\Http\Controllers\Controller;
-use App\Models\Coupon;
+use App\Models\Billing\Coupon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

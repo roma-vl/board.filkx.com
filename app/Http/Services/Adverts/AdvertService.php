@@ -13,7 +13,7 @@ use App\Http\Requests\Cabinet\Adverts\PhotosRequest;
 use App\Http\Requests\Cabinet\Adverts\UpdateRequest;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use App\Models\Users\User;
 use App\Notifications\Advert\ModerationRejectNotification;
 use Carbon\Carbon;

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Newsletters;
 
-use App\Models\Newsletter;
+use App\Http\Controllers\Admin\Controller;
+use App\Models\Newsletters\Newsletter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Adverts;
 
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

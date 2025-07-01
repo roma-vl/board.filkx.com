@@ -2,8 +2,8 @@
 
 namespace App\Services\Search;
 
+use App\Models\Adverts\Location;
 use App\Models\Banners\Banner;
-use App\Models\Location;
 use Elastic\Elasticsearch\Client;
 
 class BannerIndexer

@@ -6,7 +6,6 @@ use App\Models\Adverts\Boost\AdvertAutoLift;
 use App\Models\Adverts\Boost\AdvertBoost;
 use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Dialog\Dialog;
-use App\Models\Location;
 use App\Models\Users\User;
 use App\Traits\Filterable;
 use App\Traits\Searchable;
