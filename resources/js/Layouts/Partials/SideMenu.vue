@@ -4,7 +4,6 @@ import VerifyIcon from '@/Components/Icon/VerifyIcon.vue';
 import UpDownIcon from '@/Components/Icon/UpDownIcon.vue';
 import { Link } from '@inertiajs/vue3';
 import BurgerIcon from '@/Components/Icon/BurgerIcon.vue';
-import BoardIcon from '@/Components/Icon/BoardIcon.vue';
 import ArrowDownIcon from '@/Components/Icon/ArrowDownIcon.vue';
 import SettingsIcon from '@/Components/Icon/SettingsIcon.vue';
 import UserIcon from '@/Components/Icon/UserIcon.vue';
@@ -21,6 +20,7 @@ import PencilIcon from '@/Components/Icon/PencilIcon.vue';
 import ArrowRightIcon from '@/Components/Icon/ArrowRightIcon.vue';
 import LogoutIcon from '@/Components/Icon/LogoutIcon.vue';
 import { getFullPathForAvatarImage } from '@/helpers.js';
+import EyeIcon from '@/Components/Icon/EyeIcon.vue';
 const isOpen = ref(false);
 const openMenus = ref({});
 const openBanner = ref(true);
@@ -139,6 +139,21 @@ onBeforeUnmount(() => {
               <nav
                 class="flex min-w-[240px] flex-col gap-1 p-0 font-sans text-base font-normal text-blue-gray-700"
               >
+                <div
+                  role="button"
+                  class="justify-between hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"
+                >
+                  <div class="grid mr-4 place-items-center">
+                    <EyeIcon />
+                  </div>
+                  <a
+                    :href="route('admin.adverts.index')"
+                    class="dark:text-white block mr-auto font-sans text-blue-gray-900"
+                  >
+                    Переглянути Оголошення
+                  </a>
+                  <span class="ml-4" />
+                </div>
                 <div
                   role="button"
                   class="justify-between hover:bg-gray-200 flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 dark:text-gray-200 dark:hover:bg-gray-900"

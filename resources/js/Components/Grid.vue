@@ -1,4 +1,3 @@
-<!-- src/Components/Grid.vue -->
 <script setup>
 import { computed, watch } from 'vue';
 import { router } from '@inertiajs/vue3';
@@ -6,12 +5,13 @@ import DataTableHeader from '@/Components/DataTableHeader.vue';
 import DataTable from '@/Components/DataTable.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { useLocalStorageFn } from '@/helpers.js';
+import debounce from 'lodash.debounce';
 
 const props = defineProps({
   items: { type: Array, required: true },
   pagination: { type: Object, required: true },
   headings: { type: Array, required: true },
-  routes: { type: Array, required: true }, // Назва роута для запиту
+  routes: { type: Array, required: true },
 });
 
 const MIN_SEARCH_LENGTH = 1;
@@ -38,17 +38,27 @@ const queryParams = computed(() => ({
   sort_by: sortField.value,
   sort_order: sortOrder.value,
 }));
+const queryParams2 = computed(() => ({
+  per_page: perPage.value,
+  sort_by: sortField.value,
+  sort_order: sortOrder.value,
+}));
 
-const updateItemsList = async () => {
+const updateItemsList = debounce(() => {
   const routesMap = props.routes.reduce((acc, route) => {
     acc[route.key] = route.value;
     return acc;
   }, {});
 
+  console.log('queryParams.value.search', queryParams.value.search);
   const url = queryParams.value.search ? routesMap.search : routesMap.index;
-
-  await router.get(route(url), queryParams.value, { preserveScroll: true, replace: true });
-};
+  if (queryParams.value.search === '') {
+    localStorage.setItem('searchQuery', JSON.stringify(''));
+    router.get(route(url), queryParams2.value, { preserveScroll: true, replace: true });
+  } else {
+    router.get(route(url), queryParams.value, { preserveScroll: true, replace: true });
+  }
+}, 300);
 
 watch(queryParams, updateItemsList, { deep: true });
 

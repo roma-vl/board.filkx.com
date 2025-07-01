@@ -25,6 +25,9 @@ export default {
   Verify: 'Підтвердити',
   'Created At': 'Створено',
   'Updated At': 'Оновлено',
+  published_at: 'Опубліковано',
+  deleted_at: 'Видалено',
+  expires_at: 'Закінчується',
   Verified: 'Верифіковано',
   Yes: 'Так',
   No: 'Ні',
@@ -347,4 +350,7 @@ export default {
   terms: 'умови',
   and: 'і',
   privacy: 'конфіденційність',
+  region: 'Регіон',
+  reject_reason: 'Причина відмови',
+  premium: 'Преміум',
 };

@@ -160,8 +160,8 @@ class IndexController extends Controller
 
     public function show(Advert $advert)
     {
-        $advert->load(['category.ancestors', 'value.attribute',
-            'photo', 'user', 'region', 'favorites']);
+        $advert->load(['category.ancestors', 'region.ancestors', 'value.attribute',
+            'photo', 'user', 'favorites']);
         $values = $advert->value->map(function ($value) {
             return [
                 'attribute' => $value->attribute->name ?? null,
@@ -169,11 +169,23 @@ class IndexController extends Controller
             ];
         });
 
+        $categories = $advert->category->ancestors
+            ->filter(fn ($category) => $category->parent_id !== null)
+            ->values()
+            ->push($advert->category);
+
+        $locations = $advert->region->ancestors
+            ->filter(fn ($region) => true)
+            ->values()
+            ->push($advert->region);
+
         $isFavorited = $advert->favorites->contains(Auth::id());
 
         return Inertia::render('Advert/Show', [
             'advert' => $advert,
             'category' => $advert->category,
+            'categories' => $categories->values(),
+            'locations' => $locations->values(),
             'values' => $values,
             'user' => $advert->values,
             'region' => $advert->region,

@@ -25,6 +25,9 @@ export default {
   Verify: 'Verify',
   'Created At': 'Created At',
   'Updated At': 'Updated At',
+  published_at: 'Published At',
+  deleted_at: 'Deleted At',
+  expires_at: 'Expires At',
   Verified: 'Verified',
   Yes: 'Yes',
   No: 'No',
@@ -344,4 +347,7 @@ export default {
   terms: 'terms',
   and: 'and',
   privacy: 'privacy',
+  region: 'Region',
+  reject_reason: 'Reject reason',
+  premium: 'Premium',
 };

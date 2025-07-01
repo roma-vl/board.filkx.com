@@ -151,7 +151,8 @@ watch(isOpen, async (newVal) => {
           aria-label="navigation"
         >
           <a
-            v-if="$page.props.auth?.user && $page.props.auth?.user.is_admin"
+            v-if="$page.props.auth?.user"
+            v-can="'admin'"
             :href="route('admin.index')"
             class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
             role="menuitem"
