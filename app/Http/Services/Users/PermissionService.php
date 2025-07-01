@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Users;
 
-use App\Models\Permission;
+use App\Models\Users\Permission;
 use Illuminate\Database\Eloquent\Collection;
 
 class PermissionService

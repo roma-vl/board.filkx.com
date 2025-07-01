@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Ticket;
+namespace App\Models\Tickets;
 
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;

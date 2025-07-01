@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Services;
 
-use App\Http\Services\AttributeService;
+use App\Http\Services\Adverts\AttributeService;
 use App\Models\Adverts\Attribute;
-use App\Models\Adverts\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use Tests\TestCase;

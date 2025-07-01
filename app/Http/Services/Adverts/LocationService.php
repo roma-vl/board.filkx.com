@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Adverts;
 
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Model;

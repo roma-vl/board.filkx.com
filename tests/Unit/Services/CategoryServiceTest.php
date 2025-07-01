@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use App\Http\Services\CategoryService;
+use App\Http\Services\Adverts\CategoryService;
 use App\Models\Adverts\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;

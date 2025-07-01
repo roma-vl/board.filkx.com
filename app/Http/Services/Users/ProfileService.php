@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Users;
 
 use App\Http\Requests\ProfileUpdateRequest;
 

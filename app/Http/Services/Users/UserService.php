@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Users;
 
 use App\Filters\UserFilter;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Models\User;
-use App\Models\UserSocial;
+use App\Models\Users\User;
+use App\Models\Users\UserSocial;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;

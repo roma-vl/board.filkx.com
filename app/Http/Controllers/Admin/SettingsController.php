@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateGeneralSettingsRequest;
 use App\Http\Requests\Admin\UpdateUserSettingsRequest;
-use App\Http\Services\SettingsService;
+use App\Http\Services\Settings\SettingsService;
 use App\Settings\GeneralSettings;
 use App\Settings\UserSettings;
 use Inertia\Inertia;

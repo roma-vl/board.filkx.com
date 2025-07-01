@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Cabinet\Banners\EditRequest;
 use App\Http\Requests\Cabinet\Banners\RejectRequest;
-use App\Http\Services\Banner\BannerService;
+use App\Http\Services\Banners\BannerService;
 use App\Models\Banners\Banner;
 use DomainException;
 use Illuminate\Http\RedirectResponse;

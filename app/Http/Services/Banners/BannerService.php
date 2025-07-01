@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Banner;
+namespace App\Http\Services\Banners;
 
 use App\Http\Requests\Banner\GetRequest;
 use App\Http\Requests\Cabinet\Banners\CreateRequest;
@@ -10,7 +10,7 @@ use App\Http\Requests\Cabinet\Banners\RejectRequest;
 use App\Models\Adverts\Category;
 use App\Models\Banners\Banner;
 use App\Models\Location;
-use App\Models\User;
+use App\Models\Users\User;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;

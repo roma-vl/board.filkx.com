@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Banner;
+namespace App\Http\Services\Banners;
 
 class CostCalculatorService
 {

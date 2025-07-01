@@ -14,7 +14,7 @@ use App\Http\Requests\Cabinet\Adverts\UpdateRequest;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
 use App\Models\Location;
-use App\Models\User;
+use App\Models\Users\User;
 use App\Notifications\Advert\ModerationRejectNotification;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;

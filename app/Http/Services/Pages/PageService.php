@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Pages;
 
-use App\Models\Page;
+use App\Models\Pages\Page;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;

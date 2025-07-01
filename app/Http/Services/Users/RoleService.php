@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Users;
 
-use App\Models\Permission;
-use App\Models\Role;
+use App\Models\Users\Permission;
+use App\Models\Users\Role;
 use Illuminate\Support\Collection;
 
 class RoleService

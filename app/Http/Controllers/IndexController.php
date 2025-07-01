@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Adverts\SearchRequest;
 use App\Http\Services\Adverts\AdvertService;
+use App\Http\Services\Adverts\CategoryService;
+use App\Http\Services\Adverts\LocationService;
 use App\Http\Services\Adverts\SearchService;
-use App\Http\Services\CategoryService;
 use App\Http\Services\LocaleService;
-use App\Http\Services\LocationService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
 use App\Models\Location;
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

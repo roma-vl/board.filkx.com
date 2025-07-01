@@ -4,7 +4,7 @@ namespace App\Http\Services\Adverts;
 
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\AdvertOrder;
-use App\Models\AdvertServicePrice;
+use App\Models\Adverts\AdvertServicePrice;
 use App\Models\Coupon;
 
 class BillingService

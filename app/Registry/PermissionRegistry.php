@@ -3,8 +3,8 @@
 namespace App\Registry;
 
 use App\Models\Adverts\Advert;
-use App\Models\Permission;
-use App\Models\User;
+use App\Models\Users\Permission;
+use App\Models\Users\User;
 use Illuminate\Support\Facades\Gate;
 
 class PermissionRegistry

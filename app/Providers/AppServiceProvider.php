@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Services\Banner\CostCalculatorService;
+use App\Http\Services\Banners\CostCalculatorService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Boost\AdvertService;
 use App\Observers\AdvertServiceObserver;

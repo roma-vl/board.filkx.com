@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Tickets;
 
 use App\Http\Requests\Ticket\CreateRequest;
 use App\Http\Requests\Ticket\EditRequest;
 use App\Http\Requests\Ticket\MessageRequest;
-use App\Models\Ticket\Ticket;
+use App\Models\Tickets\Ticket;
 use DomainException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;

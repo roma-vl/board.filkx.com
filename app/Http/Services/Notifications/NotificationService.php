@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Notifications;
 
-use App\Models\User;
+use App\Models\Users\User;
 use App\Notifications\ChatNotification;
 
 class NotificationService

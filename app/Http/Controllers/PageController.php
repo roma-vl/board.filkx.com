@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\PageService;
+use App\Http\Services\Pages\PageService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;

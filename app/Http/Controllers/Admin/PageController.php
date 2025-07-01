@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\PageRequest;
-use App\Http\Services\PageService;
-use App\Models\Page;
+use App\Http\Services\Pages\PageService;
+use App\Models\Pages\Page;
 use Inertia\Inertia;
 
 class PageController

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Adverts;
 
 use Illuminate\Database\Eloquent\Model;
 

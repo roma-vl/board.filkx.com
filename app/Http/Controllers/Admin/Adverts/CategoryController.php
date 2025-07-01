@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Adverts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
-use App\Http\Services\CategoryService;
+use App\Http\Services\Adverts\CategoryService;
 use App\Models\Adverts\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;

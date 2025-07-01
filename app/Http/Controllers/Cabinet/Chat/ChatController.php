@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Cabinet\Chat;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\NotificationService;
+use App\Http\Services\Notifications\NotificationService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Dialog\Dialog;
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
