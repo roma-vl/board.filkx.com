@@ -8,12 +8,9 @@ use App\Models\User;
 use App\Models\UserSocial;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Contracts\User as ProviderUser;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserService
 {
