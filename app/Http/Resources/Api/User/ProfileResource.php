@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\User;
 
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;

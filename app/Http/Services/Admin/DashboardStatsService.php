@@ -4,7 +4,7 @@ namespace App\Http\Services\Admin;
 
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\AdvertOrder;
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 

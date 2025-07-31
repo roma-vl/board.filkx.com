@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Adverts\Advert;
-use App\Models\User;
+use App\Models\Users\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -24,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
             DB::connection()->getPdo();
 
             if (Schema::hasTable('permissions')) {
-                $permissions = \App\Models\Permission::pluck('key')->toArray();
+                $permissions = \App\Models\Users\Permission::pluck('key')->toArray();
 
                 foreach ($permissions as $permission) {
                     Gate::define($permission, function (User $user) use ($permission) {

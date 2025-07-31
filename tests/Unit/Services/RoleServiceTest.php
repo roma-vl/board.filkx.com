@@ -3,9 +3,9 @@
 namespace Tests\Unit\Services;
 
 use App\Http\Requests\Admin\RoleRequest;
-use App\Http\Services\RoleService;
-use App\Models\Permission;
-use App\Models\Role;
+use App\Http\Services\Users\RoleService;
+use App\Models\Users\Permission;
+use App\Models\Users\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;

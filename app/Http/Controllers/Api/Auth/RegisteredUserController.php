@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Services\UserService;
+use App\Http\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;

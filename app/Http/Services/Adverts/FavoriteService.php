@@ -3,7 +3,7 @@
 namespace App\Http\Services\Adverts;
 
 use App\Models\Adverts\Advert;
-use App\Models\User;
+use App\Models\Users\User;
 
 class FavoriteService
 {

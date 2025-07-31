@@ -2,14 +2,19 @@
 
 namespace App\Http\Services\Adverts;
 
+use App\Http\Services\Payments\PaymentGatewayManager;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\AdvertOrder;
-use App\Models\AdvertServicePrice;
-use App\Models\Coupon;
+use App\Models\Adverts\AdvertServicePrice;
+use App\Models\Billing\Coupon;
 
 class BillingService
 {
-    public function purchase(int $advertId, string $type, ?string $couponCode = null): AdvertOrder
+    public function __construct(
+        private readonly PaymentGatewayManager $manager,
+    ) {}
+
+    public function purchase(int $advertId, string $type, ?string $couponCode = null, string $gateway = 'liqpay'): AdvertOrder
     {
         $basePrice = $this->getPriceFor($type);
 
@@ -26,11 +31,17 @@ class BillingService
 
         $order = AdvertOrder::create([
             'advert_id' => $advertId,
-            'service_type' => $type,
+//            'service_type' => $type,
             'price' => $finalPrice,
-            'status' => 'paid',
+            'status' => 'pending',
             'payment_method' => 'fake_gateway',
             'coupon_code' => $coupon?->code,
+        ]);
+
+        $form = $this->manager->driver($gateway)->pay([
+            'amount' => $finalPrice,
+            'description' => "Оплата послуги $type для оголошення №{$advertId}",
+            'order_id' => $order->id,
         ]);
 
         AdvertServiceLogger::log($advertId, 'purchase', [
@@ -39,10 +50,10 @@ class BillingService
             'order_id' => $order->id,
         ]);
 
-        return $order;
+        return $form;
     }
 
-    public function purchaseMultiple(Advert $advert, int $userId, array $types, ?string $couponCode = null): AdvertOrder
+    public function purchaseMultiple(Advert $advert, int $userId, array $types, ?string $couponCode = null, $gateway = 'liqpay'): AdvertOrder
     {
         $totalPrice = 0;
         $items = [];
@@ -64,13 +75,21 @@ class BillingService
             }
         }
 
+
+
         $order = AdvertOrder::create([
             'advert_id' => $advert->id,
             'user_id' => $userId,
             'price' => $totalPrice,
-            'status' => 'paid',
-            'payment_method' => 'fake_gateway',
+            'status' => 'pending',
+            'payment_method' => $gateway,
             'coupon_code' => $couponCode,
+        ]);
+
+        $form = $this->manager->driver($gateway)->pay([
+            'amount' => $totalPrice,
+            'description' => "Оплата послуги $type для оголошення №{$advert->id}",
+            'order_id' => $order->id,
         ]);
 
         $advert->update(['premium' => 1]);

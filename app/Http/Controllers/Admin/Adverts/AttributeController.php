@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Adverts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAttributeRequest;
 use App\Http\Requests\Admin\UpdateAttributeRequest;
-use App\Http\Services\AttributeService;
+use App\Http\Services\Adverts\AttributeService;
 use App\Models\Adverts\Attribute;
 use App\Models\Adverts\Category;
 use Illuminate\Http\JsonResponse;

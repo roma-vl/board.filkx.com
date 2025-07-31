@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Mail\NewsletterMail;
-use App\Models\Newsletter;
-use App\Models\User;
+use App\Models\Newsletters\Newsletter;
+use App\Models\Users\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 

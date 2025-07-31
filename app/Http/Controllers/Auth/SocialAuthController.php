@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Services\UserService;
-use App\Models\UserSocial;
+use App\Http\Services\Users\UserService;
+use App\Models\Users\UserSocial;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 

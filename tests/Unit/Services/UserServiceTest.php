@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Services;
 
-use App\Http\Services\UserService;
-use App\Models\Role;
-use App\Models\User;
+use App\Http\Services\Users\UserService;
+use App\Models\Users\Role;
+use App\Models\Users\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;

@@ -8,7 +8,7 @@ use App\Http\Resources\Api\Advert\AdvertListResource;
 use App\Http\Services\Adverts\SearchService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
-use App\Models\Location;
+use App\Models\Adverts\Location;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 

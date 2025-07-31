@@ -2,7 +2,7 @@
 
 namespace App\Http\Services\Adverts;
 
-use App\Models\AdvertServiceLog;
+use App\Models\Adverts\AdvertServiceLog;
 
 class AdvertServiceLogger
 {
