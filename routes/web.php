@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\Cabinet\NotificationController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Banners\BannerController as PublicBannerController;
+use App\Http\Controllers\Billing\LiqPayCallbackController;
 use App\Http\Controllers\Billing\PaymentCallbackController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertController;
 use App\Http\Controllers\Cabinet\Adverts\AdvertServiceController;
@@ -50,6 +51,7 @@ Route::prefix('/adverts')->name('adverts.')->group(function () {
 Route::get('/greeting/{locale}', [IndexController::class, 'changeLocale'])->name('greeting');
 
 Route::post('/payments/callback/{gateway}', [PaymentCallbackController::class, 'handle'])->name('payments.callback');
+Route::post('/liqpay/callback', [LiqPayCallbackController::class, 'handle'])->name('liqpay.callback');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

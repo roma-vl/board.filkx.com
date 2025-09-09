@@ -25,6 +25,7 @@
     "laravel/socialite": "^5.20",
     "laravel/telescope": "^5.3",
     "laravel/tinker": "^2.9",
+    "liqpay/liqpay": "^1.4",
     "nesbot/carbon": "^3.8",
     "owen-it/laravel-auditing": "^13.7",
     "rap2hpoutre/laravel-log-viewer": "^2.5",

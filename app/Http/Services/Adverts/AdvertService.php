@@ -209,7 +209,8 @@ class AdvertService
             ->with(['firstPhoto', 'favorites'])
             ->latest()
             ->take(4)
-            ->get();
+            ->get()
+            ->map(fn($advert) => $this->toListingResource($advert));
     }
 
     public function getVip(): Collection
@@ -219,7 +220,8 @@ class AdvertService
             ->with(['firstPhoto', 'favorites'])
             ->inRandomOrder() // вибирає випадкові
             ->take(4)
-            ->get();
+            ->get()
+            ->map(fn($advert) => $this->toListingResource($advert));
     }
 
     public function getAdvertForModeration()
@@ -241,4 +243,26 @@ class AdvertService
             ->orderBy($params['sort_by'], $params['sort_order'])
             ->paginate($params['per_page']);
     }
+
+    public function toListingResource(Advert $advert): array
+    {
+        $now = Carbon::now();
+
+        return [
+            'id' => $advert->id,
+            'title' => $advert->title,
+            'price' => $advert->price,
+            'city' => $advert->city,
+            'created_at' => $advert->created_at,
+            'expires_at' => $advert->expires_at,
+            'deleted_at' => $advert->deleted_at,
+            'is_favorited' => $advert->is_favorited,
+            'first_photo' => $advert->firstPhoto?->file,
+            'favorites_count' => $advert->favorites->count(),
+            'is_new' => $advert->created_at->greaterThan($now->subDays(7)),
+            'is_promo' => $advert->expires_at?->isToday() ?? false,
+            'premium' => $advert->premium,
+        ];
+    }
+
 }

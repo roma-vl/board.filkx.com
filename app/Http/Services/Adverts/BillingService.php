@@ -53,30 +53,38 @@ class BillingService
         return $form;
     }
 
-    public function purchaseMultiple(Advert $advert, int $userId, array $types, ?string $couponCode = null, $gateway = 'liqpay'): AdvertOrder
+    public function purchaseMultiple(
+        Advert $advert,
+        int $userId,
+        array $types,
+        ?string $couponCode = null,
+        string $gateway = 'liqpay'
+    ): AdvertOrder
     {
+        $itemsData = [];
         $totalPrice = 0;
-        $items = [];
 
+        // 1. Генеруємо items
         foreach ($types as $type) {
             $price = $this->getPriceFor($type);
             $totalPrice += $price;
-            $items[] = [
+            $itemsData[] = [
                 'service_type' => $type,
                 'price' => $price,
+                'status' => 'pending',
             ];
         }
 
+        // 2. Застосовуємо купон
         if ($couponCode) {
             $coupon = Coupon::where('code', $couponCode)->first();
-            if ($coupon && $coupon->isValidFor($type)) {
+            if ($coupon) {
                 $totalPrice = $coupon->applyTo($totalPrice);
                 $coupon->increment('used_count');
             }
         }
 
-
-
+        // 3. Створюємо замовлення
         $order = AdvertOrder::create([
             'advert_id' => $advert->id,
             'user_id' => $userId,
@@ -86,26 +94,25 @@ class BillingService
             'coupon_code' => $couponCode,
         ]);
 
-        $form = $this->manager->driver($gateway)->pay([
-            'amount' => $totalPrice,
-            'description' => "Оплата послуги $type для оголошення №{$advert->id}",
-            'order_id' => $order->id,
-        ]);
-
-        $advert->update(['premium' => 1]);
-
-        foreach ($items as $item) {
-            $order->items()->create($item);
+        // 4. Створюємо items
+        foreach ($itemsData as $itemData) {
+            $order->items()->create($itemData);
         }
 
+        // 5. Створюємо платіж через драйвер
+        $gatewayDriver = $this->manager->driver($gateway);
+        $paymentForm = $gatewayDriver->createPayment($order);
+
+        // 6. Логування
         AdvertServiceLogger::log($advert->id, 'purchase', [
-            'services' => $items,
+            'services' => $itemsData,
             'total' => $totalPrice,
             'order_id' => $order->id,
         ]);
 
         return $order;
     }
+
 
     public function getPriceFor(string $type): float
     {

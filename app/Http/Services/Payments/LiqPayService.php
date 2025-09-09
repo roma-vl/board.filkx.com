@@ -29,8 +29,7 @@ class LiqPayService implements PaymentGatewayInterface
         ];
 
         return [
-            'data' => $this->client->cnb_data($params),
-            'signature' => $this->client->cnb_signature($params),
+            'form' => $this->client->cnb_form($params) // тут повертається HTML-форма для платежу
         ];
     }
 

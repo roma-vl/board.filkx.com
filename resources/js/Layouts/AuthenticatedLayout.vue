@@ -153,7 +153,7 @@ onMounted(() => {
           <div>
             <ApplicationLogo class="w-28 fill-current mb-4" />
             <p class="mb-4">
-              Зозулька — твій надійний майданчик для оголошень. Все для людей.
+              Snail — твій надійний майданчик для оголошень. Все для людей.
             </p>
             <div class="flex space-x-4">
               <FacebookFooterIcon class="w-8 h-8 hover:text-blue-600 transition" />
