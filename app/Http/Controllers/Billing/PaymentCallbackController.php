@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Billing;
 
-
 use App\Http\Controllers\Controller;
 use App\Http\Services\Payments\PaymentGatewayManager;
 use Illuminate\Http\Request;

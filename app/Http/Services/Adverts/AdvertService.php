@@ -210,7 +210,7 @@ class AdvertService
             ->latest()
             ->take(4)
             ->get()
-            ->map(fn($advert) => $this->toListingResource($advert));
+            ->map(fn ($advert) => $this->toListingResource($advert));
     }
 
     public function getVip(): Collection
@@ -221,7 +221,7 @@ class AdvertService
             ->inRandomOrder() // вибирає випадкові
             ->take(4)
             ->get()
-            ->map(fn($advert) => $this->toListingResource($advert));
+            ->map(fn ($advert) => $this->toListingResource($advert));
     }
 
     public function getAdvertForModeration()
@@ -264,5 +264,4 @@ class AdvertService
             'premium' => $advert->premium,
         ];
     }
-
 }

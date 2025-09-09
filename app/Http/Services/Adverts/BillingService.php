@@ -31,7 +31,7 @@ class BillingService
 
         $order = AdvertOrder::create([
             'advert_id' => $advertId,
-//            'service_type' => $type,
+            //            'service_type' => $type,
             'price' => $finalPrice,
             'status' => 'pending',
             'payment_method' => 'fake_gateway',
@@ -59,8 +59,7 @@ class BillingService
         array $types,
         ?string $couponCode = null,
         string $gateway = 'liqpay'
-    ): AdvertOrder
-    {
+    ): AdvertOrder {
         $itemsData = [];
         $totalPrice = 0;
 
@@ -112,7 +111,6 @@ class BillingService
 
         return $order;
     }
-
 
     public function getPriceFor(string $type): float
     {

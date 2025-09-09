@@ -9,7 +9,7 @@ class PaymentGatewayManager
     public function driver(string $driver): PaymentGatewayInterface
     {
         return match ($driver) {
-            'liqpay' => new LiqPayService(),
+            'liqpay' => new LiqPayService,
             // 'stripe' => new StripeService(), // для майбутнього
             default => throw new \InvalidArgumentException("Unsupported payment gateway [$driver]"),
         };

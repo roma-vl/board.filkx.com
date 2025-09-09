@@ -29,16 +29,16 @@ class LiqPayService implements PaymentGatewayInterface
         ];
 
         return [
-            'form' => $this->client->cnb_form($params) // тут повертається HTML-форма для платежу
+            'form' => $this->client->cnb_form($params), // тут повертається HTML-форма для платежу
         ];
     }
 
-//    public function handleCallback(array $data): bool
-//    {
-//        // перевірка підпису та статусу
-//        // логіка зміни статусу ордера
-//        return true;
-//    }
+    //    public function handleCallback(array $data): bool
+    //    {
+    //        // перевірка підпису та статусу
+    //        // логіка зміни статусу ордера
+    //        return true;
+    //    }
     public function handleCallback(array $data): bool
     {
         $liqpayData = $data['data'] ?? '';
@@ -46,7 +46,7 @@ class LiqPayService implements PaymentGatewayInterface
 
         // 1. Перевірка підпису
         $expectedSignature = base64_encode(
-            sha1(env('LIQPAY_PRIVATE_KEY') . $liqpayData . env('LIQPAY_PRIVATE_KEY'), true)
+            sha1(env('LIQPAY_PRIVATE_KEY').$liqpayData.env('LIQPAY_PRIVATE_KEY'), true)
         );
 
         if ($signature !== $expectedSignature) {
@@ -56,7 +56,7 @@ class LiqPayService implements PaymentGatewayInterface
         // 2. Декодування JSON
         $decoded = json_decode(base64_decode($liqpayData), true);
 
-        if (!isset($decoded['order_id']) || !isset($decoded['status'])) {
+        if (! isset($decoded['order_id']) || ! isset($decoded['status'])) {
             throw new \RuntimeException('Invalid LiqPay data payload');
         }
 
@@ -77,7 +77,6 @@ class LiqPayService implements PaymentGatewayInterface
             ]);
         }
     }
-
 
     public function getGatewayName(): string
     {

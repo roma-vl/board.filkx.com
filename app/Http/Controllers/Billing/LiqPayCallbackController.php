@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Billing;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Services\Payments\LiqPayService;
+use Illuminate\Http\Request;
 
 class LiqPayCallbackController extends Controller
 {
@@ -16,10 +16,11 @@ class LiqPayCallbackController extends Controller
         try {
             $liqpayService->handleCallback([
                 'data' => $data,
-                'signature' => $signature
+                'signature' => $signature,
             ]);
         } catch (\Exception $e) {
             \Log::error('LiqPay callback error: '.$e->getMessage());
+
             return response('Error', 400);
         }
 

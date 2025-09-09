@@ -53,7 +53,6 @@ Route::get('/greeting/{locale}', [IndexController::class, 'changeLocale'])->name
 Route::post('/payments/callback/{gateway}', [PaymentCallbackController::class, 'handle'])->name('payments.callback');
 Route::post('/liqpay/callback', [LiqPayCallbackController::class, 'handle'])->name('liqpay.callback');
 
-
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/notifications', [NotificationController::class, 'index']);
