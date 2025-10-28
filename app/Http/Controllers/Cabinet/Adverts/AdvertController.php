@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cabinet\Adverts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Dto\Cabinet\Adverts\AdvertDto;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
 use App\Http\Requests\Cabinet\Adverts\UpdateRequest;
 use App\Http\Services\Adverts\AdvertService;
@@ -28,10 +29,14 @@ class AdvertController extends Controller
 
     public function index(): Response
     {
-        $adverts = Advert::forUser(Auth::user())
-            ->with('firstPhoto')
-            ->orderByDesc('id')
-            ->paginate(10);
+        $query = Advert::forUser(auth()->user())
+            ->with(['firstPhoto', 'statusRelation']);
+
+        $adverts = $query->orderByDesc('id')->paginate(10);
+
+        $adverts->setCollection(
+            $adverts->getCollection()->map(fn(Advert $advert) => AdvertDto::fromModel($advert))
+        );
 
         return Inertia::render('Account/Advert/Index', [
             'adverts' => $adverts,

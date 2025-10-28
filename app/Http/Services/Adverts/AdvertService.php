@@ -12,10 +12,12 @@ use App\Http\Requests\Cabinet\Adverts\EditRequest;
 use App\Http\Requests\Cabinet\Adverts\PhotosRequest;
 use App\Http\Requests\Cabinet\Adverts\UpdateRequest;
 use App\Models\Adverts\Advert;
+use App\Models\Adverts\AdvertStatus;
 use App\Models\Adverts\Category;
 use App\Models\Adverts\Location;
 use App\Models\Users\User;
 use App\Notifications\Advert\ModerationRejectNotification;
+use App\States\Adverts\Draft;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -35,12 +37,15 @@ class AdvertService
         $region = $regionId ? Location::findOrFail($regionId) : null;
 
         return DB::transaction(function () use ($user, $category, $region, $request) {
+            $draftStatus = AdvertStatus::where('state', Draft::$state)->firstOrFail();
+
             $advert = Advert::make([
                 'title' => $request->input('title'),
                 'content' => $request->input('content'),
                 'price' => $request->input('price'),
                 'address' => $request->input('address'),
-                'status' => Advert::STATUS_DRAFT,
+                'status_id' => $draftStatus->id, // прив’язуємо status_id
+                'status' => Advert::STATUS_DRAFT,   // залишаємо старе поле для сумісності
             ]);
 
             $advert->user()->associate($user);

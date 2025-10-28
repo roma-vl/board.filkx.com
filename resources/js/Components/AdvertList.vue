@@ -90,17 +90,11 @@ const remove = (advertId) => {
             </div>
           </div>
           <div class="flex flex-col items-end justify-between">
-            <span
-              class="px-4 py-2 rounded-full text-sm font-medium"
-              :class="{
-                'bg-green-100 text-green-800': advert.status === 'active',
-                'bg-green-100 text-green-400': advert.status === 'moderation',
-                'bg-yellow-100 text-yellow-800': advert.status === 'pending',
-                'bg-yellow-200 text-yellow-700': advert.status === 'draft',
-                'bg-red-100 text-red-800': advert.status === 'inactive',
-              }"
-            >
-              {{ advert.status }}
+           <span
+               class="px-2 py-1 rounded text-sm font-medium"
+               :style="{ backgroundColor: advert.status?.color, color: '#fff' }" >
+
+              {{ advert.status?.name }}
             </span>
             <div
               v-if="props.routes"
