@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Adverts\Category;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
-use App\Models\Adverts\Category; // має використовувати NestedSet
+use Illuminate\Support\Facades\DB; // має використовувати NestedSet
 
 return new class extends Migration
 {
@@ -25,7 +25,7 @@ return new class extends Migration
                 'parent_id' => $parentId,
             ]);
 
-            if (!empty($node['children'])) {
+            if (! empty($node['children'])) {
                 $this->buildTree($category->id, $node['children']);
             }
         }

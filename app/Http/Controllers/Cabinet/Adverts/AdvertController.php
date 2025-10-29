@@ -35,7 +35,7 @@ class AdvertController extends Controller
         $adverts = $query->orderByDesc('id')->paginate(10);
 
         $adverts->setCollection(
-            $adverts->getCollection()->map(fn(Advert $advert) => AdvertDto::fromModel($advert))
+            $adverts->getCollection()->map(fn (Advert $advert) => AdvertDto::fromModel($advert))
         );
 
         return Inertia::render('Account/Advert/Index', [

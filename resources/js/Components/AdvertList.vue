@@ -34,11 +34,11 @@ const remove = (advertId) => {
       >
         <div class="flex justify-between gap-6 min-h-36">
           <div class="w-[300px]">
-              <img
-                  :src="getFullPathForImage(advert.firstPhoto)"
-                  :alt="advert.title"
-                  class="w-full h-40 object-cover"
-              />
+            <img
+              :src="getFullPathForImage(advert.firstPhoto)"
+              :alt="advert.title"
+              class="w-full h-40 object-cover"
+            >
           </div>
           <div class="flex-grow flex flex-col justify-between w-full">
             <div>
@@ -86,15 +86,15 @@ const remove = (advertId) => {
               </span>
               <p class="text-sm text-gray-500 dark:text-gray-200">
                 {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.createdAt) }}
-                  {{console.log(advert.createdAt)}}
+                {{ console.log(advert.createdAt) }}
               </p>
             </div>
           </div>
           <div class="flex flex-col items-end justify-between">
-           <span
-               class="px-2 py-1 rounded text-sm font-medium"
-               :style="{ backgroundColor: advert.status?.color, color: '#fff' }" >
-
+            <span
+              class="px-2 py-1 rounded text-sm font-medium"
+              :style="{ backgroundColor: advert.status?.color, color: '#fff' }"
+            >
               {{ advert.status?.name }}
             </span>
             <div

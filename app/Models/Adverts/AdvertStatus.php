@@ -2,7 +2,6 @@
 
 namespace App\Models\Adverts;
 
-use App\States\Adverts\BaseState;
 use Illuminate\Database\Eloquent\Model;
 
 class AdvertStatus extends Model

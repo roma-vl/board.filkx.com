@@ -171,7 +171,7 @@ class Advert extends Model implements Auditable
         //        }
         $this->update([
             'status' => self::STATUS_MODERATION,
-            'status_id' =>  $this->statusIdFromState(Moderation::$state),
+            'status_id' => $this->statusIdFromState(Moderation::$state),
             'reject_reason' => '',
         ]);
     }
@@ -185,7 +185,7 @@ class Advert extends Model implements Auditable
             'published_at' => $date,
             'expires_at' => $date->copy()->addDays(15),
             'status' => self::STATUS_ACTIVE,
-            'status_id' =>  $this->statusIdFromState(Active::$state),
+            'status_id' => $this->statusIdFromState(Active::$state),
             'reject_reason' => '',
         ]);
     }
@@ -211,7 +211,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_CLOSED,
-            'status_id' =>  $this->statusIdFromState(Closed::$state),
+            'status_id' => $this->statusIdFromState(Closed::$state),
         ]);
     }
 
@@ -228,7 +228,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_CLOSED,
-            'status_id' =>  $this->statusIdFromState(Closed::$state),
+            'status_id' => $this->statusIdFromState(Closed::$state),
         ]);
     }
 

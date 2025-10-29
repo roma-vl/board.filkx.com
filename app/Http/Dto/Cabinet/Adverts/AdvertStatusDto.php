@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Dto\Cabinet\Adverts;
+
 readonly class AdvertStatusDto
 {
     public function __construct(
         public string $name,
         public string $color,
-        public int    $state
+        public int $state
     ) {}
 
     public static function fromModel($status): self
