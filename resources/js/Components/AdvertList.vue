@@ -33,14 +33,14 @@ const remove = (advertId) => {
         class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out dark:hover:bg-gray-800/50 dark:bg-gray-800"
       >
         <div class="flex justify-between gap-6 min-h-36">
-          <div class="w-48">
-            <img
-              :src="getFullPathForImage(advert.first_photo?.file)"
-              :alt="advert.title"
-              class="w-full h-40"
-            >
+          <div class="w-[300px]">
+              <img
+                  :src="getFullPathForImage(advert.firstPhoto)"
+                  :alt="advert.title"
+                  class="w-full h-40 object-cover"
+              />
           </div>
-          <div class="flex-grow flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-between w-full">
             <div>
               <a
                 :href="route('adverts.show', advert.id)"
@@ -85,7 +85,8 @@ const remove = (advertId) => {
                 2 {{ $t('in.bookmarks') }}
               </span>
               <p class="text-sm text-gray-500 dark:text-gray-200">
-                {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.created_at) }}
+                {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.createdAt) }}
+                  {{console.log(advert.createdAt)}}
               </p>
             </div>
           </div>

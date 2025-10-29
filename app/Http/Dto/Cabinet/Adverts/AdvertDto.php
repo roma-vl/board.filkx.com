@@ -28,7 +28,7 @@ readonly class AdvertDto
             address: $advert->address,
             status: $statusDto,
             firstPhoto: $advert->firstPhoto?->file,
-            createdAt: $advert->created_at->format('d.m.Y H:i'),
+            createdAt: $advert->created_at->toIso8601String(),
         );
     }
 }

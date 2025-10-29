@@ -54,21 +54,24 @@ export const truncateContent = (text, length = 100) => {
 };
 
 export function getDateFormatFromLocale(date) {
-  const parsedDate = new Date(date);
-  if (isNaN(parsedDate)) return '-';
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate)) return '-';
 
-  return parsedDate.toLocaleDateString('uk-UA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    // hour: "2-digit",
-    // minute: "2-digit"
-  });
+    return parsedDate.toLocaleDateString(navigator.language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
 }
 
-export function getTimeFormatFromLocale(datetime) {
-  return new Date(datetime).toLocaleTimeString('uk-UA', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+export function getTimeFormatFromLocale(date) {
+    const parsedDate = new Date(date);
+    if (isNaN(parsedDate)) return '-';
+
+    return parsedDate.toLocaleTimeString(navigator.language, {
+        hour: '2-digit',
+        minute: '2-digit',
+    });
 }
