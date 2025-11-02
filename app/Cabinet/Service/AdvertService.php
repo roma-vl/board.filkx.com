@@ -234,7 +234,10 @@ class AdvertService
     public function getVip(): Collection
     {
         return Advert::query()
-            ->where('premium', 1)
+            ->whereHas('services', function ($query) {
+                $query->where('type', 'premium')
+                    ->where('ends_at', '>=', now());
+            })
             ->with(['firstPhoto', 'favorites'])
             ->inRandomOrder()
             ->take(self::PER_PAGE_IN_MAIN)

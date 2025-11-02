@@ -7,4 +7,5 @@ return [
     App\Providers\TelescopeServiceProvider::class,
     App\Providers\ClearCacheServiceProvider::class,
     App\Providers\SearchServiceProvider::class,
+    App\Providers\AdvertServicesServiceProvider::class,
 ];
