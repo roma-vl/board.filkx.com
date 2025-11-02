@@ -1,5 +1,15 @@
 <?php
 
+use App\Cabinet\Http\Adverts\AdvertController;
+use App\Cabinet\Http\Adverts\AdvertServiceController;
+use App\Cabinet\Http\Adverts\FavoriteController;
+use App\Cabinet\Http\Banner\BannerController;
+use App\Cabinet\Http\Banner\CreateController;
+use App\Cabinet\Http\Chat\ChatController;
+use App\Cabinet\Http\Order\OrdersController;
+use App\Cabinet\Http\Profile\PhoneController;
+use App\Cabinet\Http\Profile\ProfileController;
+use App\Cabinet\Http\Ticket\TicketController;
 use App\Http\Controllers\Admin\Adverts\AdvertsController;
 use App\Http\Controllers\Admin\Adverts\AttributeController;
 use App\Http\Controllers\Admin\Adverts\CategoryController;
@@ -21,16 +31,6 @@ use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Banners\BannerController as PublicBannerController;
 use App\Http\Controllers\Billing\LiqPayCallbackController;
 use App\Http\Controllers\Billing\PaymentCallbackController;
-use App\Http\Controllers\Cabinet\Adverts\AdvertController;
-use App\Http\Controllers\Cabinet\Adverts\AdvertServiceController;
-use App\Http\Controllers\Cabinet\Adverts\FavoriteController;
-use App\Http\Controllers\Cabinet\Banner\BannerController;
-use App\Http\Controllers\Cabinet\Banner\CreateController;
-use App\Http\Controllers\Cabinet\Chat\ChatController;
-use App\Http\Controllers\Cabinet\Orders\OrdersController;
-use App\Http\Controllers\Cabinet\Profile\PhoneController;
-use App\Http\Controllers\Cabinet\Profile\ProfileController;
-use App\Http\Controllers\Cabinet\TicketController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Pages\PageController;
 use App\Http\Controllers\Static\StaticController;
@@ -88,13 +88,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/edit/{advert}', [AdvertController::class, 'edit'])->name('edit');
             Route::post('/update/{advert}', [AdvertController::class, 'update'])->name('update');
             Route::delete('/destroy/{advert}', [AdvertController::class, 'destroy'])->name('destroy');
-            Route::get('/edit/{advert}/photos', [AdvertController::class, 'photos'])->name('edit.photos');
             Route::post('/publish/{advert}', [AdvertController::class, 'publish'])->name('actions.publish');
             Route::post('/draft/{advert}', [AdvertController::class, 'draft'])->name('actions.draft');
             Route::get('/create', [AdvertController::class, 'create'])->name('create');
             Route::post('/store', [AdvertController::class, 'store'])->name('store');
-            Route::get('/areas/{regionId}', [AdvertController::class, 'getAreas'])->name('areas');
-            Route::get('/villages/{areaId}', [AdvertController::class, 'getVillages'])->name('villages');
             Route::get('/attributes/{categoryId}', [AdvertController::class, 'getAttributes'])->name('attributes');
 
             Route::get('/promote/{advert}', [AdvertServiceController::class, 'promote'])->name('promote');

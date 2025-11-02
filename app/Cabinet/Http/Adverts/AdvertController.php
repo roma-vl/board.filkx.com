@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Adverts;
+namespace App\Cabinet\Http\Adverts;
 
+use App\Cabinet\Service\AdvertService;
 use App\Enum\PermissionEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Dto\Cabinet\Adverts\AdvertDto;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
 use App\Http\Requests\Cabinet\Adverts\UpdateRequest;
-use App\Http\Services\Adverts\AdvertService;
 use App\Http\Services\Adverts\CategoryService;
-use App\Http\Services\Adverts\LocationService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Category;
 use DomainException;
@@ -23,7 +21,6 @@ use Inertia\Response;
 class AdvertController extends Controller
 {
     public function __construct(
-        private readonly LocationService $locationService,
         private readonly CategoryService $categoryService,
         private readonly AdvertService $advertService
     ) {}
@@ -31,15 +28,17 @@ class AdvertController extends Controller
     public function index(): Response
     {
         Gate::authorize('check-permission', [[PermissionEnum::VIEW_OWN_ADVERTS->value]]);
-        $adverts = $this->advertService->cabinetAdvertsList();
+        $advertsList = $this->advertService->advertsList();
 
         return Inertia::render('Account/Advert/Index', [
-            'adverts' => $adverts,
+            'adverts' => $advertsList,
         ]);
     }
 
     public function create(): Response
     {
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
+
         $categories = $this->categoryService->getCategories();
 
         return Inertia::render('Account/Advert/Create', [
@@ -49,9 +48,7 @@ class AdvertController extends Controller
 
     public function edit(Advert $advert): Response
     {
-        if (! Gate::any([PermissionEnum::MANAGE_OWN_ADVERTS, 'admin'], $advert)) {
-            abort(403);
-        }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
 
         $activeAttributes = [];
         $categories = $this->categoryService->getCategories();
@@ -76,9 +73,8 @@ class AdvertController extends Controller
 
     public function update(UpdateRequest $request, Advert $advert): RedirectResponse|JsonResponse
     {
-        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
-            abort(403);
-        }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
+
         try {
             $this->advertService->update($request, $advert);
         } catch (DomainException $e) {
@@ -90,9 +86,7 @@ class AdvertController extends Controller
 
     public function publish(Advert $advert): RedirectResponse
     {
-        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
-            abort(403);
-        }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
 
         $advert->sendToModeration();
 
@@ -101,9 +95,7 @@ class AdvertController extends Controller
 
     public function draft(Advert $advert): RedirectResponse
     {
-        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
-            abort(403);
-        }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
 
         $advert->backToDraft();
 
@@ -112,6 +104,7 @@ class AdvertController extends Controller
 
     public function store(CreateRequest $request): RedirectResponse|JsonResponse
     {
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
         try {
             $this->advertService->create(Auth::id(), $request);
         } catch (DomainException $e) {
@@ -121,36 +114,28 @@ class AdvertController extends Controller
         return redirect()->route('account.adverts.index')->with('success', __('adverts.advert_create'));
     }
 
-    public function photos(Advert $advert): Response
-    {
-        return Inertia::render('Account/Advert/Photos', [
-            'advert' => $advert,
-        ]);
-    }
-
     public function destroy(Advert $advert): RedirectResponse
     {
-        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
-            abort(403);
-        }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
 
         $advert->delete();
 
         return redirect()->route('account.adverts.index')->with('danger', __('adverts.advert_delete'));
     }
 
-    public function getAreas(int $regionId): JsonResponse
+    public function close(Advert $advert): RedirectResponse
     {
-        return response()->json($this->locationService->getAreas($regionId));
-    }
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
 
-    public function getVillages(int $areaId): JsonResponse
-    {
-        return response()->json($this->locationService->getVillages($areaId));
+        $advert->close();
+
+        return redirect()->route('account.adverts.index')->with('danger', __('adverts.advert_delete'));
     }
 
     public function getAttributes(int $categoryId): JsonResponse
     {
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_ADVERTS->value]]);
+
         $category = Category::findOrFail($categoryId);
         $parentAttributes = $category->getParentAttributes()->toArray();
         $attributes = $category->attributes()->orderBy('sort')->get()->toArray();
