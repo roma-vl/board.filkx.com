@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Adverts;
 
-use App\Http\Services\Adverts\FavoriteService;
+use App\Cabinet\Service\FavoriteService;
 use App\Models\Adverts\Advert;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;

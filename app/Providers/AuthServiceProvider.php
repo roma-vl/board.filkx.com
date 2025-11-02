@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Adverts\Advert;
 use App\Models\Users\Permission;
 use App\Models\Users\User;
-use Illuminate\Database\QueryException;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;

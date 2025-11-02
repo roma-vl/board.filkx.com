@@ -239,7 +239,7 @@ export default {
     settings: 'Налаштування',
     banners: 'Реклама',
     tickets: 'Тікети',
-    pay: 'Платежі'
+    pay: 'Платежі',
   },
   banners: {
     title: 'Мої Банери',

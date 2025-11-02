@@ -18,7 +18,7 @@ const props = defineProps({
 const emit = defineEmits(['toggle-like']);
 
 const toggleLike = (advert) => {
-  if (advert.is_favorited) {
+  if (advert.isFavorited) {
     router.delete(route('account.favorites.remove', { advert: advert.id }), {
       replace: true,
       preserveScroll: true,
@@ -29,11 +29,9 @@ const toggleLike = (advert) => {
       preserveScroll: true,
     });
   }
-  advert.is_favorited = !advert.is_favorited;
+  advert.isFavorited = !advert.isFavorited;
   emit('toggle-like', advert);
 };
-
-// console.log(listing)
 </script>
 
 <template>
@@ -64,7 +62,7 @@ const toggleLike = (advert) => {
         <!-- Фото -->
         <div class="relative">
           <img
-            :src="getFullPathForImage(listing.first_photo)"
+            :src="getFullPathForImage(listing.firstPhoto)"
             :alt="listing.title"
             class="w-full h-48 object-cover group-hover:scale-105 transition duration-500"
           >
@@ -72,13 +70,13 @@ const toggleLike = (advert) => {
           <!-- Бейджі -->
           <div class="absolute top-2 left-2 flex gap-2 flex-wrap">
             <span
-              v-if="listing.is_new"
+              v-if="listing.isNew"
               class="bg-green-500 text-white text-xs px-2 py-1 rounded-full"
             >
               Нове
             </span>
             <span
-              v-if="listing.is_promo"
+              v-if="listing.isPromo"
               class="bg-red-500 text-white text-xs px-2 py-1 rounded-full"
             >
               Акція
@@ -95,7 +93,7 @@ const toggleLike = (advert) => {
             @click="toggleLike(listing)"
           >
             <HeartIcon
-              v-if="!listing.is_favorited"
+              v-if="!listing.isFavorited"
               class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
             />
             <HeartSolidIcon
@@ -117,25 +115,20 @@ const toggleLike = (advert) => {
             </p>
 
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 line-clamp-2">
-              {{ listing.title }}
+              <Link :href="route('adverts.show', listing.id)">
+                {{ listing.title }}
+              </Link>
             </h3>
 
             <p class="text-green-600 font-bold text-md mt-1">
               {{ listing.price }} ₴
             </p>
 
-            <!-- Мета-інфа (через слот) -->
-            <slot
-              name="meta"
-              :listing="listing"
-            >
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                {{ listing.city }}
-              </p>
-            </slot>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              {{ listing.city }}
+            </p>
           </div>
 
-          <!-- Дії -->
           <div class="flex justify-between items-center mt-4">
             <Link
               :href="route('adverts.show', listing.id)"
@@ -143,14 +136,10 @@ const toggleLike = (advert) => {
             >
               {{ $t('more.details') }}
             </Link>
-            <slot
-              name="actions"
-              :listing="listing"
-            />
 
             <!-- Дата -->
             <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
-              {{ new Date(listing.created_at).toLocaleDateString() }}
+              {{ new Date(listing.createdAt).toLocaleDateString() }}
             </p>
           </div>
         </div>

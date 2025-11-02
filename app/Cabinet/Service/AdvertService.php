@@ -2,7 +2,8 @@
 
 namespace App\Cabinet\Service;
 
-use App\Http\Dto\Cabinet\Adverts\AdvertDto;
+use App\Cabinet\Dto\AdvertDto;
+use App\Cabinet\Dto\AdvertListingDto;
 use App\Http\Requests\Cabinet\Adverts\AttributesRequest;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
 use App\Http\Requests\Cabinet\Adverts\EditRequest;
@@ -14,7 +15,6 @@ use App\Models\Adverts\Category;
 use App\Models\Adverts\Location;
 use App\Models\Users\User;
 use App\States\Adverts\Draft;
-use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\DB;
 class AdvertService
 {
     const int PER_PAGE = 10;
+
+    const int PER_PAGE_IN_MAIN = 4;
 
     public function advertsList(): LengthAwarePaginator
     {
@@ -83,6 +85,27 @@ class AdvertService
 
             return $advert;
         });
+    }
+
+    public function getEditData(Advert $advert): array
+    {
+        $activeAttributes = $advert->values()
+            ->get()
+            ->pluck('value', 'attribute_id')
+            ->toArray();
+
+        $advert->load(['region', 'photo']);
+        $category = $advert->category;
+        $attributes = array_merge(
+            $category->getParentAttributes()->toArray(),
+            $category->attributes()->orderBy('sort')->get()->toArray()
+        );
+
+        return [
+            'advert' => $advert,
+            'attributes' => $attributes,
+            'activeAttributes' => $activeAttributes,
+        ];
     }
 
     public function edit($id, EditRequest $request): void
@@ -172,21 +195,29 @@ class AdvertService
         });
     }
 
-    public function close($id): void
-    {
-        $advert = $this->getAdvert($id);
-        $advert->close();
-    }
-
-    public function remove($id): void
-    {
-        $advert = $this->getAdvert($id);
-        $advert->delete();
-    }
-
     public function getAdvert($id): Advert
     {
         return Advert::findOrFail($id);
+    }
+
+    public function close(Advert $advert): void
+    {
+        $advert->close();
+    }
+
+    public function remove(Advert $advert): void
+    {
+        $advert->delete();
+    }
+
+    public function publish(Advert $advert): void
+    {
+        $advert->sendToModeration();
+    }
+
+    public function toDraft(Advert $advert): void
+    {
+        $advert->backToDraft();
     }
 
     public function getLatest(): Collection
@@ -195,9 +226,9 @@ class AdvertService
             ->where('status', 'active')
             ->with(['firstPhoto', 'favorites'])
             ->latest()
-            ->take(4)
+            ->take(self::PER_PAGE_IN_MAIN)
             ->get()
-            ->map(fn ($advert) => $this->toListingResource($advert));
+            ->map(fn (Advert $advert) => AdvertListingDto::fromModel($advert));
     }
 
     public function getVip(): Collection
@@ -206,29 +237,8 @@ class AdvertService
             ->where('premium', 1)
             ->with(['firstPhoto', 'favorites'])
             ->inRandomOrder()
-            ->take(4)
+            ->take(self::PER_PAGE_IN_MAIN)
             ->get()
-            ->map(fn ($advert) => $this->toListingResource($advert));
-    }
-
-    public function toListingResource(Advert $advert): array
-    {
-        $now = Carbon::now();
-
-        return [
-            'id' => $advert->id,
-            'title' => $advert->title,
-            'price' => $advert->price,
-            'city' => $advert->city,
-            'created_at' => $advert->created_at,
-            'expires_at' => $advert->expires_at,
-            'deleted_at' => $advert->deleted_at,
-            'is_favorited' => $advert->is_favorited,
-            'first_photo' => $advert->firstPhoto?->file,
-            'favorites_count' => $advert->favorites->count(),
-            'is_new' => $advert->created_at->greaterThan($now->subDays(7)),
-            'is_promo' => $advert->expires_at?->isToday() ?? false,
-            'premium' => $advert->premium,
-        ];
+            ->map(fn (Advert $advert) => AdvertListingDto::fromModel($advert));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Profile;
+namespace App\Cabinet\Http\Profile;
 
 use App\Contracts\SmsServiceInterface;
 use App\Http\Controllers\Controller;

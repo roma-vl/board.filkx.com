@@ -132,9 +132,8 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
         $permissions = (array) $permissions;
         $userPermissions = $user->getPermissions();
 
-        return !empty(array_intersect($permissions, $userPermissions));
+        return ! empty(array_intersect($permissions, $userPermissions));
     }
-
 
     public function unverifyPhone(): void
     {

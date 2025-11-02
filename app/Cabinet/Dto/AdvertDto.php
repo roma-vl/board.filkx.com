@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Dto\Cabinet\Adverts;
+namespace App\Cabinet\Dto;
 
 use App\Models\Adverts\Advert;
 

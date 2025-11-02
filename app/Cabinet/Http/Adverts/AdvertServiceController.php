@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Adverts;
+namespace App\Cabinet\Http\Adverts;
 
 use App\Http\Services\Adverts\AdvertPromotionService;
 use App\Http\Services\Adverts\AdvertServiceActivator;
@@ -8,8 +8,10 @@ use App\Http\Services\Adverts\BillingService;
 use App\Models\Adverts\Advert;
 use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Boost\BoostPackage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AdvertServiceController
 {
@@ -19,7 +21,7 @@ class AdvertServiceController
         private readonly BillingService $billingService,
     ) {}
 
-    public function promote(Advert $advert)
+    public function promote(Advert $advert): Response
     {
         $advert->photo = $advert->photo()->get();
 
@@ -28,7 +30,7 @@ class AdvertServiceController
         ]);
     }
 
-    public function purchase(Request $request, Advert $advert)
+    public function purchase(Request $request, Advert $advert): RedirectResponse
     {
         $types = $request->input('types', []);
         $couponCode = $request->input('couponCode', '');
@@ -48,7 +50,7 @@ class AdvertServiceController
             ->with('success', 'Послуги активовано!');
     }
 
-    public function extend(Request $request, Advert $advert)
+    public function extend(Request $request, Advert $advert): RedirectResponse
     {
         $type = $request->input('type');
 

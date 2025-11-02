@@ -237,7 +237,7 @@ export default {
     settings: 'Settings',
     banners: 'Banners',
     tickets: 'Tickets',
-    pay: 'Pay'
+    pay: 'Pay',
   },
   banners: {
     title: 'My Banners',

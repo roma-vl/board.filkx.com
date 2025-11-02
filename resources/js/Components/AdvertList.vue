@@ -33,7 +33,7 @@ const remove = (advertId) => {
         class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out dark:hover:bg-gray-800/50 dark:bg-gray-800"
       >
         <div class="flex justify-between min-h-36">
-          <div class="w-[340px]">
+          <div class="min-w-[200px]">
             <img
               :src="getFullPathForImage(advert.firstPhoto)"
               :alt="advert.title"
@@ -47,12 +47,12 @@ const remove = (advertId) => {
                 class="block group"
               >
                 <h3
-                  class="text-2xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
+                  class="text-xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
                 >
                   {{ advert.title }}
                 </h3>
               </a>
-              <p class="text-xl font-medium text-violet-600">
+              <p class="text-md font-medium text-violet-600">
                 {{ advert.price }} ₴
               </p>
             </div>
@@ -86,7 +86,6 @@ const remove = (advertId) => {
               </span>
               <p class="text-sm text-gray-500 dark:text-gray-200">
                 {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.createdAt) }}
-                {{ console.log(advert.createdAt) }}
               </p>
             </div>
           </div>

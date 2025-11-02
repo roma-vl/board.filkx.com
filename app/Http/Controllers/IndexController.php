@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cabinet\Service\AdvertService;
 use App\Http\Requests\Adverts\SearchRequest;
-use App\Http\Services\Adverts\AdvertService;
 use App\Http\Services\Adverts\CategoryService;
 use App\Http\Services\Adverts\LocationService;
 use App\Http\Services\Adverts\SearchService;

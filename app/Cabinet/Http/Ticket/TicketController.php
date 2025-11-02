@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet;
+namespace App\Cabinet\Http\Ticket;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\CreateRequest;
