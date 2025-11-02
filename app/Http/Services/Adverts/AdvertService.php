@@ -5,6 +5,7 @@ namespace App\Http\Services\Adverts;
 use App\Events\Advert\AdvertChanged;
 use App\Events\Advert\ModerationPassed;
 use App\Filters\AdvertFilter;
+use App\Http\Dto\Cabinet\Adverts\AdvertDto;
 use App\Http\Requests\Admin\Adverts\RejectRequest;
 use App\Http\Requests\Cabinet\Adverts\AttributesRequest;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
@@ -27,6 +28,19 @@ class AdvertService
 {
     const int PER_PAGE = 5;
 
+    public function cabinetAdvertsList(): LengthAwarePaginator
+    {
+        $query = Advert::forUser(auth()->user())
+            ->with(['firstPhoto', 'statusRelation']);
+
+        $adverts = $query->orderByDesc('id')->paginate(10);
+
+        $adverts->setCollection(
+            $adverts->getCollection()->map(fn(Advert $advert) => AdvertDto::fromModel($advert))
+        );
+
+        return $adverts;
+    }
     public function create($userId, CreateRequest $request): Advert
     {
         $categoryId = $request->input('category_id');
@@ -44,8 +58,8 @@ class AdvertService
                 'content' => $request->input('content'),
                 'price' => $request->input('price'),
                 'address' => $request->input('address'),
-                'status_id' => $draftStatus->id, // прив’язуємо status_id
-                'status' => Advert::STATUS_DRAFT,   // залишаємо старе поле для сумісності
+                'status_id' => $draftStatus->id,
+                'status' => Advert::STATUS_DRAFT,
             ]);
 
             $advert->user()->associate($user);

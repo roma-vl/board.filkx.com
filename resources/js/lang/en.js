@@ -221,6 +221,7 @@ export default {
   moderation: 'Moderation',
   draft: 'Draft',
   inactive: 'Inactive',
+  'my.orders': 'My orders',
   'my.tickets': 'My tickets',
   'add.ticket': 'Add ticket',
   ticket: {
@@ -236,6 +237,7 @@ export default {
     settings: 'Settings',
     banners: 'Banners',
     tickets: 'Tickets',
+    pay: 'Pay'
   },
   banners: {
     title: 'My Banners',
@@ -350,4 +352,8 @@ export default {
   region: 'Region',
   reject_reason: 'Reject reason',
   premium: 'Premium',
+  Order: 'Order',
+  'Payment Method': 'Payment Method',
+  'Total Price': 'Total Price',
+  'Services included': 'Services included',
 };

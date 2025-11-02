@@ -223,6 +223,7 @@ export default {
   moderation: 'На модерації',
   draft: 'Чорновик',
   inactive: 'Не активний',
+  'my.orders': 'Історія платежів',
   'my.tickets': 'Мої тікети',
   'add.ticket': 'Додати Тікет',
   ticket: {
@@ -238,6 +239,7 @@ export default {
     settings: 'Налаштування',
     banners: 'Реклама',
     tickets: 'Тікети',
+    pay: 'Платежі'
   },
   banners: {
     title: 'Мої Банери',
@@ -353,4 +355,8 @@ export default {
   region: 'Регіон',
   reject_reason: 'Причина відмови',
   premium: 'Преміум',
+  Order: 'Замовлення',
+  'Payment Method': 'Метод оплати',
+  'Total Price': 'Загалом',
+  'Services included': 'Включені послуги',
 };

@@ -3,13 +3,16 @@
 namespace App\Providers;
 
 use App\Models\Adverts\Advert;
+use App\Models\Users\Permission;
 use App\Models\Users\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use PDOException;
+use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
             DB::connection()->getPdo();
 
             if (Schema::hasTable('permissions')) {
-                $permissions = \App\Models\Users\Permission::pluck('key')->toArray();
+                $permissions = Permission::pluck('key')->toArray();
 
                 foreach ($permissions as $permission) {
                     Gate::define($permission, function (User $user) use ($permission) {
@@ -41,8 +44,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin() || $user->isModerator();
         });
 
-        Gate::define('manage.own.advert', function (User $user, Advert $advert) {
-            return $advert->user_id === $user->id;
+        Gate::define('check-permission', function (User $user, ?array $permissions = null) {
+            $authUser = auth()->user() ?? $user;
+
+            if ($permissions && method_exists(User::class, 'permissionExists') && User::permissionExists($authUser, $permissions)) {
+                return Response::allow();
+            }
+
+            return Response::deny(__('errors.forbidden'), ResponseStatus::HTTP_FORBIDDEN);
         });
     }
 }

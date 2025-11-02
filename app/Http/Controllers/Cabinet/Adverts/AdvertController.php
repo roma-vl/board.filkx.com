@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cabinet\Adverts;
 
+use App\Enum\PermissionEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Dto\Cabinet\Adverts\AdvertDto;
 use App\Http\Requests\Cabinet\Adverts\CreateRequest;
@@ -29,14 +30,8 @@ class AdvertController extends Controller
 
     public function index(): Response
     {
-        $query = Advert::forUser(auth()->user())
-            ->with(['firstPhoto', 'statusRelation']);
-
-        $adverts = $query->orderByDesc('id')->paginate(10);
-
-        $adverts->setCollection(
-            $adverts->getCollection()->map(fn (Advert $advert) => AdvertDto::fromModel($advert))
-        );
+        Gate::authorize('check-permission', [[PermissionEnum::VIEW_OWN_ADVERTS->value]]);
+        $adverts = $this->advertService->cabinetAdvertsList();
 
         return Inertia::render('Account/Advert/Index', [
             'adverts' => $adverts,
@@ -54,7 +49,7 @@ class AdvertController extends Controller
 
     public function edit(Advert $advert): Response
     {
-        if (! Gate::any(['manage.own.advert', 'admin'], $advert)) {
+        if (! Gate::any([PermissionEnum::MANAGE_OWN_ADVERTS, 'admin'], $advert)) {
             abort(403);
         }
 
