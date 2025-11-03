@@ -152,7 +152,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
 });
-console.log(111);
 </script>
 
 <template>
