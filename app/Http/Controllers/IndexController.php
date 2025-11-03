@@ -207,7 +207,7 @@ class IndexController extends Controller
 
     public function phone(Advert $advert): string
     {
-        return $advert->user->phone;
+        return $advert->user->phone ?? '-';
     }
 
     private function preparePaginationData2(Request $request): array
