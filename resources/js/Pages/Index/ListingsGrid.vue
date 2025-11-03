@@ -35,115 +35,109 @@ const toggleLike = (advert) => {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     <!-- Skeleton Loading -->
     <template v-if="loading">
       <div
         v-for="i in 8"
         :key="i"
-        class="animate-pulse bg-gray-200 dark:bg-gray-700 rounded-xl overflow-hidden"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden animate-pulse"
       >
-        <div class="h-40 bg-gray-300 dark:bg-gray-600" />
-        <div class="p-4 space-y-2">
-          <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4" />
-          <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/2" />
-          <div class="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/3" />
+        <div class="h-48 bg-gray-200 dark:bg-gray-700" />
+        <div class="p-4 space-y-3">
+          <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
+          <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+          <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
         </div>
       </div>
     </template>
 
     <!-- Cards -->
     <template v-else>
-      <div
+      <article
         v-for="listing in listings"
         :key="listing.id"
-        class="group relative rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 bg-white dark:bg-gray-800 flex flex-col"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full"
       >
-        <!-- Фото -->
+        <!-- Image & Badges -->
         <div class="relative">
           <img
             :src="getFullPathForImage(listing.firstPhoto)"
             :alt="listing.title"
-            class="w-full h-48 object-cover group-hover:scale-105 transition duration-500"
+            class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105"
+            loading="lazy"
           >
 
-          <!-- Бейджі -->
-          <div class="absolute top-2 left-2 flex gap-2 flex-wrap">
+          <!-- Badges -->
+          <div class="absolute top-3 left-3 flex flex-wrap gap-1">
             <span
               v-if="listing.isNew"
-              class="bg-green-500 text-white text-xs px-2 py-1 rounded-full"
+              class="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-medium"
             >
-              Нове
+              {{ $t('New') }}
             </span>
             <span
               v-if="listing.isPromo"
-              class="bg-red-500 text-white text-xs px-2 py-1 rounded-full"
+              class="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium"
             >
-              Акція
+              {{ $t('Sale') }}
             </span>
-            <slot
-              name="badges"
-              :listing="listing"
-            />
           </div>
 
-          <!-- Кнопка лайка -->
+          <!-- Favorite Button -->
           <button
-            class="absolute top-2 right-2 bg-white dark:bg-gray-700 p-1 rounded-full shadow hover:scale-110 transition"
+            type="button"
+            class="absolute top-3 right-3 p-2 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110"
+            :aria-label="listing.isFavorited ? $t('Remove from favorites') : $t('Add to favorites')"
             @click="toggleLike(listing)"
           >
             <HeartIcon
               v-if="!listing.isFavorited"
-              class="w-6 h-6 text-gray-400 hover:text-red-400 transition"
+              class="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors"
             />
             <HeartSolidIcon
               v-else
-              class="w-6 h-6 text-red-500"
+              class="w-5 h-5 text-red-500"
             />
           </button>
         </div>
 
-        <!-- Контент -->
-        <div class="p-4 flex flex-col justify-between flex-1">
-          <div>
-            <!-- Категорія -->
-            <p
-              v-if="listing.category"
-              class="text-xs text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wide"
-            >
-              {{ listing.category }}
-            </p>
+        <!-- Content -->
+        <div class="p-4 flex flex-col flex-1">
+          <!-- Category -->
+          <p
+            v-if="listing.category"
+            class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mb-2 uppercase tracking-wide"
+          >
+            {{ listing.category }}
+          </p>
 
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 line-clamp-2">
-              <Link :href="route('adverts.show', listing.id)">
-                {{ listing.title }}
-              </Link>
-            </h3>
-
-            <p class="text-green-600 font-bold text-md mt-1">
-              {{ listing.price }} ₴
-            </p>
-
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              {{ listing.city }}
-            </p>
-          </div>
-
-          <div class="flex justify-between items-center mt-4">
+          <!-- Title -->
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2">
             <Link
               :href="route('adverts.show', listing.id)"
-              class="text-blue-600 hover:underline dark:text-blue-400 font-medium"
+              class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
             >
-              {{ $t('more.details') }}
+              {{ listing.title }}
             </Link>
+          </h3>
 
-            <!-- Дата -->
-            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+          <!-- Price -->
+          <p class="text-xl font-bold text-green-600 dark:text-green-400 mb-2">
+            {{ listing.price }} ₴
+          </p>
+
+          <!-- Location & Date -->
+          <div class="mt-auto pt-4 flex justify-between items-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              {{ listing.city }}
+            </p>
+            <p class="text-xs text-gray-400 dark:text-gray-500">
               {{ new Date(listing.createdAt).toLocaleDateString() }}
             </p>
           </div>
         </div>
-      </div>
+      </article>
     </template>
   </div>
 </template>

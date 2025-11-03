@@ -20,38 +20,29 @@ const onCitySelect = (slug) => {
 </script>
 
 <template>
-  <div
-    class="flex flex-col md:flex-row items-center gap-6 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6 rounded-3xl shadow-2xl border border-purple-200/30 dark:bg-gradient-to-br dark:from-gray-900 dark:gray-800 dark:gray-700"
-  >
-    <div class="flex flex-col items-center w-4/6">
-      <SearchInput
-        v-model="searchQuery"
-        @select-suggestion="emit('search', $event)"
-      />
-    </div>
-    <div class="flex flex-col md:flex-row items-center">
-      <LocationSelector
-        v-model="cityIdSearchQuery"
-        class="w-full md:rounded-lg"
-        @select-city="onCitySelect"
-      />
-    </div>
-    <div class="items-center w-1/6">
-      <button
-        class="w-full md:rounded-lg px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold hover:scale-105 active:scale-95 transition-transform duration-150 shadow-lg"
-        @click="onSearchClick"
-      >
-        {{ $t('search.button') }}
-      </button>
+  <div class="space-y-4">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="flex-1">
+        <SearchInput
+          v-model="searchQuery"
+          @select-suggestion="emit('search', $event)"
+        />
+      </div>
+      <div class="w-full md:w-64">
+        <LocationSelector
+          v-model="cityIdSearchQuery"
+          @select-city="onCitySelect"
+        />
+      </div>
+      <div class="w-full md:w-32">
+        <button
+          type="button"
+          class="w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-all duration-200"
+          @click="onSearchClick"
+        >
+          {{ $t('search.button') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
-<style scoped>
-nav,
-header,
-main,
-.parent-containers {
-  overflow: visible !important; /* Якщо було hidden або auto, змінити */
-  position: relative; /* Створити локальний stacking context */
-}
-</style>

@@ -43,14 +43,14 @@ const menuStyles = ref({
   left: '0px',
   visibility: 'hidden',
   zIndex: '9999',
-  minWidth: '240px',
+  minWidth: '320px',
 });
 
 const updatePosition = () => {
   if (!button.value || !menu.value) return;
 
   const btnRect = button.value.getBoundingClientRect();
-  const menuWidth = menu.value.offsetWidth || 240;
+  const menuWidth = menu.value.offsetWidth || 320;
 
   menuStyles.value = {
     position: 'absolute',
@@ -58,7 +58,7 @@ const updatePosition = () => {
     left: `${btnRect.right - menuWidth + window.scrollX}px`,
     visibility: 'visible',
     zIndex: '9999',
-    minWidth: '240px',
+    minWidth: '320px',
   };
 };
 
@@ -85,16 +85,24 @@ watch(isOpen, async (newVal) => {
 
 <template>
   <div class="relative inline-block text-left">
-    <!-- Кнопка для відкриття меню -->
     <button
       type="button"
-      class="profile-menu-button dark:bg-gray-700 dark:text-white hover:bg-gray-300 inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2.5 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
-      aria-haspopup="true"
-      aria-expanded="isOpen"
+      class="profile-menu-button inline-flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors"
+      :aria-expanded="isOpen"
+      :aria-label="$t('User menu')"
       @click="toggleOpen"
     >
-      {{ $page.props.auth?.user?.name ?? $t('Your Profile') }}
-      <ArrowDownIcon class="ml-2" />
+      <img
+        :src="getFullPathForAvatarImage($page.props.auth?.user?.avatar_url)"
+        :alt="$page.props.auth?.user?.name"
+        class="h-8 w-8 rounded-full object-cover"
+        width="32"
+        height="32"
+      >
+      <span class="hidden md:inline truncate max-w-xs">
+        {{ $page.props.auth?.user?.name ?? $t('Your Profile') }}
+      </span>
+      <ArrowDownIcon class="h-4 w-4" />
     </button>
 
     <teleport to="body">
@@ -102,157 +110,138 @@ watch(isOpen, async (newVal) => {
         v-if="isOpen"
         ref="menu"
         :style="menuStyles"
-        class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-3 divide-y divide-gray-200 dark:divide-gray-600"
+        class="bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-gray-700"
         role="menu"
         aria-orientation="vertical"
         tabindex="-1"
       >
-        <div
-          aria-label="header"
-          class="flex space-x-4 items-center p-4"
-        >
-          <div
-            aria-label="avatar"
-            class="flex mr-auto items-center space-x-4 relative"
-          >
-            <img
-              :src="getFullPathForAvatarImage($page.props.auth?.user?.avatar_url)"
-              :alt="$page.props.auth?.user?.name"
-              class="w-16 h-16 shrink-0 rounded-full"
-            >
-            <div class="space-y-2 flex flex-col flex-1 truncate">
-              <div
-                class="font-medium relative text-xl leading-tight text-gray-900 dark:text-gray-200"
+        <div class="py-1">
+          <!-- User Header -->
+          <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center space-x-3">
+              <img
+                :src="getFullPathForAvatarImage($page.props.auth?.user?.avatar_url)"
+                :alt="$page.props.auth?.user?.name"
+                class="h-10 w-10 rounded-full object-cover"
+                width="40"
+                height="40"
               >
-                <span class="flex">
-                  <span class="truncate relative pr-8">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center">
+                  <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
                     {{ $page.props.auth?.user?.name }}
-                    <span
-                      aria-label="verified"
-                      class="absolute top-1/2 -translate-y-1/2 right-0 inline-block rounded-full"
-                    >
-                      <VerifyIcon />
-                    </span>
+                  </p>
+                  <span
+                    v-if="$page.props.auth?.user?.is_verified"
+                    class="ml-2 text-blue-500"
+                    :title="$t('Verified account')"
+                  >
+                    <VerifyIcon class="h-4 w-4" />
                   </span>
-                </span>
+                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 truncate">
+                  {{ $page.props.auth?.user?.email }}
+                </p>
               </div>
-              <p
-                class="font-normal text-base leading-tight text-gray-500 truncate dark:text-gray-200"
-              >
-                {{ $page.props.auth?.user?.email }}
-              </p>
             </div>
           </div>
-          <UpDownIcon />
-        </div>
 
-        <nav
-          class="py-2 grid gap-1"
-          aria-label="navigation"
-        >
-          <a
-            v-if="$page.props.auth?.user"
-            v-can="'admin'"
-            :href="route('admin.index')"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <CommandLineIcon /> <span>{{ $t('Admin Panel') }}</span>
-          </a>
-          <a
-            :href="route('account.adverts.index')"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <GuideIcon /> <span> {{ $t('Adverts') }}</span>
-          </a>
-          <a
-            :href="route('account.chats.index')"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <IntegrationIcon /> <span> {{ $t('chat.title') }}</span>
-          </a>
-          <a
-            :href="route('account.profile.index')"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <AccountIcon /> <span>{{ $t('Profile') }}</span>
-          </a>
-          <a
-            :href="route('account.profile.settings')"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <SettingsIcon /> <span>{{ $t('Settings') }}</span>
-          </a>
-          <a
-            href="/"
-            class="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <HelperCenterIcon /> <span>{{ $t('Helper Center') }}</span>
-          </a>
-        </nav>
-
-        <!-- Баланс і кнопка -->
-        <div
-          aria-label="account-upgrade"
-          class="px-4 py-6"
-        >
-          <div class="flex items-center space-x-1">
-            <div class="mr-auto w-2/3">
-              <p class="font-medium text-lg text-gray-500 leading-none p-1">
-                Ваш рахунок:
-              </p>
-              <p class="font-normal text-xl text-gray-900 leading-none p-1">
-                0 грн.
-              </p>
-            </div>
-            <button
-              type="button"
-              class="inline-flex px-2 leading-6 py-2 rounded-md bg-indigo-50 hover:bg-indigo-50/80 transition-colors duration-200 text-indigo-500 font-medium text-lg"
+          <!-- Navigation -->
+          <div class="py-1">
+            <a
+              v-if="$page.props.auth?.user"
+              v-can="'admin'"
+              :href="route('admin.index')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
-              Поповнити гаманець
-            </button>
-          </div>
-        </div>
+              <CommandLineIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Admin Panel') }}
+            </a>
 
-        <div
-          v-if="$page.props.auth?.user"
-          aria-label="footer"
-          class="pt-2"
-        >
-          <Link
-            :href="route('logout')"
-            method="post"
-            type="button"
-            class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md dark:text-gray-200"
-            role="menuitem"
-          >
-            <LogoutIcon /> <span> {{ $t('logout') }}</span>
-          </Link>
-        </div>
-        <div
-          v-else
-          aria-label="footer"
-          class="pt-2"
-        >
-          <Link
-            :href="route('login')"
-            type="button"
-            class="flex items-center space-x-3 py-3 px-4 w-full leading-6 text-lg text-gray-600 focus:outline-none hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-200"
-            role="menuitem"
-          >
-            <LogoutIcon /> <span>{{ $t('login') }}</span>
-          </Link>
+            <a
+              :href="route('account.adverts.index')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <GuideIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Adverts') }}
+            </a>
+
+            <a
+              :href="route('account.chats.index')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <IntegrationIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('chat.title') }}
+            </a>
+
+            <a
+              :href="route('account.profile.index')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <AccountIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Profile') }}
+            </a>
+
+            <a
+              :href="route('account.profile.settings')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <SettingsIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Settings') }}
+            </a>
+
+            <a
+              href="/"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <HelperCenterIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Helper Center') }}
+            </a>
+          </div>
+
+          <!-- Account Balance -->
+          <div class="border-t border-gray-200 dark:border-gray-700 px-4 py-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  {{ $t('Account Balance') }}
+                </p>
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  0.00 грн
+                </p>
+              </div>
+              <button
+                type="button"
+                class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 dark:bg-indigo-900/20 dark:text-indigo-300 dark:hover:bg-indigo-900/30 transition-colors"
+              >
+                {{ $t('Top up') }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="border-t border-gray-200 dark:border-gray-700 py-1">
+            <Link
+              v-if="$page.props.auth?.user"
+              :href="route('logout')"
+              method="post"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <LogoutIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Log Out') }}
+            </Link>
+
+            <Link
+              v-else
+              :href="route('login')"
+              class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+            >
+              <LogoutIcon class="mr-3 h-5 w-5 text-gray-400" />
+              {{ $t('Log In') }}
+            </Link>
+          </div>
         </div>
       </div>
     </teleport>
   </div>
 </template>
-
-<style scoped>
-/* За потреби додай кастомні стилі тут */
-</style>

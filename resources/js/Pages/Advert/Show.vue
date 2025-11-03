@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { Link, router, useForm, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import HeartIcon from '@/Components/Icon/HeartIcon.vue';
 import HeartSolidIcon from '@/Components/Icon/HeartSolidIcon.vue';
@@ -203,352 +203,384 @@ const messageForm = useForm({
 
 <template>
   <AuthenticatedLayout>
-    <div class="py-2">
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 p-6">
-        <div
-          v-can="['manage.own.advert', 'admin']"
-          class="bg-violet-200 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6 p-3 dark:bg-gray-700 rounded-md shadow-md"
-        >
-          <div
-            v-can="'manage.own.advert'"
-            class="flex flex-wrap gap-2 w-full sm:w-auto"
-          >
-            <a
-              :href="route('account.adverts.edit', props.advert.id)"
-              class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
-            >
-              {{ $t('edit') }}
-            </a>
-            <button
-              v-if="isDraft"
-              class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
-              @click="publish"
-            >
-              {{ $t('publish') }}
-            </button>
-            <button
-              v-if="isActive"
-              class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
-              @click="submitAction('adverts.adverts.close')"
-            >
-              {{ $t('close') }}
-            </button>
-            <button
-              v-if="isOnModeration || isActive"
-              class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded"
-              @click="toDraft"
-            >
-              {{ $t('to.draft') }}
-            </button>
-            <button
-              class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
-              @click="deleteAdvert"
-            >
-              {{ $t('delete') }}
-            </button>
-          </div>
-          <div
-            v-can="'admin'"
-            class="flex flex-wrap gap-2 w-full sm:w-auto"
-          >
-            <button
-              v-if="isOnModeration"
-              class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded"
-              @click="activate"
-            >
-              {{ $t('publish') }}
-            </button>
-            <button
-              v-if="isOnModeration || isActive"
-              class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded"
-              @click="rejectAdvert"
-            >
-              {{ $t('reject') }}
-            </button>
-          </div>
-        </div>
-
+    <div class="py-6 dark:bg-gray-900">
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <Breadcrumbs
-          class=""
+          class="mb-6"
           :categories="props.categories"
           :locations="props.locations"
         />
-      </div>
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 bg-white-50">
+
+        <div
+          v-can="['manage.own.advert', 'admin']"
+          class="mb-6 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-xl p-4 shadow-md border border-indigo-100 dark:border-gray-700"
+        >
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div
+              v-can="'manage.own.advert'"
+              class="flex flex-wrap gap-2"
+            >
+              <Link
+                :href="route('account.adverts.edit', props.advert.id)"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors"
+              >
+                {{ $t('edit') }}
+              </Link>
+              <button
+                v-if="isDraft"
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="publish"
+              >
+                {{ $t('publish') }}
+              </button>
+              <button
+                v-if="isActive"
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="submitAction('adverts.adverts.close')"
+              >
+                {{ $t('close') }}
+              </button>
+              <button
+                v-if="isOnModeration || isActive"
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="toDraft"
+              >
+                {{ $t('to.draft') }}
+              </button>
+              <button
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="deleteAdvert"
+              >
+                {{ $t('delete') }}
+              </button>
+            </div>
+            <div
+              v-can="'admin'"
+              class="flex flex-wrap gap-2"
+            >
+              <button
+                v-if="isOnModeration"
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="activate"
+              >
+                {{ $t('publish') }}
+              </button>
+              <button
+                v-if="isOnModeration || isActive"
+                type="button"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800 transition-colors"
+                @click="rejectAdvert"
+              >
+                {{ $t('reject') }}
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div
           v-if="isDraft"
-          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+          class="mb-4 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-200"
         >
           {{ $t('status.draft') }}
         </div>
         <div
           v-if="isOnModeration"
-          class="bg-yellow-100 text-yellow-800 p-3 rounded mb-4"
+          class="mb-4 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-200"
         >
           {{ $t('status.on.moderation') }}
         </div>
         <div
           v-if="advert.reject_reason"
-          class="bg-red-100 text-red-800 p-3 rounded mb-4"
+          class="mb-4 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg dark:bg-red-900/20 dark:border-red-800 dark:text-red-200"
         >
-          {{ $t('status.rejected') }}: {{ advert.reject_reason }}
+          <p class="font-semibold">
+            {{ $t('status.rejected') }}
+          </p>
+          <p>{{ advert.reject_reason }}</p>
         </div>
+
         <div class="flex flex-col lg:flex-row gap-6">
           <div class="w-full lg:w-2/3">
-            <div class="bg-white rounded-lg shadow p-3 dark:bg-gray-700">
-              <div
-                class="w-full h-[300px] md:h-[400px] lg:h-[600px] flex justify-center items-center"
-              >
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+              <div class="relative aspect-video">
                 <img
                   :src="mainPhoto"
-                  class="w-full h-full object-contain"
-                  alt=""
+                  class="w-full h-full object-cover"
+                  :alt="advert.title"
                 >
               </div>
-              <div class="flex gap-2 mt-3 overflow-x-auto">
-                <img
-                  v-for="photo in props.photos"
-                  :key="photo.id"
-                  :src="getFullPathForImage(photo.file)"
-                  alt=""
-                  class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-blue-500 transition"
-                  @click="setMainPhoto(getFullPathForImage(photo.file))"
-                >
+              <div
+                v-if="props.photos.length > 1"
+                class="p-4"
+              >
+                <div class="flex gap-2 overflow-x-auto pb-2">
+                  <img
+                    v-for="photo in props.photos"
+                    :key="photo.id"
+                    :src="getFullPathForImage(photo.file)"
+                    alt=""
+                    class="w-20 h-20 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-indigo-500 transition-colors flex-shrink-0"
+                    @click="setMainPhoto(getFullPathForImage(photo.file))"
+                  >
+                </div>
               </div>
             </div>
-            <div class="bg-white rounded-lg shadow p-3 mt-5 dark:bg-gray-700">
-              <div class="flex flex-wrap gap-2">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6 p-6">
+              <div class="flex flex-wrap gap-2 mb-6">
                 <span
                   v-for="item in values"
                   :key="item.id"
-                  class="border border-gray-700 px-4 py-1 font-medium text-gray-700 rounded-md cursor-pointer dark:text-gray-200 dark:border-gray-400"
+                  class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-200"
                 >
-                  {{ item.attribute }} : {{ getValue(item.attribute) }}
+                  <span class="font-semibold mr-1">{{ item.attribute }}:</span>
+                  {{ getValue(item.attribute) }}
                 </span>
               </div>
-              <p class="mt-4 text-gray-900 text-lg font-bold dark:text-gray-200">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 {{ $t('description') }}
-              </p>
-              <p class="whitespace-pre-line mt-4 text-gray-800 dark:text-gray-200">
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 whitespace-pre-line">
                 {{ advert.content }}
               </p>
-
-              <div class="my-4 border border-b-1 mx-3" />
-              <div class="flex justify-end">
-                <button class="hover:underline hover:text-red-600 text-red-400 px-4 py-2 rounded">
+              <div class="mt-6 flex justify-end">
+                <button
+                  type="button"
+                  class="text-red-500 hover:text-red-700 font-medium transition-colors"
+                >
                   {{ $t('report') }}
                 </button>
               </div>
             </div>
           </div>
           <div class="w-full lg:w-1/3">
-            <div class="rounded-lg shadow p-3 bg-white dark:bg-gray-700">
-              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
-                {{ $t('published') }} {{ getDateFormatFromLocale(advert.created_at) }}
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 sticky top-20">
+              <div class="flex items-center justify-between mb-4">
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                  {{ $t('published') }}: {{ getDateFormatFromLocale(advert.created_at) }}
+                </p>
+                <button
+                  type="button"
+                  class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  :class="{ 'text-red-500': isLiked, 'text-gray-400': !isLiked }"
+                  :aria-label="isLiked ? $t('Remove from favorites') : $t('Add to favorites')"
+                  @click="toggleLike"
+                >
+                  <HeartIcon
+                    v-if="!isLiked"
+                    class="h-6 w-6"
+                  />
+                  <HeartSolidIcon
+                    v-else
+                    class="h-6 w-6"
+                  />
+                </button>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                {{ $t('expires') }}: {{ getDateFormatFromLocale(advert.expires_at) }}
               </p>
-              <p class="mt-4 text-gray-800 text-sm dark:text-gray-200">
-                {{ $t('expires') }} {{ getDateFormatFromLocale(advert.expires_at) }}
-              </p>
-              <button
-                class="px-4 py-2 rounded text-gray-500 hover:text-red-500 transition"
-                @click="toggleLike"
-              >
-                <HeartIcon
-                  v-if="!props.isFavorited"
-                  class="w-6 h-6"
-                />
-                <HeartSolidIcon
-                  v-else
-                  class="w-6 h-6 text-red-500"
-                />
-              </button>
-              <h1 class="p-2 text-2xl font-bold text-gray-900 dark:text-gray-300">
+
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 {{ advert.title }}
               </h1>
-              <div class="mt-4 p-2 flex flex-row items-center">
-                <h2 class="text-2xl font-bold text-green-600">
+
+              <div class="flex items-center mb-6">
+                <h2 class="text-3xl font-bold text-green-600 dark:text-green-400">
                   {{ advert.price }} грн.
                 </h2>
-                <span class="pt-2 text-gray-800 text-sm pl-2 dark:text-gray-200">
+                <span
+                  v-if="advert.is_negotiable"
+                  class="ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
+                >
                   {{ $t('negotiable') }}
                 </span>
               </div>
-              <button
-                v-if="user?.id !== advert?.user?.id"
-                class="h-14 rounded-md border-2 hover:border-[5px] hover:bg-white dark:hover:bg-gray-700 dark:text-gray-200 hover:text-blue-500 border-blue-500 bg-blue-500 w-full mt-5 mb-5 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
-                @click="toggleMessenger"
-              >
-                <span class="text-lg font-bold"> {{ $t('messages') }} </span>
-              </button>
-              <button
-                class="h-14 rounded-md border-2 hover:border-[5px] border-blue-500 w-full mb-5 text-blue-500 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-md"
-                @click.prevent="getPhone(advert.id)"
-              >
-                <span class="text-lg font-bold dark:text-gray-200">
-                  {{ userPhone ? userPhone : $t('show.phone') }}
-                </span>
-              </button>
-            </div>
 
-            <div
-              class="mt-6 rounded-xl border border-yellow-300 bg-yellow-50 p-6 dark:border-yellow-500 dark:bg-gray-800"
-            >
-              <div class="flex flex-col gap-4">
-                <div
-                  class="text-gray-800 text-lg font-medium dark:text-gray-100 text-center md:text-left"
+              <!-- Actions -->
+              <div class="space-y-4">
+                <button
+                  v-if="user?.id !== advert?.user?.id"
+                  type="button"
+                  class="w-full flex justify-center items-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors"
+                  @click="toggleMessenger"
                 >
-                  🔥 Хочете, щоб більше людей побачили ваше оголошення?
-                </div>
-
-                <div class="mt-2">
-                  <Link
-                    :href="route('account.adverts.promote', props.advert.id)"
-                    class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-blue-600 bg-blue-500 px-6 py-3 text-white text-base font-semibold transition hover:bg-transparent hover:text-blue-600 dark:bg-blue-500 dark:hover:bg-transparent dark:hover:text-blue-400"
-                  >
-                    🚀 Просувати
-                  </Link>
-                </div>
+                  {{ $t('messages') }}
+                </button>
+                <button
+                  type="button"
+                  class="w-full flex justify-center items-center px-4 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 transition-colors"
+                  @click.prevent="getPhone(advert.id)"
+                >
+                  {{ userPhone ? userPhone : $t('show.phone') }}
+                </button>
               </div>
             </div>
 
-            <div class="rounded-lg shadow p-3 bg-white mt-5 dark:bg-gray-700">
-              <p class="font-bold pb-3 p-2 dark:text-gray-200">
-                {{ $t('user') }}
-              </p>
-              <div class="flex flex-row p-2">
-                <img
-                  class="w-16 h-16 rounded-full"
-                  :src="getFullPathForAvatarImage(advert.user?.avatar_url)"
-                  alt=""
+            <div
+              class="mt-6 rounded-xl border border-yellow-300 bg-yellow-50 p-6 dark:border-yellow-600 dark:bg-yellow-900/20"
+            >
+              <div class="flex flex-col items-center text-center gap-4">
+                <div class="text-gray-800 dark:text-gray-200 text-md font-medium">
+                  🔥 {{ $t('advert.promote.title') }}
+                </div>
+                <Link
+                  :href="route('account.adverts.promote', props.advert.id)"
+                  class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800 transition-all"
                 >
-                <div class="pl-4">
-                  <p class="text-gray-600 mt-1 text-lg font-bold dark:text-gray-200">
-                    {{ advert.user?.name + ' ' + advert.user?.first_name }}
+                  🚀 {{ $t('advert.promote.button') }}
+                </Link>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6 p-6">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                {{ $t('user') }}
+              </h3>
+              <div class="flex items-center">
+                <img
+                  class="w-16 h-16 rounded-full object-cover"
+                  :src="getFullPathForAvatarImage(advert.user?.avatar_url)"
+                  :alt="advert.user?.name"
+                >
+                <div class="ml-4">
+                  <p class="text-lg font-semibold text-gray-900 dark:text-white">
+                    {{ advert.user?.name }}
                   </p>
-                  <p class="text-gray-600 mt-1 dark:text-gray-400 text-sm">
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
                     {{ $t('registered.since') }}
                     {{ getDateFormatFromLocale(advert.user?.created_at) }}
                   </p>
                 </div>
               </div>
-              <div class="my-4 border border-b-1 mx-3" />
-              <div class="flex items-center justify-center">
-                <a
+              <div class="mt-6">
+                <Link
                   :href="route('list.advert.user', advert.user?.id || 0)"
-                  class="text-blue-500 hover:text-blue-600"
+                  class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors"
                 >
-                  {{ $t('user.all.adverts') }} >
-                </a>
+                  {{ $t('user.all.adverts') }}
+                </Link>
               </div>
             </div>
-            <div class="rounded-lg shadow p-3 bg-white mt-5 dark:bg-gray-700">
-              <p class="font-bold pb-3 p-2 dark:text-gray-200 text-lg">
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm mt-6 p-6">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
                 {{ $t('location') }}
+              </h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                {{ advert.region?.name }} {{ advert.address }}
               </p>
-              <p class="text-gray-600 p-2 dark:text-gray-200">
-                {{ $t('address') }}: {{ advert.region?.name }} {{ advert.address }}
-              </p>
-              <div class="flex items-center justify-center p-2">
+              <div
+                class="aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden"
+              >
+                <!-- TODO: Replace with actual map component or static image -->
                 <img
                   src="https://inweb.ua/blog/wp-content/uploads/2020/09/vstavte-etot-kod-na-svoyu-html-stranitsu-ili-vidzhet.jpg"
-                  alt=""
+                  alt="Map placeholder"
+                  class="w-full h-full object-cover"
                 >
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
+    <Teleport to="body">
       <div
         v-if="isMessengerOpen"
-        class="fixed bottom-20 right-6 h-[400px] bg-white border border-gray-300 rounded-lg shadow-lg z-50 flex flex-col"
+        class="fixed bottom-4 right-4 w-full max-w-md h-[500px] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl z-[100] flex flex-col"
       >
         <div
-          class="bg-blue-600 text-white px-4 py-2 rounded-t-lg flex justify-between items-center"
+          class="bg-indigo-600 text-white px-4 py-3 rounded-t-xl flex justify-between items-center"
         >
-          <span>{{ $t('chat.with.author') }}</span>
+          <h4 class="font-semibold">
+            {{ $t('chat.with.author') }}
+          </h4>
           <button
+            type="button"
             class="text-white text-xl font-bold leading-none"
             @click="toggleMessenger"
           >
             ×
           </button>
         </div>
-        <div class="flex flex-col h-full bg-white border rounded shadow-sm">
+        <div class="flex flex-col h-full bg-white dark:bg-gray-800">
           <div
             v-if="messages?.data.length"
-            class="flex-1 overflow-y-auto p-4 space-y-2 max-w-[340px]"
+            class="flex-1 overflow-y-auto p-4 space-y-4"
           >
             <div
               v-for="message in messages.data.slice().reverse()"
               :key="message.id"
-              class="flex items-end"
+              class="flex"
               :class="message.user.id === user.id ? 'justify-end' : 'justify-start'"
             >
-              <template v-if="message.user.id === user.id">
-                <div class="flex items-end gap-2 ml-auto">
-                  <div class="px-4 py-2 rounded-lg max-w-xs break-words bg-blue-100 text-right">
-                    {{ message.message }}
-                  </div>
-                  <img
-                    class="w-10 h-10 rounded-full"
-                    :src="getFullPathForAvatarImage(message.user.avatar_url)"
-                    alt="Аватар"
-                  >
+              <div
+                class="flex items-end gap-2"
+                :class="message.user.id === user.id ? 'flex-row-reverse' : ''"
+              >
+                <img
+                  class="w-8 h-8 rounded-full object-cover"
+                  :src="getFullPathForAvatarImage(message.user.avatar_url)"
+                  :alt="$t('Avatar')"
+                >
+                <div
+                  class="px-4 py-2 rounded-lg max-w-xs break-words"
+                  :class="
+                    message.user.id === user.id
+                      ? 'bg-indigo-100 dark:bg-indigo-900/30 text-right'
+                      : 'bg-gray-100 dark:bg-gray-700 text-left'
+                  "
+                >
+                  {{ message.message }}
                 </div>
-              </template>
-
-              <template v-else>
-                <div class="flex items-end gap-2 mr-auto">
-                  <img
-                    class="w-10 h-10 rounded-full"
-                    :src="getFullPathForAvatarImage(message.user.avatar_url)"
-                    alt="Аватар"
-                  >
-                  <div class="px-4 py-2 rounded-lg max-w-xs break-words bg-gray-100 text-left">
-                    {{ message.message }}
-                  </div>
-                </div>
-              </template>
+              </div>
             </div>
           </div>
-
           <div
             v-else
-            class="flex-1 overflow-y-auto p-4 space-y-2 text-center"
+            class="flex-1 overflow-y-auto p-4 text-center text-gray-500 dark:text-gray-400"
           >
             {{ $t('no.messages.yet') }}
           </div>
-          <div class="border-t p-3 flex items-center gap-2 w-full">
-            <form @submit.prevent="sendMessage">
+          <div class="border-t border-gray-200 dark:border-gray-700 p-3 flex items-center gap-2">
+            <form
+              class="flex-1 flex items-center gap-2"
+              @submit.prevent="sendMessage"
+            >
               <button
-                class="text-gray-500 hover:text-yellow-400 transition"
+                type="button"
+                class="text-gray-500 hover:text-yellow-500 dark:text-gray-400 dark:hover:text-yellow-400 transition-colors"
                 :title="$t('emojis')"
                 @click="openEmojis"
               >
                 😊
               </button>
               <label
-                class="cursor-pointer text-gray-500 hover:text-blue-500"
+                class="cursor-pointer text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 :title="$t('attach.file')"
               >
                 <input
                   type="file"
                   class="hidden"
                   @change="handleFileUpload"
-                > 📎
+                >
+                📎
               </label>
               <input
                 v-model="messageForm.message"
                 type="text"
                 :placeholder="$t('write.message')"
-                class="flex-1 border rounded-lg px-4 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                @keyup.enter="sendMessage"
+                class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
               >
               <button
                 type="submit"
                 :title="$t('send')"
-                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 ⤊
               </button>
@@ -556,16 +588,18 @@ const messageForm = useForm({
           </div>
         </div>
       </div>
-      <Modal
-        :show="isRejectModalOpen"
-        max-width="2xl"
-        @close="isRejectModalOpen = false"
-      >
-        <Reject
-          :advert-id="advertId"
-          @reject-created="isRejectModalOpen = false"
-        />
-      </Modal>
-    </div>
+    </Teleport>
+
+    <!-- Reject Modal -->
+    <Modal
+      :show="isRejectModalOpen"
+      max-width="2xl"
+      @close="isRejectModalOpen = false"
+    >
+      <Reject
+        :advert-id="advertId"
+        @reject-created="isRejectModalOpen = false"
+      />
+    </Modal>
   </AuthenticatedLayout>
 </template>
