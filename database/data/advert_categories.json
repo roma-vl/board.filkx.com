@@ -1,0 +1,735 @@
+[
+  {
+    "id": 1,
+    "name": "Категорії",
+    "slug": "kategorii",
+    "children": [
+      {
+        "id": 2,
+        "name": "Авто",
+        "slug": "avto",
+        "children": [
+          {
+            "id": 3,
+            "name": "Легкові автомобілі",
+            "slug": "legkovi-avtomobili",
+            "children": [
+              {
+                "id": 4,
+                "name": "Audi",
+                "slug": "audi"
+              },
+              {
+                "id": 5,
+                "name": "BMW",
+                "slug": "bmw"
+              },
+              {
+                "id": 6,
+                "name": "Mercedes",
+                "slug": "mercedes"
+              },
+              {
+                "id": 7,
+                "name": "Volkswagen",
+                "slug": "volkswagen"
+              },
+              {
+                "id": 8,
+                "name": "Toyota",
+                "slug": "toyota"
+              },
+              {
+                "id": 9,
+                "name": "Honda",
+                "slug": "honda"
+              },
+              {
+                "id": 10,
+                "name": "Ford",
+                "slug": "ford"
+              },
+              {
+                "id": 11,
+                "name": "Chevrolet",
+                "slug": "chevrolet"
+              },
+              {
+                "id": 12,
+                "name": "Nissan",
+                "slug": "nissan"
+              },
+              {
+                "id": 13,
+                "name": "Hyundai",
+                "slug": "hyundai"
+              },
+              {
+                "id": 14,
+                "name": "Kia",
+                "slug": "kia"
+              },
+              {
+                "id": 15,
+                "name": "Mazda",
+                "slug": "mazda"
+              },
+              {
+                "id": 16,
+                "name": "Subaru",
+                "slug": "subaru"
+              },
+              {
+                "id": 17,
+                "name": "Volvo",
+                "slug": "volvo"
+              },
+              {
+                "id": 18,
+                "name": "Lexus",
+                "slug": "lexus"
+              },
+              {
+                "id": 19,
+                "name": "Infiniti",
+                "slug": "infiniti"
+              },
+              {
+                "id": 20,
+                "name": "Acura",
+                "slug": "acura"
+              },
+              {
+                "id": 21,
+                "name": "Cadillac",
+                "slug": "cadillac"
+              },
+              {
+                "id": 22,
+                "name": "Lincoln",
+                "slug": "lincoln"
+              },
+              {
+                "id": 23,
+                "name": "Jaguar",
+                "slug": "jaguar"
+              },
+              {
+                "id": 24,
+                "name": "Land Rover",
+                "slug": "land-rover"
+              },
+              {
+                "id": 25,
+                "name": "Porsche",
+                "slug": "porsche"
+              },
+              {
+                "id": 26,
+                "name": "Ferrari",
+                "slug": "ferrari"
+              },
+              {
+                "id": 27,
+                "name": "Lamborghini",
+                "slug": "lamborghini"
+              },
+              {
+                "id": 28,
+                "name": "Maserati",
+                "slug": "maserati"
+              },
+              {
+                "id": 29,
+                "name": "Alfa Romeo",
+                "slug": "alfa-romeo"
+              },
+              {
+                "id": 30,
+                "name": "Fiat",
+                "slug": "fiat"
+              },
+              {
+                "id": 31,
+                "name": "Peugeot",
+                "slug": "peugeot"
+              },
+              {
+                "id": 32,
+                "name": "Renault",
+                "slug": "renault"
+              },
+              {
+                "id": 33,
+                "name": "Citroen",
+                "slug": "citroen"
+              },
+              {
+                "id": 34,
+                "name": "Skoda",
+                "slug": "skoda"
+              },
+              {
+                "id": 35,
+                "name": "Seat",
+                "slug": "seat"
+              },
+              {
+                "id": 36,
+                "name": "Dacia",
+                "slug": "dacia"
+              },
+              {
+                "id": 37,
+                "name": "Suzuki",
+                "slug": "suzuki"
+              },
+              {
+                "id": 38,
+                "name": "Mitsubishi",
+                "slug": "mitsubishi"
+              },
+              {
+                "id": 39,
+                "name": "Jeep",
+                "slug": "jeep"
+              },
+              {
+                "id": 40,
+                "name": "Dodge",
+                "slug": "dodge"
+              },
+              {
+                "id": 41,
+                "name": "Chrysler",
+                "slug": "chrysler"
+              },
+              {
+                "id": 42,
+                "name": "Buick",
+                "slug": "buick"
+              },
+              {
+                "id": 43,
+                "name": "GMC",
+                "slug": "gmc"
+              }
+            ]
+          },
+          {
+            "id": 44,
+            "name": "Вантажні автомобілі",
+            "slug": "vantazni-avtomobili",
+            "children": [
+              {
+                "id": 45,
+                "name": "Малотоннажні",
+                "slug": "malotonnazhni"
+              },
+              {
+                "id": 46,
+                "name": "Середньотоннажні",
+                "slug": "seredn-tonnazhni"
+              },
+              {
+                "id": 47,
+                "name": "Великотоннажні",
+                "slug": "velykotonnazhni"
+              },
+              {
+                "id": 48,
+                "name": "Самоскиди",
+                "slug": "samoskydy"
+              },
+              {
+                "id": 49,
+                "name": "Фури",
+                "slug": "fury"
+              },
+              {
+                "id": 50,
+                "name": "Тягачі",
+                "slug": "tiagachi"
+              }
+            ]
+          },
+          {
+            "id": 51,
+            "name": "Мотоцикли",
+            "slug": "mototsykly",
+            "children": [
+              {
+                "id": 52,
+                "name": "Спортивні",
+                "slug": "sportyvni"
+              },
+              {
+                "id": 53,
+                "name": "Туристичні",
+                "slug": "turystychni"
+              },
+              {
+                "id": 54,
+                "name": "Чопери",
+                "slug": "chopery"
+              },
+              {
+                "id": 55,
+                "name": "Ендуро",
+                "slug": "enduro"
+              },
+              {
+                "id": 56,
+                "name": "Скутери",
+                "slug": "skutery"
+              }
+            ]
+          },
+          {
+            "id": 57,
+            "name": "Автобуси",
+            "slug": "avtobusy"
+          },
+          {
+            "id": 58,
+            "name": "Причепи та напівпричепи",
+            "slug": "prychepy-ta-napivprychepy"
+          },
+          {
+            "id": 59,
+            "name": "Спецтехніка",
+            "slug": "spetstekhnika",
+            "children": [
+              {
+                "id": 60,
+                "name": "Екскаватори",
+                "slug": "ekskavatory"
+              },
+              {
+                "id": 61,
+                "name": "Бульдозери",
+                "slug": "buldozery"
+              },
+              {
+                "id": 62,
+                "name": "Кран-маніпулятори",
+                "slug": "kran-manipuliatory"
+              },
+              {
+                "id": 63,
+                "name": "Автовишки",
+                "slug": "avtovyshchy"
+              },
+              {
+                "id": 64,
+                "name": "Асфальтоукладчики",
+                "slug": "asfaltoukladchyky"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 65,
+        "name": "Нерухомість",
+        "slug": "nerukhomist",
+        "children": [
+          {
+            "id": 66,
+            "name": "Квартири",
+            "slug": "kvartyry"
+          },
+          {
+            "id": 67,
+            "name": "Будинки",
+            "slug": "budynky"
+          },
+          {
+            "id": 68,
+            "name": "Земельні ділянки",
+            "slug": "zemelni-dilyanky"
+          },
+          {
+            "id": 69,
+            "name": "Комерційна нерухомість",
+            "slug": "komertsijna-nerukhomist"
+          },
+          {
+            "id": 70,
+            "name": "Гаражі",
+            "slug": "harazhy"
+          },
+          {
+            "id": 71,
+            "name": "Оренда",
+            "slug": "orenda"
+          },
+          {
+            "id": 72,
+            "name": "Продаж",
+            "slug": "prodazh"
+          }
+        ]
+      },
+      {
+        "id": 73,
+        "name": "Робота",
+        "slug": "robota",
+        "children": [
+          {
+            "id": 74,
+            "name": "IT",
+            "slug": "it"
+          },
+          {
+            "id": 75,
+            "name": "Продажі",
+            "slug": "prodazhy"
+          },
+          {
+            "id": 76,
+            "name": "Маркетинг",
+            "slug": "marketynh"
+          },
+          {
+            "id": 77,
+            "name": "Фінанси",
+            "slug": "finansy"
+          },
+          {
+            "id": 78,
+            "name": "Логістика",
+            "slug": "lohystyka"
+          },
+          {
+            "id": 79,
+            "name": "Виробництво",
+            "slug": "vyrobnytstvo"
+          },
+          {
+            "id": 80,
+            "name": "Будівництво",
+            "slug": "budivnytstvo"
+          },
+          {
+            "id": 81,
+            "name": "Освіта",
+            "slug": "osvita"
+          },
+          {
+            "id": 82,
+            "name": "Медицина",
+            "slug": "medytsyna"
+          },
+          {
+            "id": 83,
+            "name": "Сфера послуг",
+            "slug": "sfera-posluh"
+          },
+          {
+            "id": 84,
+            "name": "Ресторани та готелі",
+            "slug": "restorany-ta-hotely"
+          },
+          {
+            "id": 85,
+            "name": "Транспорт",
+            "slug": "transport"
+          },
+          {
+            "id": 86,
+            "name": "Дизайн",
+            "slug": "dyzajn"
+          },
+          {
+            "id": 87,
+            "name": "Юриспруденція",
+            "slug": "iuryprudentsiia"
+          },
+          {
+            "id": 88,
+            "name": "Адміністративний персонал",
+            "slug": "administratyvnyj-personal"
+          }
+        ]
+      },
+      {
+        "id": 89,
+        "name": "Тварини",
+        "slug": "tvaryny",
+        "children": [
+          {
+            "id": 90,
+            "name": "Собаки",
+            "slug": "sobaky"
+          },
+          {
+            "id": 91,
+            "name": "Коти",
+            "slug": "koty"
+          },
+          {
+            "id": 92,
+            "name": "Птахи",
+            "slug": "ptakhy"
+          },
+          {
+            "id": 93,
+            "name": "Риби",
+            "slug": "ryby"
+          },
+          {
+            "id": 94,
+            "name": "Гризуни",
+            "slug": "hryzuny"
+          },
+          {
+            "id": 95,
+            "name": "Рептилії",
+            "slug": "reptylii"
+          },
+          {
+            "id": 96,
+            "name": "Коні",
+            "slug": "koni"
+          },
+          {
+            "id": 97,
+            "name": "Сільськогосподарські тварини",
+            "slug": "silskohospodarski-tvaryny"
+          }
+        ]
+      },
+      {
+        "id": 98,
+        "name": "Дім і сад",
+        "slug": "dim-i-sad",
+        "children": [
+          {
+            "id": 99,
+            "name": "Меблі",
+            "slug": "mebli"
+          },
+          {
+            "id": 100,
+            "name": "Побутова техніка",
+            "slug": "pobutova-tekhnika"
+          },
+          {
+            "id": 101,
+            "name": "Інструменти",
+            "slug": "ynstrymenty"
+          },
+          {
+            "id": 102,
+            "name": "Будматеріали",
+            "slug": "budmaterialy"
+          },
+          {
+            "id": 103,
+            "name": "Сад і город",
+            "slug": "sad-i-horod"
+          },
+          {
+            "id": 104,
+            "name": "Інтер’єр",
+            "slug": "interer"
+          },
+          {
+            "id": 105,
+            "name": "Освітлення",
+            "slug": "osvitlennia"
+          },
+          {
+            "id": 106,
+            "name": "Сантехніка",
+            "slug": "santechnika"
+          },
+          {
+            "id": 107,
+            "name": "Кліматичне обладнання",
+            "slug": "klymatychne-obladnannia"
+          }
+        ]
+      },
+      {
+        "id": 108,
+        "name": "Бізнес та послуги",
+        "slug": "biznes-ta-posluhy",
+        "children": [
+          {
+            "id": 109,
+            "name": "Клінінг",
+            "slug": "klininh"
+          },
+          {
+            "id": 110,
+            "name": "Ремонт техніки",
+            "slug": "remont-tekhniki"
+          },
+          {
+            "id": 111,
+            "name": "Ремонт авто",
+            "slug": "remont-avto"
+          },
+          {
+            "id": 112,
+            "name": "Будівельні послуги",
+            "slug": "budivelnі-posluhy"
+          },
+          {
+            "id": 113,
+            "name": "Реклама та поліграфія",
+            "slug": "reklama-ta-polihrafiia"
+          },
+          {
+            "id": 114,
+            "name": "IT-послуги",
+            "slug": "it-posluhy"
+          },
+          {
+            "id": 115,
+            "name": "Консалтинг",
+            "slug": "konsaltyng"
+          },
+          {
+            "id": 116,
+            "name": "Охорона",
+            "slug": "okhorona"
+          },
+          {
+            "id": 117,
+            "name": "Перевезення",
+            "slug": "perevezennia"
+          },
+          {
+            "id": 118,
+            "name": "Організація свят",
+            "slug": "orhanizatsiia-sviat",
+            "children": [
+              {
+                "id": 119,
+                "name": "День народження",
+                "slug": "den-narodzhennia"
+              },
+              {
+                "id": 120,
+                "name": "Весілля",
+                "slug": "vesillia"
+              },
+              {
+                "id": 121,
+                "name": "Корпоративи",
+                "slug": "korporatyvy"
+              },
+              {
+                "id": 122,
+                "name": "Дитячі свята",
+                "slug": "dytiachi-sviata"
+              }
+            ]
+          },
+          {
+            "id": 123,
+            "name": "Фото- та відеопослуги",
+            "slug": "foto-ta-videoposluhy"
+          },
+          {
+            "id": 124,
+            "name": "Навчання",
+            "slug": "navchannia"
+          },
+          {
+            "id": 125,
+            "name": "Медичні послуги",
+            "slug": "medychni-posluhy"
+          },
+          {
+            "id": 126,
+            "name": "Юридичні послуги",
+            "slug": "iurydychni-posluhy"
+          },
+          {
+            "id": 127,
+            "name": "Фінансові послуги",
+            "slug": "finansovi-posluhy"
+          }
+        ]
+      },
+      {
+        "id": 128,
+        "name": "Електроніка",
+        "slug": "elektronika",
+        "children": [
+          {
+            "id": 129,
+            "name": "Смартфони",
+            "slug": "smartfony"
+          },
+          {
+            "id": 130,
+            "name": "Планшети",
+            "slug": "planshety"
+          },
+          {
+            "id": 131,
+            "name": "Ноутбуки",
+            "slug": "noutbuky"
+          },
+          {
+            "id": 132,
+            "name": "Комп’ютери",
+            "slug": "kompiutery"
+          },
+          {
+            "id": 133,
+            "name": "Телевізори",
+            "slug": "televyzory"
+          },
+          {
+            "id": 134,
+            "name": "Аудіотехніка",
+            "slug": "audiotechnika"
+          },
+          {
+            "id": 135,
+            "name": "Фототехніка",
+            "slug": "fototechnika"
+          },
+          {
+            "id": 136,
+            "name": "Ігрові приставки",
+            "slug": "ihrovi-prystavky"
+          },
+          {
+            "id": 137,
+            "name": "Аксесуари",
+            "slug": "aksesuary"
+          }
+        ]
+      },
+      {
+        "id": 138,
+        "name": "Мода та стиль",
+        "slug": "moda-ta-styl",
+        "children": [
+          {
+            "id": 139,
+            "name": "Чоловічий одяг",
+            "slug": "cholovichyj-odiah"
+          },
+          {
+            "id": 140,
+            "name": "Жіночий одяг",
+            "slug": "zhinochyi-odiah"
+          },
+          {
+            "id": 141,
+            "name": "Дитячий одяг",
+            "slug": "dytiahyi-odiah"
+          }
+        ]
+      }
+    ]
+  }
+]

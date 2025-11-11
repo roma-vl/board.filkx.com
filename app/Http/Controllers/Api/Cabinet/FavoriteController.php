@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api\Cabinet;
 
+use App\Cabinet\Service\FavoriteService;
 use App\Http\Resources\Api\Advert\AdvertDetailResource;
-use App\Http\Services\Adverts\FavoriteService;
 use App\Models\Adverts\Advert;
 use DomainException;
 use Illuminate\Http\RedirectResponse;

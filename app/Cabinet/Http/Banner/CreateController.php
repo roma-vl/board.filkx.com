@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Banner;
+namespace App\Cabinet\Http\Banner;
 
 use App\Http\Requests\Cabinet\Banners\CreateRequest;
 use App\Http\Services\Adverts\CategoryService;

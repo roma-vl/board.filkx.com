@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Orders;
+namespace App\Cabinet\Http\Order;
 
 use App\Http\Services\PDF\PdfGeneratorInterface;
 use App\Models\Adverts\AdvertOrder;

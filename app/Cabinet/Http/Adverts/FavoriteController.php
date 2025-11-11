@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Adverts;
+namespace App\Cabinet\Http\Adverts;
 
-use App\Http\Services\Adverts\FavoriteService;
+use App\Cabinet\Service\FavoriteService;
+use App\Enum\PermissionEnum;
 use App\Models\Adverts\Advert;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,15 +15,14 @@ class FavoriteController
 
     public function __construct(FavoriteService $favoriteService)
     {
-
         $this->favoriteService = $favoriteService;
     }
 
     public function index(): Response
     {
-        $favoriteAdverts = Advert::favoriteByUser(Auth::user())
-            ->with(['firstPhoto'])
-            ->orderByDesc('id')->paginate(10);
+        Gate::authorize('check-permission', [[PermissionEnum::VIEW_OWN_FAVORITE->value]]);
+
+        $favoriteAdverts = $this->favoriteService->favoritesList();
 
         return Inertia::render('Account/Favorites/Index', [
             'favoriteAdverts' => $favoriteAdverts,
@@ -31,6 +31,8 @@ class FavoriteController
 
     public function add(Advert $advert)
     {
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_FAVORITE->value]]);
+
         try {
             $this->favoriteService->add(auth()->id(), $advert->id);
         } catch (\DomainException $e) {
@@ -42,6 +44,8 @@ class FavoriteController
 
     public function remove(Advert $advert)
     {
+        Gate::authorize('check-permission', [[PermissionEnum::MANAGE_OWN_FAVORITE->value]]);
+
         try {
             $this->favoriteService->remove(auth()->id(), $advert->id);
         } catch (\DomainException $e) {

@@ -127,6 +127,14 @@ class User extends Authenticatable implements Auditable, MustVerifyEmail
             ->toArray();
     }
 
+    public static function permissionExists(User $user, string|array $permissions): bool
+    {
+        $permissions = (array) $permissions;
+        $userPermissions = $user->getPermissions();
+
+        return ! empty(array_intersect($permissions, $userPermissions));
+    }
+
     public function unverifyPhone(): void
     {
         $this->phone_verified = false;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cabinet\Chat;
+namespace App\Cabinet\Http\Chat;
 
 use App\Http\Controllers\Controller;
 use App\Http\Services\Notifications\NotificationService;

@@ -7,6 +7,10 @@ use App\Models\Adverts\Boost\AdvertBoost;
 use App\Models\Adverts\Boost\AdvertService;
 use App\Models\Adverts\Dialog\Dialog;
 use App\Models\Users\User;
+use App\States\Adverts\Active;
+use App\States\Adverts\Closed;
+use App\States\Adverts\Draft;
+use App\States\Adverts\Moderation;
 use App\Traits\Filterable;
 use App\Traits\Searchable;
 use Carbon\Carbon;
@@ -81,6 +85,11 @@ class Advert extends Model implements Auditable
     public function services()
     {
         return $this->hasMany(AdvertService::class);
+    }
+
+    public function statusRelation()
+    {
+        return $this->belongsTo(AdvertStatus::class, 'status_id', 'id');
     }
 
     public function boosts()
@@ -162,6 +171,7 @@ class Advert extends Model implements Auditable
         //        }
         $this->update([
             'status' => self::STATUS_MODERATION,
+            'status_id' => $this->statusIdFromState(Moderation::$state),
             'reject_reason' => '',
         ]);
     }
@@ -175,6 +185,7 @@ class Advert extends Model implements Auditable
             'published_at' => $date,
             'expires_at' => $date->copy()->addDays(15),
             'status' => self::STATUS_ACTIVE,
+            'status_id' => $this->statusIdFromState(Active::$state),
             'reject_reason' => '',
         ]);
     }
@@ -183,6 +194,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_DRAFT,
+            'status_id' => $this->statusIdFromState(Draft::$state),
             'reject_reason' => $reason,
         ]);
     }
@@ -191,6 +203,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_DRAFT,
+            'status_id' => $this->statusIdFromState(Draft::$state),
         ]);
     }
 
@@ -198,6 +211,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_CLOSED,
+            'status_id' => $this->statusIdFromState(Closed::$state),
         ]);
     }
 
@@ -205,6 +219,7 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_ACTIVE,
+            'status_id' => $this->statusIdFromState(Active::$state),
             'reject_reason' => '',
         ]);
     }
@@ -213,7 +228,14 @@ class Advert extends Model implements Auditable
     {
         $this->update([
             'status' => self::STATUS_CLOSED,
+            'status_id' => $this->statusIdFromState(Closed::$state),
         ]);
+    }
+
+    private function statusIdFromState(int $state): int
+    {
+        return AdvertStatus::where('state', $state)->value('id')
+            ?? throw new \RuntimeException("No status found for state {$state}");
     }
 
     public function writeClientMessage(int $fromId, string $message): Model
@@ -351,9 +373,9 @@ class Advert extends Model implements Auditable
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logAll() // логуються тільки ці поля
-            ->logOnlyDirty() // тільки коли змінились
-            ->useLogName('advert') // назва для фільтрації логів
+            ->logAll()
+            ->logOnlyDirty()
+            ->useLogName('advert')
             ->setDescriptionForEvent(fn (string $eventName) => "Advert was {$eventName}");
     }
 }

@@ -21,6 +21,16 @@ class CategoryService
         return $firstLevel;
     }
 
+    public function getAllAttributes(int $categoryId): array
+    {
+        $category = Category::findOrFail($categoryId);
+
+        return array_merge(
+            $category->getParentAttributes()->toArray(),
+            $category->attributes()->orderBy('sort')->get()->toArray()
+        );
+    }
+
     public function parseCategoryAndLocationFromUrl(?string $urlPath): array
     {
         Cache::flush();

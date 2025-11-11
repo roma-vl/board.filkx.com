@@ -32,27 +32,27 @@ const remove = (advertId) => {
         :key="advert.id"
         class="p-3 hover:bg-gray-100 transition duration-150 ease-in-out dark:hover:bg-gray-800/50 dark:bg-gray-800"
       >
-        <div class="flex justify-between gap-6 min-h-36">
-          <div class="w-48">
+        <div class="flex justify-between min-h-36">
+          <div class="min-w-[200px]">
             <img
-              :src="getFullPathForImage(advert.first_photo?.file)"
+              :src="getFullPathForImage(advert.firstPhoto)"
               :alt="advert.title"
-              class="w-full h-40"
+              class="w-full h-40 object-cover"
             >
           </div>
-          <div class="flex-grow flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-between w-full pl-3">
             <div>
               <a
                 :href="route('adverts.show', advert.id)"
                 class="block group"
               >
                 <h3
-                  class="text-2xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
+                  class="text-xl font-semibold text-gray-800 group-hover:text-violet-600 transition-colors duration-200 dark:text-gray-200"
                 >
                   {{ advert.title }}
                 </h3>
               </a>
-              <p class="text-xl font-medium text-violet-600">
+              <p class="text-md font-medium text-violet-600">
                 {{ advert.price }} ₴
               </p>
             </div>
@@ -85,22 +85,16 @@ const remove = (advertId) => {
                 2 {{ $t('in.bookmarks') }}
               </span>
               <p class="text-sm text-gray-500 dark:text-gray-200">
-                {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.created_at) }}
+                {{ $t('Created At') }} : {{ getDateFormatFromLocale(advert.createdAt) }}
               </p>
             </div>
           </div>
           <div class="flex flex-col items-end justify-between">
             <span
-              class="px-4 py-2 rounded-full text-sm font-medium"
-              :class="{
-                'bg-green-100 text-green-800': advert.status === 'active',
-                'bg-green-100 text-green-400': advert.status === 'moderation',
-                'bg-yellow-100 text-yellow-800': advert.status === 'pending',
-                'bg-yellow-200 text-yellow-700': advert.status === 'draft',
-                'bg-red-100 text-red-800': advert.status === 'inactive',
-              }"
+              class="px-2 py-1 rounded text-sm font-medium"
+              :style="{ backgroundColor: advert.status?.color, color: '#fff' }"
             >
-              {{ advert.status }}
+              {{ advert.status?.name }}
             </span>
             <div
               v-if="props.routes"

@@ -48,7 +48,7 @@ const form = useForm({
   address: props.advert.address,
   content: props.advert.content,
   attributes: {},
-  images: props.advert.images.map((img) => ({ type: 'existing', file: img.file, id: img.id })),
+  images: props.advert.photo.map((img) => ({ type: 'existing', file: img.file, id: img.id })),
 });
 
 const attributes = ref(props.attributes || []);

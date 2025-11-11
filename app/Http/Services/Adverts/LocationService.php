@@ -29,9 +29,9 @@ class LocationService
 
     public function getRegions(Location $region): Collection
     {
-        return $region->children()
-            ->where('depth', 1)
-            ->get(['name', 'slug', 'id']);
+        return Location::query()
+            ->where('parent_id', $region->id)
+            ->get(['id', 'name', 'slug']);
     }
 
     public function getCities(Location $region): Collection
@@ -44,12 +44,16 @@ class LocationService
 
     public function getAreas(Location $region): Collection
     {
-        return $region->children()->where('depth', 2)->get();
+        return Location::query()
+            ->where('parent_id', $region->id)
+            ->get(['id', 'name', 'slug']);
     }
 
     public function getVillages(Location $area): Collection
     {
-        return $area->children()->where('depth', 3)->get();
+        return Location::query()
+            ->where('parent_id', $area->id)
+            ->get(['id', 'name', 'slug']);
     }
 
     public function createLocation(array $data): Model

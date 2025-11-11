@@ -45,7 +45,7 @@ const generateLocationLink = (index, slug = null) => {
         :key="category.id"
       >
         <span v-if="index !== categories.length - 1">
-          <span class="text-gray-400 mr-1">/</span>
+          <span class="text-gray-400 mr-1"> > </span>
           <a
             class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
             :href="generateCategoryLink(index)"
@@ -55,7 +55,7 @@ const generateLocationLink = (index, slug = null) => {
           v-if="locations.length === 0 && index === categories.length - 1"
           class="text-gray-700"
         >
-          <span class="text-gray-400 mr-1">/</span>
+          <span class="text-gray-400 mr-1"> > </span>
           <span class="dark:text-gray-500">{{ category.name }}</span>
         </span>
       </span>
@@ -67,7 +67,7 @@ const generateLocationLink = (index, slug = null) => {
         :key="location.id"
       >
         <span v-if="index !== locations.length - 1">
-          <span class="text-gray-400 mr-1">/</span>
+          <span class="text-gray-400 mr-1"> > </span>
           <a
             v-if="categories.length"
             class="text-gray-400 underline hover:text-gray-700 mr-1 dark:text-gray-300"
@@ -83,7 +83,7 @@ const generateLocationLink = (index, slug = null) => {
         </span>
 
         <span v-if="categories.length && index === locations.length - 1">
-          <span class="text-gray-400 mr-1 dark:text-gray-300">/</span>
+          <span class="text-gray-400 mr-1 dark:text-gray-300"> > </span>
           <span class="text-gray-700">{{ categories[categories.length - 1].name }} - {{ location.name }}
           </span>
         </span>
