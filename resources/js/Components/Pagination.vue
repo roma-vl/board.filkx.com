@@ -31,12 +31,19 @@ const page = localStorage.getItem('perPage');
 const perPage = page ? '&per_page=' + page : '';
 const changePage = (url, active) => {
   if (active) return false;
+  if (!url) return;
+
+  if (import.meta.env.MODE === 'production' && url.startsWith('http://')) {
+    url = url.replace(/^http:/, 'https:');
+  }
+
   const currentPath = window.location.pathname;
 
   let prefix = '';
   if (currentPath.indexOf('/list') === 0) {
     prefix = 'list';
   }
+
   if (currentPath.indexOf('/admin') === 0) {
     router.get(url + perPage + searchQuery + sortField + sortOrder);
   } else if (url) {

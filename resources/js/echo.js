@@ -37,7 +37,7 @@ window.Echo = new Echo({
 const userId = document.querySelector('meta[name="user-id"]')?.getAttribute('content');
 
 if (userId) {
-  window.Echo.private(`App.Models.User.${user.id}`).notification((notification) => {
+  window.Echo.private(`App.Models.User.${userId}`).notification((notification) => {
     notifications.value.unshift({
       ...notification,
       read_at: null,

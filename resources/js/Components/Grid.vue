@@ -50,7 +50,6 @@ const updateItemsList = debounce(() => {
     return acc;
   }, {});
 
-  console.log('queryParams.value.search', queryParams.value.search);
   const url = queryParams.value.search ? routesMap.search : routesMap.index;
   if (queryParams.value.search === '') {
     localStorage.setItem('searchQuery', JSON.stringify(''));
