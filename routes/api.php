@@ -1,12 +1,12 @@
 <?php
 
+use App\Api\Adverts\FavoriteController;
+use App\Api\Auth\RegisteredUserController;
+use App\Api\Cabinet\AdvertController as CabinetAdvertController;
+use App\Api\Cabinet\FavoriteController as CabinetFavoriteController;
+use App\Api\Cabinet\ProfileController;
 use App\Api\HomeController;
 use App\Api\StaticPageController;
-use App\Http\Controllers\Api\Adverts\FavoriteController;
-use App\Http\Controllers\Api\Auth\RegisteredUserController;
-use App\Http\Controllers\Api\Cabinet\AdvertController as CabinetAdvertController;
-use App\Http\Controllers\Api\Cabinet\FavoriteController as CabinetFavoriteController;
-use App\Http\Controllers\Api\Cabinet\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 

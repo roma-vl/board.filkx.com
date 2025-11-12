@@ -4,3 +4,5 @@ docker-compose exec mysql \
 docker-compose exec -T mysql \
   bash -c 'mysql -usail -ppassword laravel' < dump.sql
 
+Перегенерити документацію
+./vendor/bin/openapi app/ --output public/docs/swagger.json

@@ -100,7 +100,10 @@ watch(isOpen, async (newVal) => {
         height="32"
       >
       <span class="hidden md:inline truncate max-w-xs">
-        {{$page.props.auth?.user?.first_name + ' ' + $page.props.auth?.user?.name ?? $t('Your Profile') }}
+        {{
+          $page.props.auth?.user?.first_name + ' ' + $page.props.auth?.user?.name ??
+            $t('Your Profile')
+        }}
       </span>
       <ArrowDownIcon class="h-4 w-4" />
     </button>

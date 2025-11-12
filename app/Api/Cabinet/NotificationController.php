@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Cabinet;
+namespace App\Api\Cabinet;
 
 class NotificationController
 {

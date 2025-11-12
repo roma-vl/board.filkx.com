@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Adverts;
+namespace App\Api\Adverts;
 
 use App\Http\Requests\Adverts\SearchRequest;
 use App\Http\Resources\Api\Advert\AdvertDetailResource;
@@ -12,7 +12,7 @@ use App\Models\Adverts\Location;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class AdvertController
+readonly class AdvertController
 {
     public function __construct(
         private SearchService $searchService

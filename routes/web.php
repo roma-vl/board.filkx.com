@@ -1,5 +1,6 @@
 <?php
 
+use App\Api\Cabinet\NotificationController;
 use App\Cabinet\Http\Adverts\AdvertController;
 use App\Cabinet\Http\Adverts\AdvertServiceController;
 use App\Cabinet\Http\Adverts\FavoriteController;
@@ -25,7 +26,6 @@ use App\Http\Controllers\Admin\Tickets\TicketController as AdminTicketController
 use App\Http\Controllers\Admin\Users\PermissionsController as AdminPermissionsController;
 use App\Http\Controllers\Admin\Users\RolesController as AdminRolesController;
 use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
-use App\Http\Controllers\Api\Cabinet\NotificationController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Banners\BannerController as PublicBannerController;
