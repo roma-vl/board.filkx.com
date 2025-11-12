@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\Adverts\AdvertController;
+use App\Api\HomeController;
+use App\Api\StaticPageController;
 use App\Http\Controllers\Api\Adverts\FavoriteController;
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\Cabinet\AdvertController as CabinetAdvertController;
 use App\Http\Controllers\Api\Cabinet\FavoriteController as CabinetFavoriteController;
 use App\Http\Controllers\Api\Cabinet\ProfileController;
-use App\Http\Controllers\Api\HomeController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
 
@@ -14,7 +14,7 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::post('/oauth/token', [AccessTokenController::class, 'issueToken'])
     ->middleware(['throttle', 'api'])->name('passport.token');
-
+Route::get('/documentation', [StaticPageController::class, 'apiDocs']);
 Route::prefix('v1')->group(function () {
     Route::get('/', [HomeController::class, 'home']);
     Route::post('/register', [RegisteredUserController::class, 'register']);

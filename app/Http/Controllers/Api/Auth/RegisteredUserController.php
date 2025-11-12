@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Http\Controllers\Api\Controller;
+use App\Api\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Services\Users\UserService;
 use Illuminate\Http\JsonResponse;

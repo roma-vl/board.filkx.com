@@ -1,5 +1,5 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Api;
 
 abstract class Controller {}
