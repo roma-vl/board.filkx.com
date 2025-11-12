@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Users;
+namespace App\Admin\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RoleRequest;

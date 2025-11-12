@@ -7,16 +7,12 @@ services:
         WWWGROUP: '${WWWGROUP}'
     image: 'laravel-app:dev'
     restart: always
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
     ports:
       - '${APP_PORT:-8080}:80'
       - '8080:8080' # для сокетів
       - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
     environment:
       WWWUSER: '${WWWUSER}'
-      XDEBUG_MODE: '${XDEBUG_MODE:-off}'
-      XDEBUG_CONFIG: '${XDEBUG_CONFIG:-client_host=host.docker.internal}'
       APP_ENV: local
       DB_HOST: mysql
       REDIS_HOST: redis
@@ -29,7 +25,6 @@ services:
       - mysql
       - redis
       - elasticsearch
-
   queue:
     build:
       context: './docker/8.4'
@@ -51,7 +46,6 @@ services:
       - mysql
       - redis
     command: php artisan queue:work --sleep=3 --tries=3 --timeout=60
-
   mysql:
     image: 'mysql:8.0'
     restart: always
@@ -74,7 +68,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-
   redis:
     image: 'redis:alpine'
     restart: always
@@ -88,7 +81,6 @@ services:
       test: ['CMD', 'redis-cli', 'ping']
       retries: 3
       timeout: 5s
-
   elasticsearch:
     image: 'elasticsearch:8.17.3'
     restart: always
@@ -107,11 +99,9 @@ services:
       - elasticsearch:/usr/share/elasticsearch/data
     networks:
       - laravel
-
 networks:
   laravel:
     driver: bridge
-
 volumes:
   laravel-mysql:
     driver: local

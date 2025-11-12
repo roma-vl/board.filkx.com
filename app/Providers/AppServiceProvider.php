@@ -51,7 +51,6 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        // Форсуємо генерацію відносних URL
         Paginator::currentPageResolver(function ($pageName = 'page') {
             return request()->input($pageName);
         });
@@ -73,7 +72,6 @@ class AppServiceProvider extends ServiceProvider
                 'file://'.storage_path('oauth/oauth-public.key')
             );
 
-            // додаємо PasswordGrant
             $passwordGrant = new PasswordGrant(
                 $app->make(UserRepository::class),
                 $app->make(RefreshTokenRepository::class)
@@ -85,7 +83,6 @@ class AppServiceProvider extends ServiceProvider
                 new DateInterval('PT1H') // токен на 1 год
             );
 
-            // додаємо RefreshTokenGrant
             $refreshTokenGrant = new RefreshTokenGrant(
                 $app->make(RefreshTokenRepository::class)
             );

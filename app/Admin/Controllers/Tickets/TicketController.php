@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tickets;
+namespace App\Admin\Controllers\Tickets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\EditRequest;

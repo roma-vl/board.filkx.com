@@ -1,27 +1,36 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Billing;
+namespace App\Admin\Controllers\Billing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Billing\Coupon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CouponController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('Admin/Coupons/Index', [
             'coupons' => Coupon::latest()->paginate(20),
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Admin/Coupons/Create');
     }
 
-    public function store(Request $request)
+    public function edit(Coupon $coupon): Response
+    {
+        return Inertia::render('Admin/Coupons/Edit', [
+            'coupon' => $coupon,
+        ]);
+    }
+
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'code' => 'required|string|unique:coupons,code',
@@ -37,7 +46,7 @@ class CouponController extends Controller
         return redirect()->route('admin.coupons.index')->with('success', 'Купон створено');
     }
 
-    public function update(Coupon $coupon, Request $request)
+    public function update(Coupon $coupon, Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'code' => 'required|string',
@@ -53,7 +62,7 @@ class CouponController extends Controller
 
     }
 
-    public function destroy(Coupon $coupon)
+    public function destroy(Coupon $coupon): RedirectResponse
     {
         $coupon->delete();
 

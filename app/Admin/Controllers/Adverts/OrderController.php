@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Adverts;
+namespace App\Admin\Controllers\Adverts;
 
-use App\Http\Controllers\Admin\Controller;
+use App\Admin\Controllers\Controller;
 use App\Http\Services\Adverts\AdvertOrderService;
 use App\Http\Services\PDF\PdfGeneratorInterface;
 use App\Models\Adverts\AdvertOrder;

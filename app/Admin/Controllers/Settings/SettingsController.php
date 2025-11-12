@@ -2,7 +2,7 @@
 
 // app/Http/Controllers/Admin/SettingsController.php
 
-namespace App\Http\Controllers\Admin\Settings;
+namespace App\Admin\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateGeneralSettingsRequest;

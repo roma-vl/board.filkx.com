@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Users;
+namespace App\Admin\Controllers\Users;
 
-use App\Http\Controllers\Admin\Controller;
+use App\Admin\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Http\Requests\User\UserFilterRequest;

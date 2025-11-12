@@ -32,4 +32,13 @@ class NotificationController
         ]);
 
     }
+
+    public function markAllRead()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return response()->json([
+            'status' => 'ok',
+        ]);
+    }
 }
