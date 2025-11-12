@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Billing;
+namespace App\Admin\Controllers\Billing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Billing\Coupon;

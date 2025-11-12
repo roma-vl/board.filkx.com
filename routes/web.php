@@ -1,5 +1,21 @@
 <?php
 
+use App\Admin\Controllers\Adverts\AdvertsController;
+use App\Admin\Controllers\Adverts\AttributeController;
+use App\Admin\Controllers\Adverts\CategoryController;
+use App\Admin\Controllers\Adverts\LocationController;
+use App\Admin\Controllers\Adverts\OrderController;
+use App\Admin\Controllers\Banners\BannerController as AdminBannerController;
+use App\Admin\Controllers\Billing\CouponController;
+use App\Admin\Controllers\IndexController as AdminIndexController;
+use App\Admin\Controllers\Logs\ActivityLogController;
+use App\Admin\Controllers\Newsletters\NewsletterController;
+use App\Admin\Controllers\Pages\PageController as AdminPageController;
+use App\Admin\Controllers\Settings\SettingsController;
+use App\Admin\Controllers\Tickets\TicketController as AdminTicketController;
+use App\Admin\Controllers\Users\PermissionsController as AdminPermissionsController;
+use App\Admin\Controllers\Users\RolesController as AdminRolesController;
+use App\Admin\Controllers\Users\UsersController as AdminUsersController;
 use App\Api\Cabinet\NotificationController;
 use App\Cabinet\Http\Adverts\AdvertController;
 use App\Cabinet\Http\Adverts\AdvertServiceController;
@@ -11,21 +27,6 @@ use App\Cabinet\Http\Order\OrdersController;
 use App\Cabinet\Http\Profile\PhoneController;
 use App\Cabinet\Http\Profile\ProfileController;
 use App\Cabinet\Http\Ticket\TicketController;
-use App\Http\Controllers\Admin\Adverts\AdvertsController;
-use App\Http\Controllers\Admin\Adverts\AttributeController;
-use App\Http\Controllers\Admin\Adverts\CategoryController;
-use App\Http\Controllers\Admin\Adverts\LocationController;
-use App\Http\Controllers\Admin\Adverts\OrderController;
-use App\Http\Controllers\Admin\Banners\BannerController as AdminBannerController;
-use App\Http\Controllers\Admin\Billing\CouponController;
-use App\Http\Controllers\Admin\IndexController as AdminIndexController;
-use App\Http\Controllers\Admin\Logs\ActivityLogController;
-use App\Http\Controllers\Admin\Pages\PageController as AdminPageController;
-use App\Http\Controllers\Admin\Settings\SettingsController;
-use App\Http\Controllers\Admin\Tickets\TicketController as AdminTicketController;
-use App\Http\Controllers\Admin\Users\PermissionsController as AdminPermissionsController;
-use App\Http\Controllers\Admin\Users\RolesController as AdminRolesController;
-use App\Http\Controllers\Admin\Users\UsersController as AdminUsersController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\Banners\BannerController as PublicBannerController;
@@ -231,7 +232,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/orders/{order}/receipt', [OrderController::class, 'pdfReceipt'])
             ->name('adverts.orders.receipt');
 
-        Route::resource('newsletters', \App\Http\Controllers\Admin\Newsletters\NewsletterController::class);
+        Route::resource('newsletters', NewsletterController::class);
     });
 
 });

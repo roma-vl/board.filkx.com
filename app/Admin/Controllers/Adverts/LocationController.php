@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Adverts;
+namespace App\Admin\Controllers\Adverts;
 
-use App\Http\Controllers\Admin\Controller;
+use App\Admin\Controllers\Controller;
 use App\Http\Requests\Admin\LocationRequest;
 use App\Http\Services\Adverts\LocationService;
 use App\Models\Adverts\Location;

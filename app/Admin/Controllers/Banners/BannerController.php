@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Banners;
+namespace App\Admin\Controllers\Banners;
 
-use App\Http\Controllers\Admin\Controller;
+use App\Admin\Controllers\Controller;
 use App\Http\Requests\Cabinet\Banners\EditRequest;
 use App\Http\Requests\Cabinet\Banners\RejectRequest;
 use App\Http\Services\Banners\BannerService;

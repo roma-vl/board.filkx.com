@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Adverts;
+namespace App\Admin\Controllers\Adverts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Adverts\RejectRequest;
