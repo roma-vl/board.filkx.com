@@ -55293,20 +55293,18 @@
                     He.createElement(
                       'div',
                       { className: 'modal-ux-content' },
-                      j
-                        .valueSeq()
-                        .map((j, $) =>
-                          He.createElement(M, {
-                            key: $,
-                            AST: _,
-                            definitions: j,
-                            getComponent: u,
-                            errSelectors: m,
-                            authSelectors: i,
-                            authActions: s,
-                            specSelectors: v,
-                          })
-                        )
+                      j.valueSeq().map((j, $) =>
+                        He.createElement(M, {
+                          key: $,
+                          AST: _,
+                          definitions: j,
+                          getComponent: u,
+                          errSelectors: m,
+                          authSelectors: i,
+                          authActions: s,
+                          specSelectors: v,
+                        })
+                      )
                     )
                   )
                 )

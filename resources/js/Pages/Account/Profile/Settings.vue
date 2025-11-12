@@ -13,7 +13,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <Head :title="t('Profile')" />
+  <Head :title="t('Settings')" />
 
   <AuthenticatedLayout>
     <div class="py-2">

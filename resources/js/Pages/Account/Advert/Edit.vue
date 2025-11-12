@@ -155,7 +155,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Head :title="t('EditAdvert')" />
+  <Head :title="t('EditAdvert') + ' ' + advert.title" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">

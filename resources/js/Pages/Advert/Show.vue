@@ -202,6 +202,7 @@ const messageForm = useForm({
 </script>
 
 <template>
+  <Head :title="advert.title" />
   <AuthenticatedLayout>
     <div class="py-6 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
