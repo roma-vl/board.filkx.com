@@ -109,7 +109,7 @@ const deleteAdvert = (id) => {
                   ><ArrowUturnIcon /></a>
                   <a
                     v-if="!row.deleted_at"
-                    :href="route('account.adverts.edit', row.id)"
+                    :href="route('cabinet.adverts.edit', row.id)"
                     class="text-blue-600 hover:text-blue-900 cursor-pointer"
                     :title="t('edit')"
                   >

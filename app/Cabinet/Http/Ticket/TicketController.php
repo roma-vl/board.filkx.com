@@ -41,7 +41,7 @@ class TicketController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.tickets.show', $ticket)->with('success', __('ticket.ticket_create'));
+        return redirect()->route('cabinet.tickets.show', $ticket)->with('success', __('ticket.ticket_create'));
     }
 
     public function message(MessageRequest $request, Ticket $ticket)
@@ -52,7 +52,7 @@ class TicketController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.tickets.show', $ticket)->with('success', __('ticket.add_message'));
+        return redirect()->route('cabinet.tickets.show', $ticket)->with('success', __('ticket.add_message'));
     }
 
     public function destroy(Ticket $ticket)
@@ -64,7 +64,7 @@ class TicketController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.favorites.index')->with('success', __('ticket.ticket_delete'));
+        return redirect()->route('cabinet.favorites.index')->with('success', __('ticket.ticket_delete'));
     }
 
     private function checkAccess(Ticket $ticket): void

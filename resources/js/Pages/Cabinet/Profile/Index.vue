@@ -18,7 +18,7 @@ const user = usePage().props.auth.user;
         <div
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
-          <ProfileMenu :active-tab="'account.profile.index'" />
+          <ProfileMenu :active-tab="'cabinet.profile.index'" />
 
           <div class="flex min-h-[400px] p-3 px-6">
             <div
@@ -35,7 +35,7 @@ const user = usePage().props.auth.user;
                   {{ t('User Profile') }}
                 </h2>
                 <a
-                  :href="route('account.profile.settings')"
+                  :href="route('cabinet.profile.settings')"
                   class="flex justify-end font-bold"
                 >{{
                   t('Edit')
@@ -65,7 +65,7 @@ const user = usePage().props.auth.user;
                     v-if="Number(user.phone_verified) === 0"
                     class="dark:text-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 mt-4"
                   >
-                    <a :href="route('account.profile.phone.request')">{{ t('Verify') }}</a>
+                    <a :href="route('cabinet.profile.phone.request')">{{ t('Verify') }}</a>
                   </PrimaryButton>
                 </div>
                 <div>

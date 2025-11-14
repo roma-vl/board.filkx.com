@@ -34,7 +34,7 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route('account.banners.store'), {
+  form.post(route('cabinet.banners.store'), {
     forceFormData: true,
     onSuccess: () => {
       console.log('Оголошення створено');

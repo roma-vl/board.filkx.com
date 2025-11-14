@@ -8,7 +8,7 @@ import OrderList from '@/Pages/Cabinet/Orders/OrderList.vue';
 const orders = computed(() => usePage().props.orders);
 
 const routes = {
-  receipt: 'account.orders.receipt',
+  receipt: 'cabinet.orders.receipt',
 };
 </script>
 
@@ -20,7 +20,7 @@ const routes = {
         <div
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
-          <ProfileMenu :active-tab="'account.orders.index'" />
+          <ProfileMenu :active-tab="'cabinet.orders.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">

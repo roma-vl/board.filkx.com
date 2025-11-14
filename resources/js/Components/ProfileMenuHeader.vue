@@ -162,7 +162,7 @@ watch(isOpen, async (newVal) => {
             </a>
 
             <a
-              :href="route('account.adverts.index')"
+              :href="route('cabinet.adverts.index')"
               class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
               <GuideIcon class="mr-3 h-5 w-5 text-gray-400" />
@@ -170,7 +170,7 @@ watch(isOpen, async (newVal) => {
             </a>
 
             <a
-              :href="route('account.chats.index')"
+              :href="route('cabinet.chats.index')"
               class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
               <IntegrationIcon class="mr-3 h-5 w-5 text-gray-400" />
@@ -178,7 +178,7 @@ watch(isOpen, async (newVal) => {
             </a>
 
             <a
-              :href="route('account.profile.index')"
+              :href="route('cabinet.profile.index')"
               class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
               <AccountIcon class="mr-3 h-5 w-5 text-gray-400" />
@@ -186,7 +186,7 @@ watch(isOpen, async (newVal) => {
             </a>
 
             <a
-              :href="route('account.profile.settings')"
+              :href="route('cabinet.profile.settings')"
               class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
             >
               <SettingsIcon class="mr-3 h-5 w-5 text-gray-400" />

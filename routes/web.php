@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead']);
 
-    Route::prefix('/account')->name('account.')->group(function () {
+    Route::prefix('/cabinet')->name('cabinet.')->group(function () {
         Route::prefix('/profile')->name('profile.')->group(function () {
             Route::get('/phone', [PhoneController::class, 'request'])->name('phone.request');
             Route::get('/edit/phone', [PhoneController::class, 'form'])->name('phone.form');

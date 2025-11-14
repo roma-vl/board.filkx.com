@@ -8,7 +8,7 @@ import AdvertList from '@/Components/AdvertList.vue';
 const favoriteAdverts = computed(() => usePage().props.favoriteAdverts);
 
 const routes = {
-  remove: 'account.favorites.remove',
+  remove: 'cabinet.favorites.remove',
 };
 </script>
 
@@ -20,7 +20,7 @@ const routes = {
         <div
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
-          <ProfileMenu :active-tab="'account.favorites.index'" />
+          <ProfileMenu :active-tab="'cabinet.favorites.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">

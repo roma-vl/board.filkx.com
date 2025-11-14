@@ -21,9 +21,9 @@ const toggleLike = (advert) => {
   if (!advert.is_favorited) {
     heartAnimate.value = true;
     setTimeout(() => (heartAnimate.value = false), 400); // reset after anim
-    router.post(route('account.favorites.add', { advert: advert.id }));
+    router.post(route('cabinet.favorites.add', { advert: advert.id }));
   } else {
-    router.delete(route('account.favorites.remove', { advert: advert.id }));
+    router.delete(route('cabinet.favorites.remove', { advert: advert.id }));
   }
   advert.is_favorited = !advert.is_favorited;
 };

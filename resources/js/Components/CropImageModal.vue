@@ -20,7 +20,7 @@ function save() {
     const formData = new FormData();
     formData.append('avatar', blob, 'avatar.jpg'); // тут назва має бути avatar
 
-    router.post(route('account.profile.avatar.upload'), formData, {
+    router.post(route('cabinet.profile.avatar.upload'), formData, {
       preserveScroll: true,
       forceFormData: true,
       onSuccess: () => {

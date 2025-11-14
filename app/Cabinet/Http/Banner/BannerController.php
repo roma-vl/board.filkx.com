@@ -67,14 +67,14 @@ class BannerController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('accounts.banner.index')->with('success', __('banner.banner_update'));
+        return redirect()->route('cabinet.banners.index')->with('success', __('banner.banner_update'));
     }
 
     public function fileForm(Banner $banner): View|Application|Factory|RedirectResponse
     {
         $this->checkAccess($banner);
         if (! $banner->canBeChanged()) {
-            return redirect()->route('account.banners.show', $banner)->with('error', __('banner.unable_to_edit'));
+            return redirect()->route('cabinet.banners.show', $banner)->with('error', __('banner.unable_to_edit'));
         }
         $formats = Banner::formatsList();
 
@@ -90,7 +90,7 @@ class BannerController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.banners.show', $banner);
+        return redirect()->route('cabinet.banners.show', $banner);
     }
 
     public function send(Banner $banner): RedirectResponse
@@ -101,7 +101,7 @@ class BannerController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return redirect()->route('account.banners.show', $banner);
+        return redirect()->route('cabinet.banners.show', $banner);
     }
 
     public function cancel(Banner $banner): RedirectResponse
@@ -112,7 +112,7 @@ class BannerController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.banners.show', $banner);
+        return redirect()->route('cabinet.banners.show', $banner);
     }
 
     public function order(Banner $banner): Application|Redirector|RedirectResponse
@@ -129,7 +129,7 @@ class BannerController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.banners.show', $banner);
+        return redirect()->route('cabinet.banners.show', $banner);
     }
 
     public function destroy(Banner $banner): RedirectResponse
@@ -141,7 +141,7 @@ class BannerController extends Controller
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.banners.index')->with('success', __('banner.banner_delete'));
+        return redirect()->route('cabinet.banners.index')->with('success', __('banner.banner_delete'));
     }
 
     private function checkAccess(Banner $banner): void

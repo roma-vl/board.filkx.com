@@ -56,7 +56,7 @@ class BannerController extends Controller
 
     public function show(Banner $banner): Response
     {
-        return Inertia::render('Account/Banner/Show', [
+        return Inertia::render('Cabinet/Banner/Show', [
             'banner' => $banner,
         ]);
     }

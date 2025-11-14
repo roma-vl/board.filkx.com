@@ -23,7 +23,7 @@ const form = useForm({
 });
 function submitComment() {
   if (!form.message.trim()) return;
-  form.post(route('account.tickets.add.message', props.ticket.id), {
+  form.post(route('cabinet.tickets.add.message', props.ticket.id), {
     preserveScroll: true,
   });
   form.message = '';

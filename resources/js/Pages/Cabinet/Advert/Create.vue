@@ -35,7 +35,7 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route('account.adverts.store'), {
+  form.post(route('cabinet.adverts.store'), {
     onSuccess: () => {
       console.log('Оголошення створено');
       form.reset();
@@ -97,7 +97,7 @@ watch(
     if (!newRegionId) return;
 
     try {
-      const response = await axios.get(route('account.adverts.areas', { regionId: newRegionId }));
+      const response = await axios.get(route('cabinet.adverts.areas', { regionId: newRegionId }));
       areas.value = response.data;
     } catch (error) {
       console.error('Помилка завантаження районів', error);
@@ -113,7 +113,7 @@ watch(
 
     try {
       const response = await axios.get(
-        route('account.adverts.attributes', { categoryId: newCategoryId })
+        route('cabinet.adverts.attributes', { categoryId: newCategoryId })
       );
       attributes.value = response.data ?? [];
     } catch (error) {

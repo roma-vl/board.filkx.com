@@ -7,9 +7,9 @@ import BannerList from '@/Pages/Cabinet/Banner/Partials/BannerList.vue';
 const banners = usePage().props.banners;
 
 const routes = {
-  edit: 'account.banners.edit',
-  remove: 'account.banners.destroy',
-  show: 'account.banners.show',
+  edit: 'cabinet.banners.edit',
+  remove: 'cabinet.banners.destroy',
+  show: 'cabinet.banners.show',
 };
 </script>
 
@@ -21,7 +21,7 @@ const routes = {
         <div
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
-          <ProfileMenu :active-tab="'account.banners.index'" />
+          <ProfileMenu :active-tab="'cabinet.banners.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">
@@ -29,7 +29,7 @@ const routes = {
               </h2>
 
               <a
-                :href="route('account.banners.create')"
+                :href="route('cabinet.banners.create')"
                 class="justify-self-end w-48 h-12 flex items-center justify-center text-md font-medium text-violet-400 hover:text-violet-700"
               >
                 + {{ $t('banners.add') }}

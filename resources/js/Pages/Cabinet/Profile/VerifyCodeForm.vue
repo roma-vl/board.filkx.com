@@ -23,7 +23,7 @@ const form = useForm({
 
 const submitForm = () => {
   form.token = token.value.join('');
-  form.put(route('account.profile.phone.verify'));
+  form.put(route('cabinet.profile.phone.verify'));
 };
 
 const handleInput = (index, event) => {
@@ -83,7 +83,7 @@ onMounted(() => {
                 >
               </div>
             </div>
-            <a :href="route('account.profile.phone.request')">{{
+            <a :href="route('cabinet.profile.phone.request')">{{
               t("Didn't receive the code? Try again")
             }}</a>
 

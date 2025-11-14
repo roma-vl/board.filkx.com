@@ -39,7 +39,7 @@ const remove = (bannerId) => {
           <div class="flex-grow flex flex-col justify-between">
             <div>
               <a
-                :href="route('account.banners.show', banner.id)"
+                :href="route('cabinet.banners.show', banner.id)"
                 class="block group"
               >
                 <h3

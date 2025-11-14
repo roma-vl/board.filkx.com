@@ -33,7 +33,7 @@ const routes = {};
         <div
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
-          <ProfileMenu :active-tab="'account.tickets.index'" />
+          <ProfileMenu :active-tab="'cabinet.tickets.index'" />
           <div class="px-4">
             <div class="grid grid-cols-2 gap-4 items-start mb-3">
               <h2 class="text-xl font-bold mb-4">

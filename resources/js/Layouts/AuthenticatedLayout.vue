@@ -54,8 +54,8 @@ onMounted(() => {
           <!-- Desktop Navigation -->
           <div class="hidden sm:flex items-center space-x-2 lg:space-x-4">
             <Link
-              v-if="!route().current('account.adverts.create')"
-              :href="route('account.adverts.create')"
+              v-if="!route().current('cabinet.adverts.create')"
+              :href="route('cabinet.adverts.create')"
               class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-white dark:focus:ring-offset-gray-900 dark:from-indigo-500 dark:to-purple-500 transition-all duration-200 transform hover:-translate-y-0.5"
               :aria-label="$t('Create Advert')"
             >
@@ -143,8 +143,8 @@ onMounted(() => {
 
           <div class="space-y-2">
             <Link
-              v-if="!route().current('account.adverts.create')"
-              :href="route('account.adverts.create')"
+              v-if="!route().current('cabinet.adverts.create')"
+              :href="route('cabinet.adverts.create')"
               class="block w-full text-left px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow hover:shadow-md transition-shadow"
             >
               <svg
@@ -163,7 +163,7 @@ onMounted(() => {
               {{ $t('Add Advert') }}
             </Link>
 
-            <ResponsiveNavLink :href="route('account.profile.settings')">
+            <ResponsiveNavLink :href="route('cabinet.profile.settings')">
               {{ $t('Profile Settings') }}
             </ResponsiveNavLink>
             <ResponsiveNavLink

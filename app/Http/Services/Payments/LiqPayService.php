@@ -25,7 +25,7 @@ class LiqPayService implements PaymentGatewayInterface
             'description' => 'Оплата послуг оголошення',
             'order_id' => $order->id,
             'server_url' => route('liqpay.callback'),
-            'result_url' => route('account.adverts.index'),
+            'result_url' => route('cabinet.adverts.index'),
         ];
 
         return [

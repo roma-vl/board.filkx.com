@@ -8,7 +8,7 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route('account.tickets.store'), {
+  form.post(route('cabinet.tickets.store'), {
     forceFormData: true,
     onSuccess: () => {
       console.log('Оголошення створено');

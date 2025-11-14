@@ -62,7 +62,7 @@ watch(
     if (!newCategoryId) return;
     try {
       const response = await axios.get(
-        route('account.adverts.attributes', { categoryId: newCategoryId })
+        route('cabinet.adverts.attributes', { categoryId: newCategoryId })
       );
       attributes.value = response.data ?? [];
       form.attributes = {};
@@ -89,7 +89,7 @@ const submit = () => {
     payload[`images[${index}]`] = image;
   });
 
-  form.post(route('account.adverts.update', props.advert.id), {
+  form.post(route('cabinet.adverts.update', props.advert.id), {
     data: payload,
     forceFormData: true,
     onSuccess: () => {

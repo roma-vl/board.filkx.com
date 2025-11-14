@@ -38,7 +38,7 @@ const loadMessages = async (dialogId) => {
   if (isLoading.value || !hasMore.value) return;
   isLoading.value = true;
 
-  const { data } = await axios.get(route('account.chats.messages', dialogId), {
+  const { data } = await axios.get(route('cabinet.chats.messages', dialogId), {
     params: { page: page.value },
   });
 
@@ -69,7 +69,7 @@ const sendMessage = () => {
   const text = messageForm.message.trim();
   if (!text || !messageForm.advert_id) return;
 
-  messageForm.post(route('account.chats.store', messageForm.advert_id), {
+  messageForm.post(route('cabinet.chats.store', messageForm.advert_id), {
     onSuccess: () => {
       messages.value.push({
         id: Date.now(),
@@ -127,7 +127,7 @@ onMounted(() => {
   <AuthenticatedLayout>
     <div class="py-4 px-6 max-w-7xl mx-auto">
       <div class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md">
-        <ProfileMenu :active-tab="'account.chats.index'" />
+        <ProfileMenu :active-tab="'cabinet.chats.index'" />
         <div class="grid grid-cols-3 gap-6">
           <!-- Ліва колонка: список діалогів -->
           <div class="col-span-1">
@@ -137,7 +137,7 @@ onMounted(() => {
                 :key="chat.id"
                 class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow cursor-pointer hover:bg-violet-100 dark:hover:bg-gray-700"
                 :class="{ 'ring-2 ring-violet-500': chat.id === activeDialog?.id }"
-                @click="router.visit(route('account.chats.show', chat.id))"
+                @click="router.visit(route('cabinet.chats.show', chat.id))"
               >
                 <div class="flex items-center space-x-3">
                   <img

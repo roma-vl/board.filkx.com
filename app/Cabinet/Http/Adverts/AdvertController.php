@@ -66,7 +66,7 @@ class AdvertController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         }
 
-        return redirect()->route('account.adverts.index')->with('success', __('adverts.advert_update'));
+        return redirect()->route('cabinet.adverts.index')->with('success', __('adverts.advert_update'));
     }
 
     public function publish(Advert $advert): RedirectResponse
@@ -91,7 +91,7 @@ class AdvertController extends Controller
         $this->advertService->remove($advert);
 
         return redirect()
-            ->route('account.adverts.index')
+            ->route('cabinet.adverts.index')
             ->with('danger', __('adverts.advert_delete'));
     }
 
@@ -101,7 +101,7 @@ class AdvertController extends Controller
         $this->advertService->close($advert);
 
         return redirect()
-            ->route('account.adverts.index')
+            ->route('cabinet.adverts.index')
             ->with('danger', __('adverts.advert_delete'));
     }
 

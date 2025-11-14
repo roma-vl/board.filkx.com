@@ -29,13 +29,13 @@ const submitAction = (routeName) => {
 };
 
 const publish = async () => {
-  router.post(route('account.banners.actions.publish', { banner: props.banner.id }), {
+  router.post(route('cabinet.banners.actions.publish', { banner: props.banner.id }), {
     onSuccess: () => router.replace(route('admin.banners.index')),
   });
 };
 
 const toDraft = async () => {
-  router.post(route('account.banners.actions.draft', { banner: props.banner.id }), {
+  router.post(route('cabinet.banners.actions.draft', { banner: props.banner.id }), {
     onSuccess: () => router.replace(route('admin.banners.index')),
   });
 };
@@ -55,7 +55,7 @@ const payBanner = () => {
 };
 const deleteAdvert = () => {
   if (confirm('Ви впевнені, що хочете видалити оголошення?')) {
-    router.delete(route('account.banners.destroy', props.banner.id));
+    router.delete(route('cabinet.banners.destroy', props.banner.id));
   }
 };
 </script>
@@ -69,7 +69,7 @@ const deleteAdvert = () => {
         >
           <div class="flex flex-row gap-2">
             <a
-              :href="route('account.banners.edit', props.banner.id)"
+              :href="route('cabinet.banners.edit', props.banner.id)"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded"
             >{{ $t('edit') }}</a>
             <button

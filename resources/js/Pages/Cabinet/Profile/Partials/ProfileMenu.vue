@@ -7,14 +7,14 @@ const props = defineProps({
 });
 
 const menuItems = [
-  { key: 'adverts', route: 'account.adverts.index' },
-  { key: 'chat', route: 'account.chats.index' },
-  { key: 'profile', route: 'account.profile.index' },
-  { key: 'favorites', route: 'account.favorites.index' },
-  { key: 'settings', route: 'account.profile.settings' },
-  { key: 'banners', route: 'account.banners.index' },
-  { key: 'tickets', route: 'account.tickets.index' },
-  { key: 'pay', route: 'account.orders.index' },
+  { key: 'adverts', route: 'cabinet.adverts.index' },
+  { key: 'chat', route: 'cabinet.chats.index' },
+  { key: 'profile', route: 'cabinet.profile.index' },
+  { key: 'favorites', route: 'cabinet.favorites.index' },
+  { key: 'settings', route: 'cabinet.profile.settings' },
+  { key: 'banners', route: 'cabinet.banners.index' },
+  { key: 'tickets', route: 'cabinet.tickets.index' },
+  { key: 'pay', route: 'cabinet.orders.index' },
 ];
 </script>
 

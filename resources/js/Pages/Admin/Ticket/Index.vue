@@ -91,7 +91,7 @@ const restoreUser = (id) => {
               </template>
               <template #column-subject="{ row }">
                 <a
-                  :href="route('account.tickets.show', row.id)"
+                  :href="route('cabinet.tickets.show', row.id)"
                   class="text-sm hover:underline cursor-pointer"
                 >
                   {{ row.subject }}
@@ -99,7 +99,7 @@ const restoreUser = (id) => {
               </template>
               <template #column-content="{ row }">
                 <a
-                  :href="route('account.tickets.show', row.id)"
+                  :href="route('cabinet.tickets.show', row.id)"
                   class="text-sm hover:underline cursor-pointer"
                 >
                   {{ row.subject }}
