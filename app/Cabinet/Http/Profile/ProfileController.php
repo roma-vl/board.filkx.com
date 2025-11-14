@@ -21,7 +21,7 @@ class ProfileController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Account/Profile/Index');
+        return Inertia::render('Cabinet/Profile/Index');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProfileController extends Controller
     {
         $user = $request->user()->load('socialAccounts');
 
-        return Inertia::render('Account/Profile/Settings', [
+        return Inertia::render('Cabinet/Profile/Settings', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'auth' => [

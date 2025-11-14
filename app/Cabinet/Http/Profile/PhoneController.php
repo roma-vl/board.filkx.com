@@ -56,7 +56,7 @@ class PhoneController extends Controller
 
     public function form(Request $request): Response
     {
-        return Inertia::render('Account/Profile/VerifyCodeForm');
+        return Inertia::render('Cabinet/Profile/VerifyCodeForm');
     }
 
     public function verify(Request $request): RedirectResponse

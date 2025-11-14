@@ -22,7 +22,7 @@ class CreateController
         $formats = Banner::formatsList();
         $categories = $this->categoryService->getCategories();
 
-        return Inertia::render('Account/Banner/Create', [
+        return Inertia::render('Cabinet/Banner/Create', [
             'categories' => $categories,
             'formats' => $formats,
         ]);
@@ -50,6 +50,6 @@ class CreateController
             return back()->with('error', $e->getMessage());
         }
 
-        return redirect()->route('Account/Banner/View', $banner)->with('success', __('banner.banner_create'));
+        return redirect()->route('Cabinet/Banner/View', $banner)->with('success', __('banner.banner_create'));
     }
 }

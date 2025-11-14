@@ -4,10 +4,10 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
-import UpdateProfilePhoneForm from '@/Pages/Account/Profile/Partials/UpdateProfilePhoneForm.vue';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import UpdateProfilePhoneForm from '@/Pages/Cabinet/Profile/Partials/UpdateProfilePhoneForm.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import { useI18n } from 'vue-i18n';
-import Socialite from '@/Pages/Account/Profile/Partials/Socialite.vue';
+import Socialite from '@/Pages/Cabinet/Profile/Partials/Socialite.vue';
 
 const { t } = useI18n();
 </script>

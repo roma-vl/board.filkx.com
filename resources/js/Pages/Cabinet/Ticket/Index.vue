@@ -1,10 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router, usePage } from '@inertiajs/vue3';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import { computed, ref } from 'vue';
 import Modal from '@/Components/Modal.vue';
-import Create from '@/Pages/Account/Ticket/Create.vue';
+import Create from '@/Pages/Cabinet/Ticket/Create.vue';
 import TicketList from '@/Components/TicketList.vue';
 
 const tickets = computed(() => usePage().props.tickets);

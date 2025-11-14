@@ -5,7 +5,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Reject from '@/Pages/Admin/Banner/Actions/Reject.vue';
 import Modal from '@/Components/Modal.vue';
 import { getDateFormatFromLocale, getFullPathForImage } from '@/helpers.js';
-import PayBanner from '@/Pages/Account/Banner/Actions/PayBanner.vue';
+import PayBanner from '@/Pages/Cabinet/Banner/Actions/PayBanner.vue';
 
 const props = defineProps({
   banner: {

@@ -1,9 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import { computed, ref } from 'vue';
-import OrderList from '@/Pages/Account/Orders/OrderList.vue';
+import OrderList from '@/Pages/Cabinet/Orders/OrderList.vue';
 
 const orders = computed(() => usePage().props.orders);
 

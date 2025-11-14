@@ -1,24 +1,15 @@
 <script setup>
-import { useI18n } from 'vue-i18n';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import axios from 'axios';
 import InputError from '@/Components/InputError.vue';
-import AdvertFileUpload from '@/Pages/Account/Advert/Partials/AdvertFileUpload.vue';
+import AdvertFileUpload from '@/Pages/Cabinet/Advert/Partials/AdvertFileUpload.vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-
 const props = defineProps({
   categories: {
-    type: Array,
-    default: () => [],
-  },
-  attributes: {
-    type: Array,
-    default: () => [],
-  },
-  activeAttributes: {
     type: Array,
     default: () => [],
   },
@@ -26,77 +17,28 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  advert: {
-    type: Array,
-    default: () => {},
-  },
 });
-
 const showLocationDropdown = ref(false);
 const loadingCities = ref(false);
-const citySearchQuery = ref(props.advert.region[0]?.name || '');
+const citySearchQuery = ref('');
 const filteredCities = ref([]);
-
+const attributes = ref([]);
 const form = useForm({
-  category_id: props.advert.category_id,
-  country_id: props.advert.country_id,
-  region_id: props.advert.region_id,
-  area_id: props.advert.area_id,
-  village_id: props.advert.village_id,
-  title: props.advert.title,
-  price: props.advert.price,
-  address: props.advert.address,
-  content: props.advert.content,
+  category_id: '',
+  region_id: '',
+  title: '',
+  price: '',
+  address: '',
+  content: '',
   attributes: {},
-  images: props.advert.photo.map((img) => ({ type: 'existing', file: img.file, id: img.id })),
+  images: [],
 });
 
-const attributes = ref(props.attributes || []);
-for (const attr of attributes.value) {
-  form.attributes[attr.id] = props.activeAttributes?.[attr.id] ?? '';
-}
-
-watch(
-  () => form.category_id,
-  async (newCategoryId) => {
-    if (!newCategoryId) return;
-    try {
-      const response = await axios.get(
-        route('account.adverts.attributes', { categoryId: newCategoryId })
-      );
-      attributes.value = response.data ?? [];
-      form.attributes = {};
-      for (const attr of attributes.value) {
-        form.attributes[attr.id] = '';
-      }
-    } catch (error) {
-      console.error(t('LoadingAttributesError'), error);
-    }
-  }
-);
-
 const submit = () => {
-  const payload = {};
-  Object.keys(form).forEach((key) => {
-    if (key !== 'images' && key !== 'attributes') {
-      payload[key] = form[key];
-    }
-  });
-  Object.entries(form.attributes).forEach(([key, value]) => {
-    payload[`attributes[${key}]`] = value;
-  });
-  form.images.forEach((image, index) => {
-    payload[`images[${index}]`] = image;
-  });
-
-  form.post(route('account.adverts.update', props.advert.id), {
-    data: payload,
-    forceFormData: true,
+  form.post(route('account.adverts.store'), {
     onSuccess: () => {
-      console.log(t('AdvertUpdated'));
-    },
-    onError: (errors) => {
-      console.error(t('FormSubmitError'), errors);
+      console.log('Оголошення створено');
+      form.reset();
     },
   });
 };
@@ -105,25 +47,25 @@ const getCategoryOptions = (categories, prefix = '') => {
   let options = [];
   categories.forEach((category) => {
     options.push({ id: category.id, name: prefix + category.name });
-    if (category.children_recursive?.length) {
+
+    if (category.children_recursive && category.children_recursive.length) {
       options = options.concat(getCategoryOptions(category.children_recursive, prefix + '- '));
     }
   });
   return options;
 };
 const formattedCategories = computed(() => getCategoryOptions(props.categories));
-
 const selectCity = (city) => {
   citySearchQuery.value = city.name;
   form.region_id = city.id;
   showLocationDropdown.value = false;
 };
-
 const searchCities = async () => {
   if (citySearchQuery.value.length < 2) {
     filteredCities.value = [];
     return;
   }
+
   loadingCities.value = true;
   try {
     const response = await axios.get(
@@ -138,24 +80,59 @@ const searchCities = async () => {
   }
 };
 
-watch(citySearchQuery, searchCities);
-
 const handleClickOutside = (event) => {
   if (!event.target.closest('.search-container')) {
     showLocationDropdown.value = false;
   }
 };
+watch(citySearchQuery, searchCities);
+
+watch(
+  () => form.region_id,
+  async (newRegionId) => {
+    form.area_id = '';
+    form.village_id = '';
+    areas.value = [];
+
+    if (!newRegionId) return;
+
+    try {
+      const response = await axios.get(route('account.adverts.areas', { regionId: newRegionId }));
+      areas.value = response.data;
+    } catch (error) {
+      console.error('Помилка завантаження районів', error);
+    }
+  }
+);
+
+watch(
+  () => form.category_id,
+  async (newCategoryId) => {
+    attributes.value = [];
+    if (!newCategoryId) return;
+
+    try {
+      const response = await axios.get(
+        route('account.adverts.attributes', { categoryId: newCategoryId })
+      );
+      attributes.value = response.data ?? [];
+    } catch (error) {
+      console.error('Помилка завантаження атрибутів', error);
+    }
+  }
+);
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside);
 });
+
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
 });
 </script>
 
 <template>
-  <Head :title="t('EditAdvert') + ' ' + advert.title" />
+  <Head :title="t('CreateAdvert')" />
   <AuthenticatedLayout>
     <div class="py-6">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -163,7 +140,6 @@ onBeforeUnmount(() => {
           class="overflow-hidden bg-white sm:rounded-lg p-6 dark:bg-gray-700 rounded-md shadow-md"
         >
           <div class="px-4">
-            {{ t('EditAdvert') }}
             <form @submit.prevent="submit">
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">{{ t('Title') }}</label>
@@ -242,6 +218,10 @@ onBeforeUnmount(() => {
                   </div>
                 </div>
               </div>
+              <InputError
+                class="mt-2"
+                :message="form.errors.region_id"
+              />
 
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">{{ t('Address') }}</label>
@@ -252,11 +232,15 @@ onBeforeUnmount(() => {
                 >
               </div>
 
+              <InputError
+                class="mt-2"
+                :message="form.errors.address"
+              />
+
               <div class="mb-4">
                 <label class="block text-sm font-medium mb-2">{{ t('Description') }}</label>
                 <textarea
                   v-model="form.content"
-                  rows="15"
                   class="w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-900"
                 />
                 <InputError
@@ -319,7 +303,7 @@ onBeforeUnmount(() => {
                 type="submit"
                 class="mt-6 bg-blue-500 text-white px-6 py-3 rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                {{ t('Save') }}
+                {{ t('Create') }}
               </button>
             </form>
           </div>

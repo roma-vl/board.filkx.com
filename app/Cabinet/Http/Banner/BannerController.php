@@ -30,15 +30,14 @@ class BannerController extends Controller
     {
         $banners = Banner::forUser(Auth::user())->orderBy('id')->paginate(self::PER_PAGE);
 
-        return Inertia::render('Account/Banner/Index', [
+        return Inertia::render('Cabinet/Banner/Index', [
             'banners' => $banners,
         ]);
     }
 
     public function show(Banner $banner): Response
     {
-        //        $this->checkAccess($banner);
-        return Inertia::render('Account/Banner/Show', [
+        return Inertia::render('Cabinet/Banner/Show', [
             'banner' => $banner,
         ]);
     }
@@ -49,12 +48,11 @@ class BannerController extends Controller
         $categories = $this->categoryService->getCategories();
         $formats = Banner::formatsList();
         $banner->region = $banner->region()->get();
-        //        $this->checkAccess($banner);
         if ($banner->canBeChanged()) {
             return back()->with('error', __('banner.unable_to_edit_banner'));
         }
 
-        return Inertia::render('Account/Banner/Edit', [
+        return Inertia::render('Cabinet/Banner/Edit', [
             'banner' => $banner,
             'formats' => $formats,
             'categories' => $categories,
@@ -63,7 +61,6 @@ class BannerController extends Controller
 
     public function update(EditRequest $request, Banner $banner): RedirectResponse
     {
-        //        $this->checkAccess($banner);
         try {
             $this->bannerService->editByOwner($banner->id, $request);
         } catch (DomainException $exception) {
@@ -98,7 +95,6 @@ class BannerController extends Controller
 
     public function send(Banner $banner): RedirectResponse
     {
-        //        $this->checkAccess($banner);
         try {
             $this->bannerService->sendToModeration($banner->id);
         } catch (DomainException $exception) {
@@ -110,7 +106,6 @@ class BannerController extends Controller
 
     public function cancel(Banner $banner): RedirectResponse
     {
-        //        $this->checkAccess($banner);
         try {
             $this->bannerService->cancelModeration($banner->id);
         } catch (DomainException $e) {

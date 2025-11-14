@@ -23,7 +23,7 @@ readonly class AdvertServiceController
     {
         $advert->load('photo');
 
-        return Inertia::render('Account/Advert/Promote', [
+        return Inertia::render('Cabinet/Advert/Promote', [
             'advert' => $advert,
         ]);
     }

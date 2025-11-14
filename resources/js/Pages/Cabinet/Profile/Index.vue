@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import AvatarUploader from '@/Components/AvatarUploader.vue';
 
 const { t } = useI18n();

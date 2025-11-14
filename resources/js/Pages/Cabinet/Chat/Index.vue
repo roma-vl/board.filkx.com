@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import { computed, nextTick, onMounted, ref } from 'vue';
 import {
   getDateFormatFromLocale,

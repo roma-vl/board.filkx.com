@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
 import { computed } from 'vue';
 import AdvertList from '@/Components/AdvertList.vue';
 

@@ -19,14 +19,14 @@ class TicketController extends Controller
     {
         $tickets = $this->ticketService->getTickets();
 
-        return Inertia::render('Account/Ticket/Index', [
+        return Inertia::render('Cabinet/Ticket/Index', [
             'tickets' => $tickets,
         ]);
     }
 
     public function show(Ticket $ticket)
     {
-        return Inertia::render('Account/Ticket/Show', [
+        return Inertia::render('Cabinet/Ticket/Show', [
             'ticket' => $ticket,
             'statuses' => $ticket->statuses()->get(),
             'messages' => $ticket->messages()->with('user')->get(),

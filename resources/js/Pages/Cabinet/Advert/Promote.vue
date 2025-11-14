@@ -1,7 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import AdvertServices from '@/Components/AdvertServices.vue';
-import { getFullPathForImage } from '@/helpers.js';
 import AdvertSummaryCard from '@/Components/AdvertSummaryCard.vue';
 const props = defineProps({
   advert: {

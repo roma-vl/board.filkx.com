@@ -27,7 +27,7 @@ class AdvertController extends Controller
         Gate::authorize('check-permission', [[PermissionEnum::VIEW_OWN_ADVERTS->value]]);
         $advertsList = $this->advertService->advertsList();
 
-        return Inertia::render('Account/Advert/Index', [
+        return Inertia::render('Cabinet/Advert/Index', [
             'adverts' => $advertsList,
         ]);
     }
@@ -38,7 +38,7 @@ class AdvertController extends Controller
 
         $categories = $this->categoryService->getCategories();
 
-        return Inertia::render('Account/Advert/Create', [
+        return Inertia::render('Cabinet/Advert/Create', [
             'categories' => $categories,
         ]);
     }
@@ -50,7 +50,7 @@ class AdvertController extends Controller
         $categories = $this->categoryService->getCategories();
         $data = $this->advertService->getEditData($advert);
 
-        return Inertia::render('Account/Advert/Edit', [
+        return Inertia::render('Cabinet/Advert/Edit', [
             ...$data,
             'categories' => $categories,
         ]);

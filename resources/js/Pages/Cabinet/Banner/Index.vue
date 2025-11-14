@@ -1,8 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import ProfileMenu from '@/Pages/Account/Profile/Partials/ProfileMenu.vue';
-import BannerList from '@/Pages/Account/Banner/Partials/BannerList.vue';
+import ProfileMenu from '@/Pages/Cabinet/Profile/Partials/ProfileMenu.vue';
+import BannerList from '@/Pages/Cabinet/Banner/Partials/BannerList.vue';
 
 const banners = usePage().props.banners;
 
