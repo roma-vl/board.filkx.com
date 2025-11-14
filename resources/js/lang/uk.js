@@ -364,14 +364,14 @@ export default {
   Home: 'Головна',
   'Profile Settings': 'Налаштування профілю',
   'Log Out': 'Вийти',
-  'Snail — your reliable platform for announcements. Everything for people.':
-    'Snail — ваш надійний майданчик для оголошень. Все для людей.',
+  'Filkx — your reliable platform for announcements. Everything for people.':
+    'Filkx — ваш надійний майданчик для оголошень. Все для людей.',
   'Follow us on Facebook': 'Слідкуйте за нами у Facebook',
   'Follow us on GitHub': 'Слідкуйте за нами на GitHub',
   'Subscribe on YouTube': 'Підпишіться на YouTube',
   Navigation: 'Навігація',
   'Help & Feedback': "Допомога та зворотний зв'язок",
-  'Snail Blog': 'Блог Snail',
+  'Filkx Blog': 'Блог Filkx',
   Contacts: 'Контакти',
   FAQ: 'Часті питання',
   Legal: 'Правова інформація',
