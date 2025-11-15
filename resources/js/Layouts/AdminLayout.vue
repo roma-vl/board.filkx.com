@@ -42,7 +42,7 @@ const toggleFullscreen = () => {
                 :aria-label="$t('admin_dashboard')"
               >
                 <ApplicationLogo
-                  class="block h-12 w-auto fill-current text-gray-800 dark:text-gray-200 pl-6 transition-colors duration-300"
+                  class="block h-20 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors duration-300"
                 />
               </Link>
             </div>
