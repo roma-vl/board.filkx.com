@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y unzip git curl zip \
 
 WORKDIR /var/www
 
-COPY ./composer.json ./composer.lock ./
+COPY ./composer.json ./composer.lock ./var/www/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer \
     && composer install --no-dev --prefer-dist --optimize-autoloader --no-scripts
