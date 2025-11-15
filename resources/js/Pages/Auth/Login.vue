@@ -43,14 +43,7 @@ const submit = () => {
 };
 
 const connect = (provider) => {
-  router.get(
-    route('social.register', provider),
-    {},
-    {
-      preserveState: false,
-      preserveScroll: false,
-    }
-  );
+  window.location.href = route('social.register', provider);
 };
 </script>
 
@@ -294,4 +287,3 @@ const connect = (provider) => {
     </div>
   </GuestLayout>
 </template>
-```

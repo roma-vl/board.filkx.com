@@ -25,14 +25,13 @@ class GoogleController extends Controller
     {
         try {
             $providerUser = Socialite::driver($provider)->stateless()->user();
-
             $user = $this->userService->findOrCreateUserViaSocial($providerUser, $provider);
 
             Auth::login($user, true);
 
-            return redirect()->back();
+            return redirect()->route('dashboard');
         } catch (Exception $e) {
-            report($e); // лог помилки в storage/logs/laravel.log
+            report($e);
 
             return redirect('/')->with('error', 'Помилка при авторизації через Google.');
         }
