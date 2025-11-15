@@ -7,7 +7,6 @@ RELEASE_DIR="$APP_DIR/$COLOR/current"
 DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker-compose.yml"
 WORKDIR_IN_CONTAINER="/var/www/html"
 
-# ✅ Перевірки
 if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
   echo "❌ Некоректне середовище: $COLOR"
   exit 1
@@ -19,9 +18,8 @@ if [ ! -d "$RELEASE_DIR" ]; then
 fi
 
 echo "🚀 Деплой у $COLOR середовище"
-cd "$RELEASE_DIR"
 
-# 🔗 Shared user directories (adverts + banners)
+# 🔗 Shared user directories
 [ -e "$RELEASE_DIR/storage/app/public/adverts" ] && rm -rf "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
 
@@ -32,15 +30,18 @@ ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR
 rm -f "$RELEASE_DIR/.env"
 ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
 
-# 🛑 Зупинка поточних контейнерів
+# 🛑 Зупиняємо поточний контейнер
 echo "🛑 Зупинка контейнерів..."
-#docker-compose -f "$DOCKER_COMPOSE_FILE" down
+docker-compose -f "$DOCKER_COMPOSE_FILE" down
 
-# 🚀 Запуск контейнерів у фоні
-echo "🚀 Запуск контейнерів..."
-#docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
+# 🔗 Перемикаємо current **до старту контейнерів**
+ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
 
-# 🔐 Права (до artisan migrate)
+# 🚀 Запуск контейнерів
+echo "🚀 Старт контейнерів..."
+docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
+
+# 🔐 Встановлюємо права всередині контейнера
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chmod -R 775 storage bootstrap/cache
 
@@ -49,39 +50,30 @@ echo "⚙️ Міграції..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan migrate --force
 
 # 🧹 Кешування
-echo "🧹 Кешування..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:clear
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan route:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
-
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan storage:link
 
+# Elasticsearch
 echo "⏳ Очікуємо повну готовність Elasticsearch..."
-
 for i in {1..30}; do
     STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
-
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
         echo "✅ Elasticsearch статус: $STATUS"
         break
     fi
-
     echo "🔄 Статус: $STATUS (спроба $i)"
     sleep 2
 done
 
-# Якщо все ще не готовий — показати попередження, але не падати
 FINAL_STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
-if [[ "$FINAL_STATUS" != "yellow" && "$FINAL_STATUS" != "green" ]]; then
-    echo "⚠️ Elasticsearch досі не готовий (статус: $FINAL_STATUS). Пропускаємо search:init"
-else
+if [[ "$FINAL_STATUS" == "yellow" || "$FINAL_STATUS" == "green" ]]; then
     docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
     docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
+else
+    echo "⚠️ Elasticsearch досі не готовий. Пропускаємо search:init"
 fi
-
-
-# 🔗 Перемикаємо current
-ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
 
 echo "✅ Деплой завершено. Активне середовище — $COLOR"
