@@ -17,7 +17,9 @@ FROM php:8.4-fpm
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
-    libpq-dev zlib1g-dev zip libzip-dev libicu-dev vim git curl unzip \
+    libpq-dev zlib1g-dev zip libzip-dev libicu-dev \
+    vim git curl unzip \
+    imagemagick libmagickwand-dev libmagickcore-dev \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip pdo pdo_mysql intl bcmath opcache \
     && pecl install redis imagick msgpack \
@@ -27,7 +29,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /var/www/vendor ./vendor
 COPY . ./
 
-COPY ./docker/production/php/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./docker/production/php-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
 
 RUN groupadd --force -g 1000 app \
     && useradd -ms /bin/bash --no-user-group -g 1000 -u 1337 app \
