@@ -1,13 +1,13 @@
 services:
   laravel.test:
     build:
-      context: './docker/8.4'
+      context: './docker/8.4/production'
       dockerfile: Dockerfile
       args:
         WWWGROUP: '1000'
     env_file:
       - .env
-    image: 'sail-8.4/app'
+    image: 'laravel-app:prod'
     restart: always
     extra_hosts:
       - 'host.docker.internal:host-gateway'
