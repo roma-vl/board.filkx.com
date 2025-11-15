@@ -4,7 +4,7 @@ set -e
 COLOR=$1
 APP_DIR="/var/www/board.filkx.com"
 RELEASE_DIR="$APP_DIR/$COLOR"
-DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker-compose.yml"
+DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker/production/8.4/docker-compose.yml"
 WORKDIR_IN_CONTAINER="/var/www/html"
 
 if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
