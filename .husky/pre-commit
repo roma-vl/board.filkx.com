@@ -1,2 +1,2 @@
- docker exec bord-app-app-1 npm run format
- docker exec bord-app-app-1 ./vendor/bin/pint
+ #docker exec bord-app-app-1 npm run format
+ #docker exec bord-app-app-1 ./vendor/bin/pint

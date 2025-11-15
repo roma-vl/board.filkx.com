@@ -19,7 +19,7 @@ services:
       IGNITION_LOCAL_SITES_PATH: '${PWD}'
       ELASTICSEARCH_HOSTS: elasticsearch:9200
     volumes:
-      - '/var/www/board.filkx.com/current:/var/www/html'
+      - '/var/www/board.filkx.com/current:/var/www'
       - '/var/www/board.filkx.com/shared:/var/www/board.filkx.com/shared'
     networks:
       - sail

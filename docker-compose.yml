@@ -19,7 +19,7 @@ services:
       REDIS_HOST: redis
       ELASTICSEARCH_HOSTS: elasticsearch:9200
     volumes:
-      - '.:/var/www/html:rw'
+      - '.:/var/www:rw'
       - ./docker/certs/dev.board.filkx.com.pem:/etc/ssl/certs/dev.board.filkx.com.pem
       - ./docker/certs/dev.board.filkx.com-key.pem:/etc/ssl/certs/dev.board.filkx.com-key.pem
     networks:
@@ -42,7 +42,7 @@ services:
       DB_HOST: mysql
       REDIS_HOST: redis
     volumes:
-      - '.:/var/www/html:rw'
+      - '.:/var/www:rw'
     networks:
       - laravel
     depends_on:

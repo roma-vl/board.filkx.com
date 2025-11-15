@@ -17,11 +17,11 @@ docker exec "$MYSQL_CONTAINER" sh -c "mysqldump -u$DB_USER -p$DB_PASSWORD $DB_NA
 echo "✅ MySQL збережено у $BACKUP_DIR/db.sql"
 
 echo "📂 Бекап файлів (storage)..."
-tar -czf "$BACKUP_DIR/files.tar.gz" /var/www/html/storage/app/public
+tar -czf "$BACKUP_DIR/files.tar.gz" /var/www/storage/app/public
 echo "✅ Файли збережено у $BACKUP_DIR/files.tar.gz"
 
 echo "🔐 Бекап .env..."
-cp /var/www/html/.env "$BACKUP_DIR/.env"
+cp /var/www/.env "$BACKUP_DIR/.env"
 echo "✅ .env збережено"
 
 echo "🎉 Бекап завершено успішно! 🔒 Усе збережено в: $BACKUP_DIR"

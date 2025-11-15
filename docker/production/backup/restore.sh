@@ -30,7 +30,7 @@ tar -xzf "$BACKUP_DIR/files.tar.gz" -C /var/www/board.filkx.com/shared/storage/a
 echo "✅ Файли розпаковано"
 
 echo "🔐 Відновлюємо .env..."
-cp "$BACKUP_DIR/.env" /var/www/html/.env
+cp "$BACKUP_DIR/.env" /var/www/.env
 echo "✅ .env файл повернуто"
 
 echo "🎉 Відновлення завершено!"

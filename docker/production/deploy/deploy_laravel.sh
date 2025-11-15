@@ -5,7 +5,7 @@ COLOR=$1
 APP_DIR="/var/www/board.filkx.com"
 RELEASE_DIR="$APP_DIR/$COLOR"
 DOCKER_COMPOSE_FILE="/var/www/board.filkx.com/current/docker/production/docker-compose.yml"
-WORKDIR_IN_CONTAINER="/var/www/html"
+WORKDIR_IN_CONTAINER="/var/www"
 
 if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
   echo "❌ Некоректне середовище: $COLOR"

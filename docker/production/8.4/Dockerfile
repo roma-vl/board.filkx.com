@@ -4,7 +4,7 @@ LABEL maintainer="Roma Volkov"
 
 ARG WWWGROUP=1000
 
-WORKDIR /var/www/html
+WORKDIR /var/www
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
@@ -36,7 +36,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Логи
 RUN mkdir -p /var/log/supervisor /var/log/nginx /var/log/php \
-    && chown -R app:app /var/www/html /var/log
+    && chown -R app:app /var/www /var/log
 
 EXPOSE 80
 

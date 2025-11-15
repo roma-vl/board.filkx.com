@@ -16,7 +16,7 @@
 
 - Laravel працює в Docker з контейнером MySQL.
 - Файли зберігаються у: `/var/www/board.filkx.com/shared/storage/app/public`
-- `.env` знаходиться в: `/var/www/html/.env`
+- `.env` знаходиться в: `/var/www/.env`
 - Контейнер MySQL називається: `mysql`
 
 ---
@@ -56,7 +56,7 @@
     echo "✅ Файли збережено у $BACKUP_DIR/files.tar.gz"
 
     echo "🔐 Бекап .env..."
-    cp /var/www/html/.env "$BACKUP_DIR/.env"
+    cp /var/www/.env "$BACKUP_DIR/.env"
     echo "✅ .env збережено"
 
     echo "🎉 Бекап завершено успішно! 🔒 Усе збережено в: $BACKUP_DIR"
@@ -101,7 +101,7 @@
     echo "✅ Файли розпаковано"
 
     echo "🔐 Відновлюємо .env..."
-    cp "$BACKUP_DIR/.env" /var/www/html/.env
+    cp "$BACKUP_DIR/.env" /var/www/.env
     echo "✅ .env файл повернуто"
 
     echo "🎉 Відновлення завершено!"
