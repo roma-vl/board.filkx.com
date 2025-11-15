@@ -57,6 +57,21 @@ if [ -n "$MYSQL_CONTAINER" ]; then
     done
 fi
 
+# 🔄 Очікуємо Redis
+REDIS_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q redis)
+if [ -n "$REDIS_CONTAINER" ]; then
+    echo "⏳ Очікуємо Redis..."
+    for i in {1..30}; do
+        if docker exec "$REDIS_CONTAINER" redis-cli ping >/dev/null 2>&1; then
+            echo "✅ Redis готовий"
+            break
+        fi
+        echo "🔄 Redis ще не готовий (спроба $i)"
+        sleep 2
+    done
+fi
+
+
 # 🔐 Встановлюємо права всередині контейнера
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app chown -R www-data:www-data storage bootstrap/cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app chmod -R 775 storage bootstrap/cache
