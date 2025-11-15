@@ -103,3 +103,4 @@ volumes:
   sail-mysql:
   sail-redis:
   composer:
+  elasticsearch:
