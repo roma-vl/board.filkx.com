@@ -19,7 +19,7 @@
       "get": {
         "tags": ["Adverts"],
         "summary": "Список оголошень з фільтрами",
-        "operationId": "dd25f1509fc9176ae712684893b5d279",
+        "operationId": "63b1c6c2e36c8029d8ebb9d93cb3be34",
         "parameters": [
           {
             "name": "category",
@@ -90,10 +90,1082 @@
         ]
       }
     },
+    "/favorites/{advert}": {
+      "post": {
+        "tags": ["Favorites"],
+        "summary": "Додати оголошення до обраних",
+        "description": "Додає вказане оголошення до списку обраних для поточного користувача.",
+        "operationId": "9ba210f0ae9ba728dbd87259a963c580",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Оголошення додано до обраних",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Неможливо додати до обраних",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot add to favorites."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Favorites"],
+        "summary": "Видалити оголошення з обраних",
+        "description": "Видаляє вказане оголошення зі списку обраних для поточного користувача.",
+        "operationId": "725eb38b0fe53dca338f048ef93ab2bd",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Оголошення видалено з обраних"
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено або не було в обраних",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found or not in favorites."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Реєстрація нового користувача",
+        "operationId": "ba1fe9de18e33e496c953a9d201e2247",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Користувача створено. Перевірте емейл",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "string",
+                      "example": "перевірте емейл і підтвердіть пошту"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts": {
+      "get": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Отримати список оголошень користувача",
+        "description": "Повертає пагінований список оголошень, створених поточним користувачем.",
+        "operationId": "58bffc737f6867ea061941363fcea815",
+        "responses": {
+          "200": {
+            "description": "Список оголошень",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AdvertListResource"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/PaginationLinks"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Створити нове оголошення",
+        "description": "Створює нове оголошення для поточного користувача.",
+        "operationId": "15d7ba68372d3ac53cb706feb6ea8a84",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Оголошення створено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Помилка валідації",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The given data was invalid."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts/{advert}": {
+      "get": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Отримати деталі оголошення",
+        "description": "Повертає детальну інформацію про конкретне оголошення користувача.",
+        "operationId": "77c270233f9cfed10a48e5d091652000",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Деталі оголошення",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Оновити оголошення",
+        "description": "Оновлює існуюче оголошення користувача.",
+        "operationId": "976bf2a6a964d3f82309e52349c90ae4",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Оголошення оновлено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Помилка валідації",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The given data was invalid."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Видалити оголошення",
+        "description": "Видаляє оголошення користувача.",
+        "operationId": "99c4088da8c199e99f91d4dbacc1818b",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Оголошення видалено"
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts/{advert}/attributes": {
+      "put": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Оновити атрибути оголошення",
+        "description": "Оновлює атрибути існуючого оголошення користувача.",
+        "operationId": "85027be7ef1d2867e9e5d26346e180bd",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttributesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Атрибути оголошення оновлено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Помилка валідації",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The given data was invalid."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts/{advert}/photos": {
+      "put": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Додати фото до оголошення",
+        "description": "Додає фото до існуючого оголошення користувача.",
+        "operationId": "80a0abf1fd26b4734e13e0518ad47fed",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhotosRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Фото додано до оголошення",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Помилка валідації",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The given data was invalid."
+                    },
+                    "errors": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts/{advert}/send": {
+      "post": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Надіслати оголошення на модерацію",
+        "description": "Надсилає оголошення на перевірку модератору.",
+        "operationId": "a6ee136b7c9385dcadd3adbb917773a0",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Оголошення надіслано на модерацію",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Неможливо надіслати на модерацію",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot send to moderation."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/adverts/{advert}/close": {
+      "post": {
+        "tags": ["Cabinet Adverts"],
+        "summary": "Закрити оголошення",
+        "description": "Закриває оголошення, воно більше не буде активним.",
+        "operationId": "5c29412449b57022e0e9e2525de3c185",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Оголошення закрито",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertDetailResource"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Доступ заборонено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "This action is unauthorized."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Неможливо закрити оголошення",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot close advert."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/favorites": {
+      "get": {
+        "tags": ["Cabinet Favorites"],
+        "summary": "Отримати список обраних оголошень",
+        "description": "Повертає пагінований список оголошень, доданих до обраних поточним користувачем.",
+        "operationId": "18bb8dc5ae52ce22a95a6b80564dd0f8",
+        "responses": {
+          "200": {
+            "description": "Список обраних оголошень",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AdvertDetailResource"
+                      }
+                    },
+                    "links": {
+                      "$ref": "#/components/schemas/PaginationLinks"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/PaginationMeta"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cabinet/favorites/{advert}": {
+      "delete": {
+        "tags": ["Cabinet Favorites"],
+        "summary": "Видалити оголошення з обраних",
+        "description": "Видаляє вказане оголошення зі списку обраних для поточного користувача та перенаправляє назад.",
+        "operationId": "bdc34d7e998d4b546ad62e4475c10f97",
+        "parameters": [
+          {
+            "name": "advert",
+            "in": "path",
+            "description": "ID оголошення",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 123
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Перенаправлення на список обраних"
+          },
+          "401": {
+            "description": "Неавторизований доступ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Оголошення не знайдено або не було в обраних",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Advert not found or not in favorites."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Неможливо видалити з обраних",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Cannot remove from favorites."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/user/show": {
       "get": {
         "summary": "Отримати профіль користувача",
-        "operationId": "67f3f8b1861a17719fa8340349a08b72",
+        "operationId": "d1b09ef443e0e5090861830428b52988",
         "responses": {
           "200": {
             "description": "Профіль користувача",
@@ -119,7 +1191,7 @@
     "/api/v1/user": {
       "put": {
         "summary": "Оновити профіль користувача",
-        "operationId": "8c2c65db9efe797db55d59f865e9445c",
+        "operationId": "a42e38e4fe243e3394defedfd548c6d8",
         "requestBody": {
           "required": true,
           "content": {
@@ -294,8 +1366,24 @@
   },
   "tags": [
     {
+      "name": "Favorites",
+      "description": "Управління обраними оголошеннями"
+    },
+    {
+      "name": "Cabinet Adverts",
+      "description": "Управління оголошеннями в кабінеті користувача"
+    },
+    {
+      "name": "Cabinet Favorites",
+      "description": "Управління обраними оголошеннями в кабінеті користувача"
+    },
+    {
       "name": "Adverts",
       "description": "Adverts"
+    },
+    {
+      "name": "Auth",
+      "description": "Auth"
     }
   ]
 }

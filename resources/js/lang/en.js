@@ -361,14 +361,14 @@ export default {
   Home: 'Home',
   'Profile Settings': 'Profile Settings',
   'Log Out': 'Log Out',
-  'Snail — your reliable platform for announcements. Everything for people.':
-    'Snail — your reliable platform for announcements. Everything for people.',
+  'Filkx — your reliable platform for announcements. Everything for people.':
+    'Filkx — your reliable platform for announcements. Everything for people.',
   'Follow us on Facebook': 'Follow us on Facebook',
   'Follow us on GitHub': 'Follow us on GitHub',
   'Subscribe on YouTube': 'Subscribe on YouTube',
   Navigation: 'Navigation',
   'Help & Feedback': 'Help & Feedback',
-  'Snail Blog': 'Snail Blog',
+  'Filkx Blog': 'Filkx Blog',
   Contacts: 'Contacts',
   FAQ: 'FAQ',
   Legal: 'Legal',

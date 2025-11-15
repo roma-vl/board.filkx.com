@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class OrdersController
+readonly class OrdersController
 {
-    public function __construct(private readonly PdfGeneratorInterface $pdfGenerator) {}
+    public function __construct(private PdfGeneratorInterface $pdfGenerator) {}
 
     public function index(Request $request): Response
     {
@@ -21,7 +21,7 @@ class OrdersController
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        return Inertia::render('Account/Orders/Index', [
+        return Inertia::render('Cabinet/Orders/Index', [
             'orders' => $orders,
         ]);
     }

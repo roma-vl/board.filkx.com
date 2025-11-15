@@ -25,15 +25,13 @@ class ChatController extends Controller
             ->latest('updated_at')
             ->get();
 
-        return Inertia::render('Account/Chat/Index', [
+        return Inertia::render('Cabinet/Chat/Index', [
             'dialogs' => $dialogs,
         ]);
     }
 
     public function show(Request $request, Dialog $dialog): Response
     {
-        //        $this->authorizeDialog($dialog);
-
         $dialog->load('advert', 'client');
         $user = auth()->user();
 
@@ -45,7 +43,7 @@ class ChatController extends Controller
             ->latest('updated_at')
             ->get();
 
-        return Inertia::render('Account/Chat/Index', [
+        return Inertia::render('Cabinet/Chat/Index', [
             'dialogs' => $dialogs,
             'activeDialogId' => $dialog->id,
         ]);
@@ -53,8 +51,6 @@ class ChatController extends Controller
 
     public function getMessages(Dialog $dialog, Request $request): JsonResponse
     {
-        //        $this->authorizeDialog($dialog);
-
         $messages = $dialog->messages()->with('user')->latest()->paginate(10);
 
         return response()->json([

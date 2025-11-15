@@ -24,7 +24,7 @@ class FavoriteController
 
         $favoriteAdverts = $this->favoriteService->favoritesList();
 
-        return Inertia::render('Account/Favorites/Index', [
+        return Inertia::render('Cabinet/Favorites/Index', [
             'favoriteAdverts' => $favoriteAdverts,
         ]);
     }

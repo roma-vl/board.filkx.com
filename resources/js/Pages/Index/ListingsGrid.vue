@@ -19,12 +19,12 @@ const emit = defineEmits(['toggle-like']);
 
 const toggleLike = (advert) => {
   if (advert.isFavorited) {
-    router.delete(route('account.favorites.remove', { advert: advert.id }), {
+    router.delete(route('cabinet.favorites.remove', { advert: advert.id }), {
       replace: true,
       preserveScroll: true,
     });
   } else {
-    router.post(route('account.favorites.add', { advert: advert.id }), {
+    router.post(route('cabinet.favorites.add', { advert: advert.id }), {
       replace: true,
       preserveScroll: true,
     });

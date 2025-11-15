@@ -18,10 +18,16 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: true,
+    host: '0.0.0.0',
+    port: 5173,
+    https: {
+      key: './docker/certs/dev.board.filkx.com-key.pem',
+      cert: './docker/certs/dev.board.filkx.com.pem',
+    },
+    hmr: {
+      host: 'dev.board.filkx.com',
+      protocol: 'wss',
+      port: 5173,
+    },
   },
-  // server: {
-  //     https: true,
-  //     host: '0.0.0.0',
-  // },
 });

@@ -27,7 +27,7 @@ class AdvertController extends Controller
         Gate::authorize('check-permission', [[PermissionEnum::VIEW_OWN_ADVERTS->value]]);
         $advertsList = $this->advertService->advertsList();
 
-        return Inertia::render('Account/Advert/Index', [
+        return Inertia::render('Cabinet/Advert/Index', [
             'adverts' => $advertsList,
         ]);
     }
@@ -38,7 +38,7 @@ class AdvertController extends Controller
 
         $categories = $this->categoryService->getCategories();
 
-        return Inertia::render('Account/Advert/Create', [
+        return Inertia::render('Cabinet/Advert/Create', [
             'categories' => $categories,
         ]);
     }
@@ -50,7 +50,7 @@ class AdvertController extends Controller
         $categories = $this->categoryService->getCategories();
         $data = $this->advertService->getEditData($advert);
 
-        return Inertia::render('Account/Advert/Edit', [
+        return Inertia::render('Cabinet/Advert/Edit', [
             ...$data,
             'categories' => $categories,
         ]);
@@ -66,7 +66,7 @@ class AdvertController extends Controller
             return response()->json(['error' => $e->getMessage()], 422);
         }
 
-        return redirect()->route('account.adverts.index')->with('success', __('adverts.advert_update'));
+        return redirect()->route('cabinet.adverts.index')->with('success', __('adverts.advert_update'));
     }
 
     public function publish(Advert $advert): RedirectResponse
@@ -91,7 +91,7 @@ class AdvertController extends Controller
         $this->advertService->remove($advert);
 
         return redirect()
-            ->route('account.adverts.index')
+            ->route('cabinet.adverts.index')
             ->with('danger', __('adverts.advert_delete'));
     }
 
@@ -101,7 +101,7 @@ class AdvertController extends Controller
         $this->advertService->close($advert);
 
         return redirect()
-            ->route('account.adverts.index')
+            ->route('cabinet.adverts.index')
             ->with('danger', __('adverts.advert_delete'));
     }
 

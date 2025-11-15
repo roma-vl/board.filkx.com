@@ -21,7 +21,7 @@ class ProfileController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Account/Profile/Index');
+        return Inertia::render('Cabinet/Profile/Index');
     }
 
     /**
@@ -31,7 +31,7 @@ class ProfileController extends Controller
     {
         $user = $request->user()->load('socialAccounts');
 
-        return Inertia::render('Account/Profile/Settings', [
+        return Inertia::render('Cabinet/Profile/Settings', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'auth' => [
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         Mail::to($request->user()->email)->send(new TestEmail($request->user()));
 
-        return Redirect::route('account.profile.settings')->with('success', __('profile.profile_information_update'));
+        return Redirect::route('cabinet.profile.settings')->with('success', __('profile.profile_information_update'));
     }
 
     public function uploadAvatar(Request $request): RedirectResponse

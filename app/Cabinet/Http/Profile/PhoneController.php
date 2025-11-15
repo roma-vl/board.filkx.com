@@ -37,7 +37,7 @@ class PhoneController extends Controller
         }
 
         //        Mail::to($request->user()->email)->send(new \App\Mail\TestEmail($request->user()));
-        return Redirect::route('account.profile.settings')->with('success', __('profile.phone_update'));
+        return Redirect::route('cabinet.profile.settings')->with('success', __('profile.phone_update'));
     }
 
     public function request(Request $request): RedirectResponse
@@ -51,12 +51,12 @@ class PhoneController extends Controller
             request()->session()->flash('error', $e->getMessage());
         }
 
-        return redirect()->route('account.profile.phone.form');
+        return redirect()->route('cabinet.profile.phone.form');
     }
 
     public function form(Request $request): Response
     {
-        return Inertia::render('Account/Profile/VerifyCodeForm');
+        return Inertia::render('Cabinet/Profile/VerifyCodeForm');
     }
 
     public function verify(Request $request): RedirectResponse
@@ -70,9 +70,9 @@ class PhoneController extends Controller
         try {
             $user->verifyPhone($request['token'], Carbon::now());
         } catch (DomainException $e) {
-            return redirect()->route('account.profile.phone.form')->with('error', $e->getMessage());
+            return redirect()->route('cabinet.profile.phone.form')->with('error', $e->getMessage());
         }
 
-        return redirect()->route('account.profile.index');
+        return redirect()->route('cabinet.profile.index');
     }
 }

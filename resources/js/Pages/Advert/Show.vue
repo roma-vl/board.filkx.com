@@ -63,9 +63,9 @@ const dialogId = ref(null);
 const loadMessages = async (page = 1) => {
   isMessengerOpen.value = true;
   try {
-    const dialogResponse = await axios.get(route('account.chats.get.dialog', props.advert.id));
+    const dialogResponse = await axios.get(route('cabinet.chats.get.dialog', props.advert.id));
     dialogId.value = dialogResponse.data.id;
-    const response = await axios.get(route('account.chats.messages', dialogId.value), {
+    const response = await axios.get(route('cabinet.chats.messages', dialogId.value), {
       params: { page },
     });
 
@@ -91,9 +91,9 @@ const toggleMessenger = async () => {
 
 const toggleLike = () => {
   if (props.isFavorited === true) {
-    router.delete(route('account.favorites.remove', { advert: props.advert.id }));
+    router.delete(route('cabinet.favorites.remove', { advert: props.advert.id }));
   } else {
-    router.post(route('account.favorites.add', { advert: props.advert.id }));
+    router.post(route('cabinet.favorites.add', { advert: props.advert.id }));
   }
   isLiked.value = !isLiked.value;
 };
@@ -129,13 +129,13 @@ const getPhone = async (id) => {
 };
 
 const publish = async () => {
-  router.post(route('account.adverts.actions.publish', { advert: props.advert.id }), {
+  router.post(route('cabinet.adverts.actions.publish', { advert: props.advert.id }), {
     onSuccess: () => router.replace(route('admin.users.index')),
   });
 };
 
 const toDraft = async () => {
-  router.post(route('account.adverts.actions.draft', { advert: props.advert.id }), {
+  router.post(route('cabinet.adverts.actions.draft', { advert: props.advert.id }), {
     onSuccess: () => router.replace(route('admin.users.index')),
   });
 };
@@ -151,7 +151,7 @@ const rejectAdvert = () => {
 };
 const deleteAdvert = () => {
   if (confirm('Ви впевнені, що хочете видалити оголошення?')) {
-    router.delete(route('account.adverts.destroy', props.advert.id));
+    router.delete(route('cabinet.adverts.destroy', props.advert.id));
   }
 };
 
@@ -159,7 +159,7 @@ const sendMessage = () => {
   const text = messageForm.message.trim();
   if (!text) return;
 
-  messageForm.post(route('account.chats.store', props.advert.id), {
+  messageForm.post(route('cabinet.chats.store', props.advert.id), {
     onSuccess: () => {
       messages.value.data.unshift({
         id: Date.now(),
@@ -202,6 +202,7 @@ const messageForm = useForm({
 </script>
 
 <template>
+  <Head :title="advert.title" />
   <AuthenticatedLayout>
     <div class="py-6 dark:bg-gray-900">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -221,7 +222,7 @@ const messageForm = useForm({
               class="flex flex-wrap gap-2"
             >
               <Link
-                :href="route('account.adverts.edit', props.advert.id)"
+                :href="route('cabinet.adverts.edit', props.advert.id)"
                 class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition-colors"
               >
                 {{ $t('edit') }}
@@ -428,7 +429,7 @@ const messageForm = useForm({
                   🔥 {{ $t('advert.promote.title') }}
                 </div>
                 <Link
-                  :href="route('account.adverts.promote', props.advert.id)"
+                  :href="route('cabinet.adverts.promote', props.advert.id)"
                   class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 dark:focus:ring-offset-gray-800 transition-all"
                 >
                   🚀 {{ $t('advert.promote.button') }}

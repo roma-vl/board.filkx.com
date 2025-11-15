@@ -23,7 +23,7 @@ readonly class AdvertServiceController
     {
         $advert->load('photo');
 
-        return Inertia::render('Account/Advert/Promote', [
+        return Inertia::render('Cabinet/Advert/Promote', [
             'advert' => $advert,
         ]);
     }
@@ -48,7 +48,7 @@ readonly class AdvertServiceController
             return $order;
         });
 
-        return redirect()->route('account.adverts.index')
+        return redirect()->route('cabinet.adverts.index')
             ->with('success', 'Послуги активовано!');
     }
 
@@ -70,7 +70,7 @@ readonly class AdvertServiceController
 
         $this->extendService($existing, $serviceType, $order);
 
-        return redirect()->route('account.adverts.index')
+        return redirect()->route('cabinet.adverts.index')
             ->with('success', 'Послугу продовжено!');
     }
 

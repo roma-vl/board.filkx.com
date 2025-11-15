@@ -27,7 +27,7 @@ defineProps({
       </div>
 
       <div class="mt-3 space-y-1">
-        <ResponsiveNavLink :href="route('account.profile.settings')">
+        <ResponsiveNavLink :href="route('cabinet.profile.settings')">
           Profile
         </ResponsiveNavLink>
         <ResponsiveNavLink

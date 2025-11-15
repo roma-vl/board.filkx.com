@@ -33,7 +33,7 @@ const remove = (ticketId) => {
           <div class="flex-grow flex flex-col justify-between">
             <div>
               <a
-                :href="route('account.tickets.show', ticket.id)"
+                :href="route('cabinet.tickets.show', ticket.id)"
                 class="block group"
               >
                 <h3

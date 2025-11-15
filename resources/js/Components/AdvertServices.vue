@@ -122,7 +122,7 @@ const canSubmit = computed(
 
 const submit = async () => {
   try {
-    await axios.post(route('account.adverts.purchase', props.advert.id), {
+    await axios.post(route('cabinet.adverts.purchase', props.advert.id), {
       types: [...selectedPackages.value, ...selectedServices.value],
       couponCode: couponCode.value,
     });
@@ -134,7 +134,7 @@ const submit = async () => {
   }
 };
 const repeatPurchase = (type) => {
-  router.post(route('account.adverts.extend', advert.id), { type });
+  router.post(route('cabinet.adverts.extend', advert.id), { type });
 };
 </script>
 <template>

@@ -18,12 +18,11 @@ const showingNavigationDropdown = ref(false);
 const flash = computed(() => usePage().props.flash);
 const showRatingPopup = ref(false);
 
-const handleSubmit = (message) => {
+const handleSubmit = () => {
   showRatingPopup.value = false;
 };
 
 onMounted(() => {
-  // Increased timeout for better UX - 5 minutes might be too aggressive for first-time visitors
   setTimeout(() => {
     showRatingPopup.value = true;
   }, 300000);
@@ -34,28 +33,24 @@ onMounted(() => {
   <div
     class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300"
   >
-    <!-- Navigation Bar -->
     <nav
       class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
     >
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
-          <!-- Logo -->
           <Link
             :href="route('main')"
             class="flex-shrink-0"
             :aria-label="$t('Home')"
           >
             <ApplicationLogo
-              class="h-8 w-auto fill-current text-indigo-600 dark:text-indigo-400 transition-colors"
+              class="h-20 w-auto fill-current text-indigo-600 dark:text-indigo-400 transition-colors"
             />
           </Link>
-
-          <!-- Desktop Navigation -->
           <div class="hidden sm:flex items-center space-x-2 lg:space-x-4">
             <Link
-              v-if="!route().current('account.adverts.create')"
-              :href="route('account.adverts.create')"
+              v-if="!route().current('cabinet.adverts.create')"
+              :href="route('cabinet.adverts.create')"
               class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-white dark:focus:ring-offset-gray-900 dark:from-indigo-500 dark:to-purple-500 transition-all duration-200 transform hover:-translate-y-0.5"
               :aria-label="$t('Create Advert')"
             >
@@ -84,7 +79,6 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- Mobile Toggle -->
           <div class="sm:hidden flex items-center">
             <button
               type="button"
@@ -126,7 +120,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Mobile Navigation -->
       <div
         v-show="showingNavigationDropdown"
         class="sm:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900"
@@ -143,8 +136,8 @@ onMounted(() => {
 
           <div class="space-y-2">
             <Link
-              v-if="!route().current('account.adverts.create')"
-              :href="route('account.adverts.create')"
+              v-if="!route().current('cabinet.adverts.create')"
+              :href="route('cabinet.adverts.create')"
               class="block w-full text-left px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow hover:shadow-md transition-shadow"
             >
               <svg
@@ -163,7 +156,7 @@ onMounted(() => {
               {{ $t('Add Advert') }}
             </Link>
 
-            <ResponsiveNavLink :href="route('account.profile.settings')">
+            <ResponsiveNavLink :href="route('cabinet.profile.settings')">
               {{ $t('Profile Settings') }}
             </ResponsiveNavLink>
             <ResponsiveNavLink
@@ -186,7 +179,6 @@ onMounted(() => {
       </div>
     </nav>
 
-    <!-- Page Heading -->
     <header
       v-if="$slots.header"
       class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
@@ -196,13 +188,11 @@ onMounted(() => {
       </div>
     </header>
 
-    <!-- Page Content -->
     <main class="flex-grow bg-gray-50 dark:bg-gray-800">
       <ToastRenderer :flash="flash" />
       <slot />
     </main>
 
-    <!-- Footer -->
     <footer
       class="mt-16 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300"
     >
@@ -212,17 +202,17 @@ onMounted(() => {
           <div class="lg:col-span-1">
             <Link
               :href="route('main')"
-              class="block mb-4"
+              class="block"
               :aria-label="$t('Home')"
             >
               <ApplicationLogo
-                class="h-8 w-auto fill-current text-indigo-600 dark:text-indigo-400"
+                class="h-20 w-auto fill-current text-indigo-600 dark:text-indigo-400 pt-0"
               />
             </Link>
-            <p class="text-sm mb-4 leading-relaxed">
-              {{ $t('Snail — your reliable platform for announcements. Everything for people.') }}
+            <p class="text-sm mb-4 ml-4 leading-relaxed">
+              {{ $t('Filkx — your reliable platform for announcements. Everything for people.') }}
             </p>
-            <div class="flex space-x-4">
+            <div class="flex space-x-4 ml-4">
               <a
                 href="#"
                 class="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
@@ -264,7 +254,7 @@ onMounted(() => {
                 <a
                   href="#"
                   class="text-sm text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors duration-200"
-                >{{ $t('Snail Blog') }}</a>
+                >{{ $t('Filkx Blog') }}</a>
               </li>
               <li>
                 <a
@@ -336,7 +326,7 @@ onMounted(() => {
                     d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span class="text-sm text-gray-600 dark:text-gray-400">info@snail.com</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">admin@filkx.com</span>
               </li>
               <li class="flex items-start">
                 <svg

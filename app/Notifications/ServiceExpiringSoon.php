@@ -34,7 +34,7 @@ class ServiceExpiringSoon extends Notification
         return (new MailMessage)
             ->subject('Ваша послуга скоро завершиться')
             ->line("Послуга {$this->service->type} для оголошення завершується {$this->service->ends_at->format('d.m.Y')}")
-            ->action('Продовжити послугу', route('account.adverts.promote', $this->service->advert_id));
+            ->action('Продовжити послугу', route('cabinet.adverts.promote', $this->service->advert_id));
     }
 
     /**
