@@ -20,7 +20,6 @@ services:
       ELASTICSEARCH_HOSTS: elasticsearch:9200
     volumes:
       - '/var/www/board.filkx.com/current:/var/www'
-      - '/var/www/board.filkx.com/shared:/var/www/board.filkx.com/shared'
     networks:
       - sail
     depends_on:
