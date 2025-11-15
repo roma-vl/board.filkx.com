@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
     laravel.app:
         build:
@@ -32,22 +30,12 @@ services:
             elasticsearch:
                 condition: service_started
 
-    reverb:
-        build:
-            context: ./reverb
-            dockerfile: Dockerfile
-        command: php /var/www/artisan reverb:start --port=8083
-        env_file:
-            - .env
-        depends_on:
-            - laravel.app
-        networks:
-            - sail
-
     queue:
         build:
-            context: ./queue
+            context: ./8.4
             dockerfile: Dockerfile
+            args:
+                WWWGROUP: '1000'
         command: php /var/www/artisan queue:work --sleep=3 --tries=3 --max-time=3600
         env_file:
             - .env
@@ -59,6 +47,20 @@ services:
         networks:
             - sail
         restart: always
+
+    reverb:
+        build:
+            context: ./8.4
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '1000'
+        command: php /var/www/artisan reverb:start --port=8083
+        env_file:
+            - .env
+        depends_on:
+            - laravel.app
+        networks:
+            - sail
 
     mysql:
         image: mysql/mysql-server:8.0
