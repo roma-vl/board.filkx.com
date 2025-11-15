@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /var/www/vendor ./vendor
 COPY . ./
 
-COPY ./docker/production/php/default.ini /usr/local/etc/php/conf.d/default.ini
+COPY ./docker/production/php/php.ini /usr/local/etc/php/conf.d/default.ini
 
 RUN groupadd --force -g 1000 app \
     && useradd -ms /bin/bash --no-user-group -g 1000 -u 1337 app \
