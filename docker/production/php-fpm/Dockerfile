@@ -34,4 +34,4 @@ USER app
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["php-fpm", "-F"]
