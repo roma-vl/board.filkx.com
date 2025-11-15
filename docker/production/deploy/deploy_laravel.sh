@@ -4,109 +4,80 @@ set -e
 COLOR=$1
 APP_DIR="/var/www/board.filkx.com"
 RELEASE_DIR="$APP_DIR/$COLOR"
-DOCKER_COMPOSE_FILE="/var/www/board.filkx.com/current/docker/production/docker-compose.yml"
+DOCKER_COMPOSE_FILE="$RELEASE_DIR/docker/production/docker-compose.yml"
 WORKDIR_IN_CONTAINER="/var/www"
 
+# Валідація
 if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
-  echo "❌ Некоректне середовище: $COLOR"
-  exit 1
+    echo "❌ Некоректне середовище: $COLOR"
+    exit 1
 fi
 
 if [ ! -d "$RELEASE_DIR" ]; then
-  echo "❌ Папка релізу не знайдена: $RELEASE_DIR"
-  exit 1
+    echo "❌ Папка релізу не знайдена: $RELEASE_DIR"
+    exit 1
 fi
 
 echo "🚀 Деплой у $COLOR середовище"
 
-# 🔗 Shared user directories
+# 🔗 Shared storage і .env
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR/storage/app/public/banners"
-
-# 🔗 Shared .env
 ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
 
-# 🔐 Встановлюємо власника і права на реліз
-chown -R deploy:deploy "$RELEASE_DIR"
-chmod -R 775 "$RELEASE_DIR"
-
-# 🛑 Зупиняємо поточний контейнер
-echo "🛑 Зупинка контейнерів..."
+# 🛑 Зупиняємо поточні контейнери
 cd "$RELEASE_DIR"
-docker-compose -f "$DOCKER_COMPOSE_FILE" down
+docker-compose -f "$DOCKER_COMPOSE_FILE" down || true
 
-# 🔗 Перемикаємо current **до старту контейнерів**
-ln -sfn "$APP_DIR/$COLOR" "$APP_DIR/current"
+# 🔗 Перемикаємо current (atomic)
+ln -sfn "$RELEASE_DIR" "$APP_DIR/current"
 
 # 🚀 Старт контейнерів
-echo "🚀 Старт контейнерів..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
 
-# 🔄 Чекаємо повного старту контейнерів
-echo "⏳ Очікуємо запуск контейнерів..."
+# ⏳ Очікуємо базові сервіси
 sleep 5
-
-# 🔄 Чекаємо MySQL
-MYSQL_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q mysql)
-if [ -n "$MYSQL_CONTAINER" ]; then
-    echo "⏳ Очікуємо MySQL..."
-    for i in {1..30}; do
+for i in {1..30}; do
+    MYSQL_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q mysql)
+    if [ -n "$MYSQL_CONTAINER" ]; then
         STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$MYSQL_CONTAINER")
-        if [[ "$STATUS" == "healthy" ]]; then
-            echo "✅ MySQL готовий"
-            break
-        fi
-        echo "🔄 MySQL статус: $STATUS (спроба $i)"
-        sleep 2
-    done
-fi
+        if [[ "$STATUS" == "healthy" ]]; then break; fi
+    fi
+    sleep 2
+done
 
-# 🔄 Очікуємо Redis
 REDIS_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q redis)
 if [ -n "$REDIS_CONTAINER" ]; then
-    echo "⏳ Очікуємо Redis..."
     for i in {1..30}; do
-        if docker exec "$REDIS_CONTAINER" redis-cli ping >/dev/null 2>&1; then
-            echo "✅ Redis готовий"
-            break
-        fi
-        echo "🔄 Redis ще не готовий (спроба $i)"
+        if docker exec "$REDIS_CONTAINER" redis-cli ping >/dev/null 2>&1; then break; fi
         sleep 2
     done
 fi
 
-
-# 🔐 Встановлюємо права всередині контейнера
+# 🔐 Права всередині контейнера
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app chown -R www-data:www-data storage bootstrap/cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app chmod -R 775 storage bootstrap/cache
 
-# ⚙️ Міграції
-echo "⚙️ Міграції..."
+# ⚙️ Міграції та кеш
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan migrate --force
-
-# 🧹 Кешування
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan config:clear
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan config:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan route:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan view:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan storage:link
 
-# 🔗 Перемикаємо симлінк current **після успішних міграцій**
-ln -sfn "$RELEASE_DIR" "$APP_DIR/current"
-
 # Elasticsearch
-echo "⏳ Очікуємо повну готовність Elasticsearch..."
 ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q elasticsearch)
-for i in {1..30}; do
-    STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
-    if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
-        echo "✅ Elasticsearch статус: $STATUS"
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan search:init
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan search:reindex
-        break
-    fi
-    echo "🔄 Elasticsearch статус: $STATUS (спроба $i)"
-    sleep 2
-done
+if [ -n "$ELASTIC_CONTAINER" ]; then
+    for i in {1..30}; do
+        STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
+        if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
+            docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan search:init
+            docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.app php artisan search:reindex
+            break
+        fi
+        sleep 2
+    done
+fi
 
 echo "✅ Деплой завершено. Активне середовище — $COLOR"
