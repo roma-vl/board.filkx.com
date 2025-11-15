@@ -1,7 +1,7 @@
 services:
     php-fpm:
         build:
-            context: ./docker/php-fpm
+            context: ./php-fpm
         volumes:
             - /var/www/board.filkx.com/current:/var/www
         networks:
@@ -9,7 +9,7 @@ services:
 
     nginx:
         build:
-            context: ./docker/nginx
+            context: ./nginx
         ports:
             - "8082:80"
         volumes:
@@ -21,7 +21,7 @@ services:
 
     queue:
         build:
-            context: ./docker/php-fpm
+            context: ./php-fpm
         command: php /var/www/artisan queue:work --sleep=3 --tries=3 --max-time=3600
         volumes:
             - /var/www/board.filkx.com/current:/var/www
@@ -33,7 +33,7 @@ services:
 
     reverb:
         build:
-            context: ./docker/php-fpm
+            context: ./php-fpm
         command: php /var/www/artisan reverb:start --port=8083
         volumes:
             - /var/www/board.filkx.com/current:/var/www
