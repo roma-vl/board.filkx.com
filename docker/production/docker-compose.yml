@@ -1,7 +1,7 @@
 services:
   laravel.test:
     build:
-      context: './docker/8.4/production'
+      context: './docker/production/8.4'
       dockerfile: Dockerfile
       args:
         WWWGROUP: '1000'
