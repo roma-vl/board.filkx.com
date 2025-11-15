@@ -58,19 +58,19 @@ if [ -n "$MYSQL_CONTAINER" ]; then
 fi
 
 # 🔐 Встановлюємо права всередині контейнера
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chmod -R 775 storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 chown -R www-data:www-data storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 chmod -R 775 storage bootstrap/cache
 
 # ⚙️ Міграції
 echo "⚙️ Міграції..."
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan migrate --force
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan migrate --force
 
 # 🧹 Кешування
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:clear
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan config:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan route:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan storage:link
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan config:clear
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan config:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan route:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan view:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan storage:link
 
 # 🔗 Перемикаємо симлінк current **після успішних міграцій**
 ln -sfn "$RELEASE_DIR" "$APP_DIR/current"
@@ -82,8 +82,8 @@ for i in {1..30}; do
     STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
         echo "✅ Elasticsearch статус: $STATUS"
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan search:init
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" production-laravel.test-1 php artisan search:reindex
         break
     fi
     echo "🔄 Elasticsearch статус: $STATUS (спроба $i)"
