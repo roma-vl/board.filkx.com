@@ -20,26 +20,39 @@ fi
 echo "🚀 Деплой у $COLOR середовище"
 
 # 🔗 Shared user directories
-[ -e "$RELEASE_DIR/storage/app/public/adverts" ] && rm -rf "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/adverts "$RELEASE_DIR/storage/app/public/adverts"
-
-[ -e "$RELEASE_DIR/storage/app/public/banners" ] && rm -rf "$RELEASE_DIR/storage/app/public/banners"
 ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR/storage/app/public/banners"
 
 # 🔗 Shared .env
-rm -f "$RELEASE_DIR/.env"
 ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
 
 # 🛑 Зупиняємо поточний контейнер
 echo "🛑 Зупинка контейнерів..."
+cd "$RELEASE_DIR"
 docker-compose -f "$DOCKER_COMPOSE_FILE" down
 
-# 🔗 Перемикаємо current **до старту контейнерів**
-ln -sfn "$APP_DIR/$COLOR" "$APP_DIR/current"
-
-# 🚀 Запуск контейнерів
+# 🚀 Старт контейнерів
 echo "🚀 Старт контейнерів..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" up -d
+
+# 🔄 Чекаємо повного старту контейнерів
+echo "⏳ Очікуємо запуск контейнерів..."
+sleep 5
+
+# 🔄 Чекаємо MySQL
+MYSQL_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q mysql)
+if [ -n "$MYSQL_CONTAINER" ]; then
+    echo "⏳ Очікуємо MySQL..."
+    for i in {1..30}; do
+        STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$MYSQL_CONTAINER")
+        if [[ "$STATUS" == "healthy" ]]; then
+            echo "✅ MySQL готовий"
+            break
+        fi
+        echo "🔄 MySQL статус: $STATUS (спроба $i)"
+        sleep 2
+    done
+fi
 
 # 🔐 Встановлюємо права всередині контейнера
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test chown -R www-data:www-data storage bootstrap/cache
@@ -56,24 +69,22 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" lara
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan view:cache
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan storage:link
 
+# 🔗 Перемикаємо симлінк current **після успішних міграцій**
+ln -sfn "$RELEASE_DIR" "$APP_DIR/current"
+
 # Elasticsearch
 echo "⏳ Очікуємо повну готовність Elasticsearch..."
+ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q elasticsearch)
 for i in {1..30}; do
-    STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
+    STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
         echo "✅ Elasticsearch статус: $STATUS"
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
         break
     fi
-    echo "🔄 Статус: $STATUS (спроба $i)"
+    echo "🔄 Elasticsearch статус: $STATUS (спроба $i)"
     sleep 2
 done
-
-FINAL_STATUS=$(curl -s http://localhost:9200/_cluster/health | jq -r '.status')
-if [[ "$FINAL_STATUS" == "yellow" || "$FINAL_STATUS" == "green" ]]; then
-    docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:init
-    docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" laravel.test php artisan search:reindex
-else
-    echo "⚠️ Elasticsearch досі не готовий. Пропускаємо search:init"
-fi
 
 echo "✅ Деплой завершено. Активне середовище — $COLOR"
