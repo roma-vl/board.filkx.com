@@ -121,7 +121,7 @@ watch(
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-6">
     <div
       class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
     >
