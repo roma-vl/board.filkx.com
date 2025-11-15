@@ -22,7 +22,7 @@ services:
       - /var/www/board.filkx.com/shared/storage:/var/www/storage
       - composer:/root/.composer/cache
     env_file:
-      - .env.prod
+      - .env
     working_dir: /var/www
     networks:
       - board
