@@ -1,36 +1,43 @@
+# Builder stage для composer
+FROM php:8.4-fpm AS builder
+
+RUN apt-get update && apt-get install -y unzip git curl zip \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer \
+    && composer install --no-dev --prefer-dist --optimize-autoloader --no-scripts
+
+# Основний stage
 FROM php:8.4-fpm
 
-LABEL maintainer="Roma Volkov"
-
-ARG WWWGROUP=1000
-ENV TZ=UTC
-ENV DEBIAN_FRONTEND=noninteractive
-
-WORKDIR /var/www
+WORKDIR /app
 
 # PHP-розширення
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libzip-dev libicu-dev libonig-dev librsvg2-bin ffmpeg \
-    libxml2-dev libcurl4-openssl-dev libssl-dev libreadline-dev \
-    libfreetype6-dev libjpeg62-turbo-dev libmagickwand-dev imagemagick \
-    libldap2-dev zlib1g-dev libmemcached-dev pkg-config python3 \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring xml zip intl bcmath gd opcache \
+    libpq-dev zlib1g-dev zip libzip-dev libicu-dev vim git curl unzip \
+    && docker-php-ext-configure zip \
+    && docker-php-ext-install zip pdo pdo_pgsql intl bcmath opcache \
     && pecl install redis imagick msgpack \
     && docker-php-ext-enable redis imagick msgpack \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Конфіг php
-COPY php.ini /usr/local/etc/php/conf.d/99-laravel.ini
+COPY --from=builder /app/vendor ./vendor
+COPY ./ ./
 
-# Користувач
-RUN groupadd --force -g $WWWGROUP app \
-    && useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 app
+# PHP-конфіг
+COPY ./docker/production/php/default.ini /usr/local/etc/php/conf.d/default.ini
 
-# Права
-RUN mkdir -p /var/www/storage /var/www/bootstrap/cache \
-    && chown -R app:app /var/www
+# Користувач і права
+RUN groupadd --force -g 1000 app \
+    && useradd -ms /bin/bash --no-user-group -g 1000 -u 1337 app \
+    && mkdir -p /app/storage /app/bootstrap/cache \
+    && chown -R app:app /app
 
 USER app
+
 EXPOSE 9000
 CMD ["php-fpm", "-F"]
