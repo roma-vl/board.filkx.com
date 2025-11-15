@@ -35,7 +35,7 @@ echo "🛑 Зупинка контейнерів..."
 docker-compose -f "$DOCKER_COMPOSE_FILE" down
 
 # 🔗 Перемикаємо current **до старту контейнерів**
-ln -sfn "$APP_DIR/$COLOR" "$APP_DIR/current"
+ln -sfn "$APP_DIR/$COLOR/current" "$APP_DIR/current"
 
 # 🚀 Запуск контейнерів
 echo "🚀 Старт контейнерів..."
