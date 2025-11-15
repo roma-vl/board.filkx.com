@@ -25,6 +25,9 @@ ln -sfn /var/www/board.filkx.com/shared/storage/app/public/banners "$RELEASE_DIR
 
 # 🔗 Shared .env
 ln -sfn /var/www/board.filkx.com/shared/.env "$RELEASE_DIR/.env"
+# 🔐 Встановлюємо власника і права на реліз
+chown -R deploy:deploy "$RELEASE_DIR/board.filkx.com"
+chmod -R 775 "$RELEASE_DIR/board.filkx.com"
 
 # 🛑 Зупиняємо поточний контейнер
 echo "🛑 Зупинка контейнерів..."
