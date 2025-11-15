@@ -29,6 +29,7 @@ RUN mkdir -p /var/www/storage /var/www/bootstrap/cache \
 
 # Конфіг php
 COPY php.ini /usr/local/etc/php/conf.d/99-laravel.ini
+COPY www.conf /usr/local/etc/php-fpm.d/www.conf
 
 USER app
 
