@@ -1,5 +1,5 @@
 services:
-  laravel.test:
+  laravel.app:
     build:
       context: './8.4'
       dockerfile: Dockerfile

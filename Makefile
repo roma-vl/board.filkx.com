@@ -44,4 +44,4 @@ perm:
 	sudo chgrp -R www-data storage bootstrap/cache
 	sudo chmod -R ug+rwx storage bootstrap/cache
 up-queue:
-	docker-compose exec laravel.test php artisan queue:listen
+	docker-compose exec laravel.app php artisan queue:listen
