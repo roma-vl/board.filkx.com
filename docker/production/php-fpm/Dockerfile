@@ -1,22 +1,19 @@
-FROM ubuntu:24.04
+FROM php:8.4-fpm
 
 LABEL maintainer="Roma Volkov"
 ARG WWWGROUP=1000
-ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
+ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /var/www
 
-# Базові пакети + PHP
-RUN apt-get update && apt-get install -y gnupg curl ca-certificates \
-    && mkdir -p /etc/apt/keyrings \
-    && curl -fsSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /etc/apt/keyrings/sury-php.gpg \
-    && echo "deb [signed-by=/etc/apt/keyrings/sury-php.gpg] https://packages.sury.org/php/ noble main" \
-       > /etc/apt/sources.list.d/sury-php.list \
-    && apt-get update \
-    && apt-get install -y php8.4-cli php8.4-fpm php8.4-mysql php8.4-pgsql php8.4-sqlite3 php8.4-curl php8.4-mbstring php8.4-xml php8.4-zip php8.4-bcmath php8.4-intl php8.4-readline php8.4-redis php8.4-imagick php8.4-ldap php8.4-msgpack composer \
+# Базові пакети і PHP-розширення
+RUN apt-get update && apt-get install -y \
+    git curl zip unzip libpng-dev libzip-dev libicu-dev libonig-dev librsvg2-bin ffmpeg \
+    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring xml zip intl bcmath \
+    && pecl install redis imagick msgpack \
+    && docker-php-ext-enable redis imagick msgpack \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 # Користувач
 RUN groupadd --force -g $WWWGROUP app \
@@ -24,12 +21,13 @@ RUN groupadd --force -g $WWWGROUP app \
 
 # Права
 RUN mkdir -p /var/www/storage /var/www/bootstrap/cache \
-    && chown -R app:app /var/www \
+    && chown -R app:app /var/www
 
-COPY php.ini /etc/php/8.4/fpm/conf.d/99-laravel.ini
+# Конфіг php
+COPY php.ini /usr/local/etc/php/conf.d/99-laravel.ini
 
 USER app
 
 EXPOSE 9000
 
-CMD ["php-fpm8.4", "-F"]
+CMD ["php-fpm"]
