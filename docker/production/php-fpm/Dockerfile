@@ -20,7 +20,7 @@ WORKDIR /var/www
 RUN apt-get update && apt-get install -y \
     libpq-dev zlib1g-dev zip libzip-dev libicu-dev vim git curl unzip \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install zip pdo pdo_pgsql intl bcmath opcache \
+    && docker-php-ext-install zip pdo pdo_mysql intl bcmath opcache \
     && pecl install redis imagick msgpack \
     && docker-php-ext-enable redis imagick msgpack \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
