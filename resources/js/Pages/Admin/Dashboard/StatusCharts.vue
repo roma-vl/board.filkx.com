@@ -42,7 +42,23 @@ const createOrdersChart = () => {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom' },
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+            padding: 20,
+          },
+        },
+        tooltip: {
+          bodyColor: '#1F2937',
+          titleColor: '#1F2937',
+          backgroundColor: '#FFFFFF',
+          borderColor: '#E5E7EB',
+          borderWidth: 1,
+        },
       },
     },
   });
@@ -68,7 +84,23 @@ const createAdvertsChart = () => {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom' },
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+            padding: 20,
+          },
+        },
+        tooltip: {
+          bodyColor: '#1F2937',
+          titleColor: '#1F2937',
+          backgroundColor: '#FFFFFF',
+          borderColor: '#E5E7EB',
+          borderWidth: 1,
+        },
       },
     },
   });
@@ -89,25 +121,29 @@ watch(
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-    <div class="bg-white rounded-lg shadow">
-      <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+    >
+      <div class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
           Замовлення по статусах
         </h3>
       </div>
-      <div class="p-6 h-64">
+      <div class="p-4 sm:p-6 h-72 sm:h-80">
         <canvas ref="ordersChart" />
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow">
-      <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"
+    >
+      <div class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
           Оголошення по статусах
         </h3>
       </div>
-      <div class="p-6 h-64">
+      <div class="p-4 sm:p-6 h-72 sm:h-80">
         <canvas ref="advertsChart" />
       </div>
     </div>

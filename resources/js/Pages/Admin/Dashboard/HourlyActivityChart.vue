@@ -48,6 +48,7 @@ const createHourlyChart = () => {
           borderColor: '#3B82F6',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
           tension: 0.4,
+          fill: true,
         },
         {
           label: 'Замовлення',
@@ -55,6 +56,7 @@ const createHourlyChart = () => {
           borderColor: '#10B981',
           backgroundColor: 'rgba(16, 185, 129, 0.1)',
           tension: 0.4,
+          fill: true,
         },
         {
           label: 'Оголошення',
@@ -62,6 +64,7 @@ const createHourlyChart = () => {
           borderColor: '#8B5CF6',
           backgroundColor: 'rgba(139, 92, 246, 0.1)',
           tension: 0.4,
+          fill: true,
         },
       ],
     },
@@ -78,6 +81,13 @@ const createHourlyChart = () => {
           title: {
             display: true,
             text: 'Година',
+            color: '#6B7280',
+          },
+          ticks: {
+            color: '#6B7280',
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)',
           },
         },
         y: {
@@ -85,17 +95,43 @@ const createHourlyChart = () => {
           title: {
             display: true,
             text: 'Кількість',
+            color: '#6B7280',
+          },
+          ticks: {
+            color: '#6B7280',
           },
           beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)',
+          },
         },
       },
       plugins: {
         legend: {
           position: 'bottom',
+          labels: {
+            color: '#6B7280',
+            font: {
+              size: 12,
+            },
+            padding: 20,
+          },
         },
         title: {
           display: true,
           text: 'Активність за годинами',
+          color: '#1F2937',
+          font: {
+            size: 16,
+            weight: 'bold',
+          },
+        },
+        tooltip: {
+          bodyColor: '#1F2937',
+          titleColor: '#1F2937',
+          backgroundColor: '#FFFFFF',
+          borderColor: '#E5E7EB',
+          borderWidth: 1,
         },
       },
     },
@@ -115,7 +151,9 @@ watch(
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow mb-8 p-6 h-96">
+  <div
+    class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 h-80 sm:h-96"
+  >
     <canvas ref="hourlyChart" />
   </div>
 </template>
