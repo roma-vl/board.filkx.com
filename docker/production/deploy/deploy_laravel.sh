@@ -153,10 +153,45 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -u root -w "$WORKDIR_IN_CONTAIN
 # -----------------------------
 ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q board-elasticsearch)
 if [ -n "$ELASTIC_CONTAINER" ]; then
+    # Додаткове очікування перед індексацією
+    echo "⏳ Очікуємо повної готовності Elasticsearch..."
+    for i in {1..30}; do
+        STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' 2>/dev/null || echo "unknown")
+        if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
+            # Перевіряємо, чи можна виконати запит
+            if docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cat/health >/dev/null 2>&1; then
+                echo "✅ Elasticsearch повністю готовий"
+                break
+            fi
+        fi
+        echo "⏳ Очікуємо повної готовності ES... ($i/30)"
+        sleep 5
+    done
+
+    # Перевіряємо статус ще раз перед індексацією
     STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
+        # Додатково перевіряємо доступність в Laravel контексті
+        echo "🔍 Перевіряємо доступність ES з Laravel контексту..."
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan tinker --execute "
+            try {
+                \$client = app('elasticsearch');
+                \$info = \$client->info();
+                echo 'Elasticsearch доступний: ' . \$info['version']['number'] . PHP_EOL;
+            } catch (Exception \$e) {
+                echo 'ES недоступний: ' . \$e->getMessage() . PHP_EOL;
+                exit(1);
+            }
+        " 2>/dev/null || {
+            echo "⚠️ Elasticsearch ще не готовий для Laravel, пропускаємо індексацію"
+            exit 0  # АБО продовжуємо без індексації
+        }
+
+        echo "🚀 Ініціалізація пошуку..."
         docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:init
         docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:reindex
+    else
+        echo "⚠️ Elasticsearch не готовий, пропускаємо індексацію"
     fi
 fi
 
