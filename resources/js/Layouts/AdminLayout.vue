@@ -29,7 +29,7 @@ const toggleFullscreen = () => {
       class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden "
   >
     <nav
-        class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
+        class="sticky top-0 z-10 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
     >
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between items-center">
@@ -158,6 +158,8 @@ const toggleFullscreen = () => {
       </div>
     </header>
 
+<!--    <div class="flex flex-1">-->
+      <!-- Sidebar -->
       <SideMenu />
 
       <!-- Main content -->
@@ -165,6 +167,8 @@ const toggleFullscreen = () => {
         <ToastRenderer :flash="flash" />
         <slot />
       </main>
+<!--    </div>-->
+
     <!-- Footer -->
     <footer
       class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300"

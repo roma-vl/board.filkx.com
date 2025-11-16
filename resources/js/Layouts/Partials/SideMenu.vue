@@ -59,12 +59,12 @@ onBeforeUnmount(() => {
     <!-- Mobile toggle button -->
     <button
       type="button"
-      class="dark:text-gray-200 dark:hover:bg-gray-700 fixed top-4 left-4 p-2 h-10 w-10 select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 z-20"
+      class="dark:text-gray-200 dark:hover:bg-gray-700 fixed top-3 left-3 p-2 h-10 w-10 select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 z-50"
       :aria-label="isOpen ? $t('close_menu') : $t('open_menu')"
       @click.stop="toggleSidebar"
     >
       <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-        <BurgerIcon class="w-5 h-5" />
+        <BurgerIcon class="w-6 h-6" />
       </span>
     </button>
 
