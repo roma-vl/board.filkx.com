@@ -26,28 +26,28 @@ const toggleFullscreen = () => {
 
 <template>
   <div
-    class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col transition-colors duration-300"
+      class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden "
   >
     <nav
-      class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300"
+        class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
     >
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between items-center">
           <!-- Left side - Logo and main navigation -->
           <div class="flex items-center">
-            <div class="flex shrink-0 items-center">
+            <div class="flex  items-center">
               <Link
                 :href="route('admin.index')"
                 class="flex items-center"
                 :aria-label="$t('admin_dashboard')"
               >
                 <ApplicationLogo
-                  class="block h-20 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors duration-300"
+                  class="block h-20 w-auto fill-current text-gray-800 dark:text-gray-200 transition-colors duration-300 sm:px-6"
                 />
               </Link>
             </div>
 
-            <div class="hidden lg:flex lg:items-center lg:ml-10 lg:space-x-6">
+            <div class=" lg:flex lg:items-center lg:space-x-6">
               <NavLink
                 :href="route('main')"
                 class="dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 transition-colors duration-200 flex items-center text-sm font-medium"
@@ -158,8 +158,6 @@ const toggleFullscreen = () => {
       </div>
     </header>
 
-    <div class="flex flex-1">
-      <!-- Sidebar -->
       <SideMenu />
 
       <!-- Main content -->
@@ -167,8 +165,6 @@ const toggleFullscreen = () => {
         <ToastRenderer :flash="flash" />
         <slot />
       </main>
-    </div>
-
     <!-- Footer -->
     <footer
       class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300"

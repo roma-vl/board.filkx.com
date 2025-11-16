@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
     <!-- Користувачі -->
     <div
       class="bg-white dark:bg-gray-800 shadow-sm rounded-lg p-4 sm:p-5 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-md dark:hover:shadow-gray-700/20 group"

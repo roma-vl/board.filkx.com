@@ -13,7 +13,7 @@ const { categories, news, vip } = usePage().props;
 <template>
   <Head :title="$t('home.main')" />
   <AuthenticatedLayout>
-    <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
       <div class="py-6">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div class="overflow-hidden rounded-2xl shadow-xl">
