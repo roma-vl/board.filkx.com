@@ -10,7 +10,7 @@ WORKDIR_IN_CONTAINER="/var/www"
 # -----------------------------
 # Валідація аргументів
 # -----------------------------
-if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
+if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]; then
     echo "❌ Некоректне середовище: $COLOR"
     exit 1
 fi
@@ -88,13 +88,13 @@ wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health 
 # -----------------------------
 # Встановлюємо правильні права через root
 # -----------------------------
+# Використовуємо ID користувача app (1337) і групу (1000)
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -u root board-php-fpm sh -c "
-  mkdir -p storage/logs storage/framework/cache bootstrap/cache
-  chown -R www-www-data storage/logs storage/framework/cache bootstrap/cache 2>/dev/null || chown -R 1000:1000 storage/logs storage/framework/cache bootstrap/cache
-  chmod -R 775 storage/logs storage/framework/cache bootstrap/cache
+  mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+  chmod -R 775 storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
   touch storage/logs/laravel-2025-11-16.log
-  chown www-www-data storage/logs/laravel-2025-11-16.log 2>/dev/null || chown 1000:1000 storage/logs/laravel-2025-11-16.log
-  chmod 664 storage/logs/laravel-2025-11-16.log
+  touch bootstrap/cache/.gitignore storage/framework/cache/.gitignore storage/framework/sessions/.gitignore storage/framework/views/.gitignore
+  chown -R 1337:1000 storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
 "
 
 # -----------------------------
