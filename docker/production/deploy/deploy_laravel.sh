@@ -119,9 +119,9 @@ wait_for_container() {
 # -----------------------------
 # Чекаємо базові сервіси
 # -----------------------------
-wait_for_container mysql "mysqladmin ping -h localhost"
-wait_for_container redis "redis-cli ping"
-wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
+wait_for_container board-mysql "mysqladmin ping -h localhost"
+wait_for_container board-redis "redis-cli ping"
+wait_for_container board-elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
 
 # -----------------------------
 # Встановлюємо правильні права через root
