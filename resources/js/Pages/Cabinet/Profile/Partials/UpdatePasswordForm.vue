@@ -39,11 +39,10 @@ const updatePassword = () => {
 <template>
   <section>
     <header>
-<p class="mt-5 text text-gray-600 dark:text-gray-400">
+      <p class="mt-5 text text-gray-600 dark:text-gray-400">
         {{ t('Ensure your account is using a long, random password to stay secure.') }}
       </p>
     </header>
-
     <form
       class="mt-6 space-y-6"
       @submit.prevent="updatePassword"

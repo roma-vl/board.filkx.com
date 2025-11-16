@@ -29,7 +29,7 @@ const disconnect = (provider) => {
 <template>
   <section class="mt-10">
     <header>
-        <p class="mt-5 text text-gray-600 dark:text-gray-400">
+      <p class="mt-5 text text-gray-600 dark:text-gray-400">
         {{ t('social.connections.desc') }}
       </p>
     </header>

@@ -17,7 +17,7 @@ const form = useForm({
 <template>
   <section>
     <header>
-        <p class="mt-5 text text-gray-600 dark:text-gray-400">
+      <p class="mt-5 text text-gray-600 dark:text-gray-400">
         {{ t("Update your account's phone information.") }}
       </p>
     </header>

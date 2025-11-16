@@ -31,7 +31,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden "
+    class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden"
   >
     <nav
       class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"

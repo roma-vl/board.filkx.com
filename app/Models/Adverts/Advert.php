@@ -271,7 +271,7 @@ class Advert extends Model implements Auditable
         return $dialog;
     }
 
-    private function getOrCreateDialogWith(int $userId): Dialog
+    private function getOrCreateDialogWith(int $userId): Model
     {
         if ($userId === $this->user_id) {
             throw new DomainException('Cannot create dialog to myself.');

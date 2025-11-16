@@ -49,9 +49,9 @@ const props = defineProps({
             </p>
           </div>
 
-            <div class="mt-8 space-y-8">
-                <StatsCards :stats="stats" />
-            </div>
+          <div class="mt-8 space-y-8">
+            <StatsCards :stats="stats" />
+          </div>
           <div class="mt-8 space-y-8">
             <StatusCharts :charts="charts" />
             <HourlyActivityChart :hourly="charts.hourlyStats" />

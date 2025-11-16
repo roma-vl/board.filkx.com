@@ -44,7 +44,7 @@ const closeModal = () => {
 <template>
   <section class="space-y-6">
     <header>
-        <p class="mt-5 text text-gray-600 dark:text-gray-400">
+      <p class="mt-5 text text-gray-600 dark:text-gray-400">
         {{
           t(
             'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'
@@ -52,7 +52,6 @@ const closeModal = () => {
         }}
       </p>
     </header>
-
     <DangerButton @click="confirmUserDeletion">
       {{ t('Delete Account') }}
     </DangerButton>

@@ -17,7 +17,6 @@ const menuItems = [
   { key: 'pay', route: 'cabinet.orders.index' },
 ];
 </script>
-
 <template>
   <nav class="flex border-b mb-4">
     <template

@@ -19,7 +19,6 @@ const user = usePage().props.auth.user;
           class="overflow-hidden bg-white sm:rounded-lg p-3 dark:bg-gray-700 rounded-md shadow-md"
         >
           <ProfileMenu :active-tab="'cabinet.profile.index'" />
-
           <div class="flex min-h-[400px] p-3 px-6">
             <div
               class="w-1/3 bg-white flex items-center justify-center overflow-hidden dark:bg-gray-800 rounded-md shadow-md"

@@ -41,7 +41,6 @@ const form = useForm({
         {{ t("Update your account's profile information and email address.") }}
       </p>
     </header>
-
     <form
       class="mt-6 space-y-6"
       @submit.prevent="form.patch(route('cabinet.profile.update'))"

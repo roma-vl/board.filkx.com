@@ -26,16 +26,16 @@ const toggleFullscreen = () => {
 
 <template>
   <div
-      class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden "
+    class="min-h-screen flex flex-col bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 overflow-x-hidden"
   >
     <nav
-        class="sticky top-0 z-10 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
+      class="sticky top-0 z-10 border-b border-gray-200 bg-white/80 dark:bg-gray-900/80 dark:border-gray-700 backdrop-blur-md shadow-sm"
     >
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between items-center">
           <!-- Left side - Logo and main navigation -->
           <div class="flex items-center">
-            <div class="flex  items-center">
+            <div class="flex items-center">
               <Link
                 :href="route('admin.index')"
                 class="flex items-center"
@@ -47,7 +47,7 @@ const toggleFullscreen = () => {
               </Link>
             </div>
 
-            <div class=" lg:flex lg:items-center lg:space-x-6">
+            <div class="lg:flex lg:items-center lg:space-x-6">
               <NavLink
                 :href="route('main')"
                 class="dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 transition-colors duration-200 flex items-center text-sm font-medium"
@@ -158,16 +158,16 @@ const toggleFullscreen = () => {
       </div>
     </header>
 
-<!--    <div class="flex flex-1">-->
-      <!-- Sidebar -->
-      <SideMenu />
+    <!--    <div class="flex flex-1">-->
+    <!-- Sidebar -->
+    <SideMenu />
 
-      <!-- Main content -->
-      <main class="flex-1 p-4 sm:p-6 lg:p-8">
-        <ToastRenderer :flash="flash" />
-        <slot />
-      </main>
-<!--    </div>-->
+    <!-- Main content -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8">
+      <ToastRenderer :flash="flash" />
+      <slot />
+    </main>
+    <!--    </div>-->
 
     <!-- Footer -->
     <footer
