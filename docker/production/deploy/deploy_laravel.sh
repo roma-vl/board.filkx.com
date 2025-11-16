@@ -116,4 +116,48 @@ wait_for_container() {
     exit 1
 }
 
-# Весь інший код залишається без змін...
+# -----------------------------
+# Чекаємо базові сервіси
+# -----------------------------
+wait_for_container mysql "mysqladmin ping -h localhost"
+wait_for_container redis "redis-cli ping"
+wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
+
+# -----------------------------
+# Встановлюємо правильні права через root
+# -----------------------------
+# Використовуємо ID користувача app (1337) і групу (1000)
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -u root board-php-fpm sh -c "
+  mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+  chmod -R 775 storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+  touch storage/logs/laravel-2025-11-16.log
+  touch bootstrap/cache/.gitignore storage/framework/cache/.gitignore storage/framework/sessions/.gitignore storage/framework/views/.gitignore
+  chown -R 1337:1000 storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+"
+
+# -----------------------------
+# Міграції та кеш
+# -----------------------------
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan migrate --force
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:clear
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan route:cache
+
+# -----------------------------
+# Storage link від root
+# -----------------------------
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -u root -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan storage:link
+
+# -----------------------------
+# Elasticsearch індексація
+# -----------------------------
+ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q elasticsearch)
+if [ -n "$ELASTIC_CONTAINER" ]; then
+    STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
+    if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:init
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:reindex
+    fi
+fi
+
+echo "✅ Деплой завершено. Активне середовище — $COLOR"
