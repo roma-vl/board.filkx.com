@@ -23,6 +23,7 @@ services:
       - composer:/root/.composer/cache
     env_file:
       - .env
+    user: "1000:1000"
     working_dir: /var/www
     networks:
       - board
