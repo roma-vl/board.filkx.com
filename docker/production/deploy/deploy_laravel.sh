@@ -151,7 +151,7 @@ docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -u root -w "$WORKDIR_IN_CONTAIN
 # -----------------------------
 # Elasticsearch індексація
 # -----------------------------
-ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q elasticsearch)
+ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q board-elasticsearch)
 if [ -n "$ELASTIC_CONTAINER" ]; then
     STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
