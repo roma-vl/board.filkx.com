@@ -83,8 +83,8 @@ wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health 
 # -----------------------------
 # Права всередині контейнера
 # -----------------------------
-#docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chown -R www-data:www-data storage bootstrap/cache
-#docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chmod -R 775 storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chown -R www-data:www-data storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chmod -R 775 storage bootstrap/cache
 
 # -----------------------------
 # Міграції та кеш
