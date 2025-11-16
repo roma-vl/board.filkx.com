@@ -173,16 +173,16 @@ if [ -n "$ELASTIC_CONTAINER" ]; then
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
         # Додатково перевіряємо доступність в Laravel контексті
         echo "🔍 Перевіряємо доступність ES з Laravel контексту..."
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan tinker --execute "
-            try {
-                \$client = app('elasticsearch');
-                \$info = \$client->info();
-                echo 'Elasticsearch доступний: ' . \$info['version']['number'] . PHP_EOL;
-            } catch (Exception \$e) {
-                echo 'ES недоступний: ' . \$e->getMessage() . PHP_EOL;
-                exit(1);
-            }
-        " 2>/dev/null || {
+      docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan tinker --execute "
+          try {
+              \$client = app(\Elastic\Elasticsearch\Client::class);
+              \$info = \$client->info();
+              echo 'Elasticsearch доступний: ' . \$info['version']['number'] . PHP_EOL;
+          } catch (Exception \$e) {
+              echo 'ES недоступний: ' . \$e->getMessage() . PHP_EOL;
+              exit(1);
+          }
+      " 2>/dev/null || {
             echo "⚠️ Elasticsearch ще не готовий для Laravel, пропускаємо індексацію"
             exit 0  # АБО продовжуємо без індексації
         }

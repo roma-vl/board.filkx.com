@@ -19,6 +19,8 @@ class SearchServiceProvider extends ServiceProvider
                 ->setRetries($config['retries'])
                 ->build();
         });
+
+        $this->app->alias(Client::class, 'elasticsearch');
     }
 
     public function boot(): void {}
