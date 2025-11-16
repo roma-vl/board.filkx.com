@@ -25,6 +25,11 @@ echo "🚀 Деплой у $COLOR середовище"
 # -----------------------------
 # Shared storage та .env
 # -----------------------------
+# Видаляємо існуючі директорії/посилання перед створенням нових
+rm -rf "$RELEASE_DIR/storage/app/public/adverts"
+rm -rf "$RELEASE_DIR/storage/app/public/banners"
+rm -f "$RELEASE_DIR/.env"
+
 ln -sfn "$APP_DIR/shared/storage/app/public/adverts" "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn "$APP_DIR/shared/storage/app/public/banners" "$RELEASE_DIR/storage/app/public/banners"
 ln -sfn "$APP_DIR/shared/.env" "$RELEASE_DIR/.env"
@@ -81,10 +86,13 @@ wait_for_container redis "redis-cli ping"
 wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
 
 # -----------------------------
-# Права всередині контейнера
+# Права всередині контейнера (тільки на потрібні директорії)
 # -----------------------------
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chown -R www-data:www-data storage bootstrap/cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm chmod -R 775 storage bootstrap/cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm sh -c "
+  # Змінюємо права тільки на конкретні директорії, виключаючи символічні посилання
+  chown -R www-www-data storage/logs storage/framework storage/cache bootstrap/cache
+  chmod -R 775 storage/logs storage/framework storage/cache bootstrap/cache
+"
 
 # -----------------------------
 # Міграції та кеш
