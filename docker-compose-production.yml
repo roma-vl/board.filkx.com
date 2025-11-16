@@ -56,7 +56,7 @@ services:
     networks:
       - board
 
-  mysql:
+  board-mysql:
     image: mysql/mysql-server:8.0
     restart: always
     ports:
@@ -76,7 +76,7 @@ services:
       timeout: 5s
       retries: 10
 
-  redis:
+  board-redis:
     image: redis:alpine
     restart: always
     volumes:
@@ -88,7 +88,7 @@ services:
       retries: 3
       timeout: 5s
 
-  elasticsearch:
+  board-elasticsearch:
     image: elasticsearch:8.17.3
     restart: always
     environment:
