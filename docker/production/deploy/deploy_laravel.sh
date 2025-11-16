@@ -86,12 +86,15 @@ wait_for_container redis "redis-cli ping"
 wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
 
 # -----------------------------
-# Права всередині контейнера (тільки на потрібні директорії)
+# Права всередині контейнера (тільки на необхідні директорії)
 # -----------------------------
+# Створюємо необхідні директорії та встановлюємо права
 docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm sh -c "
-  # Змінюємо права тільки на конкретні директорії, виключаючи символічні посилання
-  chown -R www-www-data storage/logs storage/framework storage/cache bootstrap/cache
-  chmod -R 775 storage/logs storage/framework storage/cache bootstrap/cache
+  # Створюємо необхідні директорії якщо їх немає
+  mkdir -p storage/logs storage/framework/cache storage/cache bootstrap/cache
+  # Змінюємо права тільки на ці директорії
+  find storage/logs storage/framework/cache storage/cache bootstrap/cache -type d -exec chmod 775 {} \;
+  find storage/logs storage/framework/cache storage/cache bootstrap/cache -type f -exec chmod 664 {} \;
 "
 
 # -----------------------------
