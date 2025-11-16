@@ -10,7 +10,7 @@ WORKDIR_IN_CONTAINER="/var/www"
 # -----------------------------
 # Валідація аргументів
 # -----------------------------
-if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]; then
+if [[ "$COLOR" != "blue" && "$COLOR" != "green" ]]; then
     echo "❌ Некоректне середовище: $COLOR"
     exit 1
 fi
