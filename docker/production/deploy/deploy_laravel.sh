@@ -32,6 +32,7 @@ rm -f "$RELEASE_DIR/.env"
 
 ln -sfn "$APP_DIR/shared/storage/app/public/adverts" "$RELEASE_DIR/storage/app/public/adverts"
 ln -sfn "$APP_DIR/shared/storage/app/public/banners" "$RELEASE_DIR/storage/app/public/banners"
+ln -sfn "$APP_DIR/shared/storage/app/public/avatars" "$RELEASE_DIR/storage/app/public/avatars"
 ln -sfn "$APP_DIR/shared/.env" "$RELEASE_DIR/.env"
 
 # -----------------------------
