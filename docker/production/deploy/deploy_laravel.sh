@@ -86,14 +86,30 @@ wait_for_container redis "redis-cli ping"
 wait_for_container elasticsearch "curl -s http://localhost:9200/_cluster/health | grep -E 'yellow|green'"
 
 # -----------------------------
-# Міграції та кеш (Laravel сам керує правами)
+# Встановлюємо правильні права для Laravel (якщо можливо)
 # -----------------------------
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan migrate --force
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:clear
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan route:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan view:cache
-docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan storage:link
+# Спробуємо визначити ID користувача в контейнері
+USER_ID=$(docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T board-php-fpm id -u 2>/dev/null || echo "1000")
+GROUP_ID=$(docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T board-php-fpm id -g 2>/dev/null || echo "1000")
+
+# Створюємо необхідні директорії та встановлюємо права з використанням --user
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T board-php-fpm sh -c "
+  mkdir -p storage/logs storage/framework/cache bootstrap/cache
+  chmod 775 storage/logs storage/framework/cache bootstrap/cache
+  touch storage/logs/laravel-2025-11-16.log
+  chmod 664 storage/logs/laravel-2025-11-16.log
+"
+
+# -----------------------------
+# Міграції та кеш
+# -----------------------------
+# Використовуємо --user для запуску команд
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan migrate --force
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:clear
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan config:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan route:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan view:cache
+docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan storage:link
 
 # -----------------------------
 # Elasticsearch індексація
@@ -102,8 +118,8 @@ ELASTIC_CONTAINER=$(docker-compose -f "$DOCKER_COMPOSE_FILE" ps -q elasticsearch
 if [ -n "$ELASTIC_CONTAINER" ]; then
     STATUS=$(docker exec "$ELASTIC_CONTAINER" curl -s http://localhost:9200/_cluster/health | jq -r '.status' || echo "unknown")
     if [[ "$STATUS" == "yellow" || "$STATUS" == "green" ]]; then
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:init
-        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:reindex
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:init
+        docker-compose -f "$DOCKER_COMPOSE_FILE" exec -T --user="$USER_ID:$GROUP_ID" -w "$WORKDIR_IN_CONTAINER" board-php-fpm php artisan search:reindex
     fi
 fi
 
